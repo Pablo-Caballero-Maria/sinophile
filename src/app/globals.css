@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Light by default; dark follows the OS automatically unless the
+ * user forces a theme in Ajustes (html[data-theme]).
+ */
+:root {
+  color-scheme: light;
+  --bg: #f7f4ee;
+  --surface: #ffffff;
+  --surface-2: #f0ebe2;
+  --fg: #211c17;
+  --muted: #776e64;
+  --line: #e5ddd1;
+  --brand: #d93a3f;
+  --brand-strong: #a8262b;
+  --brand-soft: #fde6e4;
+  --ok: #2f9e5b;
+  --ok-strong: #23784a;
+  --ok-soft: #ddf4e5;
+  --bad: #dc4646;
+  --bad-strong: #a92f2f;
+  --bad-soft: #fde3e1;
+  --gold: #e6a116;
+  --gold-strong: #b57b06;
+  --gold-soft: #fdf0d3;
+  --sky: #2f7fe0;
+  --sky-strong: #1f5fae;
+  --sky-soft: #e0edfc;
+  --tone-1: #d92d2d;
+  --tone-2: #d97706;
+  --tone-3: #16a34a;
+  --tone-4: #2563eb;
+  --tone-5: #8a8178;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121315;
+  --surface: #1b1d21;
+  --surface-2: #25282e;
+  --fg: #ecebe7;
+  --muted: #9d988f;
+  --line: #31343b;
+  --brand: #ef5552;
+  --brand-strong: #b23a37;
+  --brand-soft: #3b1f1f;
+  --ok: #43c47a;
+  --ok-strong: #2d8f57;
+  --ok-soft: #183526;
+  --bad: #f06666;
+  --bad-strong: #b84444;
+  --bad-soft: #3a1d1d;
+  --gold: #f4b740;
+  --gold-strong: #b8841c;
+  --gold-soft: #3a3019;
+  --sky: #5aa0f2;
+  --sky-strong: #3b78c2;
+  --sky-soft: #1b2b40;
+  --tone-1: #ff6b6b;
+  --tone-2: #f5a524;
+  --tone-3: #4ade80;
+  --tone-4: #60a5fa;
+  --tone-5: #a8a29e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121315;
+    --surface: #1b1d21;
+    --surface-2: #25282e;
+    --fg: #ecebe7;
+    --muted: #9d988f;
+    --line: #31343b;
+    --brand: #ef5552;
+    --brand-strong: #b23a37;
+    --brand-soft: #3b1f1f;
+    --ok: #43c47a;
+    --ok-strong: #2d8f57;
+    --ok-soft: #183526;
+    --bad: #f06666;
+    --bad-strong: #b84444;
+    --bad-soft: #3a1d1d;
+    --gold: #f4b740;
+    --gold-strong: #b8841c;
+    --gold-soft: #3a3019;
+    --sky: #5aa0f2;
+    --sky-strong: #3b78c2;
+    --sky-soft: #1b2b40;
+    --tone-1: #ff6b6b;
+    --tone-2: #f5a524;
+    --tone-3: #4ade80;
+    --tone-4: #60a5fa;
+    --tone-5: #a8a29e;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-ok: var(--ok);
+  --color-ok-strong: var(--ok-strong);
+  --color-ok-soft: var(--ok-soft);
+  --color-bad: var(--bad);
+  --color-bad-strong: var(--bad-strong);
+  --color-bad-soft: var(--bad-soft);
+  --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
+  --color-gold-soft: var(--gold-soft);
+  --color-sky: var(--sky);
+  --color-sky-strong: var(--sky-strong);
+  --color-sky-soft: var(--sky-soft);
+  --color-tone-1: var(--tone-1);
+  --color-tone-2: var(--tone-2);
+  --color-tone-3: var(--tone-3);
+  --color-tone-4: var(--tone-4);
+  --color-tone-5: var(--tone-5);
+
+  /* System fonts only: no web fonts to download. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-hanzi: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC",
+    "Source Han Sans CN", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  --font-kai: "Kaiti SC", "STKaiti", "KaiTi", "AR PL UKai CN", "Noto Serif CJK SC", "Songti SC", serif;
+
+  --animate-pop: pop 0.25s ease-out;
+  --animate-shake: shake 0.4s ease-in-out;
+  --animate-slide-up: slide-up 0.22s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+/* opacity only: a transform here would break position:fixed footers inside */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Chinese text always picks Simplified-Chinese glyphs. */
+:lang(zh) {
+  font-family: var(--font-hanzi);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--line) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}

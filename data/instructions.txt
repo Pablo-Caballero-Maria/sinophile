@@ -1,0 +1,153 @@
+INSTRUCCIONES PARA CLAUDE: CÓMO AMPLIAR exercises.json A PARTIR DE vocab.json
+==========================================================================
+
+Contexto
+--------
+"sinophile" es una app web (estilo Duolingo) para estudiar chino mandarín. Lee tres
+archivos de la carpeta data/ del repositorio:
+
+  • vocab.json      → lo escribe el usuario a mano tras cada clase. NUNCA lo modifiques.
+  • exercises.json  → lo mantienes tú (Claude). Contiene, por cada palabra del vocabulario,
+                      una nota, frases de ejemplo y ejercicios "curados".
+  • instructions.txt → este documento.
+
+La app ya genera sola, a partir de vocab.json, los ejercicios mecánicos (significado,
+escucha, tonos, emparejar, escribir el hanzi, pronunciación, tarjetas…). Lo que NO puede
+inventar es lenguaje natural: frases de ejemplo, huecos con distractores con sentido,
+traducciones con alternativas válidas, diálogos y preguntas de gramática. Eso es lo que
+aportas tú en exercises.json.
+
+Tu tarea
+--------
+1. Lee vocab.json (una lista de objetos { id, hanzi, pinyin, es, lesson }).
+2. Lee exercises.json. Sus conjuntos están en el objeto "words", con el id de la palabra
+   como clave.
+3. Calcula las palabras PENDIENTES: los "id" de vocab.json que NO aparecen como clave en
+   exercises.json → "words".
+4. Si no hay ninguna pendiente, responde: "No hay vocabulario nuevo: exercises.json ya
+   está al día." y no generes nada más.
+5. Si las hay, crea UN conjunto por cada id pendiente (formato abajo) y añádelo a
+   "words". No cambies, reordenes ni borres los conjuntos que ya existen.
+   (Única excepción: si una clave de "words" ya no existe en vocab.json, avísalo al
+   usuario; puedes proponer eliminarla, pero no lo hagas sin decirlo.)
+6. Devuelve el archivo exercises.json COMPLETO y válido (JSON estricto: comillas dobles,
+   sin comentarios, sin comas finales), listo para que el usuario lo pegue en GitHub,
+   preferiblemente como archivo descargable. Después, en 2-3 líneas, resume qué ids has
+   añadido.
+
+Formato de exercises.json
+-------------------------
+{
+  "version": 1,
+  "words": {
+    "<id de vocab.json>": {
+      "note": "Texto breve en español (opcional): mnemotecnia, radicales, uso, gramática.",
+      "examples": [ <Frase>, <Frase>, ... ],
+      "exercises": [ <Ejercicio>, <Ejercicio>, ... ]
+    }
+  }
+}
+
+<Frase> = una frase de ejemplo segmentada en tokens:
+  {
+    "zh": ["她", "是", "我", "朋友", "。"],      ← tokens: cada palabra Y cada signo de puntuación
+    "pinyin": "Tā shì wǒ péngyou.",              ← pinyin con tildes de tono, frase completa
+    "es": "Ella es mi amiga."                    ← traducción natural al español de España
+  }
+  • Al unir los tokens de "zh" debe salir la frase exacta.
+  • Las palabras de varios caracteres que estén en vocab.json van en UN token ("朋友", no "朋","友").
+  • La puntuación china (，。！？) va en tokens separados.
+
+<Ejercicio> = uno de estos cuatro tipos:
+
+  a) Rellenar el hueco (elige la palabra que falta):
+     { "type": "fill", "example": 0, "blank": "朋友", "distractors": ["同学", "老师"] }
+       - "example": índice (0, 1, …) de la frase en "examples" de ESTA palabra.
+       - "blank": token que se oculta. Si se omite, se oculta la propia palabra.
+                  Debe ser exactamente uno de los tokens de la frase.
+       - "distractors": 2-3 opciones incorrectas (opcional; si faltan, la app las elige).
+         La app muestra la traducción española como pista, así que los distractores
+         pueden ser gramaticalmente posibles mientras no encajen con la traducción.
+
+  b) Traducir con fichas (construir la frase tocando palabras):
+     { "type": "translate", "example": 1, "direction": "es-zh", "distractors": ["你们", "不"] }
+     { "type": "translate", "example": 0, "direction": "zh-es", "distractors": ["amigo", "tu"],
+       "accept": ["Es mi amiga."] }
+       - "direction": "es-zh" (se ve el español, se ordenan fichas en chino) o
+                      "zh-es" (se ve el chino, se ordenan fichas en español).
+       - "distractors": fichas sobrantes. En es-zh son palabras chinas; en zh-es, palabras
+         españolas sueltas (sin puntuación).
+       - "accept" (solo zh-es, opcional): otras traducciones correctas. OJO: las fichas son
+         las palabras de "es" más los distractores, así que una alternativa solo sirve si
+         se puede construir con esas fichas (p. ej. quitando el sujeto: "Ella es…" → "Es…").
+
+  c) Diálogo (elegir la respuesta adecuada):
+     { "type": "dialogue",
+       "prompt": <Frase>,                 ← lo que dice el interlocutor
+       "answer": <Frase>,                 ← la respuesta correcta
+       "wrong":  [<Frase>, <Frase>] }     ← 2-3 respuestas que no encajan
+
+  d) Pregunta de opción múltiple (gramática, orden de palabras, radicales, tonos…):
+     { "type": "choice",
+       "question": "«Él también es profesor» se dice…",
+       "options": ["他也是老师。", "他是老师也。", "也他是老师。"],
+       "answer": "他也是老师。",            ← debe ser EXACTAMENTE una de las options
+       "explanation": "也 va justo delante del verbo (是)." }   ← opcional, se muestra al responder
+
+Cantidades por palabra
+----------------------
+  • 2 frases de ejemplo (3 si la palabra lo merece).
+  • 2-4 ejercicios: normalmente 1 "fill" + 1-2 "translate" (mezclando direcciones a lo
+    largo de la lección) y, cuando aporte algo, 1 "dialogue" o 1 "choice".
+  • 1 "note" corta y útil.
+
+Reglas de calidad (importantes)
+-------------------------------
+  1. VOCABULARIO CONOCIDO: las frases solo pueden usar palabras de vocab.json cuya lección
+     ("lesson") sea igual o anterior a la de la palabra, más puntuación. Nada de palabras
+     que el usuario no ha estudiado todavía. Si es imposible formar una frase natural con
+     lo conocido, usa frases muy cortas (p. ej. "他是老师。") antes que introducir palabras
+     nuevas.
+  2. Los tokens chinos deben coincidir EXACTAMENTE con el "hanzi" de vocab.json
+     (mismo carácter simplificado).
+  3. Chino natural y correcto, en caracteres simplificados.
+  4. Pinyin con tildes de tono (no números), mayúscula inicial y en los nombres propios
+     (Zhōngguó, Xībānyá), con la misma puntuación que la frase. Marca el cambio de tono de
+     不 (bú delante de 4.º tono: "bú shì") y de 一; no marques el sandhi del 3.er tono
+     (escribe "nǐ hǎo").
+  5. Español de España (vosotros), natural, con signos ¡! ¿?.
+  6. Cada frase de ejemplo debería contener la palabra del conjunto.
+  7. Los "distractors" no deben coincidir con la respuesta correcta ni ser sinónimos que
+     también serían correctos.
+  8. Varía las estructuras (afirmativas, negativas con 不, con 也, preguntas…) y no
+     repitas la misma frase en todas las palabras.
+  9. No uses otros tipos de ejercicio ni otros campos: la app ignora lo que no conoce y
+     lo reporta como error.
+
+Comprobación final antes de responder
+-------------------------------------
+  □ Es JSON válido y conserva todos los conjuntos anteriores sin cambios.
+  □ Hay un conjunto para cada id pendiente y las claves coinciden con los ids de vocab.json.
+  □ Todos los "example" son índices existentes; todos los "blank" son tokens de la frase.
+  □ Todas las "answer" de "choice" están en sus "options".
+  □ Las frases solo usan vocabulario conocido hasta esa lección.
+
+Ejemplo completo de un conjunto
+-------------------------------
+"ye": {
+  "note": "«También». Va siempre delante del verbo: 我也是学生. Nunca al final de la frase como en español.",
+  "examples": [
+    { "zh": ["我", "也", "是", "学生", "。"], "pinyin": "Wǒ yě shì xuéshēng.", "es": "Yo también soy estudiante." },
+    { "zh": ["她", "也", "是", "我", "朋友", "。"], "pinyin": "Tā yě shì wǒ péngyou.", "es": "Ella también es mi amiga." }
+  ],
+  "exercises": [
+    { "type": "fill", "example": 0, "distractors": ["不", "是"] },
+    { "type": "translate", "example": 1, "direction": "es-zh", "distractors": ["不", "他"] },
+    { "type": "choice", "question": "«Él también es profesor» se dice…",
+      "options": ["他也是老师。", "他是老师也。", "也他是老师。"], "answer": "他也是老师。",
+      "explanation": "也 va justo delante del verbo (是)." }
+  ]
+}
+
+Nota: tras subir los archivos a GitHub, Vercel reconstruye la web en 1-2 minutos. Si
+algo del JSON está mal, la app lo ignora y lo muestra en Ajustes → "Estado de los datos".

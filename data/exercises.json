@@ -1,0 +1,733 @@
+{
+  "version": 1,
+  "words": {
+    "ni-hao": {
+      "note": "Saludo básico; literalmente «tú bien»: 你 (tú) + 好 (bien). Dos terceros tonos seguidos: el primero se pronuncia como segundo tono (ní hǎo).",
+      "examples": [
+        {
+          "zh": ["你好", "，", "老师", "！"],
+          "pinyin": "Nǐ hǎo, lǎoshī!",
+          "es": "¡Hola, profesor!"
+        },
+        {
+          "zh": ["你好", "，", "我", "是", "学生", "。"],
+          "pinyin": "Nǐ hǎo, wǒ shì xuéshēng.",
+          "es": "Hola, soy estudiante."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["老师", "我们"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["profesor", "amigo"],
+          "accept": ["Hola, yo soy estudiante.", "Hola, soy un estudiante."]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你好", "，", "我", "是", "老师", "。"],
+            "pinyin": "Nǐ hǎo, wǒ shì lǎoshī.",
+            "es": "Hola, soy el profesor."
+          },
+          "answer": {
+            "zh": ["你好", "，", "老师", "！"],
+            "pinyin": "Nǐ hǎo, lǎoshī!",
+            "es": "¡Hola, profesor!"
+          },
+          "wrong": [
+            {
+              "zh": ["我们", "是", "朋友", "。"],
+              "pinyin": "Wǒmen shì péngyou.",
+              "es": "Somos amigos."
+            },
+            {
+              "zh": ["他", "不", "是", "老师", "。"],
+              "pinyin": "Tā bú shì lǎoshī.",
+              "es": "Él no es profesor."
+            }
+          ]
+        }
+      ]
+    },
+    "laoshi": {
+      "note": "老 (viejo, venerable) + 师 (maestro). También sirve de tratamiento: 王老师 = profesor Wang.",
+      "examples": [
+        {
+          "zh": ["她", "是", "老师", "。"],
+          "pinyin": "Tā shì lǎoshī.",
+          "es": "Ella es profesora."
+        },
+        {
+          "zh": ["我", "不", "是", "老师", "。"],
+          "pinyin": "Wǒ bú shì lǎoshī.",
+          "es": "No soy profesor."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["学生", "朋友"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["也", "他"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cómo saludas a tu profesor al entrar en clase?",
+          "options": ["你好，老师！", "你好，学生！", "你好，同学！"],
+          "answer": "你好，老师！"
+        }
+      ]
+    },
+    "xuesheng": {
+      "note": "学 (estudiar) + 生 (persona; nacer).",
+      "examples": [
+        {
+          "zh": ["他", "是", "学生", "。"],
+          "pinyin": "Tā shì xuéshēng.",
+          "es": "Él es estudiante."
+        },
+        {
+          "zh": ["我们", "是", "学生", "。"],
+          "pinyin": "Wǒmen shì xuéshēng.",
+          "es": "Somos estudiantes."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["老师", "朋友"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["profesores", "sois"],
+          "accept": ["Nosotros somos estudiantes."]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["她", "老师"]
+        }
+      ]
+    },
+    "pengyou": {
+      "note": "友 va en tono neutro: péngyou. Con relaciones cercanas se puede decir 我朋友 (mi amigo) sin 的.",
+      "examples": [
+        {
+          "zh": ["她", "是", "我", "朋友", "。"],
+          "pinyin": "Tā shì wǒ péngyou.",
+          "es": "Ella es mi amiga."
+        },
+        {
+          "zh": ["我们", "是", "朋友", "。"],
+          "pinyin": "Wǒmen shì péngyou.",
+          "es": "Somos amigos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["同学", "老师"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["你们", "不"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["amigo", "tu"],
+          "accept": ["Es mi amiga."]
+        }
+      ]
+    },
+    "tongxue": {
+      "note": "同 (mismo, juntos) + 学 (estudiar): «los que estudian juntos». También se usa para dirigirse a otros alumnos.",
+      "examples": [
+        {
+          "zh": ["他", "是", "我", "同学", "。"],
+          "pinyin": "Tā shì wǒ tóngxué.",
+          "es": "Él es mi compañero de clase."
+        },
+        {
+          "zh": ["他们", "是", "同学", "。"],
+          "pinyin": "Tāmen shì tóngxué.",
+          "es": "Ellos son compañeros de clase."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["朋友", "老师"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["amigos", "somos"],
+          "accept": ["Son compañeros de clase."]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "是", "学生", "？"],
+            "pinyin": "Nǐ shì xuéshēng?",
+            "es": "¿Eres estudiante?"
+          },
+          "answer": {
+            "zh": ["是", "，", "我", "是", "学生", "。"],
+            "pinyin": "Shì, wǒ shì xuéshēng.",
+            "es": "Sí, soy estudiante."
+          },
+          "wrong": [
+            {
+              "zh": ["他们", "是", "同学", "。"],
+              "pinyin": "Tāmen shì tóngxué.",
+              "es": "Ellos son compañeros de clase."
+            },
+            {
+              "zh": ["你好", "，", "中国", "！"],
+              "pinyin": "Nǐ hǎo, Zhōngguó!",
+              "es": "¡Hola, China!"
+            }
+          ]
+        }
+      ]
+    },
+    "shi": {
+      "note": "«Ser» para unir dos sustantivos (A 是 B). No se conjuga: 我是, 你是, 他们是… La negación es 不是 (bú shì).",
+      "examples": [
+        {
+          "zh": ["我", "是", "西班牙", "学生", "。"],
+          "pinyin": "Wǒ shì Xībānyá xuéshēng.",
+          "es": "Soy estudiante español."
+        },
+        {
+          "zh": ["我", "是", "老师", "，", "你", "是", "学生", "。"],
+          "pinyin": "Wǒ shì lǎoshī, nǐ shì xuéshēng.",
+          "es": "Yo soy profesor, tú eres estudiante."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["不", "也"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["他", "朋友"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál es el orden correcto para «Somos amigos»?",
+          "options": ["我们是朋友。", "我们朋友是。", "是我们朋友。"],
+          "answer": "我们是朋友。",
+          "explanation": "El orden es sujeto + 是 + complemento, como en español."
+        }
+      ]
+    },
+    "wo": {
+      "note": "«Yo». Con 们 forma el plural: 我们 (nosotros).",
+      "examples": [
+        {
+          "zh": ["我", "也", "是", "学生", "。"],
+          "pinyin": "Wǒ yě shì xuéshēng.",
+          "es": "Yo también soy estudiante."
+        },
+        {
+          "zh": ["我", "不", "是", "女孩", "，", "我", "是", "男孩", "。"],
+          "pinyin": "Wǒ bú shì nǚhái, wǒ shì nánhái.",
+          "es": "No soy una chica, soy un chico."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["你", "她"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["eres", "chicas"],
+          "accept": ["No soy chica, soy chico.", "Yo no soy una chica, yo soy un chico."]
+        }
+      ]
+    },
+    "ni": {
+      "note": "«Tú». Su plural es 你们 (vosotros). A la izquierda lleva el radical 亻 (persona).",
+      "examples": [
+        {
+          "zh": ["你", "是", "我", "朋友", "。"],
+          "pinyin": "Nǐ shì wǒ péngyou.",
+          "es": "Eres mi amigo."
+        },
+        {
+          "zh": ["你好", "，", "我", "是", "你", "同学", "。"],
+          "pinyin": "Nǐ hǎo, wǒ shì nǐ tóngxué.",
+          "es": "Hola, soy tu compañero de clase."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["他", "我们"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["她", "老师"]
+        }
+      ]
+    },
+    "ta-m": {
+      "note": "«Él». Suena igual que 她 (ella): tā. El radical 亻 significa «persona».",
+      "examples": [
+        {
+          "zh": ["他", "是", "中国", "老师", "。"],
+          "pinyin": "Tā shì Zhōngguó lǎoshī.",
+          "es": "Él es un profesor chino."
+        },
+        {
+          "zh": ["他", "是", "男孩", "。"],
+          "pinyin": "Tā shì nánhái.",
+          "es": "Él es un chico."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["她", "我们"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["española", "ella"],
+          "accept": ["Es un profesor chino.", "Es profesor chino.", "Él es profesor chino."]
+        },
+        {
+          "type": "choice",
+          "question": "他 y 她 se pronuncian igual (tā). ¿Cuál significa «él»?",
+          "options": ["他", "她"],
+          "answer": "他",
+          "explanation": "他 lleva el radical 亻 (persona); 她 lleva 女 (mujer)."
+        }
+      ]
+    },
+    "ta-f": {
+      "note": "«Ella». Mismo sonido que 他 (tā), pero con el radical 女 (mujer).",
+      "examples": [
+        {
+          "zh": ["她", "是", "女孩", "。"],
+          "pinyin": "Tā shì nǚhái.",
+          "es": "Ella es una chica."
+        },
+        {
+          "zh": ["她", "也", "是", "我", "朋友", "。"],
+          "pinyin": "Tā yě shì wǒ péngyou.",
+          "es": "Ella también es mi amiga."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["他", "我"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["他", "不"]
+        }
+      ]
+    },
+    "women": {
+      "note": "我 (yo) + 们 (sufijo de plural para personas) = nosotros.",
+      "examples": [
+        {
+          "zh": ["我们", "是", "西班牙", "学生", "。"],
+          "pinyin": "Wǒmen shì Xībānyá xuéshēng.",
+          "es": "Somos estudiantes españoles."
+        },
+        {
+          "zh": ["我们", "也", "是", "学生", "。"],
+          "pinyin": "Wǒmen yě shì xuéshēng.",
+          "es": "Nosotros también somos estudiantes."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["你们", "他们"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["chinos", "sois"],
+          "accept": ["Nosotros somos estudiantes españoles."]
+        }
+      ]
+    },
+    "nimen": {
+      "note": "你 (tú) + 们 = vosotros / ustedes.",
+      "examples": [
+        {
+          "zh": ["你们", "是", "学生", "。"],
+          "pinyin": "Nǐmen shì xuéshēng.",
+          "es": "Vosotros sois estudiantes."
+        },
+        {
+          "zh": ["你们", "也", "是", "老师", "。"],
+          "pinyin": "Nǐmen yě shì lǎoshī.",
+          "es": "Vosotros también sois profesores."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["我们", "他们"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["我们", "不"]
+        }
+      ]
+    },
+    "tamen": {
+      "note": "他 + 们 = ellos. Para un grupo solo de mujeres se escribe 她们.",
+      "examples": [
+        {
+          "zh": ["他们", "不", "是", "中国", "学生", "。"],
+          "pinyin": "Tāmen bú shì Zhōngguó xuéshēng.",
+          "es": "Ellos no son estudiantes chinos."
+        },
+        {
+          "zh": ["他们", "是", "我", "朋友", "。"],
+          "pinyin": "Tāmen shì wǒ péngyou.",
+          "es": "Ellos son mis amigos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["我们", "你们"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["españoles", "somos"],
+          "accept": ["No son estudiantes chinos."]
+        }
+      ]
+    },
+    "zhongguo": {
+      "note": "中 (centro) + 国 (país): «el país del centro».",
+      "examples": [
+        {
+          "zh": ["他", "是", "中国", "老师", "。"],
+          "pinyin": "Tā shì Zhōngguó lǎoshī.",
+          "es": "Él es un profesor chino."
+        },
+        {
+          "zh": ["她", "不", "是", "中国", "女孩", "。"],
+          "pinyin": "Tā bú shì Zhōngguó nǚhái.",
+          "es": "Ella no es una chica china."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["西班牙", "中文"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["西班牙", "他"]
+        }
+      ]
+    },
+    "xibanya": {
+      "note": "Transcripción fonética de «España» (西 = oeste). Con 语 (idioma) se forma 西班牙语.",
+      "examples": [
+        {
+          "zh": ["她", "是", "西班牙", "女孩", "。"],
+          "pinyin": "Tā shì Xībānyá nǚhái.",
+          "es": "Ella es una chica española."
+        },
+        {
+          "zh": ["我", "是", "西班牙", "学生", "。"],
+          "pinyin": "Wǒ shì Xībānyá xuéshēng.",
+          "es": "Soy estudiante español."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["中国", "中文"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["china", "eres"],
+          "accept": ["Yo soy estudiante español.", "Soy un estudiante español."]
+        }
+      ]
+    },
+    "zhongwen": {
+      "note": "中 (China) + 文 (escritura, lengua): el idioma chino, sobre todo el escrito.",
+      "examples": [
+        {
+          "zh": ["她", "是", "中文", "老师", "。"],
+          "pinyin": "Tā shì Zhōngwén lǎoshī.",
+          "es": "Ella es profesora de chino."
+        },
+        {
+          "zh": ["我", "是", "中文", "学生", "。"],
+          "pinyin": "Wǒ shì Zhōngwén xuéshēng.",
+          "es": "Soy estudiante de chino."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["中国", "西班牙"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["china", "profesor"],
+          "accept": ["Es profesora de chino.", "Ella es la profesora de chino."]
+        }
+      ]
+    },
+    "xibanyayu": {
+      "note": "西班牙 (España) + 语 (idioma) = el idioma español.",
+      "examples": [
+        {
+          "zh": ["他", "是", "西班牙语", "老师", "。"],
+          "pinyin": "Tā shì Xībānyáyǔ lǎoshī.",
+          "es": "Él es profesor de español."
+        },
+        {
+          "zh": ["我", "也", "是", "西班牙语", "老师", "。"],
+          "pinyin": "Wǒ yě shì Xībānyáyǔ lǎoshī.",
+          "es": "Yo también soy profesor de español."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["西班牙", "中国"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["中文", "不"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué carácter de 西班牙语 significa «idioma»?",
+          "options": ["西", "班", "牙", "语"],
+          "answer": "语",
+          "explanation": "语 (yǔ) = idioma: 西班牙 + 语 = español."
+        }
+      ]
+    },
+    "nanhaizi": {
+      "note": "男 (varón) + 孩 (niño) = chico.",
+      "examples": [
+        {
+          "zh": ["他", "是", "男孩", "。"],
+          "pinyin": "Tā shì nánhái.",
+          "es": "Él es un chico."
+        },
+        {
+          "zh": ["我", "不", "是", "女孩", "，", "我", "是", "男孩", "。"],
+          "pinyin": "Wǒ bú shì nǚhái, wǒ shì nánhái.",
+          "es": "No soy una chica, soy un chico."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["女孩", "学生"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["她", "也"]
+        }
+      ]
+    },
+    "nvhaizi": {
+      "note": "女 (mujer) + 孩 (niño) = chica. El mismo 女 aparece en 她 (ella).",
+      "examples": [
+        {
+          "zh": ["她", "是", "女孩", "。"],
+          "pinyin": "Tā shì nǚhái.",
+          "es": "Ella es una chica."
+        },
+        {
+          "zh": ["她", "是", "西班牙", "女孩", "。"],
+          "pinyin": "Tā shì Xībānyá nǚhái.",
+          "es": "Ella es una chica española."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["男孩", "老师"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["chico", "él"],
+          "accept": ["Es una chica.", "Ella es chica."]
+        }
+      ]
+    },
+    "bu": {
+      "note": "Negación: 不 + verbo. Delante de un cuarto tono pasa a segundo tono: 不是 = bú shì.",
+      "examples": [
+        {
+          "zh": ["我", "不", "是", "老师", "。"],
+          "pinyin": "Wǒ bú shì lǎoshī.",
+          "es": "No soy profesor."
+        },
+        {
+          "zh": ["她", "不", "是", "我", "同学", "。"],
+          "pinyin": "Tā bú shì wǒ tóngxué.",
+          "es": "Ella no es mi compañera de clase."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["也", "是"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["amiga", "también"],
+          "accept": ["No es mi compañera de clase."]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cómo se pronuncia 不是?",
+          "options": ["bù shì", "bú shì", "bǔ shì"],
+          "answer": "bú shì",
+          "explanation": "不 cambia a segundo tono (bú) delante de un cuarto tono."
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "是", "老师", "？"],
+            "pinyin": "Nǐ shì lǎoshī?",
+            "es": "¿Eres profesor?"
+          },
+          "answer": {
+            "zh": ["不", "，", "我", "是", "学生", "。"],
+            "pinyin": "Bù, wǒ shì xuéshēng.",
+            "es": "No, soy estudiante."
+          },
+          "wrong": [
+            {
+              "zh": ["她", "是", "女孩", "。"],
+              "pinyin": "Tā shì nǚhái.",
+              "es": "Ella es una chica."
+            },
+            {
+              "zh": ["你好", "，", "中国", "！"],
+              "pinyin": "Nǐ hǎo, Zhōngguó!",
+              "es": "¡Hola, China!"
+            }
+          ]
+        }
+      ]
+    },
+    "ye": {
+      "note": "«También». Va siempre delante del verbo: 我也是学生. Nunca al final de la frase como en español.",
+      "examples": [
+        {
+          "zh": ["我", "也", "是", "学生", "。"],
+          "pinyin": "Wǒ yě shì xuéshēng.",
+          "es": "Yo también soy estudiante."
+        },
+        {
+          "zh": ["她", "也", "是", "我", "朋友", "。"],
+          "pinyin": "Tā yě shì wǒ péngyou.",
+          "es": "Ella también es mi amiga."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["不", "是"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "他"]
+        },
+        {
+          "type": "choice",
+          "question": "«Él también es profesor» se dice…",
+          "options": ["他也是老师。", "他是老师也。", "也他是老师。"],
+          "answer": "他也是老师。",
+          "explanation": "也 va justo delante del verbo (是)."
+        }
+      ]
+    }
+  }
+}
