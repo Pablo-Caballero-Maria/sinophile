@@ -1,10 +1,13 @@
 {
-  "version": 1,
-  "updatedAt": "1970-01-01T00:00:00.000Z",
-  "days": {},
-  "items": {},
-  "lessons": {},
-  "exams": [],
-  "records": { "infinite": 0, "combo": 0 },
-  "achievements": {}
+ "version": 1,
+ "updatedAt": "1970-01-01T00:00:00.000Z",
+ "days": {},
+ "items": {},
+ "lessons": {},
+ "exams": [],
+ "records": {
+  "infinite": 0,
+  "combo": 0
+ },
+ "achievements": {}
 }
