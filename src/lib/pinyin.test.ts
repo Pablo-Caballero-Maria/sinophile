@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { canonicalPinyin, charTones, markSyllable, numberedToMarked, pinyinEquals, prettifyTyped, splitSyllables, stripTones, toneOf, toneVariants } from "./pinyin";
 import { seededRandom } from "./text";
+import { VOCAB } from "./data/vocab";
 
 describe("pinyin", () => {
   it("places tone marks by the standard rules", () => {
@@ -36,12 +37,20 @@ describe("pinyin", () => {
     expect(canonicalPinyin("nǐ hǎo")).toEqual({ letters: "nihao", tones: [3, 3] });
   });
 
-  it("splits syllables for every word of the real vocabulary", async () => {
-    const vocab = (await import("@data/vocab.json")).default as { hanzi: string; pinyin: string }[];
-    for (const w of vocab) expect(charTones(w.hanzi, w.pinyin), `${w.hanzi} ${w.pinyin}`).not.toBeNull();
+  it("splits syllables for every word of the real vocabulary", () => {
+    for (const w of VOCAB) expect(charTones(w.hanzi, w.pinyin), `${w.hanzi} ${w.pinyin}`).not.toBeNull();
     expect(splitSyllables("Xībānyáyǔ").map((s) => s.text)).toEqual(["Xī", "bān", "yá", "yǔ"]);
     expect(splitSyllables("dàngāo").map((s) => s.text)).toEqual(["dàn", "gāo"]);
     expect(charTones("朋友", "péngyou")).toEqual([2, 5]);
+  });
+
+  it("aligns erhua (儿 merged into the previous syllable)", () => {
+    expect(charTones("这儿", "zhèr")).toEqual([4, 4]);
+    expect(charTones("这儿有猫", "zhèr yǒu māo")).toEqual([4, 4, 3, 1]);
+    expect(charTones("女儿", "nǚ'ér")).toEqual([3, 2]);
+    expect(charTones("儿", "ér")).toEqual([2]);
+    expect(charTones("这儿", "zhè")).toBeNull();
+    expect(charTones("你好", "nǐ")).toBeNull();
   });
 
   it("generates distinct tone variants", () => {

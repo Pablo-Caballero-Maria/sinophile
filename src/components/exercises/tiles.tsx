@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { vocabByHanzi } from "@/lib/data/vocab";
 import { checkTiles } from "@/lib/exercises/check";
 import type { Exercise } from "@/lib/exercises/types";
-import { useSettings } from "@/lib/settings";
+import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
 import { Hanzi, Pinyin } from "../hanzi";
 import { cn } from "../ui";

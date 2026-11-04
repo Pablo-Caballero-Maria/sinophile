@@ -2,7 +2,7 @@
 /** Word introduction card and self-graded flashcards. */
 import { useState } from "react";
 import type { Exercise } from "@/lib/exercises/types";
-import { useSettings } from "@/lib/settings";
+import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
 import { hanChars } from "@/lib/text";
 import { Hanzi, Pinyin, SentenceView, SpeakButton, StrokeOrder } from "../hanzi";

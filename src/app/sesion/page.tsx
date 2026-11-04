@@ -6,7 +6,7 @@ import { SessionRunner } from "@/components/session/player";
 import { Skeleton } from "@/components/ui";
 import { useExercises } from "@/lib/data/remote";
 import type { SessionMode, SessionParams } from "@/lib/exercises/types";
-import { useHydrated } from "@/lib/store";
+import { useReady } from "@/lib/account/client";
 
 const MODES: SessionMode[] = ["leccion", "repaso", "infinito", "examen", "escritura", "tarjetas", "escucha", "pronunciacion", "tonos", "frases"];
 const list = (v: string | null) => (v ? v.split(",").filter(Boolean) : []);
@@ -45,10 +45,10 @@ function SessionSkeleton() {
 function SessionLoader() {
   const sp = useSearchParams();
   const params = useMemo(() => parseParams(new URLSearchParams(sp.toString())), [sp]);
-  const hydrated = useHydrated();
+  const ready = useReady();
   const exercises = useExercises();
   const [run, setRun] = useState(0);
-  if (!hydrated || exercises.loading) return <SessionSkeleton />;
+  if (!ready || exercises.loading) return <SessionSkeleton />;
   return <SessionRunner key={`${sp.toString()}#${run}`} params={params} sets={exercises.data?.file.words ?? {}} onRestart={() => setRun((r) => r + 1)} />;
 }
 

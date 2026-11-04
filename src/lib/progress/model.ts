@@ -1,11 +1,12 @@
 /**
- * Progress model: what is stored in localStorage and synced to data/progress.json,
+ * Progress model: what is stored with each account (MongoDB, see src/server/),
  * plus pure functions to update it and derive stats (XP, streak, level, mastery).
  *
  * Merge-friendly by design: totals are derived from per-day buckets and
- * per-item timestamps, so two devices can be merged with max / last-writer-wins.
+ * per-item timestamps, so two devices (or a partial update, see diffProgress)
+ * can be merged with max / last-writer-wins.
  */
-import { review, strength, isDue, type ItemState } from "../srs.ts";
+import { MAX_BOX, review, strength, isDue, type ItemState } from "../srs.ts";
 import { addDays, dayKey } from "../text.ts";
 import type { Lesson, Skill, VocabEntry } from "../types.ts";
 
@@ -64,28 +65,97 @@ export const emptyProgress = (): Progress => ({
   achievements: {},
 });
 
-const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+/* ───────────── parsing untrusted JSON (API bodies, stored documents, imported files) ───────────── */
 
-/** Tolerant parse of stored/remote JSON into a Progress (unknown fields dropped). */
+const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+/** Keys are stored as MongoDB field names: no ".", no "$". */
+const SAFE_KEY_RE = /^[A-Za-z0-9_-]{1,100}$/;
+const ITEM_KEY_RE = /^[A-Za-z0-9_-]{1,100}:(meaning|listening|pinyin|writing|speaking|sentences)$/;
+const count = (v: unknown): number => (typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : 0);
+const clamp = (v: unknown, min: number, max: number) => Math.min(max, Math.max(min, count(v)));
+const shortText = (v: unknown): v is string => typeof v === "string" && v.length > 0 && v.length <= 100;
+
+function reviveMap<T>(raw: unknown, keyRe: RegExp, revive: (value: unknown) => T | null): Record<string, T> {
+  const out: Record<string, T> = {};
+  if (!isObj(raw)) return out;
+  for (const [key, value] of Object.entries(raw)) {
+    const parsed = keyRe.test(key) ? revive(value) : null;
+    if (parsed !== null) out[key] = parsed;
+  }
+  return out;
+}
+
+const reviveDay = (v: unknown): DayStats | null =>
+  isObj(v) ? { xp: count(v.xp), answered: count(v.answered), correct: count(v.correct), sessions: count(v.sessions), ms: count(v.ms) } : null;
+
+const reviveItem = (v: unknown): ItemState | null =>
+  isObj(v) && typeof v.d === "string" && DAY_RE.test(v.d)
+    ? { b: Math.round(clamp(v.b, 0, MAX_BOX)), d: v.d, s: count(v.s), c: count(v.c), t: count(v.t) }
+    : null;
+
+const reviveLesson = (v: unknown): LessonStats | null =>
+  isObj(v) && typeof v.last === "string" && DAY_RE.test(v.last) ? { sessions: count(v.sessions), best: clamp(v.best, 0, 100), last: v.last } : null;
+
+function reviveExam(v: unknown): ExamRecord | null {
+  if (!isObj(v) || !shortText(v.id) || !shortText(v.date)) return null;
+  const lessons = Array.isArray(v.lessons) ? v.lessons.filter(shortText) : [];
+  return { id: v.id, date: v.date, lessons, total: count(v.total), correct: count(v.correct), grade: clamp(v.grade, 0, 10), ms: count(v.ms) };
+}
+
+/**
+ * Strict, tolerant parse of untrusted JSON into a Progress: malformed entries
+ * and unsafe keys are dropped, unknown fields ignored. Never throws.
+ */
 export function reviveProgress(raw: unknown): Progress {
   const base = emptyProgress();
   if (!isObj(raw)) return base;
+  const exams = Array.isArray(raw.exams) ? raw.exams.map(reviveExam).filter((e): e is ExamRecord => e !== null) : [];
+  const records = isObj(raw.records) ? raw.records : {};
   return {
     version: 1,
-    updatedAt: typeof raw.updatedAt === "string" ? raw.updatedAt : base.updatedAt,
-    days: isObj(raw.days) ? (raw.days as Progress["days"]) : {},
-    items: isObj(raw.items) ? (raw.items as Progress["items"]) : {},
-    lessons: isObj(raw.lessons) ? (raw.lessons as Progress["lessons"]) : {},
-    exams: Array.isArray(raw.exams) ? (raw.exams as ExamRecord[]) : [],
-    records: { ...base.records, ...(isObj(raw.records) ? (raw.records as Partial<Progress["records"]>) : {}) },
-    achievements: isObj(raw.achievements) ? (raw.achievements as Progress["achievements"]) : {},
+    updatedAt: shortText(raw.updatedAt) ? raw.updatedAt : base.updatedAt,
+    days: reviveMap(raw.days, DAY_RE, reviveDay),
+    items: reviveMap(raw.items, ITEM_KEY_RE, reviveItem),
+    lessons: reviveMap(raw.lessons, SAFE_KEY_RE, reviveLesson),
+    exams,
+    records: { infinite: count(records.infinite), combo: count(records.combo) },
+    achievements: reviveMap(raw.achievements, SAFE_KEY_RE, (v) => (shortText(v) ? v : null)),
+  };
+}
+
+/** True when nothing has been practised yet. */
+export const isEmptyProgress = (p: Progress): boolean =>
+  [p.days, p.items, p.lessons, p.achievements].every((m) => Object.keys(m).length === 0) &&
+  p.exams.length === 0 &&
+  p.records.infinite === 0 &&
+  p.records.combo === 0;
+
+/**
+ * The part of `next` that changed since `prev` (entries are compared by
+ * reference: the update functions below only replace what they touch).
+ * Merging the result into a copy of `prev` with mergeProgress gives `next`,
+ * which is how the app saves progress without uploading the whole document.
+ */
+export function diffProgress(prev: Progress, next: Progress): Progress {
+  const changed = <V>(a: Record<string, V>, b: Record<string, V>) => Object.fromEntries(Object.entries(b).filter(([k, v]) => a[k] !== v));
+  const known = new Set(prev.exams.map((e) => e.id));
+  return {
+    version: 1,
+    updatedAt: next.updatedAt,
+    days: changed(prev.days, next.days),
+    items: changed(prev.items, next.items),
+    lessons: changed(prev.lessons, next.lessons),
+    exams: next.exams.filter((e) => !known.has(e.id)),
+    records: next.records,
+    achievements: changed(prev.achievements, next.achievements),
   };
 }
 
 const maxBy = <T>(a: T | undefined, b: T | undefined, pickA: (a: T, b: T) => boolean): T | undefined =>
   a === undefined ? b : b === undefined ? a : pickA(a, b) ? a : b;
 
-/** Combines two progress snapshots (e.g. local + GitHub) without losing work. */
+/** Combines two progress snapshots (two devices, or a stored document and a change) without losing work. */
 export function mergeProgress(a: Progress, b: Progress): Progress {
   const days: Progress["days"] = { ...a.days };
   for (const [day, s] of Object.entries(b.days)) {

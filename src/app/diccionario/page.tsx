@@ -7,8 +7,9 @@ import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/hanzi";
 import { Badge, Button, Card, cn, EmptyState, PageHeader, SectionTitle, Segmented, Skeleton } from "@/components/ui";
 import { LESSONS, VOCAB } from "@/lib/data/vocab";
 import { indexVocab, search, segmentText } from "@/lib/dictionary";
+import { suggestId, vocabLine } from "@/lib/data/format";
 import { listen, recognitionSupported } from "@/lib/speech";
-import { dayKey, formatDay, hasHan, normalizeLatin } from "@/lib/text";
+import { formatDay, hasHan } from "@/lib/text";
 import { translate, type Lang } from "@/lib/translate";
 import type { DictEntry } from "@/lib/types";
 import { useCedict } from "@/lib/use-cedict";
@@ -114,10 +115,7 @@ function SearchTab({ initial }: { initial: string }) {
 }
 
 /** Suggests a vocab.json line for a translated word, ready to paste in GitHub. */
-function vocabSnippet(hanzi: string, pinyin: string, es: string): string {
-  const id = normalizeLatin(pinyin).replace(/\s+/g, "-") || "nueva";
-  return JSON.stringify({ id, hanzi, pinyin, es: es.trim(), lesson: dayKey() }).replace(/":/g, '": ').replace(/,"/g, ', "');
-}
+const vocabSnippet = (hanzi: string, pinyin: string, es: string): string => vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: es.trim() });
 
 function TranslateTab() {
   const [direction, setDirection] = useState<"es-zh" | "zh-es">("es-zh");
@@ -225,7 +223,7 @@ function TranslateTab() {
           )}
           {singleWord && (
             <div className="rounded-2xl bg-surface-2 p-3">
-              <p className="mb-2 text-sm text-muted">¿Quieres añadirla a tu vocabulario? Copia esta línea en data/vocab.json:</p>
+              <p className="mb-2 text-sm text-muted">¿Quieres añadirla a tu vocabulario? Copia esta línea en el vocab.json de la clase (data/AAAA-MM-DD/vocab.json):</p>
               <code className="block overflow-x-auto whitespace-nowrap text-xs">{vocabSnippet(result.zh, result.pinyin.replace(/ /g, ""), result.source)}</code>
               <Button
                 size="sm"

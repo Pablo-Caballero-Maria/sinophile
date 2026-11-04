@@ -4,7 +4,7 @@
  * recognition for pronunciation practice (webkitSpeechRecognition where
  * available; otherwise the UI falls back to record-and-compare).
  */
-import { settingsStore } from "./settings";
+import { settingsStore } from "./settings/store";
 
 export const ttsSupported = () => typeof window !== "undefined" && "speechSynthesis" in window;
 

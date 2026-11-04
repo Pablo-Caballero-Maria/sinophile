@@ -1,6 +1,6 @@
 "use client";
 /** Short synthesised UI sounds (Web Audio, no audio files). */
-import { settingsStore } from "./settings";
+import { settingsStore } from "./settings/store";
 
 type SoundName = "correct" | "wrong" | "complete" | "tap";
 

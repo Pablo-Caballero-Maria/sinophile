@@ -1,15 +1,23 @@
-INSTRUCCIONES PARA CLAUDE: CÓMO AMPLIAR exercises.json A PARTIR DE vocab.json
-==========================================================================
+INSTRUCCIONES PARA CLAUDE: CÓMO ESCRIBIR EL exercises.json DE UNA CLASE
+======================================================================
 
 Contexto
 --------
-"sinophile" es una app web (estilo Duolingo) para estudiar chino mandarín. Lee tres
-archivos de la carpeta data/ del repositorio:
+"sinophile" es una app web (estilo Duolingo) para estudiar chino mandarín. El
+vocabulario está organizado en una carpeta por clase dentro de data/, con la fecha de
+la clase como nombre:
 
-  • vocab.json      → lo escribe el usuario a mano tras cada clase. NUNCA lo modifiques.
-  • exercises.json  → lo mantienes tú (Claude). Contiene, por cada palabra del vocabulario,
-                      una nota, frases de ejemplo y ejercicios "curados".
-  • instructions.txt → este documento.
+  data/2026-10-26/vocab.json       ← palabras de esa clase (las escribe el usuario a mano)
+  data/2026-10-26/exercises.json   ← lo escribes tú (Claude) para esa clase
+  data/2026-11-03/vocab.json
+  data/2026-11-03/exercises.json
+  …
+  data/instructions.txt            ← este documento
+
+  • vocab.json → NUNCA lo modifiques. Es una lista de { id, hanzi, pinyin, es }.
+    Los ids son únicos en todas las clases.
+  • exercises.json → por cada palabra de ESA clase, una nota, frases de ejemplo y
+    ejercicios "curados".
 
 La app ya genera sola, a partir de vocab.json, los ejercicios mecánicos (significado,
 escucha, tonos, emparejar, escribir el hanzi, pronunciación, tarjetas…). Lo que NO puede
@@ -17,30 +25,39 @@ inventar es lenguaje natural: frases de ejemplo, huecos con distractores con sen
 traducciones con alternativas válidas, diálogos y preguntas de gramática. Eso es lo que
 aportas tú en exercises.json.
 
+Qué recibirás
+-------------
+Normalmente un único archivo "paquete" (claude-AAAA-MM-DD.txt, lo descarga la app en
+Ajustes → Estado de los datos o en la página de la lección) que contiene:
+  1. Estas instrucciones.
+  2. El vocab.json de todas las clases ANTERIORES (vocabulario ya conocido).
+  3. El vocab.json de la clase NUEVA.
+  4. Su exercises.json, si ya existe.
+Si en lugar del paquete recibes los archivos sueltos, es la misma información.
+
 Tu tarea
 --------
-1. Lee vocab.json (una lista de objetos { id, hanzi, pinyin, es, lesson }).
-2. Lee exercises.json. Sus conjuntos están en el objeto "words", con el id de la palabra
-   como clave.
-3. Calcula las palabras PENDIENTES: los "id" de vocab.json que NO aparecen como clave en
-   exercises.json → "words".
-4. Si no hay ninguna pendiente, responde: "No hay vocabulario nuevo: exercises.json ya
+1. Identifica la clase nueva (su fecha) y sus palabras.
+2. Calcula las palabras PENDIENTES: los "id" de la clase nueva que no tienen conjunto en
+   su exercises.json (si el archivo no existe, lo están todas).
+3. Si no hay ninguna pendiente, responde: "No hay vocabulario nuevo: exercises.json ya
    está al día." y no generes nada más.
-5. Si las hay, crea UN conjunto por cada id pendiente (formato abajo) y añádelo a
-   "words". No cambies, reordenes ni borres los conjuntos que ya existen.
-   (Única excepción: si una clave de "words" ya no existe en vocab.json, avísalo al
-   usuario; puedes proponer eliminarla, pero no lo hagas sin decirlo.)
-6. Devuelve el archivo exercises.json COMPLETO y válido (JSON estricto: comillas dobles,
-   sin comentarios, sin comas finales), listo para que el usuario lo pegue en GitHub,
-   preferiblemente como archivo descargable. Después, en 2-3 líneas, resume qué ids has
-   añadido.
+4. Si las hay, crea UN conjunto por cada id pendiente (formato abajo) y añádelo a
+   "words". No cambies, reordenes ni borres los conjuntos que ya existan.
+   Solo van en este archivo palabras de ESTA clase: las de otras clases tienen el suyo.
+   (Si una clave de "words" no existe en el vocab.json de la clase, avísalo al usuario;
+   puedes proponer eliminarla, pero no lo hagas sin decirlo.)
+5. Devuelve el archivo data/AAAA-MM-DD/exercises.json COMPLETO y válido (JSON estricto:
+   comillas dobles, sin comentarios, sin comas finales), listo para que el usuario lo
+   guarde en GitHub, preferiblemente como archivo descargable. Después, en 2-3 líneas,
+   resume qué ids has añadido.
 
 Formato de exercises.json
 -------------------------
 {
   "version": 1,
   "words": {
-    "<id de vocab.json>": {
+    "<id de una palabra de esta clase>": {
       "note": "Texto breve en español (opcional): mnemotecnia, radicales, uso, gramática.",
       "examples": [ <Frase>, <Frase>, ... ],
       "exercises": [ <Ejercicio>, <Ejercicio>, ... ]
@@ -55,7 +72,9 @@ Formato de exercises.json
     "es": "Ella es mi amiga."                    ← traducción natural al español de España
   }
   • Al unir los tokens de "zh" debe salir la frase exacta.
-  • Las palabras de varios caracteres que estén en vocab.json van en UN token ("朋友", no "朋","友").
+  • Las palabras de varios caracteres que estén en algún vocab.json van en UN token
+    ("朋友", no "朋","友"). Lo que no es una palabra del vocabulario se separa en las
+    palabras que sí lo son (二十 → "二", "十"; 中文书 → "中文", "书").
   • La puntuación china (，。！？) va en tokens separados.
 
 <Ejercicio> = uno de estos cuatro tipos:
@@ -70,16 +89,23 @@ Formato de exercises.json
          pueden ser gramaticalmente posibles mientras no encajen con la traducción.
 
   b) Traducir con fichas (construir la frase tocando palabras):
-     { "type": "translate", "example": 1, "direction": "es-zh", "distractors": ["你们", "不"] }
+     { "type": "translate", "example": 1, "direction": "es-zh", "distractors": ["你们", "不"],
+       "accept": ["我星期一有考试。"] }
      { "type": "translate", "example": 0, "direction": "zh-es", "distractors": ["amigo", "tu"],
        "accept": ["Es mi amiga."] }
        - "direction": "es-zh" (se ve el español, se ordenan fichas en chino) o
                       "zh-es" (se ve el chino, se ordenan fichas en español).
        - "distractors": fichas sobrantes. En es-zh son palabras chinas; en zh-es, palabras
-         españolas sueltas (sin puntuación).
-       - "accept" (solo zh-es, opcional): otras traducciones correctas. OJO: las fichas son
-         las palabras de "es" más los distractores, así que una alternativa solo sirve si
-         se puede construir con esas fichas (p. ej. quitando el sujeto: "Ella es…" → "Es…").
+         españolas sueltas (sin puntuación). No repitas una palabra que ya está en la frase.
+       - "accept" (opcional): otras traducciones correctas, en chino (es-zh) o en español
+         (zh-es). Úsalo cuando el orden de las palabras pueda cambiar: en chino las
+         expresiones de tiempo van delante o detrás del sujeto (星期一我有考试 /
+         我星期一有考试); en español, "En abril no tenemos exámenes" / "No tenemos exámenes
+         en abril". OJO: las fichas son las palabras de la frase más los distractores, así
+         que una alternativa solo sirve si se puede construir con esas fichas.
+       - Elige los distractores de modo que NO permitan otra respuesta correcta que no
+         esté en "accept" (p. ej., con 没有 como distractor, "你有车吗？" también se podría
+         construir como "你有没有车？").
 
   c) Diálogo (elegir la respuesta adecuada):
      { "type": "dialogue",
@@ -98,39 +124,41 @@ Cantidades por palabra
 ----------------------
   • 2 frases de ejemplo (3 si la palabra lo merece).
   • 2-4 ejercicios: normalmente 1 "fill" + 1-2 "translate" (mezclando direcciones a lo
-    largo de la lección) y, cuando aporte algo, 1 "dialogue" o 1 "choice".
+    largo de la clase) y, cuando aporte algo, 1 "dialogue" o 1 "choice".
   • 1 "note" corta y útil.
 
 Reglas de calidad (importantes)
 -------------------------------
-  1. VOCABULARIO CONOCIDO: las frases solo pueden usar palabras de vocab.json cuya lección
-     ("lesson") sea igual o anterior a la de la palabra, más puntuación. Nada de palabras
-     que el usuario no ha estudiado todavía. Si es imposible formar una frase natural con
-     lo conocido, usa frases muy cortas (p. ej. "他是老师。") antes que introducir palabras
-     nuevas.
-  2. Los tokens chinos deben coincidir EXACTAMENTE con el "hanzi" de vocab.json
+  1. VOCABULARIO CONOCIDO: las frases (ejemplos y diálogos) solo pueden usar palabras de
+     esta clase y de las clases anteriores, más puntuación. Nada de palabras que el
+     usuario no ha estudiado todavía. Si es imposible formar una frase natural con lo
+     conocido, usa frases muy cortas (p. ej. "他是老师。") antes que introducir palabras
+     nuevas. En las notas y explicaciones sí puedes mencionar palabras nuevas si ayudan.
+  2. Los tokens chinos deben coincidir EXACTAMENTE con el "hanzi" de los vocab.json
      (mismo carácter simplificado).
   3. Chino natural y correcto, en caracteres simplificados.
   4. Pinyin con tildes de tono (no números), mayúscula inicial y en los nombres propios
      (Zhōngguó, Xībānyá), con la misma puntuación que la frase. Marca el cambio de tono de
-     不 (bú delante de 4.º tono: "bú shì") y de 一; no marques el sandhi del 3.er tono
-     (escribe "nǐ hǎo").
+     不 (bú delante de 4.º tono: "bú shì") y de 一 (yí delante de 4.º tono: "yí jiàn";
+     yì delante de los demás: "yì běn"; yī al contar, en fechas y meses: "yīyuè"); no
+     marques el sandhi del 3.er tono (escribe "nǐ hǎo"). Sílabas átonas sin tilde
+     (péngyou, xǐhuan, yīfu). Erhua pegada a la sílaba: 这儿 = "zhèr".
   5. Español de España (vosotros), natural, con signos ¡! ¿?.
   6. Cada frase de ejemplo debería contener la palabra del conjunto.
   7. Los "distractors" no deben coincidir con la respuesta correcta ni ser sinónimos que
      también serían correctos.
-  8. Varía las estructuras (afirmativas, negativas con 不, con 也, preguntas…) y no
-     repitas la misma frase en todas las palabras.
+  8. Varía las estructuras (afirmativas, negativas, preguntas con 吗…) y no repitas la
+     misma frase en todas las palabras.
   9. No uses otros tipos de ejercicio ni otros campos: la app ignora lo que no conoce y
      lo reporta como error.
 
 Comprobación final antes de responder
 -------------------------------------
   □ Es JSON válido y conserva todos los conjuntos anteriores sin cambios.
-  □ Hay un conjunto para cada id pendiente y las claves coinciden con los ids de vocab.json.
+  □ Hay un conjunto para cada id pendiente y las claves son ids de ESTA clase.
   □ Todos los "example" son índices existentes; todos los "blank" son tokens de la frase.
   □ Todas las "answer" de "choice" están en sus "options".
-  □ Las frases solo usan vocabulario conocido hasta esa lección.
+  □ Las frases solo usan vocabulario conocido hasta esta clase.
 
 Ejemplo completo de un conjunto
 -------------------------------

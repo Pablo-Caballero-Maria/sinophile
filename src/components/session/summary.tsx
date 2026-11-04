@@ -1,7 +1,9 @@
 "use client";
 /** End-of-session screen: XP, accuracy, exam grade, records, achievements, mistakes review. */
-import { Clock, Flame, Target, Zap } from "lucide-react";
+import { Clock, Flame, Target, UserRound, Zap } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAccount } from "@/lib/account/client";
 import type { Achievement } from "@/lib/progress/achievements";
 import { finishSession, progressStore } from "@/lib/progress/store";
 import { accuracy, examGrade, type SessionState } from "@/lib/exercises/session";
@@ -57,6 +59,7 @@ function Tile({ icon, label, value, color }: { icon: React.ReactNode; label: str
 }
 
 export function SessionSummary({ state, params, exitHref, onRestart }: { state: SessionState; params: SessionParams; exitHref: string; onRestart: () => void }) {
+  const account = useAccount();
   const acc = accuracy(state);
   const grade = examGrade(state);
   const isExam = params.mode === "examen";
@@ -143,6 +146,15 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
         <Tile icon={<Flame size={20} />} label="Combo" value={`${state.maxCombo}`} color="border-brand text-brand" />
       </div>
       {bonus > 0 && <p className="mt-3 text-center text-sm font-semibold text-gold">Incluye +{bonus} XP de bonificación</p>}
+
+      {account.status !== "user" && state.answered > 0 && (
+        <Link href="/cuenta" className="mt-6 flex items-center gap-3 rounded-2xl border-2 border-sky/40 bg-sky-soft p-3 text-sm">
+          <UserRound size={22} className="shrink-0 text-sky" />
+          <span>
+            <b>Modo invitado:</b> este progreso se perderá al cerrar la app. Entra o crea una cuenta para guardarlo.
+          </span>
+        </Link>
+      )}
 
       {unlocked.length > 0 && (
         <Card tone="gold" className="mt-6">

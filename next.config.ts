@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
 /**
- * Sinophile is a 100% static site: `next build` emits plain HTML/JS into `out/`,
- * which Vercel serves from its CDN. No server features are used.
+ * The pages are prerendered at build time (static, served from Vercel's CDN);
+ * only the API routes under src/app/api/ run on the server (accounts and
+ * progress, stored in MongoDB Atlas).
  */
 const nextConfig: NextConfig = {
-  output: "export",
   images: { unoptimized: true },
   reactStrictMode: true,
   turbopack: {

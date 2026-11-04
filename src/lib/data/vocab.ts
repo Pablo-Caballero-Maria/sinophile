@@ -1,22 +1,21 @@
 /**
- * The vocabulary is bundled at build time (every push to GitHub rebuilds the
+ * The vocabulary of every lesson folder (data/<date>/vocab.json) is bundled at
+ * build time by scripts/prepare-data.ts (every push to GitHub rebuilds the
  * site), so lessons and words are available instantly without a fetch.
  */
-import rawVocab from "@data/vocab.json";
+import bundle from "@/generated/lessons.json";
 import type { Lesson, VocabEntry } from "../types.ts";
-import { sanitizeVocab } from "./validate.ts";
+import { sanitizeLessons, type LessonBundle } from "./validate.ts";
 
-const parsed = sanitizeVocab(rawVocab);
+const parsed = sanitizeLessons(bundle as LessonBundle);
 
 export const VOCAB: VocabEntry[] = parsed.entries;
 export const VOCAB_ISSUES = parsed.issues;
 export const VOCAB_BY_ID = new Map(VOCAB.map((w) => [w.id, w]));
 export const VOCAB_IDS = new Set(VOCAB_BY_ID.keys());
 
-/** Lessons in chronological order (by `lesson` date). */
-export const LESSONS: Lesson[] = [...new Set(VOCAB.map((w) => w.lesson))]
-  .sort()
-  .map((id, i) => ({ id, number: i + 1, words: VOCAB.filter((w) => w.lesson === id) }));
+/** Lessons in chronological order (by folder date). */
+export const LESSONS: Lesson[] = parsed.lessons;
 
 export const LESSON_BY_ID = new Map(LESSONS.map((l) => [l.id, l]));
 

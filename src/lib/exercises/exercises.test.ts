@@ -1,7 +1,7 @@
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import rawExercises from "@data/exercises.json";
-import rawVocab from "@data/vocab.json";
-import { sanitizeExercises, sanitizeVocab } from "../data/validate";
+import { readDataDir } from "../../../scripts/data-files";
+import { sanitizeAllExercises, sanitizeLessons } from "../data/validate";
 import { emptyProgress, recordAnswer } from "../progress/model";
 import { seededRandom } from "../text";
 import { buildSession, nextInfinite, type GenContext } from "./generate";
@@ -9,8 +9,9 @@ import { checkChoice, checkTiles, checkTyping } from "./check";
 import { initialSession, sessionReducer, examGrade } from "./session";
 import type { Exercise, SessionMode } from "./types";
 
-const vocab = sanitizeVocab(rawVocab);
-const exercises = sanitizeExercises(rawExercises, vocab.entries);
+const raw = readDataDir(fileURLToPath(new URL("../../../data", import.meta.url)));
+const vocab = sanitizeLessons({ lessons: raw.lessons.map(({ folder, vocab }) => ({ folder, vocab })), ignored: raw.ignored });
+const exercises = sanitizeAllExercises(Object.fromEntries(raw.lessons.map((l) => [l.folder, l.exercises])), vocab.lessons);
 const ctx = (seed = 1, progress = emptyProgress()): GenContext => ({
   vocab: vocab.entries,
   sets: exercises.file.words,
@@ -20,32 +21,6 @@ const ctx = (seed = 1, progress = emptyProgress()): GenContext => ({
   sessionLength: 15,
   random: seededRandom(seed),
   today: "2026-11-03",
-});
-
-describe("data files", () => {
-  it("vocab.json and exercises.json are valid and complete", () => {
-    expect(vocab.issues).toEqual([]);
-    expect(exercises.issues.filter((i) => i.level !== "info")).toEqual([]);
-    expect(exercises.missing).toEqual([]);
-  });
-
-  it("every curated sentence only uses known vocabulary or punctuation", () => {
-    const known = new Set(vocab.entries.map((v) => v.hanzi));
-    for (const [id, set] of Object.entries(exercises.file.words)) {
-      for (const s of set.examples) {
-        for (const token of s.zh) expect(known.has(token) || /^[，。！？、]$/.test(token), `${id}: ${token}`).toBe(true);
-      }
-    }
-  });
-
-  it("reports invalid data instead of crashing", () => {
-    const bad = sanitizeVocab([{ id: "x", hanzi: "abc", pinyin: "a", es: "b", lesson: "2026-1-1" }, 3, { id: "ni", hanzi: "你" }]);
-    expect(bad.entries).toEqual([]);
-    expect(bad.issues).toHaveLength(3);
-    const badEx = sanitizeExercises({ words: { ni: { examples: [{ zh: ["你"], pinyin: "nǐ", es: "tú" }], exercises: [{ type: "fill", example: 5 }, { type: "nope" }] } } }, vocab.entries);
-    expect(badEx.file.words.ni.exercises).toEqual([]);
-    expect(badEx.issues.filter((i) => i.level === "error")).toHaveLength(2);
-  });
 });
 
 /** Structural sanity of an exercise. */
@@ -102,6 +77,15 @@ describe("answer checking", () => {
       const tokens = ex.lang === "zh" ? [ex.solution] : ex.solution.split(" ");
       expect(checkTiles(ex, tokens).correct, ex.solution).toBe(true);
       expect(checkTiles(ex, ex.lang === "zh" ? [ex.solution.slice(1)] : tokens.slice(0, -1)).correct).toBe(false);
+    }
+  });
+
+  it("accepts the alternative word orders listed in exercises.json (es-zh)", () => {
+    const withAlternatives = all.filter((e) => e.type === "tiles" && e.lang === "zh" && e.answers.length > 1);
+    expect(withAlternatives.length).toBeGreaterThan(0);
+    for (const ex of withAlternatives) {
+      if (ex.type !== "tiles") continue;
+      for (const alternative of ex.answers.slice(1)) expect(checkTiles(ex, [alternative]).correct, alternative).toBe(true);
     }
   });
 

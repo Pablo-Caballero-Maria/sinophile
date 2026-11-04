@@ -7,7 +7,7 @@
  */
 import { useEffect, useImperativeHandle, useRef, type Ref } from "react";
 import type { Point } from "@/lib/drawing";
-import { useSettings } from "@/lib/settings";
+import { useSettings } from "@/lib/settings/store";
 import { RiceGrid, themeColor } from "./hanzi";
 
 export interface DrawingCanvasHandle {

@@ -6,7 +6,7 @@ import { Badge, ButtonLink, Card, cn, PageHeader, SectionTitle, Segmented, Toggl
 import { LESSONS, VOCAB_IDS } from "@/lib/data/vocab";
 import { dueItems } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
-import { useHydrated } from "@/lib/store";
+import { useReady } from "@/lib/account/client";
 import { formatDay } from "@/lib/text";
 
 interface Mode {
@@ -44,7 +44,7 @@ function ModeCard({ mode, href, badge }: { mode: Mode; href: string; badge?: str
 }
 
 export default function PracticePage() {
-  const hydrated = useHydrated();
+  const ready = useReady();
   const progress = useProgress();
   const [scope, setScope] = useState<string[]>([]);
   const [writingStyle, setWritingStyle] = useState<"guiado" | "libre" | "mixto">("mixto");
@@ -52,7 +52,7 @@ export default function PracticePage() {
   const [examWriting, setExamWriting] = useState(false);
 
   const l = scope.length ? `&l=${scope.join(",")}` : "";
-  const due = hydrated ? dueItems(progress, VOCAB_IDS).length : 0;
+  const due = ready ? dueItems(progress, VOCAB_IDS).length : 0;
   const toggle = (id: string) => setScope((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   const lastExam = progress.exams.at(-1);
 
@@ -90,7 +90,7 @@ export default function PracticePage() {
       <SectionTitle>Modos de práctica</SectionTitle>
       <div className="grid gap-3 sm:grid-cols-2">
         {MODES.map((mode) => (
-          <ModeCard key={mode.modo} mode={mode} href={`/sesion?modo=${mode.modo}${l}`} badge={mode.modo === "infinito" && hydrated && progress.records.infinite ? `Récord ${progress.records.infinite}` : undefined} />
+          <ModeCard key={mode.modo} mode={mode} href={`/sesion?modo=${mode.modo}${l}`} badge={mode.modo === "infinito" && ready && progress.records.infinite ? `Récord ${progress.records.infinite}` : undefined} />
         ))}
       </div>
 
@@ -139,7 +139,7 @@ export default function PracticePage() {
         <ButtonLink href={`/sesion?modo=examen&n=${examSize}${examWriting ? "&escritura=1" : ""}${l}`} variant="gold" full>
           Empezar examen
         </ButtonLink>
-        {hydrated && lastExam && (
+        {ready && lastExam && (
           <p className="text-center text-sm text-muted">
             Último examen: <b className="text-fg">{lastExam.grade.toLocaleString("es-ES")}</b> ({lastExam.correct}/{lastExam.total}) · <Link href="/progreso#examenes" className="underline">ver historial</Link>
           </p>

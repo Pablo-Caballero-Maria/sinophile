@@ -1,37 +1,67 @@
 # sinophile 汉
 
 App web (estilo Duolingo / Trainchinese) para estudiar el vocabulario de chino mandarín que aprendo en clase.
-100 % estática: Next.js (`output: "export"`) desplegada en Vercel en cada push a `main`.
+Next.js desplegada en Vercel en cada push a `main`: las páginas son estáticas y una pequeña API guarda
+las cuentas y el progreso en MongoDB Atlas.
 
 ## Flujo diario
 
-1. Después de clase, edito **`data/vocab.json`** en GitHub y añado las palabras nuevas:
+1. Después de clase creo en GitHub la carpeta de esa clase, **`data/AAAA-MM-DD/`** (la fecha de la clase),
+   con su **`vocab.json`**:
    ```json
-   { "id": "ni-hao", "hanzi": "你好", "pinyin": "nǐ hǎo", "es": "hola", "lesson": "2026-11-03" }
+   [
+     { "id": "ni-hao", "hanzi": "你好", "pinyin": "nǐ hǎo", "es": "hola" }
+   ]
    ```
-   Las palabras con la misma fecha (`lesson`) forman una lección. Ya se pueden practicar con los
-   ejercicios automáticos.
-2. En claude.ai subo `vocab.json`, `exercises.json` e `instructions.txt` y le pido:
-   *"read vocab and exercises, read instructions and follow the instructions to load new exercises from vocab if they are missing"*.
-3. Sustituyo **`data/exercises.json`** en GitHub por el que me devuelve. En 1-2 minutos la web está actualizada.
+   Cada carpeta es una lección. Los `id` no se pueden repetir entre clases (solo letras sin tildes,
+   números, `-` y `_`). Las palabras ya se pueden practicar con los ejercicios automáticos.
+2. En la app, en la página de la lección (o en **Ajustes → Estado de los datos**), pulso
+   **«Paquete para Claude»**: descarga un único archivo con `instructions.txt`, el vocabulario de las
+   clases anteriores y el de la nueva. Lo subo a claude.ai y le pido el `exercises.json` de esa clase.
+3. Guardo lo que me devuelve en **`data/AAAA-MM-DD/exercises.json`**. En 1-2 minutos la web está actualizada.
 
 Si algún JSON tiene errores, la app ignora lo inválido y lo muestra en **Ajustes → Estado de los datos**
 (si el JSON ni siquiera es válido, el build falla y Vercel mantiene la versión anterior).
 
 ## Datos (`data/`)
 
-| Archivo | Quién lo escribe | Contenido |
+| Ruta | Quién lo escribe | Contenido |
 |---|---|---|
-| `vocab.json` | yo, a mano | vocabulario por lecciones |
-| `exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
-| `progress.json` | la app (sincronización opcional con GitHub) | XP, rachas, repetición espaciada, exámenes, logros |
+| `AAAA-MM-DD/vocab.json` | yo, a mano | palabras de esa clase |
+| `AAAA-MM-DD/exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
 | `cedict.json` | `npm run dictionary` | diccionario CC-CEDICT compacto (CC BY-SA 4.0) |
-| `instructions.txt` | — | instrucciones para que Claude amplíe `exercises.json` |
+| `instructions.txt` | — | instrucciones para que Claude escriba el `exercises.json` de una clase |
 
-El progreso vive en el navegador (localStorage). En **Ajustes → Sincronización con GitHub** se puede
-conectar un token *fine-grained* (solo este repo, permiso *Contents: read & write*) para guardarlo en
-`data/progress.json` y compartirlo entre dispositivos. Esos commits no disparan un nuevo despliegue
-(`vercel.json` → `scripts/vercel-ignore.sh`).
+## Cuentas y progreso
+
+- **Modo invitado**: se puede usar todo sin cuenta, pero no se guarda nada (al cerrar la app se pierde).
+- **Con cuenta** (`/cuenta`): el progreso (XP, rachas, repetición espaciada, exámenes, logros) y los ajustes
+  se guardan en MongoDB y se comparten entre dispositivos. Al entrar o crear la cuenta se puede añadir
+  lo practicado como invitado.
+- El navegador no guarda datos de la app: solo la cookie de sesión (HttpOnly). El progreso que guardaba la
+  primera versión en `localStorage` se ofrece una vez para pasarlo a una cuenta y después se borra.
+- **Ajustes → Copia de seguridad** permite exportar/importar `progress.json` y borrar el progreso.
+
+### Base de datos
+
+Variables de entorno (en local, en `.env.local`; en Vercel, en *Settings → Environment Variables*;
+ver `.env.example`):
+
+| Variable | |
+|---|---|
+| `MONGODB_URI` | cadena de conexión del clúster de Atlas (secreta) |
+| `MONGODB_DB` | nombre de la base de datos (por defecto `sinophile`; en local uso `sinophile_dev`) |
+
+Colecciones: `users` (credenciales con hash scrypt + ajustes), `sessions` (sesiones; solo se guarda el
+SHA-256 del token de la cookie, caducan a los 180 días) y `progress` (un documento por cuenta). Los cambios
+de progreso se envían en segundo plano y solo con lo que ha cambiado; el servidor los combina con lo guardado
+(nunca se pierde lo hecho en otro dispositivo). Tras 10 contraseñas incorrectas seguidas la cuenta se bloquea
+15 minutos. Las funciones de Vercel corren en París (`vercel.json`), junto al clúster (GCP europe-west1).
+En Atlas, *Network Access* debe permitir conexiones desde Vercel (IP dinámica: `0.0.0.0/0`).
+
+API (`src/app/api/`): `GET/DELETE /api/account`, `POST /api/auth/register|login|logout`,
+`POST/DELETE /api/progress`, `PUT /api/settings`. Todas las peticiones que cambian algo deben ser JSON
+(defensa CSRF).
 
 ## Funcionalidades
 
@@ -51,26 +81,34 @@ conectar un token *fine-grained* (solo este repo, permiso *Contents: read & writ
 
 ```bash
 npm install
+cp .env.example .env.local   # y rellena MONGODB_URI
 npm run dev        # http://localhost:3000
-npm test           # tests unitarios (Vitest), incluida la validación de data/*.json
-npm run validate   # valida vocab.json y exercises.json
-npm run build      # export estático en out/
+npm test           # tests (Vitest): datos, lógica y la API contra un MongoDB en memoria
+npm run validate   # valida todas las carpetas de data/
+npm run build && npm start
 ```
 
-`scripts/prepare-data.ts` se ejecuta antes de `dev`/`build`: valida los datos, copia los JSON a `public/data/`
-y los trazos de cada carácter usado (paquete `hanzi-writer-data`) a `public/strokes/`.
+`scripts/prepare-data.ts` se ejecuta antes de `dev`, `build`, `test` y `typecheck`: valida los datos y genera
+`src/generated/lessons.json` (todo el vocabulario, que va dentro del JavaScript), `public/data/exercises.json`
+(los ejercicios de todas las clases, que se descargan al usarlos) y los trazos de cada carácter usado
+(paquete `hanzi-writer-data`) en `public/strokes/`. Los tests de la API descargan un `mongod` la primera vez.
 
 ### Estructura
 
 ```
+scripts/          prepare-data (genera los datos), data-files (lee data/), diccionario, iconos
 src/
-  app/            páginas: inicio, leccion, practicar, sesion, diccionario, palabra, progreso, ajustes
+  app/            páginas: inicio, leccion, practicar, sesion, diccionario, palabra, progreso, ajustes, cuenta
+  app/api/        rutas de la API (cuentas, progreso, ajustes)
+  server/         MongoDB, contraseñas y sesiones, operaciones de cuenta (solo servidor)
   components/     UI (ui.tsx), hanzi (hanzi.tsx), lienzo, ejercicios/, sesión/
   lib/
-    data/         carga + validación de vocab/exercises
+    account/      sesión en el navegador (invitado / cuenta), guardado en segundo plano, API, migración
+    data/         carga + validación de las lecciones, paquete para Claude
     exercises/    tipos, generador de sesiones, corrección, máquina de estados de la sesión
-    progress/     modelo de progreso (XP, rachas, dominio), logros, store, sincronización GitHub
-    pinyin.ts     tonos, comparación tolerante, división en sílabas
+    progress/     modelo de progreso (XP, rachas, dominio, combinación), logros, store en memoria
+    settings/     ajustes (modelo + store en memoria)
+    pinyin.ts     tonos, comparación tolerante, división en sílabas (con erhua)
     srs.ts        repetición espaciada
     drawing.ts    corrección de dibujo libre
     speech.ts     voz (TTS) y reconocimiento

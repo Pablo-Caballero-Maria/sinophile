@@ -1,11 +1,11 @@
 "use client";
-import { CalendarCheck, Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert } from "lucide-react";
+import { CalendarCheck, CloudUpload, Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert, UserRound } from "lucide-react";
 import Link from "next/link";
 import { LESSONS, VOCAB, VOCAB_IDS, VOCAB_ISSUES } from "@/lib/data/vocab";
 import { dueItems, isSeen, lessonMastery, lessonStars, streakInfo, type Progress } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
-import { useSettings } from "@/lib/settings";
-import { useHydrated } from "@/lib/store";
+import { useSettings } from "@/lib/settings/store";
+import { useAccount, useReady, type AccountState } from "@/lib/account/client";
 import { dayKey, formatDay } from "@/lib/text";
 import type { Lesson } from "@/lib/types";
 import { ButtonLink, Card, cn, EmptyState, Ring, SectionTitle, Skeleton, Stars } from "@/components/ui";
@@ -84,6 +84,25 @@ function LessonNode({ lesson, progress, index, current }: { lesson: Lesson; prog
   );
 }
 
+/** Reminds guests that nothing is saved (and offers to move the old browser progress to an account). */
+function GuestNotice({ account }: { account: AccountState }) {
+  if (account.status === "user" || account.status === "loading") return null;
+  const [Icon, title, text] = account.legacy
+    ? [CloudUpload, "Tu progreso anterior está en este navegador", "Crea una cuenta o entra en la tuya para guardarlo en la nube y tenerlo en todos tus dispositivos."]
+    : account.status === "offline"
+      ? [TriangleAlert, "Sin conexión con el servidor", "Puedes practicar, pero tu progreso no se guardará."]
+      : [UserRound, "Estás en modo invitado", "Puedes practicar todo, pero tu progreso no se guardará. Entra o crea una cuenta para conservarlo."];
+  return (
+    <Link href="/cuenta" className="mb-4 flex items-center gap-3 rounded-2xl border-2 border-sky/40 bg-sky-soft p-3 text-sm">
+      <Icon size={24} className="shrink-0 text-sky" />
+      <span>
+        <b className="block">{title}</b>
+        <span className="text-muted">{text}</span>
+      </span>
+    </Link>
+  );
+}
+
 const QUICK = [
   { href: "/sesion?modo=repaso", label: "Repaso", icon: RotateCcw, color: "text-sky" },
   { href: "/sesion?modo=infinito", label: "Infinito", icon: InfinityIcon, color: "text-brand" },
@@ -93,29 +112,32 @@ const QUICK = [
 ];
 
 export default function HomePage() {
-  const hydrated = useHydrated();
+  const ready = useReady();
+  const account = useAccount();
   const progress = useProgress();
 
   if (LESSONS.length === 0) {
     return (
       <EmptyState icon="📒" title="Aún no hay vocabulario">
-        Añade palabras a <code>data/vocab.json</code> en GitHub y la app se actualizará sola.
+        Crea en GitHub una carpeta por clase, <code>data/AAAA-MM-DD/</code>, con su <code>vocab.json</code>, y la app se actualizará sola.
       </EmptyState>
     );
   }
 
   const current = LESSONS.find((l) => l.words.some((w) => !isSeen(progress, w.id)));
-  const due = hydrated ? dueItems(progress, VOCAB_IDS).length : 0;
+  const due = ready ? dueItems(progress, VOCAB_IDS).length : 0;
 
   return (
     <div className="animate-fade-in">
       {VOCAB_ISSUES.length > 0 && (
         <Link href="/ajustes#datos" className="mb-4 flex items-center gap-2 rounded-2xl bg-gold-soft p-3 text-sm font-semibold text-gold-strong">
-          <TriangleAlert size={18} /> vocab.json tiene {VOCAB_ISSUES.length} problema(s). Toca para verlos.
+          <TriangleAlert size={18} /> El vocabulario tiene {VOCAB_ISSUES.length} problema(s). Toca para verlos.
         </Link>
       )}
 
-      {hydrated ? <DailyCard progress={progress} /> : <Skeleton className="h-48 rounded-3xl" />}
+      <GuestNotice account={account} />
+
+      {ready ? <DailyCard progress={progress} /> : <Skeleton className="h-48 rounded-3xl" />}
 
       <div className="mt-4 grid grid-cols-5 gap-2">
         {QUICK.map(({ href, label, icon: Icon, color }) => (
@@ -133,7 +155,7 @@ export default function HomePage() {
         Tus lecciones
       </SectionTitle>
       <div className="flex flex-col items-center gap-8 py-4">
-        {hydrated
+        {ready
           ? LESSONS.map((lesson, i) => <LessonNode key={lesson.id} lesson={lesson} progress={progress} index={i} current={lesson === current} />)
           : LESSONS.map((l) => <Skeleton key={l.id} className="h-28 w-28 rounded-full" />)}
       </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { vocabByHanzi } from "@/lib/data/vocab";
 import { charTones, segmentPinyin, type Tone } from "@/lib/pinyin";
-import { useSettings } from "@/lib/settings";
+import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
 import { hanziWriterLoader, loadStrokes, STROKE_TRANSFORM, type StrokeData } from "@/lib/strokes";
 import { hasHan, isPunctuation } from "@/lib/text";

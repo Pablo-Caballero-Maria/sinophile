@@ -2,7 +2,7 @@
 /** Pieces shared by all exercise components: prompt rendering, option rendering, footer bar. */
 import { useEffect, type ReactNode } from "react";
 import type { AnswerResult, Display, Prompt } from "@/lib/exercises/types";
-import { useSettings } from "@/lib/settings";
+import { useSettings } from "@/lib/settings/store";
 import { Hanzi, Pinyin, SentenceView, SpeakButton } from "../hanzi";
 import { Button, cn } from "../ui";
 

@@ -6,12 +6,13 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { HanziQuiz, Hanzi, Pinyin, SentenceView, SpeakButton, StrokeOrder, useStrokeData, wordHref } from "@/components/hanzi";
 import { Badge, Button, ButtonLink, Card, EmptyState, PageHeader, ProgressBar, SectionTitle, Skeleton } from "@/components/ui";
+import { suggestId, vocabLine } from "@/lib/data/format";
 import { useExercises } from "@/lib/data/remote";
 import { LESSON_BY_ID, VOCAB, VOCAB_BY_ID, vocabByHanzi } from "@/lib/data/vocab";
 import { lookup } from "@/lib/dictionary";
 import { itemOf } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
-import { useHydrated } from "@/lib/store";
+import { useReady } from "@/lib/account/client";
 import { MAX_BOX } from "@/lib/srs";
 import { formatDay, hanChars } from "@/lib/text";
 import { translate } from "@/lib/translate";
@@ -45,7 +46,7 @@ function CharacterCard({ char, definition }: { char: string; definition?: string
 
 function WordView() {
   const sp = useSearchParams();
-  const hydrated = useHydrated();
+  const ready = useReady();
   const progress = useProgress();
   const exercises = useExercises();
   const id = sp.get("id");
@@ -124,12 +125,12 @@ function WordView() {
             full
             className="mt-4"
             onClick={() => {
-              const line = JSON.stringify({ id: pinyin.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/\W+/g, "-"), hanzi, pinyin, es: spanish ?? "", lesson: new Date().toISOString().slice(0, 10) });
+              const line = vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: spanish ?? "" });
               void navigator.clipboard.writeText(line + ",");
               setCopied(true);
             }}
           >
-            <Copy size={18} /> {copied ? "¡Copiado! Pégalo en data/vocab.json" : "Copiar como entrada de vocab.json"}
+            <Copy size={18} /> {copied ? "¡Copiado! Pégalo en data/AAAA-MM-DD/vocab.json" : "Copiar como entrada de vocab.json"}
           </Button>
         )
       )}
@@ -162,7 +163,7 @@ function WordView() {
         <>
           <SectionTitle>Tu dominio</SectionTitle>
           <Card className="flex flex-col gap-3">
-            {hydrated ? (
+            {ready ? (
               SKILLS.map((skill) => {
                 const item = itemOf(progress, word.id, skill.id);
                 return (

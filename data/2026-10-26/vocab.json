@@ -1,0 +1,23 @@
+[
+  { "id": "ni-hao", "hanzi": "你好", "pinyin": "nǐ hǎo", "es": "hola" },
+  { "id": "laoshi", "hanzi": "老师", "pinyin": "lǎoshī", "es": "profesor" },
+  { "id": "xuesheng", "hanzi": "学生", "pinyin": "xuéshēng", "es": "estudiante" },
+  { "id": "pengyou", "hanzi": "朋友", "pinyin": "péngyou", "es": "amigo" },
+  { "id": "tongxue", "hanzi": "同学", "pinyin": "tóngxué", "es": "compañero de clase" },
+  { "id": "shi", "hanzi": "是", "pinyin": "shì", "es": "ser" },
+  { "id": "wo", "hanzi": "我", "pinyin": "wǒ", "es": "yo" },
+  { "id": "ni", "hanzi": "你", "pinyin": "nǐ", "es": "tú" },
+  { "id": "ta-m", "hanzi": "他", "pinyin": "tā", "es": "él" },
+  { "id": "ta-f", "hanzi": "她", "pinyin": "tā", "es": "ella" },
+  { "id": "women", "hanzi": "我们", "pinyin": "wǒmen", "es": "nosotros" },
+  { "id": "nimen", "hanzi": "你们", "pinyin": "nǐmen", "es": "vosotros" },
+  { "id": "tamen", "hanzi": "他们", "pinyin": "tāmen", "es": "ellos" },
+  { "id": "zhongguo", "hanzi": "中国", "pinyin": "Zhōngguó", "es": "China" },
+  { "id": "xibanya", "hanzi": "西班牙", "pinyin": "Xībānyá", "es": "España" },
+  { "id": "zhongwen", "hanzi": "中文", "pinyin": "Zhōngwén", "es": "chino" },
+  { "id": "xibanyayu", "hanzi": "西班牙语", "pinyin": "Xībānyáyǔ", "es": "español" },
+  { "id": "nanhaizi", "hanzi": "男孩", "pinyin": "nánhái", "es": "chico" },
+  { "id": "nvhaizi", "hanzi": "女孩", "pinyin": "nǚhái", "es": "chica" },
+  { "id": "bu", "hanzi": "不", "pinyin": "bù", "es": "no" },
+  { "id": "ye", "hanzi": "也", "pinyin": "yě", "es": "también" }
+]

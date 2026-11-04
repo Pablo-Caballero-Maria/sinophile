@@ -266,7 +266,8 @@ function curated(word: VocabEntry, set: WordSet, ex: CuratedExercise, ctx: GenCo
         prompt: { kind: "text", text: sentence.es },
         lang: "zh",
         tiles: shuffle([...tokens, ...extra], ctx.random),
-        answers: [normalizeZh(sentence.zh.join(""))],
+        // e.g. time words may go before or after the subject: 星期一我有考试 / 我星期一有考试
+        answers: [sentence.zh.join(""), ...(ex.accept ?? [])].map(normalizeZh),
         solution: sentence.zh.join(""),
       };
     }

@@ -1,79 +1,59 @@
 "use client";
 /**
- * Tiny external store persisted in localStorage, consumed with
- * useSyncExternalStore. Used for settings and progress (DRY).
- * During prerender (no window) the fallback value is served; components use
- * useHydrated() to show skeletons until the real data is available.
+ * Tiny in-memory external store consumed with useSyncExternalStore. Used for
+ * settings, progress and the account state (DRY).
+ *
+ * Nothing is persisted in the browser: the account layer (lib/account/client.ts)
+ * loads the stores from the server with `load()` and saves local changes, which
+ * it learns about through `onChange()`.
+ * During prerender (no window) the initial value is served; pages use
+ * useReady() (lib/account/client.ts) to show skeletons until the account is loaded.
  */
 import { useSyncExternalStore } from "react";
 
-export interface PersistentStore<T> {
+export interface Store<T> {
+  readonly initial: T;
   get(): T;
+  /** A local change (the learner did something): notifies subscribers and change handlers. */
   set(next: T | ((current: T) => T)): void;
+  /** Replaces the state with data that is already saved elsewhere: notifies subscribers only. */
+  load(next: T): void;
+  /** For React (useSyncExternalStore). */
   subscribe(listener: () => void): () => void;
-  fallback: T;
+  /** Called after every `set` with the new and the previous state. */
+  onChange(handler: (next: T, prev: T) => void): () => void;
 }
 
-export function createPersistentStore<T>(key: string, fallback: T, revive: (raw: unknown) => T): PersistentStore<T> {
-  let state = fallback;
-  let loaded = false;
+export function createStore<T>(initial: T): Store<T> {
+  let state = initial;
   const listeners = new Set<() => void>();
+  const handlers = new Set<(next: T, prev: T) => void>();
   const emit = () => listeners.forEach((l) => l());
-
-  const load = () => {
-    if (loaded || typeof window === "undefined") return;
-    loaded = true;
-    try {
-      const raw = localStorage.getItem(key);
-      if (raw) state = revive(JSON.parse(raw));
-    } catch {
-      /* corrupted or blocked storage: keep fallback */
-    }
-  };
-
   return {
-    fallback,
-    get() {
-      load();
-      return state;
-    },
+    initial,
+    get: () => state,
     set(next) {
-      load();
+      const prev = state;
       state = typeof next === "function" ? (next as (c: T) => T)(state) : next;
-      try {
-        localStorage.setItem(key, JSON.stringify(state));
-      } catch {
-        /* quota/private mode: state still lives in memory */
-      }
+      if (state === prev) return;
+      emit();
+      handlers.forEach((h) => h(state, prev));
+    },
+    load(next) {
+      state = next;
       emit();
     },
     subscribe(listener) {
       listeners.add(listener);
-      // Keep several open tabs in sync.
-      const onStorage = (e: StorageEvent) => {
-        if (e.key !== key) return;
-        loaded = false;
-        load();
-        emit();
-      };
-      window.addEventListener("storage", onStorage);
-      return () => {
-        listeners.delete(listener);
-        window.removeEventListener("storage", onStorage);
-      };
+      return () => listeners.delete(listener);
+    },
+    onChange(handler) {
+      handlers.add(handler);
+      return () => handlers.delete(handler);
     },
   };
 }
 
-export function useStore<T>(store: PersistentStore<T>): T {
-  return useSyncExternalStore(store.subscribe, store.get, () => store.fallback);
+export function useStore<T>(store: Store<T>): T {
+  return useSyncExternalStore(store.subscribe, store.get, () => store.initial);
 }
-
-const noop = () => () => {};
-/** false during prerender/hydration, true once running in the browser. */
-export const useHydrated = (): boolean =>
-  useSyncExternalStore(
-    noop,
-    () => true,
-    () => false,
-  );

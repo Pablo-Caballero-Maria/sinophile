@@ -11,7 +11,7 @@ import { buildSession, nextInfinite, type GenContext } from "@/lib/exercises/gen
 import { current, initialSession, MAX_LIVES, sessionReducer, xpFor } from "@/lib/exercises/session";
 import type { AnswerResult, SessionMode, SessionParams } from "@/lib/exercises/types";
 import { answer, progressStore } from "@/lib/progress/store";
-import { useSettings } from "@/lib/settings";
+import { useSettings } from "@/lib/settings/store";
 import { playSound } from "@/lib/sound";
 import { recognitionSupported } from "@/lib/speech";
 import type { VocabEntry, WordSet } from "@/lib/types";

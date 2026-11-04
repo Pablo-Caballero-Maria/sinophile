@@ -7,8 +7,8 @@ import { LESSONS, VOCAB } from "@/lib/data/vocab";
 import { ACHIEVEMENTS } from "@/lib/progress/achievements";
 import { isLearned, lessonMastery, lessonStars, levelInfo, skillMastery, streakInfo, totalXp, type Progress } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
-import { useSettings } from "@/lib/settings";
-import { useHydrated } from "@/lib/store";
+import { useSettings } from "@/lib/settings/store";
+import { useReady } from "@/lib/account/client";
 import { addDays, dayKey, formatDay } from "@/lib/text";
 import { SKILLS } from "@/lib/types";
 
@@ -128,9 +128,9 @@ function Heatmap({ progress }: { progress: Progress }) {
 }
 
 export default function ProgressPage() {
-  const hydrated = useHydrated();
+  const ready = useReady();
   const progress = useProgress();
-  if (!hydrated)
+  if (!ready)
     return (
       <div>
         <PageHeader title="Tu progreso" />

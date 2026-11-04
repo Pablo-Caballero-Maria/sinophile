@@ -151,12 +151,23 @@ export function segmentPinyin(text: string): { text: string; tone: Tone | null }
 
 /**
  * Tones per character of `hanzi`, or null when syllables and characters
- * cannot be aligned one-to-one (e.g. erhua or unusual spelling).
+ * cannot be aligned (unusual spelling). Erhua is supported: in 这儿 "zhèr"
+ * the 儿 has no syllable of its own and takes the tone of the one it joins.
  */
 export function charTones(hanzi: string, pinyin: string): Tone[] | null {
   const chars = [...hanzi].filter((c) => /\p{Script=Han}/u.test(c));
   const syllables = splitSyllables(pinyin);
-  return chars.length === syllables.length ? syllables.map((s) => s.tone) : null;
+  if (chars.length === syllables.length) return syllables.map((s) => s.tone);
+  const tones: Tone[] = [];
+  let next = 0;
+  for (const char of chars) {
+    const previous = syllables[next - 1];
+    const erhua = char === "儿" && previous && /r$/i.test(previous.text) && !/^[eēéěè]r$/i.test(previous.text);
+    if (erhua) tones.push(previous.tone);
+    else if (next < syllables.length) tones.push(syllables[next++].tone);
+    else return null;
+  }
+  return next === syllables.length ? tones : null;
 }
 
 /**

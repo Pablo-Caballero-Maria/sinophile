@@ -1,13 +1,13 @@
 "use client";
-/** App chrome: top bar with streak/XP, bottom tab bar on phones, side bar on wide screens. */
-import { BookOpen, ChartColumn, Dumbbell, Flame, House, Settings, Zap } from "lucide-react";
+/** App chrome: top bar with streak/XP and account, bottom tab bar on phones, side bar on wide screens. */
+import { BookOpen, ChartColumn, CloudOff, Dumbbell, Flame, House, LogIn, Settings, Zap } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
+import { bootAccount, useAccount, useReady } from "@/lib/account/client";
 import { streakInfo, totalXp } from "@/lib/progress/model";
-import { bootProgress, useProgress } from "@/lib/progress/store";
-import { applyTheme, useSettings } from "@/lib/settings";
-import { useHydrated } from "@/lib/store";
+import { useProgress } from "@/lib/progress/store";
+import { applyTheme, useSettings } from "@/lib/settings/store";
 import { dayKey } from "@/lib/text";
 import { cn, Skeleton } from "./ui";
 
@@ -26,16 +26,16 @@ export function Logo() {
       <span lang="zh-CN" className="grid h-9 w-9 place-items-center rounded-xl bg-brand font-hanzi text-xl font-bold text-white shadow-sm">
         汉
       </span>
-      <span className="text-xl font-black tracking-tight">sinophile</span>
+      <span className="text-xl font-black tracking-tight max-[400px]:hidden">sinophile</span>
     </Link>
   );
 }
 
 function Stats() {
-  const hydrated = useHydrated();
+  const ready = useReady();
   const progress = useProgress();
   const settings = useSettings();
-  if (!hydrated) return <Skeleton className="h-8 w-28" />;
+  if (!ready) return <Skeleton className="h-8 w-28" />;
   const streak = streakInfo(progress);
   const today = progress.days[dayKey()]?.xp ?? 0;
   return (
@@ -52,13 +52,37 @@ function Stats() {
   );
 }
 
+/** Guest: "Entrar" button. Signed in: initial of the username (+ a warning when changes could not be saved). */
+function AccountButton() {
+  const account = useAccount();
+  if (account.status === "loading") return <Skeleton className="h-9 w-9 rounded-full" />;
+  if (account.status !== "user")
+    return (
+      <Link href="/cuenta" className="flex items-center gap-1 rounded-xl border-2 border-line px-2.5 py-1 text-sm font-bold text-sky hover:bg-surface-2">
+        <LogIn size={18} /> Entrar
+      </Link>
+    );
+  const failed = account.save === "error";
+  return (
+    <Link
+      href="/cuenta"
+      aria-label={`Cuenta de ${account.username}`}
+      title={failed ? "No se pudo guardar tu progreso; se reintentará." : `Sesión iniciada: ${account.username}`}
+      className="relative grid h-9 w-9 place-items-center rounded-full bg-sky text-base font-black uppercase text-white"
+    >
+      {account.username?.[0]}
+      {failed && <CloudOff size={16} className="absolute -bottom-1 -right-1 rounded-full bg-bad p-0.5 text-white" />}
+    </Link>
+  );
+}
+
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { theme } = useSettings();
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
-  useEffect(() => void bootProgress(), []);
+  useEffect(() => void bootAccount(), []);
 
   // Practice sessions are full-screen and distraction-free.
   if (pathname.startsWith("/sesion")) return <>{children}</>;
@@ -95,6 +119,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link href="/ajustes" aria-label="Ajustes" className="rounded-xl p-2 text-muted hover:bg-surface-2 lg:hidden">
                 <Settings size={22} />
               </Link>
+              <AccountButton />
             </div>
           </div>
         </header>
