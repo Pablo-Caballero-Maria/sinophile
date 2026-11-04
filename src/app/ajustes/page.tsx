@@ -10,8 +10,6 @@ import { isEmptyProgress, reviveProgress } from "@/lib/progress/model";
 import { progressStore } from "@/lib/progress/store";
 import { updateSettings, useSettings } from "@/lib/settings/store";
 import { chineseVoices, onVoicesReady, speak } from "@/lib/speech";
-import { formatDay } from "@/lib/text";
-import { ClaudePackButton } from "@/components/claude-pack-button";
 
 function VoicePicker() {
   const settings = useSettings();
@@ -144,21 +142,18 @@ function DataStatus() {
   return (
     <Card className="flex flex-col gap-3 text-sm">
       <p>
-        <b>{VOCAB.length}</b> palabras en <b>{LESSONS.length}</b> lecciones (una carpeta <code>data/AAAA-MM-DD/</code> por clase).
+        <b>{VOCAB.length}</b> palabras en <b>{LESSONS.length}</b> lecciones (una carpeta <code>data/lección N/</code> por clase).
       </p>
       <ul className="flex flex-col gap-2">
         {LESSONS.map((lesson) => {
           const without = lesson.words.filter((w) => missing.has(w.id)).length;
           return (
             <li key={lesson.id} className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-surface-2 px-3 py-2">
-              <span className="font-bold">
-                L{lesson.number} · {formatDay(lesson.id)}
-              </span>
+              <span className="font-bold">Lección {lesson.number}</span>
               <span className="flex-1 text-muted">
                 {lesson.words.length} palabras ·{" "}
                 {exercises.loading ? "…" : without === 0 ? "todas con ejercicios propios" : `${without} sin ejercicios propios`}
               </span>
-              {!exercises.loading && without > 0 && <ClaudePackButton lesson={lesson} />}
             </li>
           );
         })}
@@ -176,9 +171,6 @@ function DataStatus() {
           ))}
         </ul>
       )}
-      <p className="text-muted">
-        «Paquete para Claude» descarga un archivo con las instrucciones y el vocabulario necesario: súbelo a claude.ai y pídele el exercises.json de esa clase.
-      </p>
     </Card>
   );
 }

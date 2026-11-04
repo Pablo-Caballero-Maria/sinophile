@@ -1,5 +1,5 @@
 /**
- * Validation + sanitisation of the hand-edited lesson data (data/<date>/*.json).
+ * Validation + sanitisation of the hand-edited lesson data (data/lección N/*.json).
  *
  * Philosophy: never crash on bad data. Invalid entries are dropped and
  * reported as human-readable (Spanish) issues, which the app shows in
@@ -22,7 +22,8 @@ export interface LessonBundle {
   ignored: string[];
 }
 
-const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
+/** "lección 3" (also tolerated: "Lección 3", "leccion 3", "lección-3", "lección_3"). */
+const LESSON_FOLDER_RE = /^lecci[oó]n[\s_-]*0*([1-9]\d*)$/i;
 /** Word ids end up as keys of the stored progress, so they are kept to a safe alphabet. */
 export const WORD_ID_RE = /^[A-Za-z0-9_-]+$/;
 
@@ -31,26 +32,23 @@ const isObject = (v: unknown): v is Record<string, unknown> =>
 const isText = (v: unknown): v is string => typeof v === "string" && v.trim().length > 0;
 const isTextArray = (v: unknown): v is string[] => Array.isArray(v) && v.every(isText);
 
-/** True for a real calendar date written as YYYY-MM-DD. */
-export function isDateKey(text: string): boolean {
-  const m = DATE_RE.exec(text);
-  if (!m) return false;
-  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
-  const date = new Date(Date.UTC(y, mo - 1, d));
-  return date.getUTCFullYear() === y && date.getUTCMonth() === mo - 1 && date.getUTCDate() === d;
+/** Lesson number of a folder name ("lección 3" → 3), or null when the name is not valid. */
+export function lessonNumber(folder: string): number | null {
+  const m = LESSON_FOLDER_RE.exec(folder.normalize("NFC").trim());
+  return m ? Number(m[1]) : null;
 }
 
 /**
- * Validates one lesson's vocab.json. `seen` maps ids already used by earlier
- * lessons to their lesson, so ids stay unique across the whole vocabulary
+ * Validates one lesson's vocab.json. `seen` maps ids already used by other
+ * lessons to their folder, so ids stay unique across the whole vocabulary
  * (progress is stored per word id). The first occurrence wins.
  */
 export function sanitizeVocab(
   raw: unknown,
-  lessonId: string,
+  lesson: Pick<Lesson, "id" | "folder">,
   seen: Map<string, string> = new Map(),
 ): { entries: VocabEntry[]; issues: Issue[] } {
-  const file = `${lessonId}/vocab.json`;
+  const file = `${lesson.folder}/vocab.json`;
   const issues: Issue[] = [];
   if (!Array.isArray(raw)) {
     return { entries: [], issues: [{ level: "error", message: `${file} debe ser una lista [ … ].` }] };
@@ -78,17 +76,17 @@ export function sanitizeVocab(
     }
     const previous = seen.get(id);
     if (previous) {
-      const place = previous === lessonId ? "en esta lección" : `en ${previous}/vocab.json`;
+      const place = previous === lesson.folder ? "en esta lección" : `en ${previous}/vocab.json`;
       issues.push({ level: "error", message: `${where}: el id "${id}" ya existe ${place}; se ignora esta entrada.` });
       return;
     }
-    seen.set(id, lessonId);
-    entries.push({ id, hanzi, pinyin, es, lesson: lessonId });
+    seen.set(id, lesson.folder);
+    entries.push({ id, hanzi, pinyin, es, lesson: lesson.id });
   });
   return { entries, issues };
 }
 
-/** Validates every lesson folder. Lessons are numbered in date order. */
+/** Validates every lesson folder. Lessons are ordered by the number in the folder name. */
 export function sanitizeLessons(bundle: LessonBundle): { lessons: Lesson[]; entries: VocabEntry[]; issues: Issue[] } {
   const issues: Issue[] = [];
   const seen = new Map<string, string>();
@@ -96,26 +94,38 @@ export function sanitizeLessons(bundle: LessonBundle): { lessons: Lesson[]; entr
   for (const path of bundle.ignored) {
     issues.push({
       level: "warning",
-      message: `data/${path} se ignora: cada clase va en su carpeta data/AAAA-MM-DD/ con vocab.json y exercises.json.`,
+      message: `data/${path} se ignora: cada clase va en su carpeta data/lección N/ con vocab.json y exercises.json.`,
     });
   }
-  const folders = [...bundle.lessons].sort((a, b) => a.folder.localeCompare(b.folder));
-  for (const { folder, vocab } of folders) {
-    if (!isDateKey(folder)) {
-      issues.push({ level: "error", message: `data/${folder}/: el nombre de la carpeta debe ser la fecha de la clase (AAAA-MM-DD); se ignora.` });
+  // By number; if two folders claim the same number, the one spelled exactly «lección N» wins.
+  const canonical = (l: { folder: string; number: number | null }) => (l.folder.normalize("NFC") === `lección ${l.number}` ? 0 : 1);
+  const folders = bundle.lessons
+    .map((l) => ({ ...l, number: lessonNumber(l.folder) }))
+    .sort((a, b) => (a.number ?? Infinity) - (b.number ?? Infinity) || canonical(a) - canonical(b) || a.folder.localeCompare(b.folder));
+  const taken = new Map<number, string>();
+  for (const { folder, vocab, number } of folders) {
+    if (number === null) {
+      issues.push({ level: "error", message: `data/${folder}/: el nombre de la carpeta debe ser «lección» y un número (p. ej. «lección 3»); se ignora.` });
       continue;
     }
+    const other = taken.get(number);
+    if (other) {
+      issues.push({ level: "error", message: `data/${folder}/: ya existe la carpeta «${other}» para la lección ${number}; se ignora.` });
+      continue;
+    }
+    taken.set(number, folder);
     if (vocab === null || vocab === undefined) {
-      issues.push({ level: "error", message: `data/${folder}/vocab.json no existe; se ignora esta clase.` });
+      issues.push({ level: "error", message: `data/${folder}/vocab.json no existe; se ignora esta lección.` });
       continue;
     }
-    const result = sanitizeVocab(vocab, folder, seen);
+    const lesson = { id: String(number), folder };
+    const result = sanitizeVocab(vocab, lesson, seen);
     issues.push(...result.issues);
     if (result.entries.length === 0) {
       issues.push({ level: "warning", message: `${folder}/vocab.json no tiene ninguna palabra válida.` });
       continue;
     }
-    lessons.push({ id: folder, number: lessons.length + 1, words: result.entries });
+    lessons.push({ ...lesson, number, words: result.entries });
   }
   return { lessons, entries: lessons.flatMap((l) => l.words), issues };
 }
@@ -185,12 +195,12 @@ export interface ExercisesResult {
  * Validates one lesson's exercises.json against that lesson's words.
  * `raw === null` means the file does not exist yet.
  */
-export function sanitizeExercises(raw: unknown, lesson: Pick<Lesson, "id" | "words">, allWords: VocabEntry[] = lesson.words): ExercisesResult {
-  const file = `${lesson.id}/exercises.json`;
+export function sanitizeExercises(raw: unknown, lesson: Pick<Lesson, "folder" | "words">, allWords: VocabEntry[] = lesson.words): ExercisesResult {
+  const file = `${lesson.folder}/exercises.json`;
   const issues: Issue[] = [];
   const out: ExercisesFile = { version: 1, words: {} };
   const byId = new Map(lesson.words.map((v) => [v.id, v]));
-  const allIds = new Map(allWords.map((v) => [v.id, v.lesson]));
+  const allIds = new Map(allWords.map((v) => [v.id, `la lección ${v.lesson}`]));
   const missingIds = () => lesson.words.filter((v) => !out.words[v.id]).map((v) => v.id);
 
   if (raw === null || raw === undefined) {
@@ -208,7 +218,7 @@ export function sanitizeExercises(raw: unknown, lesson: Pick<Lesson, "id" | "wor
     const word = byId.get(id);
     if (!word) {
       const elsewhere = allIds.get(id);
-      const why = elsewhere ? `es una palabra de ${elsewhere}, no de esta clase` : "no existe en su vocab.json";
+      const why = elsewhere ? `es una palabra de ${elsewhere}, no de esta` : "no existe en su vocab.json";
       issues.push({ level: "warning", message: `${file}: "${id}" ${why}; se ignora.` });
       continue;
     }
@@ -247,11 +257,11 @@ export function sanitizeExercises(raw: unknown, lesson: Pick<Lesson, "id" | "wor
  * Validates the exercises of every lesson (keyed by lesson folder) and combines them.
  * (Exercise files of folders that are not valid lessons were already reported by sanitizeLessons.)
  */
-export function sanitizeAllExercises(rawByLesson: Record<string, unknown>, lessons: Lesson[]): ExercisesResult {
+export function sanitizeAllExercises(rawByFolder: Record<string, unknown>, lessons: Lesson[]): ExercisesResult {
   const all = lessons.flatMap((l) => l.words);
   const combined: ExercisesResult = { file: { version: 1, words: {} }, issues: [], missing: [] };
   for (const lesson of lessons) {
-    const result = sanitizeExercises(rawByLesson[lesson.id] ?? null, lesson, all);
+    const result = sanitizeExercises(rawByFolder[lesson.folder] ?? null, lesson, all);
     Object.assign(combined.file.words, result.file.words);
     combined.issues.push(...result.issues);
     combined.missing.push(...result.missing);

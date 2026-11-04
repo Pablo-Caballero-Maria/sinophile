@@ -1,5 +1,5 @@
 /**
- * The vocabulary of every lesson folder (data/<date>/vocab.json) is bundled at
+ * The vocabulary of every lesson folder (data/lección N/vocab.json) is bundled at
  * build time by scripts/prepare-data.ts (every push to GitHub rebuilds the
  * site), so lessons and words are available instantly without a fetch.
  */
@@ -14,7 +14,7 @@ export const VOCAB_ISSUES = parsed.issues;
 export const VOCAB_BY_ID = new Map(VOCAB.map((w) => [w.id, w]));
 export const VOCAB_IDS = new Set(VOCAB_BY_ID.keys());
 
-/** Lessons in chronological order (by folder date). */
+/** Lessons in order (by the number in the folder name). */
 export const LESSONS: Lesson[] = parsed.lessons;
 
 export const LESSON_BY_ID = new Map(LESSONS.map((l) => [l.id, l]));

@@ -2,14 +2,14 @@
  * Runs before `next dev`, `next build`, the tests and the type check (npm pre-scripts),
  * and on `npm run validate`.
  *
- *  1. Reads every lesson folder data/<YYYY-MM-DD>/ and fails with a clear message on
+ *  1. Reads every lesson folder data/lección N/ and fails with a clear message on
  *     JSON syntax errors (Vercel then keeps serving the previous deployment).
  *  2. Validates vocab + exercises and prints any issues (never fails on them: the
  *     app shows them in Ajustes → Estado de los datos).
  *  3. Writes the generated files the app reads:
  *       src/generated/lessons.json   all vocab.json files (bundled into the JS)
- *       public/data/exercises.json   all exercises.json files, keyed by lesson (fetched at runtime)
- *       public/data/cedict.json, public/data/instructions.txt
+ *       public/data/exercises.json   all exercises.json files, keyed by lesson folder (fetched at runtime)
+ *       public/data/cedict.json      the general dictionary
  *     and copies the stroke-order data of every character used to public/strokes/
  *     (from the hanzi-writer-data package).
  *
@@ -59,9 +59,7 @@ writeJson("src/generated/lessons.json", bundle);
 rmSync(path("public/data"), { recursive: true, force: true });
 mkdirSync(path("public/data"), { recursive: true });
 writeJson("public/data/exercises.json", exercisesByLesson);
-for (const file of ["cedict.json", "instructions.txt"]) {
-  if (existsSync(path(`data/${file}`))) copyFileSync(path(`data/${file}`), path(`public/data/${file}`));
-}
+if (existsSync(path("data/cedict.json"))) copyFileSync(path("data/cedict.json"), path("public/data/cedict.json"));
 
 // Stroke data for every character in vocab + example sentences.
 const chars = new Set<string>();

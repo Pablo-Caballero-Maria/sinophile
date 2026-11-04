@@ -92,12 +92,8 @@ function AuthForm({ account }: { account: AccountState }) {
           <Toggle
             checked={adopt}
             onChange={setAdopt}
-            label={account.legacy ? "Pasar a la cuenta el progreso de este navegador" : "Añadir a la cuenta lo que has practicado"}
-            description={
-              account.legacy
-                ? `Progreso de la versión anterior de la app (${totalXp(progress)} XP). Después se borrará de este navegador.`
-                : `${totalXp(progress)} XP conseguidos en esta visita${account.expired ? " (antes de que caducara la sesión)" : " como invitado"}.`
-            }
+            label="Añadir a la cuenta lo que has practicado"
+            description={`${totalXp(progress)} XP conseguidos en esta visita${account.expired ? " (antes de que caducara la sesión)" : " como invitado"}.`}
           />
         )}
         {error && <p className="text-sm font-semibold text-bad">{error}</p>}

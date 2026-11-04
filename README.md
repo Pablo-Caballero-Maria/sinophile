@@ -6,19 +6,19 @@ las cuentas y el progreso en MongoDB Atlas.
 
 ## Flujo diario
 
-1. Después de clase creo en GitHub la carpeta de esa clase, **`data/AAAA-MM-DD/`** (la fecha de la clase),
+1. Después de clase creo en GitHub la carpeta de esa clase, **`data/lección N/`** (`lección 1`, `lección 2`…),
    con su **`vocab.json`**:
    ```json
    [
      { "id": "ni-hao", "hanzi": "你好", "pinyin": "nǐ hǎo", "es": "hola" }
    ]
    ```
-   Cada carpeta es una lección. Los `id` no se pueden repetir entre clases (solo letras sin tildes,
-   números, `-` y `_`). Las palabras ya se pueden practicar con los ejercicios automáticos.
-2. En la app, en la página de la lección (o en **Ajustes → Estado de los datos**), pulso
-   **«Paquete para Claude»**: descarga un único archivo con `instructions.txt`, el vocabulario de las
-   clases anteriores y el de la nueva. Lo subo a claude.ai y le pido el `exercises.json` de esa clase.
-3. Guardo lo que me devuelve en **`data/AAAA-MM-DD/exercises.json`**. En 1-2 minutos la web está actualizada.
+   Cada carpeta es una lección; el número del nombre marca el orden. Los `id` no se pueden repetir entre
+   clases (solo letras sin tildes, números, `-` y `_`). Las palabras ya se pueden practicar con los
+   ejercicios automáticos.
+2. Le paso a Claude `instructions.txt`, el `vocab.json` de la clase nueva y los de las anteriores, y le pido
+   el `exercises.json` de esa clase.
+3. Lo guardo en **`data/lección N/exercises.json`**. En 1-2 minutos la web está actualizada.
 
 Si algún JSON tiene errores, la app ignora lo inválido y lo muestra en **Ajustes → Estado de los datos**
 (si el JSON ni siquiera es válido, el build falla y Vercel mantiene la versión anterior).
@@ -27,8 +27,8 @@ Si algún JSON tiene errores, la app ignora lo inválido y lo muestra en **Ajust
 
 | Ruta | Quién lo escribe | Contenido |
 |---|---|---|
-| `AAAA-MM-DD/vocab.json` | yo, a mano | palabras de esa clase |
-| `AAAA-MM-DD/exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
+| `lección N/vocab.json` | yo, a mano | palabras de esa clase |
+| `lección N/exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
 | `cedict.json` | `npm run dictionary` | diccionario CC-CEDICT compacto (CC BY-SA 4.0) |
 | `instructions.txt` | — | instrucciones para que Claude escriba el `exercises.json` de una clase |
 
@@ -38,8 +38,7 @@ Si algún JSON tiene errores, la app ignora lo inválido y lo muestra en **Ajust
 - **Con cuenta** (`/cuenta`): el progreso (XP, rachas, repetición espaciada, exámenes, logros) y los ajustes
   se guardan en MongoDB y se comparten entre dispositivos. Al entrar o crear la cuenta se puede añadir
   lo practicado como invitado.
-- El navegador no guarda datos de la app: solo la cookie de sesión (HttpOnly). El progreso que guardaba la
-  primera versión en `localStorage` se ofrece una vez para pasarlo a una cuenta y después se borra.
+- El navegador no guarda datos de la app: solo la cookie de sesión (HttpOnly).
 - **Ajustes → Copia de seguridad** permite exportar/importar `progress.json` y borrar el progreso.
 
 ### Base de datos
@@ -103,8 +102,8 @@ src/
   server/         MongoDB, contraseñas y sesiones, operaciones de cuenta (solo servidor)
   components/     UI (ui.tsx), hanzi (hanzi.tsx), lienzo, ejercicios/, sesión/
   lib/
-    account/      sesión en el navegador (invitado / cuenta), guardado en segundo plano, API, migración
-    data/         carga + validación de las lecciones, paquete para Claude
+    account/      sesión en el navegador (invitado / cuenta), guardado en segundo plano, llamadas a la API
+    data/         carga + validación de las lecciones
     exercises/    tipos, generador de sesiones, corrección, máquina de estados de la sesión
     progress/     modelo de progreso (XP, rachas, dominio, combinación), logros, store en memoria
     settings/     ajustes (modelo + store en memoria)

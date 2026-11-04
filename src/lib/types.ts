@@ -1,9 +1,9 @@
 /**
- * Shared domain types. The JSON files in /data/<date>/ follow these shapes;
+ * Shared domain types. The JSON files in data/lección N/ follow these shapes;
  * see data/instructions.txt for the human/LLM-facing description.
  */
 
-/** One word as written by hand in data/<date>/vocab.json (plus the lesson it belongs to). */
+/** One word as written by hand in data/lección N/vocab.json (plus the lesson it belongs to). */
 export interface VocabEntry {
   /** Unique across all lessons (progress is stored per id). */
   id: string;
@@ -11,7 +11,7 @@ export interface VocabEntry {
   pinyin: string;
   /** Spanish meaning(s). Several meanings may be separated by "/", ";" or ",". */
   es: string;
-  /** Lesson id = name of the lesson folder (the class date, YYYY-MM-DD). Not written in the file. */
+  /** Id of its lesson (the lesson number as text, "1", "2"…). Comes from the folder, not from the file. */
   lesson: string;
 }
 
@@ -76,11 +76,13 @@ export interface DictEntry {
   id?: string;
 }
 
-/** A lesson = one class = one data/<date>/ folder. */
+/** A lesson = one class = one data/lección N/ folder. */
 export interface Lesson {
-  /** Folder name: the class date (YYYY-MM-DD). */
+  /** The lesson number as text ("1", "2"…): used in URLs and stored progress. */
   id: string;
-  /** 1-based position in chronological order. */
+  /** Folder name inside data/ ("lección 1"). */
+  folder: string;
+  /** The number in the folder name; lessons are shown in this order. */
   number: number;
   words: VocabEntry[];
 }

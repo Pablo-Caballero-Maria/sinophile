@@ -4,13 +4,13 @@ INSTRUCCIONES PARA CLAUDE: CÓMO ESCRIBIR EL exercises.json DE UNA CLASE
 Contexto
 --------
 "sinophile" es una app web (estilo Duolingo) para estudiar chino mandarín. El
-vocabulario está organizado en una carpeta por clase dentro de data/, con la fecha de
-la clase como nombre:
+vocabulario está organizado en una carpeta por clase dentro de data/, llamada
+«lección» y el número de la clase:
 
-  data/2026-10-26/vocab.json       ← palabras de esa clase (las escribe el usuario a mano)
-  data/2026-10-26/exercises.json   ← lo escribes tú (Claude) para esa clase
-  data/2026-11-03/vocab.json
-  data/2026-11-03/exercises.json
+  data/lección 1/vocab.json        ← palabras de esa clase (las escribe el usuario a mano)
+  data/lección 1/exercises.json    ← lo escribes tú (Claude) para esa clase
+  data/lección 2/vocab.json
+  data/lección 2/exercises.json
   …
   data/instructions.txt            ← este documento
 
@@ -27,17 +27,13 @@ aportas tú en exercises.json.
 
 Qué recibirás
 -------------
-Normalmente un único archivo "paquete" (claude-AAAA-MM-DD.txt, lo descarga la app en
-Ajustes → Estado de los datos o en la página de la lección) que contiene:
   1. Estas instrucciones.
-  2. El vocab.json de todas las clases ANTERIORES (vocabulario ya conocido).
-  3. El vocab.json de la clase NUEVA.
-  4. Su exercises.json, si ya existe.
-Si en lugar del paquete recibes los archivos sueltos, es la misma información.
+  2. El vocab.json de la lección NUEVA (y su exercises.json, si ya existe).
+  3. El vocab.json de todas las lecciones ANTERIORES (vocabulario ya conocido).
 
 Tu tarea
 --------
-1. Identifica la clase nueva (su fecha) y sus palabras.
+1. Identifica la lección nueva (su número) y sus palabras.
 2. Calcula las palabras PENDIENTES: los "id" de la clase nueva que no tienen conjunto en
    su exercises.json (si el archivo no existe, lo están todas).
 3. Si no hay ninguna pendiente, responde: "No hay vocabulario nuevo: exercises.json ya
@@ -47,7 +43,7 @@ Tu tarea
    Solo van en este archivo palabras de ESTA clase: las de otras clases tienen el suyo.
    (Si una clave de "words" no existe en el vocab.json de la clase, avísalo al usuario;
    puedes proponer eliminarla, pero no lo hagas sin decirlo.)
-5. Devuelve el archivo data/AAAA-MM-DD/exercises.json COMPLETO y válido (JSON estricto:
+5. Devuelve el archivo data/lección N/exercises.json COMPLETO y válido (JSON estricto:
    comillas dobles, sin comentarios, sin comas finales), listo para que el usuario lo
    guarde en GitHub, preferiblemente como archivo descargable. Después, en 2-3 líneas,
    resume qué ids has añadido.
@@ -136,13 +132,14 @@ Reglas de calidad (importantes)
      nuevas. En las notas y explicaciones sí puedes mencionar palabras nuevas si ayudan.
   2. Los tokens chinos deben coincidir EXACTAMENTE con el "hanzi" de los vocab.json
      (mismo carácter simplificado).
-  3. Chino natural y correcto, en caracteres simplificados.
+  3. Chino natural y correcto, en caracteres simplificados. Usa las formas sin erhua
+     (这里, 那里, 哪里), no 这儿, 那儿, 哪儿.
   4. Pinyin con tildes de tono (no números), mayúscula inicial y en los nombres propios
      (Zhōngguó, Xībānyá), con la misma puntuación que la frase. Marca el cambio de tono de
      不 (bú delante de 4.º tono: "bú shì") y de 一 (yí delante de 4.º tono: "yí jiàn";
      yì delante de los demás: "yì běn"; yī al contar, en fechas y meses: "yīyuè"); no
      marques el sandhi del 3.er tono (escribe "nǐ hǎo"). Sílabas átonas sin tilde
-     (péngyou, xǐhuan, yīfu). Erhua pegada a la sílaba: 这儿 = "zhèr".
+     (péngyou, xǐhuan, yīfu).
   5. Español de España (vosotros), natural, con signos ¡! ¿?.
   6. Cada frase de ejemplo debería contener la palabra del conjunto.
   7. Los "distractors" no deben coincidir con la respuesta correcta ni ser sinónimos que

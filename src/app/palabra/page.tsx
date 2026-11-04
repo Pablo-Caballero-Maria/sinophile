@@ -103,7 +103,7 @@ function WordView() {
         {lesson && (
           <Link href={`/leccion?id=${lesson.id}`}>
             <Badge className="bg-sky-soft text-sky">
-              Lección {lesson.number} · {formatDay(lesson.id)}
+              Lección {lesson.number}
             </Badge>
           </Link>
         )}
@@ -130,7 +130,7 @@ function WordView() {
               setCopied(true);
             }}
           >
-            <Copy size={18} /> {copied ? "¡Copiado! Pégalo en data/AAAA-MM-DD/vocab.json" : "Copiar como entrada de vocab.json"}
+            <Copy size={18} /> {copied ? "¡Copiado! Pégalo en data/lección N/vocab.json" : "Copiar como entrada de vocab.json"}
           </Button>
         )
       )}

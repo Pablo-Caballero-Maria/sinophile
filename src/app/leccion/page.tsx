@@ -3,15 +3,12 @@ import { ChevronRight, GraduationCap, Headphones, Layers, Mic, MessageSquareText
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import { ClaudePackButton } from "@/components/claude-pack-button";
 import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/hanzi";
 import { ButtonLink, Card, EmptyState, PageHeader, ProgressBar, SectionTitle, Skeleton, Stars } from "@/components/ui";
-import { useExercises } from "@/lib/data/remote";
 import { LESSON_BY_ID } from "@/lib/data/vocab";
 import { lessonMastery, lessonStars, wordMastery } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { useReady } from "@/lib/account/client";
-import { formatDay } from "@/lib/text";
 
 const MODES = [
   { modo: "escritura", label: "Escritura", icon: PenLine, color: "text-ok" },
@@ -27,14 +24,13 @@ function LessonView() {
   const lesson = LESSON_BY_ID.get(id);
   const ready = useReady();
   const progress = useProgress();
-  const exercises = useExercises();
 
   if (!lesson) return <EmptyState icon="🔍" title="Lección no encontrada"><Link href="/" className="text-sky underline">Volver al inicio</Link></EmptyState>;
 
   const mastery = lessonMastery(progress, lesson);
   return (
     <div className="animate-fade-in">
-      <PageHeader back="/" title={`Lección ${lesson.number}`} subtitle={`${formatDay(lesson.id)} · ${lesson.words.length} palabras`} />
+      <PageHeader back="/" title={`Lección ${lesson.number}`} subtitle={`${lesson.words.length} palabras`} />
       <Card className="flex flex-col gap-3">
         {ready ? (
           <div className="flex items-center gap-3">
@@ -60,17 +56,6 @@ function LessonView() {
           <GraduationCap size={20} className="text-gold" /> Examen de la lección
         </ButtonLink>
       </Card>
-
-      {lesson && exercises.data && lesson.words.some((w) => exercises.data?.missing.includes(w.id)) && (
-        <Card tone="gold" className="mt-4 flex flex-col gap-2 text-sm">
-          <p>
-            <b>Faltan ejercicios propios</b> (frases, huecos, traducciones…) para{" "}
-            {lesson.words.filter((w) => exercises.data?.missing.includes(w.id)).length} palabras de esta clase. Descarga el paquete, súbelo a claude.ai y
-            guarda lo que te devuelva en <code>data/{lesson.id}/exercises.json</code>.
-          </p>
-          <ClaudePackButton lesson={lesson} />
-        </Card>
-      )}
 
       <SectionTitle>Palabras</SectionTitle>
       <ul className="flex flex-col gap-2">

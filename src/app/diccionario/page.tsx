@@ -9,7 +9,7 @@ import { LESSONS, VOCAB } from "@/lib/data/vocab";
 import { indexVocab, search, segmentText } from "@/lib/dictionary";
 import { suggestId, vocabLine } from "@/lib/data/format";
 import { listen, recognitionSupported } from "@/lib/speech";
-import { formatDay, hasHan } from "@/lib/text";
+import { hasHan } from "@/lib/text";
 import { translate, type Lang } from "@/lib/translate";
 import type { DictEntry } from "@/lib/types";
 import { useCedict } from "@/lib/use-cedict";
@@ -72,7 +72,7 @@ function SearchTab({ initial }: { initial: string }) {
           {LESSONS.map((lesson) => (
             <div key={lesson.id} className="mb-4">
               <p className="mb-2 text-sm font-bold text-muted">
-                Lección {lesson.number} · {formatDay(lesson.id)}
+                Lección {lesson.number}
               </p>
               <ul className="flex flex-col gap-2">
                 {lesson.words.map((w) => (
@@ -223,7 +223,7 @@ function TranslateTab() {
           )}
           {singleWord && (
             <div className="rounded-2xl bg-surface-2 p-3">
-              <p className="mb-2 text-sm text-muted">¿Quieres añadirla a tu vocabulario? Copia esta línea en el vocab.json de la clase (data/AAAA-MM-DD/vocab.json):</p>
+              <p className="mb-2 text-sm text-muted">¿Quieres añadirla a tu vocabulario? Copia esta línea en el vocab.json de la clase (data/lección N/vocab.json):</p>
               <code className="block overflow-x-auto whitespace-nowrap text-xs">{vocabSnippet(result.zh, result.pinyin.replace(/ /g, ""), result.source)}</code>
               <Button
                 size="sm"

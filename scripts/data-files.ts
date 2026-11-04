@@ -2,10 +2,10 @@
  * Reads the hand-edited data folder from disk (Node only: build script + tests).
  *
  *   data/
- *     2026-10-26/            ← one folder per class, named after its date
+ *     lección 1/             ← one folder per class: "lección" + its number
  *       vocab.json           ← words of that class (written by hand)
  *       exercises.json       ← curated exercises for those words (Claude, see instructions.txt)
- *     2026-11-03/ …
+ *     lección 2/ …
  *     cedict.json            ← general dictionary (npm run dictionary)
  *     instructions.txt       ← how Claude writes exercises.json
  *
@@ -22,7 +22,7 @@ export const ROOT_FILES = ["cedict.json", "instructions.txt"];
 export const LESSON_FILES = ["vocab.json", "exercises.json"];
 
 export interface RawLessonFolder {
-  /** Folder name (should be the class date, YYYY-MM-DD). */
+  /** Folder name (should be "lección N"). */
   folder: string;
   /** Parsed vocab.json, or null when the file is missing. */
   vocab: unknown;

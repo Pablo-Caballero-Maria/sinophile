@@ -1248,13 +1248,13 @@
       "note": "Vaso, taza (el objeto). Para contar bebidas se usa solo 杯: 一杯咖啡 = un café; 杯子 es el vaso en sí.",
       "examples": [
         {
-          "zh": ["这儿", "有", "杯子", "吗", "？"],
-          "pinyin": "Zhèr yǒu bēizi ma?",
+          "zh": ["这里", "有", "杯子", "吗", "？"],
+          "pinyin": "Zhèlǐ yǒu bēizi ma?",
           "es": "¿Hay vasos aquí?"
         },
         {
-          "zh": ["那儿", "没有", "杯子", "。"],
-          "pinyin": "Nàr méiyǒu bēizi.",
+          "zh": ["那里", "没有", "杯子", "。"],
+          "pinyin": "Nàlǐ méiyǒu bēizi.",
           "es": "Allí no hay vasos."
         }
       ],
@@ -1289,8 +1289,8 @@
           "es": "Mi amigo tiene un edificio."
         },
         {
-          "zh": ["那儿", "有", "三", "栋", "楼", "。"],
-          "pinyin": "Nàr yǒu sān dòng lóu.",
+          "zh": ["那里", "有", "三", "栋", "楼", "。"],
+          "pinyin": "Nàlǐ yǒu sān dòng lóu.",
           "es": "Allí hay tres edificios."
         }
       ],
@@ -1421,8 +1421,8 @@
           "es": "Ellos tienen cinco edificios."
         },
         {
-          "zh": ["这儿", "有", "一", "栋", "楼", "。"],
-          "pinyin": "Zhèr yǒu yí dòng lóu.",
+          "zh": ["这里", "有", "一", "栋", "楼", "。"],
+          "pinyin": "Zhèlǐ yǒu yí dòng lóu.",
           "es": "Aquí hay un edificio."
         }
       ],
@@ -1482,7 +1482,7 @@
       ]
     },
     "you": {
-      "note": "Tener. También significa «hay»: 这儿有猫 = aquí hay un gato. ¡Ojo! Se niega con 没 (没有), nunca con 不: 我没有车. Para preguntar vale 吗 (你有车吗？) o la forma 有没有 (你有没有车？).",
+      "note": "Tener. También significa «hay»: 这里有猫 = aquí hay un gato. ¡Ojo! Se niega con 没 (没有), nunca con 不: 我没有车. Para preguntar vale 吗 (你有车吗？) o la forma 有没有 (你有没有车？).",
       "examples": [
         {
           "zh": ["我", "有", "手机", "。"],
@@ -1490,8 +1490,8 @@
           "es": "Tengo móvil."
         },
         {
-          "zh": ["这儿", "有", "猫", "。"],
-          "pinyin": "Zhèr yǒu māo.",
+          "zh": ["这里", "有", "猫", "。"],
+          "pinyin": "Zhèlǐ yǒu māo.",
           "es": "Aquí hay un gato."
         },
         {
@@ -1556,8 +1556,8 @@
           "es": "No tengo tiempo."
         },
         {
-          "zh": ["那儿", "没有", "咖啡", "。"],
-          "pinyin": "Nàr méiyǒu kāfēi.",
+          "zh": ["那里", "没有", "咖啡", "。"],
+          "pinyin": "Nàlǐ méiyǒu kāfēi.",
           "es": "Allí no hay café."
         }
       ],
@@ -1571,7 +1571,7 @@
           "type": "translate",
           "example": 1,
           "direction": "es-zh",
-          "distractors": ["不", "这儿"]
+          "distractors": ["不", "这里"]
         },
         {
           "type": "dialogue",
@@ -1653,17 +1653,17 @@
         }
       ]
     },
-    "zher": {
-      "note": "Aquí. El 儿 final no es una sílaba aparte: se une a la anterior como una «r» (erhua), zhèr. En el sur de China y en Taiwán se dice 这里 (zhèlǐ).",
+    "zheli": {
+      "note": "Aquí: 这 (esto) + 里 (dentro), «en este sitio». Su pareja es 那里 (allí). Los dos pueden ir al principio de la frase con 有 para decir lo que hay: 这里有咖啡 = aquí hay café.",
       "examples": [
         {
-          "zh": ["这儿", "有", "咖啡", "吗", "？"],
-          "pinyin": "Zhèr yǒu kāfēi ma?",
+          "zh": ["这里", "有", "咖啡", "吗", "？"],
+          "pinyin": "Zhèlǐ yǒu kāfēi ma?",
           "es": "¿Hay café aquí?"
         },
         {
-          "zh": ["这儿", "没有", "啤酒", "。"],
-          "pinyin": "Zhèr méiyǒu píjiǔ.",
+          "zh": ["这里", "没有", "啤酒", "。"],
+          "pinyin": "Zhèlǐ méiyǒu píjiǔ.",
           "es": "Aquí no hay cerveza."
         }
       ],
@@ -1671,7 +1671,7 @@
         {
           "type": "fill",
           "example": 1,
-          "distractors": ["那儿", "他们"]
+          "distractors": ["那里", "他们"]
         },
         {
           "type": "translate",
@@ -1682,17 +1682,17 @@
         }
       ]
     },
-    "nar": {
-      "note": "Allí. Como 这儿, se lee con erhua: nàr. No lo confundas con 哪儿 nǎr («¿dónde?»), que solo cambia el tono.",
+    "nali": {
+      "note": "Allí: 那 (eso, aquello) + 里 (dentro). No lo confundas con 哪里 nǎlǐ («¿dónde?»): solo cambia el tono de la primera sílaba.",
       "examples": [
         {
-          "zh": ["那儿", "有", "猫", "。"],
-          "pinyin": "Nàr yǒu māo.",
+          "zh": ["那里", "有", "猫", "。"],
+          "pinyin": "Nàlǐ yǒu māo.",
           "es": "Allí hay un gato."
         },
         {
-          "zh": ["那儿", "有", "啤酒", "吗", "？"],
-          "pinyin": "Nàr yǒu píjiǔ ma?",
+          "zh": ["那里", "有", "啤酒", "吗", "？"],
+          "pinyin": "Nàlǐ yǒu píjiǔ ma?",
           "es": "¿Hay cerveza allí?"
         }
       ],
@@ -1700,20 +1700,20 @@
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["这儿", "我"]
+          "distractors": ["这里", "我"]
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "es-zh",
-          "distractors": ["这儿", "不"]
+          "distractors": ["这里", "不"]
         },
         {
           "type": "choice",
-          "question": "¿Cómo se pronuncia 那儿?",
-          "options": ["nàr", "nà ér", "nǎr"],
-          "answer": "nàr",
-          "explanation": "儿 se une a la sílaba anterior (erhua). Nǎr, con 3.er tono, es «¿dónde?»."
+          "question": "¿Cómo se pronuncia 那里 («allí»)?",
+          "options": ["nàlǐ", "nǎlǐ", "nālǐ"],
+          "answer": "nàlǐ",
+          "explanation": "那 lleva 4.º tono: nàlǐ. Con 3.er tono, nǎlǐ (哪里) significa «¿dónde?»."
         }
       ]
     },

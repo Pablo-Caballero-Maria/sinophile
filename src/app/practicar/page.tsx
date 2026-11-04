@@ -7,7 +7,6 @@ import { LESSONS, VOCAB_IDS } from "@/lib/data/vocab";
 import { dueItems } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { useReady } from "@/lib/account/client";
-import { formatDay } from "@/lib/text";
 
 interface Mode {
   modo: string;
@@ -71,7 +70,7 @@ export default function PracticePage() {
             onClick={() => toggle(lesson.id)}
             className={cn("shrink-0 rounded-full border-2 px-4 py-1.5 text-sm font-bold", scope.includes(lesson.id) ? "border-sky bg-sky-soft text-sky" : "border-line")}
           >
-            L{lesson.number} · {formatDay(lesson.id, false)}
+            Lección {lesson.number}
           </button>
         ))}
       </div>

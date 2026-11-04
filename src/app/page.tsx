@@ -1,12 +1,12 @@
 "use client";
-import { CalendarCheck, CloudUpload, Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert, UserRound } from "lucide-react";
+import { CalendarCheck, Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert, UserRound } from "lucide-react";
 import Link from "next/link";
 import { LESSONS, VOCAB, VOCAB_IDS, VOCAB_ISSUES } from "@/lib/data/vocab";
 import { dueItems, isSeen, lessonMastery, lessonStars, streakInfo, type Progress } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { useSettings } from "@/lib/settings/store";
 import { useAccount, useReady, type AccountState } from "@/lib/account/client";
-import { dayKey, formatDay } from "@/lib/text";
+import { dayKey } from "@/lib/text";
 import type { Lesson } from "@/lib/types";
 import { ButtonLink, Card, cn, EmptyState, Ring, SectionTitle, Skeleton, Stars } from "@/components/ui";
 
@@ -60,7 +60,6 @@ const ZIGZAG = [0, 44, 66, 44, 0, -44, -66, -44];
 function LessonNode({ lesson, progress, index, current }: { lesson: Lesson; progress: Progress; index: number; current: boolean }) {
   const stars = lessonStars(progress, lesson);
   const started = lesson.words.some((w) => isSeen(progress, w.id));
-  const isToday = lesson.id === dayKey();
   return (
     <div className="flex flex-col items-center" style={{ transform: `translateX(${ZIGZAG[index % ZIGZAG.length]}px)` }}>
       <Link href={`/leccion?id=${lesson.id}`} className="group relative" aria-label={`Lección ${lesson.number}`}>
@@ -73,23 +72,19 @@ function LessonNode({ lesson, progress, index, current }: { lesson: Lesson; prog
         >
           {stars === 3 ? "★" : lesson.number}
         </span>
-        {isToday && <span className="absolute -right-3 -top-1 rounded-full bg-sky px-2 py-0.5 text-xs font-bold text-white">Hoy</span>}
       </Link>
       <Stars count={stars} className="mt-2" />
       <span className="mt-0.5 text-sm font-bold">Lección {lesson.number}</span>
-      <span className="text-xs text-muted">
-        {formatDay(lesson.id)} · {lesson.words.length} palabras
-      </span>
+      <span className="text-xs text-muted">{lesson.words.length} palabras</span>
     </div>
   );
 }
 
-/** Reminds guests that nothing is saved (and offers to move the old browser progress to an account). */
+/** Reminds guests (and offline starts) that nothing is saved. */
 function GuestNotice({ account }: { account: AccountState }) {
   if (account.status === "user" || account.status === "loading") return null;
-  const [Icon, title, text] = account.legacy
-    ? [CloudUpload, "Tu progreso anterior está en este navegador", "Crea una cuenta o entra en la tuya para guardarlo en la nube y tenerlo en todos tus dispositivos."]
-    : account.status === "offline"
+  const [Icon, title, text] =
+    account.status === "offline"
       ? [TriangleAlert, "Sin conexión con el servidor", "Puedes practicar, pero tu progreso no se guardará."]
       : [UserRound, "Estás en modo invitado", "Puedes practicar todo, pero tu progreso no se guardará. Entra o crea una cuenta para conservarlo."];
   return (
@@ -119,7 +114,7 @@ export default function HomePage() {
   if (LESSONS.length === 0) {
     return (
       <EmptyState icon="📒" title="Aún no hay vocabulario">
-        Crea en GitHub una carpeta por clase, <code>data/AAAA-MM-DD/</code>, con su <code>vocab.json</code>, y la app se actualizará sola.
+        Crea en GitHub una carpeta por clase, <code>data/lección 1/</code>, <code>data/lección 2/</code>…, con su <code>vocab.json</code>, y la app se actualizará sola.
       </EmptyState>
     );
   }

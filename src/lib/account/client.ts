@@ -18,7 +18,6 @@ import { DEFAULT_SETTINGS, type Settings } from "../settings/model";
 import { settingsStore } from "../settings/store";
 import { createStore, useStore } from "../store";
 import { api, ApiError, type Credentials } from "./api";
-import { clearLegacyData, readLegacyData, type LegacyData } from "./legacy";
 import { Saver, type SaveStatus } from "./saver";
 import type { AccountPayload } from "./types";
 
@@ -29,15 +28,13 @@ export interface AccountState {
    */
   status: "loading" | "guest" | "user" | "offline";
   username: string | null;
-  /** Progress from the first version of the app is waiting in this browser to be moved to an account. */
-  legacy: boolean;
   /** Upload state of the signed-in user's changes. */
   save: SaveStatus;
   /** The session ended while the app was open (e.g. it expired or the account was deleted elsewhere). */
   expired: boolean;
 }
 
-export const accountStore = createStore<AccountState>({ status: "loading", username: null, legacy: false, save: "idle", expired: false });
+export const accountStore = createStore<AccountState>({ status: "loading", username: null, save: "idle", expired: false });
 export const useAccount = () => useStore(accountStore);
 /** False during prerender and until the account (or guest mode) is loaded: pages show skeletons meanwhile. */
 export const useReady = () => useAccount().status !== "loading";
@@ -94,15 +91,10 @@ function enterAccount(payload: AccountPayload) {
   settingsSaver.clear();
   progressStore.load(payload.progress ?? emptyProgress());
   settingsStore.load(payload.settings ?? DEFAULT_SETTINGS);
-  update({ status: "user", username: payload.user?.username ?? null, legacy: false, expired: false, save: "idle" });
+  update({ status: "user", username: payload.user?.username ?? null, expired: false, save: "idle" });
   lastFetch = Date.now();
 }
 
-function enterGuest(status: "guest" | "offline", legacy: LegacyData | null) {
-  progressStore.load(legacy?.progress ?? emptyProgress());
-  settingsStore.load(legacy?.settings ?? DEFAULT_SETTINGS);
-  update({ status, username: null, legacy: !!legacy, save: "idle" });
-}
 
 /** Leaves the account but keeps what is on screen, so it can be added back after signing in again. */
 function sessionEnded() {
@@ -116,7 +108,7 @@ function resetToGuest() {
   settingsSaver.clear();
   progressStore.load(emptyProgress());
   settingsStore.load(DEFAULT_SETTINGS);
-  update({ status: "guest", username: null, legacy: false, expired: false, save: "idle" });
+  update({ status: "guest", username: null, expired: false, save: "idle" });
 }
 
 /* ───────────── start-up ───────────── */
@@ -130,17 +122,12 @@ export async function bootAccount(): Promise<void> {
   window.addEventListener("pagehide", flushOnExit);
   document.addEventListener("visibilitychange", () => (document.visibilityState === "hidden" ? flushOnExit() : void refresh()));
 
-  const legacy = readLegacyData();
   try {
     const payload = await api.account();
-    if (!payload.user) return enterGuest("guest", legacy);
-    enterAccount(payload);
-    if (legacy) {
-      progressStore.set((p) => mergeProgress(p, legacy.progress)); // uploaded like any other change
-      clearLegacyData();
-    }
+    if (payload.user) enterAccount(payload);
+    else update({ status: "guest" });
   } catch {
-    enterGuest("offline", legacy);
+    update({ status: "offline" });
   }
 }
 
@@ -179,7 +166,7 @@ export async function reconnect(): Promise<void> {
 
 /* ───────────── actions ───────────── */
 
-/** What a guest practised (or the old local progress), to add to an account. */
+/** What a guest practised, to add to an account. */
 const guestProgress = (adopt: boolean): Progress | undefined => {
   const local = progressStore.get();
   return adopt && !isEmptyProgress(local) ? local : undefined;
@@ -187,16 +174,12 @@ const guestProgress = (adopt: boolean): Progress | undefined => {
 
 /** Signs in. With `adopt`, what was practised as a guest is added to the account. */
 export async function signIn(credentials: Credentials, adopt: boolean): Promise<void> {
-  const payload = await api.login({ ...credentials, progress: guestProgress(adopt) });
-  clearLegacyData();
-  enterAccount(payload);
+  enterAccount(await api.login({ ...credentials, progress: guestProgress(adopt) }));
 }
 
 /** Creates an account with the current settings (and, with `adopt`, the current progress). */
 export async function signUp(credentials: Credentials, adopt: boolean): Promise<void> {
-  const payload = await api.register({ ...credentials, settings: settingsStore.get(), progress: guestProgress(adopt) });
-  clearLegacyData();
-  enterAccount(payload);
+  enterAccount(await api.register({ ...credentials, settings: settingsStore.get(), progress: guestProgress(adopt) }));
 }
 
 /** Uploads pending changes, ends the session and goes back to an empty guest mode. */
