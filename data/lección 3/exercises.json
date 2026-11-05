@@ -1,0 +1,927 @@
+{
+  "version": 1,
+  "words": {
+    "benshu": {
+      "note": "Libro, con su clasificador: 本 (běn) es el clasificador de libros y cuadernos, y 书 (shū) es «libro». Para contarlos: número + 本书 (一本书, 三本书). Con «dos» se dice 两 (liǎng): 两本书.",
+      "examples": [
+        {
+          "zh": ["我", "有", "一", "本书", "。"],
+          "pinyin": "Wǒ yǒu yì běn shū.",
+          "es": "Tengo un libro."
+        },
+        {
+          "zh": ["老师", "有", "四", "十", "本书", "。"],
+          "pinyin": "Lǎoshī yǒu sìshí běn shū.",
+          "es": "El profesor tiene cuarenta libros."
+        },
+        {
+          "zh": ["我", "买", "三", "本书", "。"],
+          "pinyin": "Wǒ mǎi sān běn shū.",
+          "es": "Compro tres libros."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["件衣服", "栋楼"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["件衣服", "三"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál está bien?",
+          "options": ["我有三本书。", "我有三书。", "我有书三本。"],
+          "answer": "我有三本书。",
+          "explanation": "Número + clasificador + sustantivo: 三本书."
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["compramos", "cuatro"]
+        }
+      ]
+    },
+    "jianyifu": {
+      "note": "Una prenda de ropa: 件 (jiàn) es el clasificador de las prendas y 衣服 (yīfu, con la 2.ª sílaba átona) es «ropa». En chino no se puede decir «tres ropas»: entre el número y el sustantivo siempre va un clasificador (三件衣服). Con 一 cambia el tono: 一件 yí jiàn.",
+      "examples": [
+        {
+          "zh": ["她", "买", "一", "件衣服", "。"],
+          "pinyin": "Tā mǎi yí jiàn yīfu.",
+          "es": "Ella compra una prenda de ropa."
+        },
+        {
+          "zh": ["我", "女儿", "有", "十", "件衣服", "。"],
+          "pinyin": "Wǒ nǚ'ér yǒu shí jiàn yīfu.",
+          "es": "Mi hija tiene diez prendas de ropa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["本书", "栋楼"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cómo se pronuncia 一 en 一件衣服?",
+          "options": ["yí", "yì", "yī"],
+          "answer": "yí",
+          "explanation": "Delante de 4.º tono (jiàn), 一 se pronuncia yí."
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["儿子", "本书"]
+        }
+      ]
+    },
+    "donglou": {
+      "note": "Un edificio: 栋 (dòng) es el clasificador de edificios y 楼 (lóu), «edificio de varias plantas». Los dos llevan el radical de la madera, 木. Con 一 cambia el tono: 一栋楼 yí dòng lóu.",
+      "examples": [
+        {
+          "zh": ["我", "朋友", "有", "一", "栋楼", "。"],
+          "pinyin": "Wǒ péngyou yǒu yí dòng lóu.",
+          "es": "Mi amigo tiene un edificio."
+        },
+        {
+          "zh": ["那里", "有", "三", "栋楼", "。"],
+          "pinyin": "Nàlǐ yǒu sān dòng lóu.",
+          "es": "Allí hay tres edificios."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["本书", "件衣服"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["本书", "他"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["aquí", "casas"],
+          "accept": ["Hay tres edificios allí."]
+        }
+      ]
+    },
+    "bei": {
+      "note": "Vaso (de…): sirve para contar bebidas y va entre el número y la bebida, como un clasificador: 一杯咖啡 (un café), 三杯啤酒 (tres cervezas), 一杯牛奶 (un vaso de leche). El vaso como objeto se dice 杯子 (bēizi).",
+      "examples": [
+        {
+          "zh": ["我", "买", "一", "杯", "啤酒", "。"],
+          "pinyin": "Wǒ mǎi yì bēi píjiǔ.",
+          "es": "Compro una cerveza."
+        },
+        {
+          "zh": ["他", "有", "三", "杯", "咖啡", "。"],
+          "pinyin": "Tā yǒu sān bēi kāfēi.",
+          "es": "Él tiene tres cafés."
+        },
+        {
+          "zh": ["她", "买", "一", "杯", "牛奶", "。"],
+          "pinyin": "Tā mǎi yì bēi niúnǎi.",
+          "es": "Ella compra un vaso de leche."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 2,
+          "distractors": ["件衣服", "块"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["vasos", "cervezas"]
+        },
+        {
+          "type": "choice",
+          "question": "«Cuatro cervezas» se dice…",
+          "options": ["四杯啤酒", "四啤酒", "四件啤酒"],
+          "answer": "四杯啤酒",
+          "explanation": "Entre el número y la bebida va 杯: 四杯啤酒."
+        }
+      ]
+    },
+    "kuai": {
+      "note": "Trozo, pedazo: sirve para contar cosas en trozos: 一块肉 (yí kuài ròu), «un trozo de carne». En la calle también es la forma coloquial de decir «yuan», la moneda china: 十块钱 = diez yuanes.",
+      "examples": [
+        {
+          "zh": ["我", "买", "三", "块", "肉", "。"],
+          "pinyin": "Wǒ mǎi sān kuài ròu.",
+          "es": "Compro tres trozos de carne."
+        },
+        {
+          "zh": ["我", "有", "二", "十", "块", "钱", "。"],
+          "pinyin": "Wǒ yǒu èrshí kuài qián.",
+          "es": "Tengo veinte yuanes."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["件衣服", "杯"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["本书", "杯"]
+        },
+        {
+          "type": "choice",
+          "question": "En 我有十块钱, 块 significa…",
+          "options": ["yuanes (dinero)", "trozos de carne", "edificios"],
+          "answer": "yuanes (dinero)",
+          "explanation": "Con 钱 (dinero) detrás, o sin sustantivo, 十块 se entiende como «diez yuanes»."
+        }
+      ]
+    },
+    "qian": {
+      "note": "Dinero. Lleva a la izquierda el radical del metal, 钅. Ya lo conoces de 有钱 (rico: «tener dinero»). Para contar yuanes: número + 块钱 (十块钱, diez yuanes).",
+      "examples": [
+        {
+          "zh": ["我", "没有", "钱", "。"],
+          "pinyin": "Wǒ méiyǒu qián.",
+          "es": "No tengo dinero."
+        },
+        {
+          "zh": ["他", "的", "钱", "是", "他", "爸爸", "的", "。"],
+          "pinyin": "Tā de qián shì tā bàba de.",
+          "es": "Su dinero es de su padre."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["时间", "问题"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["madre", "mi"]
+        },
+        {
+          "type": "choice",
+          "question": "«No tengo dinero» se dice…",
+          "options": ["我没有钱。", "我不有钱。", "我钱没有。"],
+          "answer": "我没有钱。",
+          "explanation": "有 se niega con 没: 没有钱."
+        }
+      ]
+    },
+    "kafei": {
+      "note": "Café: es una adaptación del sonido de la palabra «café» (kāfēi). Un café: 一杯咖啡.",
+      "examples": [
+        {
+          "zh": ["你", "喜欢", "咖啡", "吗", "？"],
+          "pinyin": "Nǐ xǐhuan kāfēi ma?",
+          "es": "¿Te gusta el café?"
+        },
+        {
+          "zh": ["老师", "喜欢", "咖啡", "，", "不", "喜欢", "牛奶", "。"],
+          "pinyin": "Lǎoshī xǐhuan kāfēi, bù xǐhuan niúnǎi.",
+          "es": "Al profesor le gusta el café, no la leche."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["啤酒", "肉"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "喜欢", "咖啡", "吗", "？"],
+            "pinyin": "Nǐ xǐhuan kāfēi ma?",
+            "es": "¿Te gusta el café?"
+          },
+          "answer": {
+            "zh": ["不", "喜欢", "，", "我", "喜欢", "牛奶", "。"],
+            "pinyin": "Bù xǐhuan, wǒ xǐhuan niúnǎi.",
+            "es": "No, me gusta la leche."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "咖啡", "。"],
+              "pinyin": "Wǒ shì kāfēi.",
+              "es": "Soy café."
+            },
+            {
+              "zh": ["我", "有", "车", "。"],
+              "pinyin": "Wǒ yǒu chē.",
+              "es": "Tengo coche."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "Responde «no» a 你喜欢咖啡吗？",
+          "options": ["不喜欢。", "没有。", "不是。"],
+          "answer": "不喜欢。",
+          "explanation": "Se responde repitiendo el verbo: 喜欢 se niega con 不. 没有 solo niega a 有."
+        }
+      ]
+    },
+    "wenti": {
+      "note": "Pregunta, y también «problema». 我有问题 = tengo una pregunta; 没有问题 = no hay problema (muy usado como «¡claro!, ¡sin problema!»).",
+      "examples": [
+        {
+          "zh": ["老师", "，", "我", "有", "问题", "。"],
+          "pinyin": "Lǎoshī, wǒ yǒu wèntí.",
+          "es": "Profesor, tengo una pregunta."
+        },
+        {
+          "zh": ["没有", "问题", "！"],
+          "pinyin": "Méiyǒu wèntí!",
+          "es": "¡No hay problema!"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["时间", "考试"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你们", "有", "问题", "吗", "？"],
+            "pinyin": "Nǐmen yǒu wèntí ma?",
+            "es": "¿Tenéis preguntas?"
+          },
+          "answer": {
+            "zh": ["老师", "，", "我", "有", "问题", "。"],
+            "pinyin": "Lǎoshī, wǒ yǒu wèntí.",
+            "es": "Profesor, tengo una pregunta."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "问题", "。"],
+              "pinyin": "Wǒ shì wèntí.",
+              "es": "Soy una pregunta."
+            },
+            {
+              "zh": ["我们", "是", "老师", "。"],
+              "pinyin": "Wǒmen shì lǎoshī.",
+              "es": "Somos profesores."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["tengo", "pregunta"]
+        }
+      ]
+    },
+    "pijiu": {
+      "note": "Cerveza: 啤 (pí, del inglés «beer») + 酒 (jiǔ, bebida alcohólica). Se cuenta con 杯: 一杯啤酒.",
+      "examples": [
+        {
+          "zh": ["我", "不", "喜欢", "啤酒", "。"],
+          "pinyin": "Wǒ bù xǐhuan píjiǔ.",
+          "es": "No me gusta la cerveza."
+        },
+        {
+          "zh": ["我们", "买", "五", "杯", "啤酒", "。"],
+          "pinyin": "Wǒmen mǎi wǔ bēi píjiǔ.",
+          "es": "Compramos cinco cervezas."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["牛奶", "咖啡"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["leche", "gustan"]
+        }
+      ]
+    },
+    "kaoshi": {
+      "note": "Examen (también «examinarse»). 我有考试 = tengo examen; 中文考试 = examen de chino.",
+      "examples": [
+        {
+          "zh": ["星期五", "我", "有", "考试", "。"],
+          "pinyin": "Xīngqīwǔ wǒ yǒu kǎoshì.",
+          "es": "El viernes tengo examen."
+        },
+        {
+          "zh": ["我们", "没有", "中文", "考试", "。"],
+          "pinyin": "Wǒmen méiyǒu Zhōngwén kǎoshì.",
+          "es": "No tenemos examen de chino."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["时间", "问题"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "西班牙语"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "星期一", "有", "考试", "吗", "？"],
+            "pinyin": "Nǐ xīngqīyī yǒu kǎoshì ma?",
+            "es": "¿Tienes examen el lunes?"
+          },
+          "answer": {
+            "zh": ["没有", "，", "我", "星期二", "有", "考试", "。"],
+            "pinyin": "Méiyǒu, wǒ xīngqī'èr yǒu kǎoshì.",
+            "es": "No, tengo examen el martes."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "没有", "猫", "。"],
+              "pinyin": "Wǒ méiyǒu māo.",
+              "es": "No tengo gato."
+            },
+            {
+              "zh": ["我", "是", "学生", "。"],
+              "pinyin": "Wǒ shì xuéshēng.",
+              "es": "Soy estudiante."
+            }
+          ]
+        }
+      ]
+    },
+    "che": {
+      "note": "Coche, vehículo. El carácter tradicional, 車, era el dibujo de un carro visto desde arriba.",
+      "examples": [
+        {
+          "zh": ["我", "没有", "车", "。"],
+          "pinyin": "Wǒ méiyǒu chē.",
+          "es": "No tengo coche."
+        },
+        {
+          "zh": ["你", "有", "车", "吗", "？"],
+          "pinyin": "Nǐ yǒu chē ma?",
+          "es": "¿Tienes coche?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["猫", "手机"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "车", "吗", "？"],
+            "pinyin": "Nǐ yǒu chē ma?",
+            "es": "¿Tienes coche?"
+          },
+          "answer": {
+            "zh": ["没有", "，", "我", "没有", "车", "。"],
+            "pinyin": "Méiyǒu, wǒ méiyǒu chē.",
+            "es": "No, no tengo coche."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "老师", "。"],
+              "pinyin": "Wǒ shì lǎoshī.",
+              "es": "Soy profesor."
+            },
+            {
+              "zh": ["他", "有", "猫", "。"],
+              "pinyin": "Tā yǒu māo.",
+              "es": "Él tiene un gato."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["不", "有"]
+        }
+      ]
+    },
+    "cesuo": {
+      "note": "Baño, aseo (el retrete; no el cuarto de la ducha). Muy útil para preguntar: 这里有厕所吗？ = ¿Hay baño aquí?",
+      "examples": [
+        {
+          "zh": ["这里", "有", "厕所", "吗", "？"],
+          "pinyin": "Zhèlǐ yǒu cèsuǒ ma?",
+          "es": "¿Hay baño aquí?"
+        },
+        {
+          "zh": ["那里", "有", "厕所", "。"],
+          "pinyin": "Nàlǐ yǒu cèsuǒ.",
+          "es": "Allí hay un baño."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["桌子", "房子"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["这里", "有", "厕所", "吗", "？"],
+            "pinyin": "Zhèlǐ yǒu cèsuǒ ma?",
+            "es": "¿Hay baño aquí?"
+          },
+          "answer": {
+            "zh": ["没有", "，", "那里", "有", "。"],
+            "pinyin": "Méiyǒu, nàlǐ yǒu.",
+            "es": "No, hay uno allí."
+          },
+          "wrong": [
+            {
+              "zh": ["不", "是", "，", "那里", "有", "。"],
+              "pinyin": "Bú shì, nàlǐ yǒu.",
+              "es": "No lo es, allí hay."
+            },
+            {
+              "zh": ["我", "喜欢", "厕所", "。"],
+              "pinyin": "Wǒ xǐhuan cèsuǒ.",
+              "es": "Me gusta el baño."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["这里", "没有"]
+        }
+      ]
+    },
+    "mao": {
+      "note": "Gato. Lleva a la izquierda el radical de los animales, 犭. Su sonido, māo, imita el maullido.",
+      "examples": [
+        {
+          "zh": ["我", "有", "猫", "。"],
+          "pinyin": "Wǒ yǒu māo.",
+          "es": "Tengo un gato."
+        },
+        {
+          "zh": ["我", "喜欢", "老师", "的", "猫", "。"],
+          "pinyin": "Wǒ xǐhuan lǎoshī de māo.",
+          "es": "Me gusta el gato del profesor."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["车", "手机"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["amigo", "libro"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "猫", "吗", "？"],
+            "pinyin": "Nǐ yǒu māo ma?",
+            "es": "¿Tienes gato?"
+          },
+          "answer": {
+            "zh": ["有", "，", "我", "有", "猫", "。"],
+            "pinyin": "Yǒu, wǒ yǒu māo.",
+            "es": "Sí, tengo un gato."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "猫", "。"],
+              "pinyin": "Wǒ shì māo.",
+              "es": "Soy un gato."
+            },
+            {
+              "zh": ["没有", "，", "我", "有", "猫", "。"],
+              "pinyin": "Méiyǒu, wǒ yǒu māo.",
+              "es": "No, tengo un gato."
+            }
+          ]
+        }
+      ]
+    },
+    "shouji": {
+      "note": "Móvil: 手 (mano) + 机 (máquina), «la máquina de la mano».",
+      "examples": [
+        {
+          "zh": ["我", "没有", "手机", "。"],
+          "pinyin": "Wǒ méiyǒu shǒujī.",
+          "es": "No tengo móvil."
+        },
+        {
+          "zh": ["你", "有", "没有", "手机", "？"],
+          "pinyin": "Nǐ yǒu méiyǒu shǒujī?",
+          "es": "¿Tienes móvil?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["咖啡", "钱"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "没有", "手机", "？"],
+            "pinyin": "Nǐ yǒu méiyǒu shǒujī?",
+            "es": "¿Tienes móvil?"
+          },
+          "answer": {
+            "zh": ["没有", "。"],
+            "pinyin": "Méiyǒu.",
+            "es": "No (no tengo)."
+          },
+          "wrong": [
+            {
+              "zh": ["不", "。"],
+              "pinyin": "Bù.",
+              "es": "No."
+            },
+            {
+              "zh": ["是", "手机", "。"],
+              "pinyin": "Shì shǒujī.",
+              "es": "Es un móvil."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "是"]
+        }
+      ]
+    },
+    "zhuozi": {
+      "note": "Mesa. 子 es un sufijo átono muy común en los nombres de objetos: 桌子 zhuōzi, 房子 fángzi, 杯子 bēizi.",
+      "examples": [
+        {
+          "zh": ["这里", "没有", "桌子", "。"],
+          "pinyin": "Zhèlǐ méiyǒu zhuōzi.",
+          "es": "Aquí no hay mesas."
+        },
+        {
+          "zh": ["我", "喜欢", "你", "的", "桌子", "。"],
+          "pinyin": "Wǒ xǐhuan nǐ de zhuōzi.",
+          "es": "Me gusta tu mesa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["房子", "车"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["allí", "sillas"],
+          "accept": ["No hay mesas aquí."]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["他", "有"]
+        }
+      ]
+    },
+    "rou": {
+      "note": "Carne. Se cuenta en trozos con 块: 一块肉 (yí kuài ròu), «un trozo de carne».",
+      "examples": [
+        {
+          "zh": ["我", "买", "一", "块", "肉", "。"],
+          "pinyin": "Wǒ mǎi yí kuài ròu.",
+          "es": "Compro un trozo de carne."
+        },
+        {
+          "zh": ["我", "女朋友", "不", "喜欢", "肉", "。"],
+          "pinyin": "Wǒ nǚpéngyou bù xǐhuan ròu.",
+          "es": "A mi novia no le gusta la carne."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["猫", "车"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["男朋友", "没有"]
+        }
+      ]
+    },
+    "niunai": {
+      "note": "Leche: 牛 (vaca) + 奶 (leche). Un vaso de leche: 一杯牛奶.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "牛奶", "。"],
+          "pinyin": "Wǒ xǐhuan niúnǎi.",
+          "es": "Me gusta la leche."
+        },
+        {
+          "zh": ["她", "买", "一", "杯", "牛奶", "。"],
+          "pinyin": "Tā mǎi yì bēi niúnǎi.",
+          "es": "Ella compra un vaso de leche."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["啤酒", "咖啡"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["café", "no"]
+        }
+      ]
+    },
+    "xihuan": {
+      "note": "Gustar. Funciona al revés que en español: quien siente el gusto es el sujeto. 我喜欢咖啡 = «yo gusto el café» → me gusta el café. Se niega con 不: 我不喜欢啤酒.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "咖啡", "。"],
+          "pinyin": "Wǒ xǐhuan kāfēi.",
+          "es": "Me gusta el café."
+        },
+        {
+          "zh": ["他", "不", "喜欢", "啤酒", "。"],
+          "pinyin": "Tā bù xǐhuan píjiǔ.",
+          "es": "A él no le gusta la cerveza."
+        },
+        {
+          "zh": ["你", "喜欢", "猫", "吗", "？"],
+          "pinyin": "Nǐ xǐhuan māo ma?",
+          "es": "¿Te gustan los gatos?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["有", "是"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["leche", "te"]
+        },
+        {
+          "type": "choice",
+          "question": "«No me gusta la leche» se dice…",
+          "options": ["我不喜欢牛奶。", "我没有喜欢牛奶。", "牛奶不喜欢我。"],
+          "answer": "我不喜欢牛奶。",
+          "explanation": "喜欢 se niega con 不. Y el orden es «yo + 喜欢 + cosa»: 牛奶不喜欢我 querría decir que la leche no te aprecia a ti."
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "喜欢", "猫", "吗", "？"],
+            "pinyin": "Nǐ xǐhuan māo ma?",
+            "es": "¿Te gustan los gatos?"
+          },
+          "answer": {
+            "zh": ["喜欢", "！", "我", "有", "猫", "。"],
+            "pinyin": "Xǐhuan! Wǒ yǒu māo.",
+            "es": "¡Sí! Tengo un gato."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "学生", "。"],
+              "pinyin": "Wǒ shì xuéshēng.",
+              "es": "Soy estudiante."
+            },
+            {
+              "zh": ["我", "没有", "车", "。"],
+              "pinyin": "Wǒ méiyǒu chē.",
+              "es": "No tengo coche."
+            }
+          ]
+        }
+      ]
+    },
+    "fangzi": {
+      "note": "Casa (el edificio, la vivienda). 房 lleva arriba 户 (puerta). La 2.ª sílaba es átona: fángzi.",
+      "examples": [
+        {
+          "zh": ["他们", "没有", "房子", "。"],
+          "pinyin": "Tāmen méiyǒu fángzi.",
+          "es": "No tienen casa."
+        },
+        {
+          "zh": ["你", "的", "房子", "有", "厕所", "吗", "？"],
+          "pinyin": "Nǐ de fángzi yǒu cèsuǒ ma?",
+          "es": "¿Tu casa tiene baño?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["桌子", "杯"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["桌子", "不"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "房子", "吗", "？"],
+            "pinyin": "Nǐ yǒu fángzi ma?",
+            "es": "¿Tienes casa?"
+          },
+          "answer": {
+            "zh": ["没有", "，", "我", "没有", "钱", "。"],
+            "pinyin": "Méiyǒu, wǒ méiyǒu qián.",
+            "es": "No, no tengo dinero."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "房子", "。"],
+              "pinyin": "Wǒ shì fángzi.",
+              "es": "Soy una casa."
+            },
+            {
+              "zh": ["有", "，", "我", "没有", "房子", "。"],
+              "pinyin": "Yǒu, wǒ méiyǒu fángzi.",
+              "es": "Sí, no tengo casa."
+            }
+          ]
+        }
+      ]
+    },
+    "shijian": {
+      "note": "Tiempo: el que pasa o el que tienes, no el meteorológico. 我没有时间 = no tengo tiempo.",
+      "examples": [
+        {
+          "zh": ["你", "有", "时间", "吗", "？"],
+          "pinyin": "Nǐ yǒu shíjiān ma?",
+          "es": "¿Tienes tiempo?"
+        },
+        {
+          "zh": ["老师", "没有", "时间", "。"],
+          "pinyin": "Lǎoshī méiyǒu shíjiān.",
+          "es": "El profesor no tiene tiempo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["问题", "考试"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "时间", "吗", "？"],
+            "pinyin": "Nǐ yǒu shíjiān ma?",
+            "es": "¿Tienes tiempo?"
+          },
+          "answer": {
+            "zh": ["没有", "，", "我", "有", "考试", "。"],
+            "pinyin": "Méiyǒu, wǒ yǒu kǎoshì.",
+            "es": "No, tengo un examen."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "时间", "。"],
+              "pinyin": "Wǒ shì shíjiān.",
+              "es": "Soy el tiempo."
+            },
+            {
+              "zh": ["我", "喜欢", "猫", "。"],
+              "pinyin": "Wǒ xǐhuan māo.",
+              "es": "Me gustan los gatos."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["是", "问题"]
+        }
+      ]
+    },
+    "mai": {
+      "note": "Comprar (3.er tono). No lo confundas con 卖 mài (4.º tono), «vender»: solo cambia el tono.",
+      "examples": [
+        {
+          "zh": ["我", "买", "一", "杯", "咖啡", "。"],
+          "pinyin": "Wǒ mǎi yì bēi kāfēi.",
+          "es": "Compro un café."
+        },
+        {
+          "zh": ["他们", "不", "买", "肉", "。"],
+          "pinyin": "Tāmen bù mǎi ròu.",
+          "es": "Ellos no compran carne."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["喜欢", "是"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["compramos", "leche"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["块", "本书"]
+        }
+      ]
+    }
+  }
+}

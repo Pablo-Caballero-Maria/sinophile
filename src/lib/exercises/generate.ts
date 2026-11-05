@@ -43,7 +43,11 @@ function distractorWords(word: VocabEntry, ctx: GenContext, count: number, isCon
   return candidates.sort((a, b) => score(a) - score(b)).slice(0, count);
 }
 
-const sameMeaning = (a: VocabEntry, b: VocabEntry) => normalizeLatin(a.es) === normalizeLatin(b.es);
+/** Shares at least one meaning ("hijos (general)" and "niño; hijos"), so it can't be a wrong option. */
+const sameMeaning = (a: VocabEntry, b: VocabEntry) => {
+  const meanings = new Set(splitMeanings(a.es).map(normalizeLatin));
+  return splitMeanings(b.es).some((m) => meanings.has(normalizeLatin(m)));
+};
 const sameSound = (a: VocabEntry, b: VocabEntry) => pinyinEquals(a.pinyin, b.pinyin, true);
 const hanziOption = (w: VocabEntry): Option => ({ id: w.id, display: { kind: "hanzi", text: w.hanzi, pinyin: w.pinyin } });
 const textDisplay = (text: string): Display =>

@@ -1,0 +1,23 @@
+[
+  { "id": "benshu", "hanzi": "本书", "pinyin": "běn shū", "es": "libro" },
+  { "id": "jianyifu", "hanzi": "件衣服", "pinyin": "jiàn yīfu", "es": "prenda de ropa" },
+  { "id": "donglou", "hanzi": "栋楼", "pinyin": "dòng lóu", "es": "edificio" },
+  { "id": "bei", "hanzi": "杯", "pinyin": "bēi", "es": "vaso" },
+  { "id": "kuai", "hanzi": "块", "pinyin": "kuài", "es": "trozo" },
+  { "id": "qian", "hanzi": "钱", "pinyin": "qián", "es": "dinero" },
+  { "id": "kafei", "hanzi": "咖啡", "pinyin": "kāfēi", "es": "café" },
+  { "id": "wenti", "hanzi": "问题", "pinyin": "wèntí", "es": "pregunta" },
+  { "id": "pijiu", "hanzi": "啤酒", "pinyin": "píjiǔ", "es": "cerveza" },
+  { "id": "kaoshi", "hanzi": "考试", "pinyin": "kǎoshì", "es": "examen" },
+  { "id": "che", "hanzi": "车", "pinyin": "chē", "es": "coche" },
+  { "id": "cesuo", "hanzi": "厕所", "pinyin": "cèsuǒ", "es": "baño" },
+  { "id": "mao", "hanzi": "猫", "pinyin": "māo", "es": "gato" },
+  { "id": "shouji", "hanzi": "手机", "pinyin": "shǒujī", "es": "móvil" },
+  { "id": "zhuozi", "hanzi": "桌子", "pinyin": "zhuōzi", "es": "mesa" },
+  { "id": "rou", "hanzi": "肉", "pinyin": "ròu", "es": "carne" },
+  { "id": "niunai", "hanzi": "牛奶", "pinyin": "niúnǎi", "es": "leche" },
+  { "id": "xihuan", "hanzi": "喜欢", "pinyin": "xǐhuan", "es": "gustar" },
+  { "id": "fangzi", "hanzi": "房子", "pinyin": "fángzi", "es": "casa" },
+  { "id": "shijian", "hanzi": "时间", "pinyin": "shíjiān", "es": "tiempo" },
+  { "id": "mai", "hanzi": "买", "pinyin": "mǎi", "es": "comprar" }
+]

@@ -4,7 +4,7 @@ import { readDataDir } from "../../../scripts/data-files";
 import { sanitizeAllExercises, sanitizeLessons } from "../data/validate";
 import { emptyProgress, recordAnswer } from "../progress/model";
 import { seededRandom } from "../text";
-import { buildSession, nextInfinite, type GenContext } from "./generate";
+import { buildSession, meaningChoice, nextInfinite, reverseChoice, type GenContext } from "./generate";
 import { checkChoice, checkTiles, checkTyping } from "./check";
 import { initialSession, sessionReducer, examGrade } from "./session";
 import type { Exercise, SessionMode } from "./types";
@@ -64,6 +64,17 @@ describe("session generation", () => {
   it("infinite mode keeps producing exercises", () => {
     const c = ctx(7);
     for (let i = 0; i < 100; i++) assertValid(nextInfinite(vocab.entries, c));
+  });
+
+  it("never offers a word with a shared meaning as a wrong option (孩子/子女, 男孩/男孩子)", () => {
+    const byId = new Map(vocab.entries.map((w) => [w.id, w]));
+    for (const [id, other] of [["haizi", "zinv"], ["zinv", "haizi"], ["nanhaizi", "nanhaizi-informal"]]) {
+      for (let seed = 1; seed <= 60; seed++) {
+        for (const ex of [meaningChoice(byId.get(id)!, ctx(seed)), reverseChoice(byId.get(id)!, ctx(seed))]) {
+          if (ex.type === "choice") expect(ex.options.map((o) => o.id), `${id} (seed ${seed})`).not.toContain(other);
+        }
+      }
+    }
   });
 });
 

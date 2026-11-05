@@ -2,354 +2,370 @@
   "version": 1,
   "words": {
     "yi-1": {
-      "note": "Uno. Cambia de tono según lo que le sigue: yí delante de 4.º tono (一件 yí jiàn) y yì delante de los demás (一本 yì běn). Al contar, en los meses y dentro de números largos se dice yī (一月 yīyuè, 十一 shíyī).",
+      "note": "Uno. Al contar, en las fechas, en los meses y dentro de los números se dice yī (一月 yīyuè, 十一 shíyī, 一九九一年 yī jiǔ jiǔ yī nián). Delante de un clasificador cambia de tono: yí delante de 4.º tono (一件 yí jiàn) y yì delante de los demás (一本 yì běn); lo verás en la lección 3.",
       "examples": [
         {
-          "zh": ["我", "有", "一", "本", "书", "。"],
-          "pinyin": "Wǒ yǒu yì běn shū.",
-          "es": "Tengo un libro."
+          "zh": ["五月", "一", "日", "是", "星期五", "。"],
+          "pinyin": "Wǔyuè yī rì shì xīngqīwǔ.",
+          "es": "El 1 de mayo es viernes."
         },
         {
-          "zh": ["他", "买", "一", "件", "衣服", "。"],
-          "pinyin": "Tā mǎi yí jiàn yīfu.",
-          "es": "Él compra una prenda de ropa."
+          "zh": ["我", "朋友", "是", "一", "九", "九", "一", "年", "的", "。"],
+          "pinyin": "Wǒ péngyou shì yī jiǔ jiǔ yī nián de.",
+          "es": "Mi amigo es de 1991."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
+          "blank": "一",
           "distractors": ["三", "十"]
         },
         {
           "type": "choice",
-          "question": "¿Cómo se pronuncia 一 en 一件衣服?",
-          "options": ["yí", "yì", "yī"],
-          "answer": "yí",
-          "explanation": "Delante de 4.º tono (jiàn), 一 se pronuncia yí."
+          "question": "¿Cómo se pronuncia 一 en 一月 (enero)?",
+          "options": ["yī", "yí", "yì"],
+          "answer": "yī",
+          "explanation": "En los meses, en las fechas y al contar, 一 mantiene el 1.er tono: yīyuè."
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "es-zh",
-          "distractors": ["本", "有"]
+          "distractors": ["十", "日"]
         }
       ]
     },
     "er-2": {
-      "note": "Dos. Se usa al contar y dentro de los números (十二, 二十). Delante de un clasificador se dice 两 (liǎng): «dos libros» es 两本书, nunca 二本书.",
+      "note": "Dos. Se usa al contar, en las fechas y dentro de los números (十二 shí'èr, 二十 èrshí). Delante de un clasificador se dice 两 (liǎng): «dos libros» es 两本书, nunca 二本书.",
       "examples": [
         {
-          "zh": ["我", "有", "十", "二", "本", "书", "。"],
-          "pinyin": "Wǒ yǒu shí'èr běn shū.",
-          "es": "Tengo doce libros."
+          "zh": ["二月", "二", "日", "是", "星期一", "。"],
+          "pinyin": "Èryuè èr rì shì xīngqīyī.",
+          "es": "El 2 de febrero es lunes."
         },
         {
-          "zh": ["我", "有", "二", "十", "本", "中文", "书", "。"],
-          "pinyin": "Wǒ yǒu èrshí běn Zhōngwén shū.",
-          "es": "Tengo veinte libros de chino."
+          "zh": ["十二月", "二", "十", "日", "是", "星期天", "。"],
+          "pinyin": "Shí'èryuè èrshí rì shì xīngqītiān.",
+          "es": "El 20 de diciembre es domingo."
         }
       ],
       "exercises": [
         {
-          "type": "choice",
-          "question": "¿Cómo se escribe 12?",
-          "options": ["十二", "二十", "一二"],
-          "answer": "十二",
-          "explanation": "Primero el 十 (10) y después las unidades: 十 + 二. 二十 es 20."
-        },
-        {
           "type": "fill",
-          "example": 1,
-          "distractors": ["三", "九"]
+          "example": 0,
+          "blank": "二",
+          "distractors": ["三", "八"]
         },
         {
           "type": "translate",
-          "example": 0,
+          "example": 1,
           "direction": "zh-es",
-          "distractors": ["veinte", "dos"]
+          "distractors": ["sábado", "noviembre"]
+        },
+        {
+          "type": "choice",
+          "question": "«Veinte» se dice…",
+          "options": ["二十", "十二", "二二"],
+          "answer": "二十",
+          "explanation": "Número delante de 十 = multiplicación: 二十 = 2 × 10. Detrás = suma: 十二 = 10 + 2, «doce»."
         }
       ]
     },
     "san-3": {
-      "note": "Tres: tres rayas horizontales, como un III tumbado.",
+      "note": "Tres: tres rayas, fácil de recordar. Los números del 11 al 99 se forman como una suma o una multiplicación: 十三 (10 + 3) = 13; 三十 (3 × 10) = 30.",
       "examples": [
         {
-          "zh": ["我", "有", "三", "件", "衣服", "。"],
-          "pinyin": "Wǒ yǒu sān jiàn yīfu.",
-          "es": "Tengo tres prendas de ropa."
+          "zh": ["三月", "三", "日", "是", "星期二", "。"],
+          "pinyin": "Sānyuè sān rì shì xīngqī'èr.",
+          "es": "El 3 de marzo es martes."
         },
         {
-          "zh": ["他们", "买", "三", "杯", "咖啡", "。"],
-          "pinyin": "Tāmen mǎi sān bēi kāfēi.",
-          "es": "Ellos compran tres cafés."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["五", "八"]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "es-zh",
-          "distractors": ["本", "杯"]
-        }
-      ]
-    },
-    "si-4": {
-      "note": "Cuatro. Ojo: sì (4.º tono) se parece a 十 shí (10). Cuida la diferencia entre «s» y «sh».",
-      "examples": [
-        {
-          "zh": ["我", "有", "四", "本", "书", "。"],
-          "pinyin": "Wǒ yǒu sì běn shū.",
-          "es": "Tengo cuatro libros."
-        },
-        {
-          "zh": ["我们", "买", "四", "杯", "啤酒", "。"],
-          "pinyin": "Wǒmen mǎi sì bēi píjiǔ.",
-          "es": "Compramos cuatro cervezas."
+          "zh": ["我", "妈妈", "是", "一", "九", "七", "三", "年", "的", "。"],
+          "pinyin": "Wǒ māma shì yī jiǔ qī sān nián de.",
+          "es": "Mi madre es de 1973."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["十", "八"]
-        },
-        {
-          "type": "choice",
-          "question": "¿Qué número es 四十四?",
-          "options": ["44", "14", "40"],
-          "answer": "44",
-          "explanation": "四十四 = 4 × 10 + 4."
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["cafés", "tres"]
-        }
-      ]
-    },
-    "wu-5": {
-      "note": "Cinco (3.er tono). 五月 (wǔyuè) es mayo y 星期五 (xīngqīwǔ), viernes.",
-      "examples": [
-        {
-          "zh": ["他", "有", "五", "本", "中文", "书", "。"],
-          "pinyin": "Tā yǒu wǔ běn Zhōngwén shū.",
-          "es": "Él tiene cinco libros de chino."
-        },
-        {
-          "zh": ["我", "有", "五", "十", "块", "。"],
-          "pinyin": "Wǒ yǒu wǔshí kuài.",
-          "es": "Tengo cincuenta yuanes."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["四", "九"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["本", "四"]
-        },
-        {
-          "type": "choice",
-          "question": "¿Cómo se escribe 55?",
-          "options": ["五十五", "五五", "十五五"],
-          "answer": "五十五",
-          "explanation": "Decenas + 十 + unidades: 五十五 = 5 × 10 + 5."
-        }
-      ]
-    },
-    "liu-6": {
-      "note": "Seis. En China el 6 se hace con la mano extendiendo solo el pulgar y el meñique.",
-      "examples": [
-        {
-          "zh": ["她", "买", "六", "块", "肉", "。"],
-          "pinyin": "Tā mǎi liù kuài ròu.",
-          "es": "Ella compra seis trozos de carne."
-        },
-        {
-          "zh": ["我", "有", "十", "六", "本", "中文", "书", "。"],
-          "pinyin": "Wǒ yǒu shíliù běn Zhōngwén shū.",
-          "es": "Tengo dieciséis libros de chino."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["九", "三"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["seis", "ropa"]
-        },
-        {
-          "type": "choice",
-          "question": "El 16 se dice…",
-          "options": ["十六", "六十", "一六"],
-          "answer": "十六",
-          "explanation": "十 (10) + 六 (6). 六十 es 60."
-        }
-      ]
-    },
-    "qi-7": {
-      "note": "Siete (1.er tono). La «q» del pinyin suena parecida a una «ch» suave.",
-      "examples": [
-        {
-          "zh": ["他", "有", "七", "本", "书", "。"],
-          "pinyin": "Tā yǒu qī běn shū.",
-          "es": "Él tiene siete libros."
-        },
-        {
-          "zh": ["我们", "买", "七", "杯", "牛奶", "。"],
-          "pinyin": "Wǒmen mǎi qī bēi niúnǎi.",
-          "es": "Compramos siete vasos de leche."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
+          "blank": "三",
           "distractors": ["一", "四"]
         },
         {
           "type": "translate",
-          "example": 0,
+          "example": 1,
           "direction": "es-zh",
-          "distractors": ["件", "她"]
+          "distractors": ["爸爸", "五"]
         },
         {
           "type": "choice",
-          "question": "¿Cuál es el 70?",
-          "options": ["七十", "十七", "七七"],
-          "answer": "七十",
-          "explanation": "七十 = 7 × 10. 十七 es 17."
+          "question": "¿Qué número es 三十?",
+          "options": ["30", "13", "33"],
+          "answer": "30",
+          "explanation": "Número delante de 十 = multiplicación: 三十 = 3 × 10. Detrás = suma: 十三 = 13."
         }
       ]
     },
-    "ba-8": {
-      "note": "Ocho. Es el número de la suerte en China porque suena parecido a 发 (fā, «prosperar»).",
+    "si-4": {
+      "note": "Cuatro. Se pronuncia sì, con 4.º tono; no lo confundas con 十 shí (diez). En China se considera de mala suerte porque suena parecido a 死 sǐ (morir).",
       "examples": [
         {
-          "zh": ["我", "买", "八", "杯", "咖啡", "。"],
-          "pinyin": "Wǒ mǎi bā bēi kāfēi.",
-          "es": "Compro ocho cafés."
+          "zh": ["四月", "四", "日", "是", "星期六", "。"],
+          "pinyin": "Sìyuè sì rì shì xīngqīliù.",
+          "es": "El 4 de abril es sábado."
         },
         {
-          "zh": ["他们", "买", "十", "八", "杯", "啤酒", "。"],
-          "pinyin": "Tāmen mǎi shíbā bēi píjiǔ.",
-          "es": "Ellos compran dieciocho cervezas."
+          "zh": ["我", "父亲", "是", "一", "九", "六", "四", "年", "的", "。"],
+          "pinyin": "Wǒ fùqīn shì yī jiǔ liù sì nián de.",
+          "es": "Mi padre es de 1964."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["六", "九"]
+          "blank": "四",
+          "distractors": ["十", "七"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cómo se pronuncia 四 (cuatro)?",
+          "options": ["sì", "shí", "sǐ"],
+          "answer": "sì",
+          "explanation": "四 es sì, con 4.º tono. 十 (diez) es shí, y sǐ (3.er tono) es «morir»."
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "zh-es",
-          "distractors": ["ocho", "cafés"]
+          "distractors": ["madre", "1946"]
         }
       ]
     },
-    "jiu-9": {
-      "note": "Nueve (3.er tono): jiǔ, el mismo sonido que la segunda sílaba de 啤酒 (píjiǔ), con otro carácter.",
+    "wu-5": {
+      "note": "Cinco. 五月 es mayo (el mes 5) y 星期五, el viernes (el día 5 de la semana).",
       "examples": [
         {
-          "zh": ["她", "有", "九", "本", "西班牙语", "书", "。"],
-          "pinyin": "Tā yǒu jiǔ běn Xībānyáyǔ shū.",
-          "es": "Ella tiene nueve libros de español."
+          "zh": ["五月", "五", "日", "是", "星期二", "。"],
+          "pinyin": "Wǔyuè wǔ rì shì xīngqī'èr.",
+          "es": "El 5 de mayo es martes."
         },
         {
-          "zh": ["我", "有", "九", "十", "九", "块", "。"],
-          "pinyin": "Wǒ yǒu jiǔshíjiǔ kuài.",
-          "es": "Tengo noventa y nueve yuanes."
+          "zh": ["我", "哥哥", "是", "一", "九", "九", "五", "年", "的", "。"],
+          "pinyin": "Wǒ gēge shì yī jiǔ jiǔ wǔ nián de.",
+          "es": "Mi hermano mayor es de 1995."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["五", "七"]
+          "blank": "五",
+          "distractors": ["九", "六"]
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "es-zh",
-          "distractors": ["八", "本"]
+          "distractors": ["弟弟", "四"]
         },
         {
           "type": "choice",
-          "question": "El 99 se escribe…",
-          "options": ["九十九", "九九", "十九九"],
-          "answer": "九十九",
-          "explanation": "Decenas + 十 + unidades: 九十九 = 9 × 10 + 9. Así se forman todos los números del 11 al 99."
+          "question": "«Viernes» se dice…",
+          "options": ["星期五", "五月", "星期四"],
+          "answer": "星期五",
+          "explanation": "星期 + 五 = el día 5 de la semana. 五月 es mayo."
         }
       ]
     },
-    "shi-10": {
-      "note": "Diez. Con él se forman todos los números hasta el 99: 十一 (11), 十二 (12)… 二十 (20), 二十一 (21)… 九十九 (99). Las decenas van delante de 十 y las unidades detrás.",
+    "liu-6": {
+      "note": "Seis (liù, 4.º tono). 六月 es junio y 星期六, el sábado.",
       "examples": [
         {
-          "zh": ["我", "有", "十", "本", "书", "。"],
-          "pinyin": "Wǒ yǒu shí běn shū.",
-          "es": "Tengo diez libros."
+          "zh": ["六月", "六", "日", "是", "星期六", "。"],
+          "pinyin": "Liùyuè liù rì shì xīngqīliù.",
+          "es": "El 6 de junio es sábado."
         },
         {
-          "zh": ["我们", "买", "十", "块", "肉", "。"],
-          "pinyin": "Wǒmen mǎi shí kuài ròu.",
-          "es": "Compramos diez trozos de carne."
+          "zh": ["我", "姐姐", "是", "一", "九", "九", "六", "年", "的", "。"],
+          "pinyin": "Wǒ jiějie shì yī jiǔ jiǔ liù nián de.",
+          "es": "Mi hermana mayor es de 1996."
         }
       ],
       "exercises": [
         {
-          "type": "choice",
-          "question": "¿Cómo se escribe 30?",
-          "options": ["三十", "十三", "三三"],
-          "answer": "三十",
-          "explanation": "三十 = 3 × 10. En cambio, 十三 = 10 + 3 = 13."
+          "type": "fill",
+          "example": 0,
+          "blank": "六",
+          "distractors": ["八", "九"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["menor", "1966"]
         },
         {
           "type": "choice",
-          "question": "¿Qué número es 二十七?",
-          "options": ["27", "72", "207"],
-          "answer": "27",
-          "explanation": "二 (2) × 十 (10) + 七 (7) = 27."
+          "question": "¿Qué es 六月?",
+          "options": ["junio", "sábado", "julio"],
+          "answer": "junio",
+          "explanation": "Número + 月 = mes: 六月 es el mes 6. El sábado es 星期六."
+        }
+      ]
+    },
+    "qi-7": {
+      "note": "Siete (qī, 1.er tono; la q suena parecida a «ch»). 七月 es julio.",
+      "examples": [
+        {
+          "zh": ["七月", "七", "日", "是", "星期二", "。"],
+          "pinyin": "Qīyuè qī rì shì xīngqī'èr.",
+          "es": "El 7 de julio es martes."
         },
+        {
+          "zh": ["我", "母亲", "是", "一", "九", "七", "八", "年", "的", "。"],
+          "pinyin": "Wǒ mǔqīn shì yī jiǔ qī bā nián de.",
+          "es": "Mi madre es de 1978."
+        }
+      ],
+      "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["四", "七"]
+          "blank": "七",
+          "distractors": ["一", "十"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["父亲", "六"]
+        },
+        {
+          "type": "choice",
+          "question": "«Julio» se dice…",
+          "options": ["七月", "一月", "星期七"],
+          "answer": "七月",
+          "explanation": "Julio es el mes 7: 七月. 星期七 no existe (el domingo es 星期天)."
+        }
+      ]
+    },
+    "ba-8": {
+      "note": "Ocho. Es el número de la suerte en China, porque bā suena parecido a 发 fā (prosperar). 八月 es agosto.",
+      "examples": [
+        {
+          "zh": ["八月", "八", "日", "是", "星期六", "。"],
+          "pinyin": "Bāyuè bā rì shì xīngqīliù.",
+          "es": "El 8 de agosto es sábado."
+        },
+        {
+          "zh": ["我", "弟弟", "是", "一", "九", "九", "八", "年", "的", "。"],
+          "pinyin": "Wǒ dìdi shì yī jiǔ jiǔ bā nián de.",
+          "es": "Mi hermano menor es de 1998."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "blank": "八",
+          "distractors": ["六", "四"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["1989", "mayor"]
+        }
+      ]
+    },
+    "jiu-9": {
+      "note": "Nueve. Los años se leen cifra a cifra: 1999 = 一九九九年 (yī jiǔ jiǔ jiǔ nián). 九月 es septiembre.",
+      "examples": [
+        {
+          "zh": ["九月", "九", "日", "是", "星期三", "。"],
+          "pinyin": "Jiǔyuè jiǔ rì shì xīngqīsān.",
+          "es": "El 9 de septiembre es miércoles."
+        },
+        {
+          "zh": ["我", "女朋友", "是", "一", "九", "九", "九", "年", "的", "。"],
+          "pinyin": "Wǒ nǚpéngyou shì yī jiǔ jiǔ jiǔ nián de.",
+          "es": "Mi novia es de 1999."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "blank": "九",
+          "distractors": ["七", "五"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["男朋友", "八"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cómo se lee el año 1995?",
+          "options": ["一九九五年", "九九一五年", "一五九九年"],
+          "answer": "一九九五年",
+          "explanation": "Los años se leen cifra a cifra, en orden: yī jiǔ jiǔ wǔ nián."
+        }
+      ]
+    },
+    "shi-10": {
+      "note": "Diez (shí, 2.º tono). Con él se forman todos los números hasta el 99: 十一 (11) = 10 + 1; 二十 (20) = 2 × 10; 九十九 (99) = 9 × 10 + 9.",
+      "examples": [
+        {
+          "zh": ["十月", "十", "日", "是", "星期六", "。"],
+          "pinyin": "Shíyuè shí rì shì xīngqīliù.",
+          "es": "El 10 de octubre es sábado."
+        },
+        {
+          "zh": ["三月", "三", "十", "一", "日", "是", "星期二", "。"],
+          "pinyin": "Sānyuè sānshíyī rì shì xīngqī'èr.",
+          "es": "El 31 de marzo es martes."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "blank": "十",
+          "distractors": ["四", "九"]
+        },
+        {
+          "type": "choice",
+          "question": "«Treinta y uno» se dice…",
+          "options": ["三十一", "十三一", "三一十"],
+          "answer": "三十一",
+          "explanation": "3 × 10 + 1: 三十一."
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["domingo", "noviembre"]
         }
       ]
     },
     "xingqi": {
-      "note": "Semana. Los días de lunes a sábado son 星期 + número (星期一 = lunes, el día 1 de la semana…); el domingo es 星期天 (o 星期日).",
+      "note": "Semana. Los días de lunes a sábado son 星期 + número (星期一 = lunes, el día 1 de la semana…); el domingo es 星期天 o 星期日.",
       "examples": [
         {
-          "zh": ["星期一", "我", "有", "考试", "。"],
-          "pinyin": "Xīngqīyī wǒ yǒu kǎoshì.",
-          "es": "El lunes tengo examen."
+          "zh": ["十一月", "一", "日", "是", "星期", "日", "。"],
+          "pinyin": "Shíyīyuè yī rì shì xīngqīrì.",
+          "es": "El 1 de noviembre es domingo."
         },
         {
-          "zh": ["星期天", "我", "没有", "时间", "。"],
-          "pinyin": "Xīngqītiān wǒ méiyǒu shíjiān.",
-          "es": "El domingo no tengo tiempo."
+          "zh": ["星期", "日", "那里", "没有", "学生", "。"],
+          "pinyin": "Xīngqīrì nàlǐ méiyǒu xuéshēng.",
+          "es": "Los domingos allí no hay estudiantes."
         }
       ],
       "exercises": [
@@ -361,6 +377,12 @@
           "explanation": "星期 + 三: el día 3 de la semana."
         },
         {
+          "type": "fill",
+          "example": 0,
+          "blank": "星期",
+          "distractors": ["一月", "十月"]
+        },
+        {
           "type": "choice",
           "question": "«Domingo» se dice…",
           "options": ["星期天", "星期七", "星期十"],
@@ -369,137 +391,25 @@
         },
         {
           "type": "translate",
-          "example": 0,
+          "example": 1,
           "direction": "es-zh",
-          "distractors": ["星期二", "没有"],
-          "accept": ["我星期一有考试。"]
+          "distractors": ["这里", "有"],
+          "accept": ["那里星期日没有学生。"]
         }
       ]
     },
     "xingqiyi": {
-      "note": "Lunes: el día 1 de la semana. Los días se dicen antes del verbo, delante o detrás del sujeto: 星期一我有考试 o 我星期一有考试, nunca al final como en español.",
+      "note": "Lunes: 星期 (semana) + 一, el día 1. Las expresiones de tiempo van delante del verbo: al principio de la frase o justo detrás del sujeto (星期一这里… / 这里星期一…).",
       "examples": [
         {
-          "zh": ["我", "星期一", "有", "中文", "考试", "。"],
-          "pinyin": "Wǒ xīngqīyī yǒu Zhōngwén kǎoshì.",
-          "es": "El lunes tengo examen de chino."
+          "zh": ["十一月", "二", "日", "是", "星期一", "。"],
+          "pinyin": "Shíyīyuè èr rì shì xīngqīyī.",
+          "es": "El 2 de noviembre es lunes."
         },
         {
-          "zh": ["星期一", "你", "有", "时间", "吗", "？"],
-          "pinyin": "Xīngqīyī nǐ yǒu shíjiān ma?",
-          "es": "¿Tienes tiempo el lunes?"
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["星期五", "星期天"]
-        },
-        {
-          "type": "choice",
-          "question": "«El lunes tengo examen» se dice…",
-          "options": ["我星期一有考试。", "我有考试星期一。", "有考试我星期一。"],
-          "answer": "我星期一有考试。",
-          "explanation": "Las expresiones de tiempo van antes del verbo, nunca al final."
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["martes", "examen"],
-          "accept": ["¿El lunes tienes tiempo?"]
-        }
-      ]
-    },
-    "xingqier": {
-      "note": "Martes: el día 2 de la semana. En pinyin se escribe con apóstrofo, xīngqī'èr, para separar bien las sílabas.",
-      "examples": [
-        {
-          "zh": ["星期二", "我", "没有", "考试", "。"],
-          "pinyin": "Xīngqī'èr wǒ méiyǒu kǎoshì.",
-          "es": "El martes no tengo examen."
-        },
-        {
-          "zh": ["他", "星期二", "买", "书", "。"],
-          "pinyin": "Tā xīngqī'èr mǎi shū.",
-          "es": "Él compra libros el martes."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["星期四", "星期六"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["星期三", "她"],
-          "accept": ["星期二他买书。"]
-        }
-      ]
-    },
-    "xingqisan": {
-      "note": "Miércoles: el día 3 de la semana.",
-      "examples": [
-        {
-          "zh": ["星期三", "我们", "有", "考试", "吗", "？"],
-          "pinyin": "Xīngqīsān wǒmen yǒu kǎoshì ma?",
-          "es": "¿Tenemos examen el miércoles?"
-        },
-        {
-          "zh": ["我", "星期三", "有", "时间", "。"],
-          "pinyin": "Wǒ xīngqīsān yǒu shíjiān.",
-          "es": "El miércoles tengo tiempo."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["星期一", "星期五"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "星期三", "有", "时间", "吗", "？"],
-            "pinyin": "Nǐ xīngqīsān yǒu shíjiān ma?",
-            "es": "¿Tienes tiempo el miércoles?"
-          },
-          "answer": {
-            "zh": ["有", "，", "我", "星期三", "有", "时间", "。"],
-            "pinyin": "Yǒu, wǒ xīngqīsān yǒu shíjiān.",
-            "es": "Sí, el miércoles tengo tiempo."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "是", "星期三", "。"],
-              "pinyin": "Wǒ shì xīngqīsān.",
-              "es": "Soy miércoles."
-            },
-            {
-              "zh": ["我", "没有", "猫", "。"],
-              "pinyin": "Wǒ méiyǒu māo.",
-              "es": "No tengo gato."
-            }
-          ]
-        }
-      ]
-    },
-    "xingqisi": {
-      "note": "Jueves: el día 4 de la semana. Cuidado con 四 sì (4) y 十 shí (10).",
-      "examples": [
-        {
-          "zh": ["星期四", "我", "买", "衣服", "。"],
-          "pinyin": "Xīngqīsì wǒ mǎi yīfu.",
-          "es": "El jueves compro ropa."
-        },
-        {
-          "zh": ["你", "星期四", "有", "考试", "吗", "？"],
-          "pinyin": "Nǐ xīngqīsì yǒu kǎoshì ma?",
-          "es": "¿Tienes examen el jueves?"
+          "zh": ["星期一", "这里", "有", "老师", "吗", "？"],
+          "pinyin": "Xīngqīyī zhèlǐ yǒu lǎoshī ma?",
+          "es": "¿Los lunes hay profesor aquí?"
         }
       ],
       "exercises": [
@@ -511,993 +421,664 @@
         {
           "type": "translate",
           "example": 1,
+          "direction": "es-zh",
+          "distractors": ["那里", "不"],
+          "accept": ["这里星期一有老师吗？"]
+        }
+      ]
+    },
+    "xingqier": {
+      "note": "Martes: el día 2 de la semana. En pinyin lleva apóstrofo (xīngqī'èr) para separar la sílaba èr de la anterior.",
+      "examples": [
+        {
+          "zh": ["十一月", "三", "日", "是", "星期二", "。"],
+          "pinyin": "Shíyīyuè sān rì shì xīngqī'èr.",
+          "es": "El 3 de noviembre es martes."
+        },
+        {
+          "zh": ["星期二", "那里", "有", "中国", "学生", "。"],
+          "pinyin": "Xīngqī'èr nàlǐ yǒu Zhōngguó xuéshēng.",
+          "es": "Los martes allí hay estudiantes chinos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["星期三", "星期四"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["十一月", "三", "日", "是", "星期二", "吗", "？"],
+            "pinyin": "Shíyīyuè sān rì shì xīngqī'èr ma?",
+            "es": "¿El 3 de noviembre es martes?"
+          },
+          "answer": {
+            "zh": ["是", "，", "是", "星期二", "。"],
+            "pinyin": "Shì, shì xīngqī'èr.",
+            "es": "Sí, es martes."
+          },
+          "wrong": [
+            {
+              "zh": ["有", "，", "有", "星期二", "。"],
+              "pinyin": "Yǒu, yǒu xīngqī'èr.",
+              "es": "Sí, hay martes."
+            },
+            {
+              "zh": ["我", "是", "星期二", "。"],
+              "pinyin": "Wǒ shì xīngqī'èr.",
+              "es": "Yo soy martes."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
           "direction": "zh-es",
-          "distractors": ["viernes", "tiempo"],
-          "accept": ["¿El jueves tienes examen?"]
+          "distractors": ["aquí", "lunes"],
+          "accept": ["Allí los martes hay estudiantes chinos.", "Los martes hay estudiantes chinos allí.", "Allí hay estudiantes chinos los martes."]
+        }
+      ]
+    },
+    "xingqisan": {
+      "note": "Miércoles: el día 3 de la semana.",
+      "examples": [
+        {
+          "zh": ["十一月", "四", "日", "是", "星期三", "。"],
+          "pinyin": "Shíyīyuè sì rì shì xīngqīsān.",
+          "es": "El 4 de noviembre es miércoles."
+        },
+        {
+          "zh": ["星期三", "那里", "有", "老师", "，", "这里", "没有", "。"],
+          "pinyin": "Xīngqīsān nàlǐ yǒu lǎoshī, zhèlǐ méiyǒu.",
+          "es": "Los miércoles hay profesor allí, pero aquí no."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["星期五", "星期一"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["martes", "estudiante"],
+          "accept": ["Los miércoles allí hay profesor, pero aquí no."]
+        }
+      ]
+    },
+    "xingqisi": {
+      "note": "Jueves: el día 4 de la semana. Recuerda: 四 sì (cuatro) lleva 4.º tono; no lo confundas con 十 shí (diez).",
+      "examples": [
+        {
+          "zh": ["十一月", "十", "九", "日", "是", "星期四", "。"],
+          "pinyin": "Shíyīyuè shíjiǔ rì shì xīngqīsì.",
+          "es": "El 19 de noviembre es jueves."
+        },
+        {
+          "zh": ["我", "爸爸", "星期四", "没有", "学生", "。"],
+          "pinyin": "Wǒ bàba xīngqīsì méiyǒu xuéshēng.",
+          "es": "Mi padre no tiene alumnos los jueves."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["四月", "星期十"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["妈妈", "不"],
+          "accept": ["星期四我爸爸没有学生。"]
         }
       ]
     },
     "xingqiwu": {
-      "note": "Viernes: el día 5 de la semana.",
+      "note": "Viernes: el día 5 de la semana. No lo confundas con 五月, que es mayo (el mes 5).",
       "examples": [
         {
-          "zh": ["星期五", "我们", "买", "啤酒", "。"],
-          "pinyin": "Xīngqīwǔ wǒmen mǎi píjiǔ.",
-          "es": "El viernes compramos cerveza."
+          "zh": ["十一月", "六", "日", "是", "星期五", "。"],
+          "pinyin": "Shíyīyuè liù rì shì xīngqīwǔ.",
+          "es": "El 6 de noviembre es viernes."
         },
         {
-          "zh": ["星期五", "她", "没有", "时间", "。"],
-          "pinyin": "Xīngqīwǔ tā méiyǒu shíjiān.",
-          "es": "El viernes ella no tiene tiempo."
+          "zh": ["星期五", "这里", "有", "西班牙", "学生", "。"],
+          "pinyin": "Xīngqīwǔ zhèlǐ yǒu Xībānyá xuéshēng.",
+          "es": "Los viernes aquí hay estudiantes españoles."
         }
       ],
       "exercises": [
         {
           "type": "fill",
-          "example": 0,
-          "distractors": ["星期一", "星期三"]
+          "example": 1,
+          "distractors": ["星期天", "五月"]
         },
         {
           "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["有", "他"],
-          "accept": ["她星期五没有时间。"]
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["sábado", "octubre"]
+        },
+        {
+          "type": "choice",
+          "question": "«El viernes» y «mayo» se dicen…",
+          "options": ["星期五 y 五月", "五月 y 星期五", "星期五 y 月五"],
+          "answer": "星期五 y 五月",
+          "explanation": "Día de la semana: 星期 + número. Mes: número + 月."
         }
       ]
     },
     "xingqiliu": {
-      "note": "Sábado: el día 6 de la semana.",
+      "note": "Sábado: el día 6 de la semana. El fin de semana es 星期六 y 星期天.",
       "examples": [
         {
-          "zh": ["星期六", "我", "没有", "考试", "。"],
-          "pinyin": "Xīngqīliù wǒ méiyǒu kǎoshì.",
-          "es": "El sábado no tengo examen."
+          "zh": ["十一月", "七", "日", "是", "星期六", "。"],
+          "pinyin": "Shíyīyuè qī rì shì xīngqīliù.",
+          "es": "El 7 de noviembre es sábado."
         },
         {
-          "zh": ["星期六", "你们", "有", "时间", "吗", "？"],
-          "pinyin": "Xīngqīliù nǐmen yǒu shíjiān ma?",
-          "es": "¿Tenéis tiempo el sábado?"
+          "zh": ["星期六", "我们", "没有", "老师", "。"],
+          "pinyin": "Xīngqīliù wǒmen méiyǒu lǎoshī.",
+          "es": "Los sábados no tenemos profesor."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 1,
-          "distractors": ["星期二", "星期四"]
+          "distractors": ["星期一", "六月"]
         },
         {
           "type": "translate",
-          "example": 0,
-          "direction": "zh-es",
-          "distractors": ["domingo", "libro"],
-          "accept": ["No tengo examen el sábado."]
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["你们", "有"],
+          "accept": ["我们星期六没有老师。"]
         }
       ]
     },
     "xingqitian": {
-      "note": "Domingo: no es «día 7» sino 星期天 (天 = día, cielo). También se dice 星期日 (xīngqīrì).",
+      "note": "Domingo: 星期天, o también 星期日 (más formal o escrito). Es el único día que no lleva número: no existe 星期七.",
       "examples": [
         {
-          "zh": ["星期天", "我", "有", "时间", "。"],
-          "pinyin": "Xīngqītiān wǒ yǒu shíjiān.",
-          "es": "El domingo tengo tiempo."
+          "zh": ["十一月", "八", "日", "是", "星期天", "。"],
+          "pinyin": "Shíyīyuè bā rì shì xīngqītiān.",
+          "es": "El 8 de noviembre es domingo."
         },
         {
-          "zh": ["星期天", "他们", "买", "肉", "。"],
-          "pinyin": "Xīngqītiān tāmen mǎi ròu.",
-          "es": "El domingo ellos compran carne."
+          "zh": ["星期天", "这里", "没有", "老师", "，", "也", "没有", "学生", "。"],
+          "pinyin": "Xīngqītiān zhèlǐ méiyǒu lǎoshī, yě méiyǒu xuéshēng.",
+          "es": "Los domingos aquí no hay profesores ni alumnos."
         }
       ],
       "exercises": [
         {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["星期一", "星期三"]
-        },
-        {
           "type": "choice",
           "question": "¿Cuál NO es un día de la semana?",
-          "options": ["星期七", "星期天", "星期六"],
+          "options": ["星期七", "星期天", "星期日"],
           "answer": "星期七",
-          "explanation": "El domingo es 星期天 (o 星期日); 星期七 no existe."
+          "explanation": "El domingo es 星期天 o 星期日; 星期七 no existe."
+        },
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["星期六", "星期七"]
         },
         {
           "type": "translate",
           "example": 1,
-          "direction": "es-zh",
-          "distractors": ["星期六", "牛奶"],
-          "accept": ["他们星期天买肉。"]
+          "direction": "zh-es",
+          "distractors": ["sábados", "tenemos"],
+          "accept": ["Aquí los domingos no hay profesores ni alumnos.", "Los domingos no hay profesores ni alumnos aquí."]
         }
       ]
     },
     "yiyue": {
-      "note": "Enero = «mes uno»: 一 + 月 (yuè, mes; luna). Todos los meses se forman así, del 一月 al 十二月. Aquí 一 se pronuncia yī, sin cambio de tono.",
+      "note": "Enero: el mes 1 (一 + 月, «luna, mes»). Todos los meses son número + 月. Aquí 一 se pronuncia con 1.er tono: yīyuè.",
       "examples": [
         {
-          "zh": ["一月", "我", "有", "考试", "。"],
-          "pinyin": "Yīyuè wǒ yǒu kǎoshì.",
-          "es": "En enero tengo exámenes."
+          "zh": ["一月", "一", "日", "是", "星期四", "。"],
+          "pinyin": "Yīyuè yī rì shì xīngqīsì.",
+          "es": "El 1 de enero es jueves."
         },
         {
-          "zh": ["我", "一月", "没有", "时间", "。"],
-          "pinyin": "Wǒ yīyuè méiyǒu shíjiān.",
-          "es": "En enero no tengo tiempo."
+          "zh": ["一月", "这里", "没有", "学生", "。"],
+          "pinyin": "Yīyuè zhèlǐ méiyǒu xuéshēng.",
+          "es": "En enero aquí no hay estudiantes."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["二月", "十一月"]
+          "distractors": ["十一月", "七月"]
         },
         {
-          "type": "choice",
-          "question": "¿Cómo se pronuncia 一 en 一月?",
-          "options": ["yī", "yí", "yì"],
-          "answer": "yī",
-          "explanation": "En los meses, en las fechas y al contar, 一 mantiene el 1.er tono."
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["那里", "有"],
+          "accept": ["这里一月没有学生。"]
         }
       ]
     },
     "eryue": {
-      "note": "Febrero = mes dos: 二月. Aquí se usa 二 (no 两) porque es el nombre del mes, no una cantidad.",
+      "note": "Febrero: el mes 2. Ojo: «dos» delante de un clasificador es 两, pero en los meses siempre es 二: 二月.",
       "examples": [
         {
-          "zh": ["二月", "我们", "有", "中文", "考试", "。"],
-          "pinyin": "Èryuè wǒmen yǒu Zhōngwén kǎoshì.",
-          "es": "En febrero tenemos examen de chino."
+          "zh": ["二月", "没有", "三", "十", "日", "。"],
+          "pinyin": "Èryuè méiyǒu sānshí rì.",
+          "es": "Febrero no tiene día 30."
         },
         {
-          "zh": ["她", "二月", "买", "车", "。"],
-          "pinyin": "Tā èryuè mǎi chē.",
-          "es": "En febrero ella compra un coche."
+          "zh": ["二月", "一", "日", "是", "星期天", "。"],
+          "pinyin": "Èryuè yī rì shì xīngqītiān.",
+          "es": "El 1 de febrero es domingo."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["十二月", "三月"]
+          "distractors": ["三月", "十月"]
         },
         {
           "type": "translate",
-          "example": 1,
+          "example": 0,
           "direction": "zh-es",
-          "distractors": ["marzo", "libro"],
-          "accept": ["Ella compra un coche en febrero."]
+          "distractors": ["marzo", "tengo"]
         }
       ]
     },
     "sanyue": {
-      "note": "Marzo = mes tres: 三月.",
+      "note": "Marzo: el mes 3.",
       "examples": [
         {
-          "zh": ["三月", "我", "有", "时间", "。"],
-          "pinyin": "Sānyuè wǒ yǒu shíjiān.",
-          "es": "En marzo tengo tiempo."
+          "zh": ["三月", "八", "日", "是", "星期天", "。"],
+          "pinyin": "Sānyuè bā rì shì xīngqītiān.",
+          "es": "El 8 de marzo es domingo."
         },
         {
-          "zh": ["我", "朋友", "三月", "有", "考试", "。"],
-          "pinyin": "Wǒ péngyou sānyuè yǒu kǎoshì.",
-          "es": "Mi amigo tiene un examen en marzo."
+          "zh": ["三月", "那里", "有", "中国", "学生", "。"],
+          "pinyin": "Sānyuè nàlǐ yǒu Zhōngguó xuéshēng.",
+          "es": "En marzo allí hay estudiantes chinos."
         }
       ],
       "exercises": [
         {
           "type": "fill",
-          "example": 1,
-          "distractors": ["四月", "九月"]
+          "example": 0,
+          "distractors": ["八月", "星期三"]
         },
         {
           "type": "translate",
-          "example": 0,
+          "example": 1,
           "direction": "es-zh",
-          "distractors": ["没有", "四月"],
-          "accept": ["我三月有时间。"]
+          "distractors": ["这里", "中文"],
+          "accept": ["那里三月有中国学生。"]
         }
       ]
     },
     "siyue": {
-      "note": "Abril = mes cuatro: 四月.",
+      "note": "Abril: el mes 4 (sìyuè). No lo confundas con 十月, octubre (shíyuè).",
       "examples": [
         {
-          "zh": ["四月", "他", "买", "手机", "。"],
-          "pinyin": "Sìyuè tā mǎi shǒujī.",
-          "es": "En abril él compra un móvil."
+          "zh": ["四月", "一", "日", "是", "星期三", "。"],
+          "pinyin": "Sìyuè yī rì shì xīngqīsān.",
+          "es": "El 1 de abril es miércoles."
         },
         {
-          "zh": ["我们", "四月", "没有", "考试", "。"],
-          "pinyin": "Wǒmen sìyuè méiyǒu kǎoshì.",
-          "es": "En abril no tenemos exámenes."
+          "zh": ["四月", "他们", "没有", "西班牙语", "老师", "。"],
+          "pinyin": "Sìyuè tāmen méiyǒu Xībānyáyǔ lǎoshī.",
+          "es": "En abril no tienen profesor de español."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["十月", "一月"]
+          "distractors": ["十月", "六月"]
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "zh-es",
-          "distractors": ["mayo", "libros"],
-          "accept": ["No tenemos exámenes en abril."]
+          "distractors": ["chino", "tenemos"],
+          "accept": ["No tienen profesor de español en abril."]
         }
       ]
     },
     "wuyue": {
-      "note": "Mayo = mes cinco: 五月.",
+      "note": "Mayo: el mes 5. El viernes (el día 5 de la semana) es 星期五.",
       "examples": [
         {
-          "zh": ["五月", "我", "买", "衣服", "。"],
-          "pinyin": "Wǔyuè wǒ mǎi yīfu.",
-          "es": "En mayo compro ropa."
+          "zh": ["五月", "三", "十", "一", "日", "是", "星期天", "。"],
+          "pinyin": "Wǔyuè sānshíyī rì shì xīngqītiān.",
+          "es": "El 31 de mayo es domingo."
         },
         {
-          "zh": ["你", "五月", "有", "考试", "吗", "？"],
-          "pinyin": "Nǐ wǔyuè yǒu kǎoshì ma?",
-          "es": "¿Tienes exámenes en mayo?"
+          "zh": ["五月", "这里", "有", "老师", "吗", "？"],
+          "pinyin": "Wǔyuè zhèlǐ yǒu lǎoshī ma?",
+          "es": "¿En mayo hay profesores aquí?"
         }
       ],
       "exercises": [
         {
           "type": "fill",
-          "example": 0,
-          "distractors": ["六月", "八月"]
+          "example": 1,
+          "distractors": ["星期五", "九月"]
         },
         {
           "type": "translate",
-          "example": 1,
+          "example": 0,
           "direction": "es-zh",
-          "distractors": ["六月", "不"],
-          "accept": ["五月你有考试吗？"]
+          "distractors": ["三月", "星期六"]
         }
       ]
     },
     "liuyue": {
-      "note": "Junio = mes seis: 六月.",
+      "note": "Junio: el mes 6. El sábado es 星期六.",
       "examples": [
         {
-          "zh": ["六月", "我们", "有", "中文", "考试", "。"],
-          "pinyin": "Liùyuè wǒmen yǒu Zhōngwén kǎoshì.",
-          "es": "En junio tenemos examen de chino."
+          "zh": ["六月", "一", "日", "是", "星期一", "。"],
+          "pinyin": "Liùyuè yī rì shì xīngqīyī.",
+          "es": "El 1 de junio es lunes."
         },
         {
-          "zh": ["我", "女儿", "六月", "有", "考试", "。"],
-          "pinyin": "Wǒ nǚ'ér liùyuè yǒu kǎoshì.",
-          "es": "Mi hija tiene exámenes en junio."
+          "zh": ["六月", "那里", "没有", "中国", "老师", "。"],
+          "pinyin": "Liùyuè nàlǐ méiyǒu Zhōngguó lǎoshī.",
+          "es": "En junio allí no hay profesores chinos."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 1,
-          "distractors": ["七月", "九月"]
+          "distractors": ["星期六", "七月"]
         },
         {
           "type": "translate",
           "example": 0,
           "direction": "zh-es",
-          "distractors": ["julio", "español"],
-          "accept": ["Tenemos examen de chino en junio."]
+          "distractors": ["julio", "martes"]
         }
       ]
     },
     "qiyue": {
-      "note": "Julio = mes siete: 七月.",
+      "note": "Julio: el mes 7 (qīyuè).",
       "examples": [
         {
-          "zh": ["七月", "我", "没有", "考试", "。"],
-          "pinyin": "Qīyuè wǒ méiyǒu kǎoshì.",
-          "es": "En julio no tengo exámenes."
+          "zh": ["七月", "四", "日", "是", "星期六", "。"],
+          "pinyin": "Qīyuè sì rì shì xīngqīliù.",
+          "es": "El 4 de julio es sábado."
         },
         {
-          "zh": ["七月", "我们", "有", "时间", "。"],
-          "pinyin": "Qīyuè wǒmen yǒu shíjiān.",
-          "es": "En julio tenemos tiempo."
+          "zh": ["七月", "那里", "没有", "学生", "，", "这里", "有", "。"],
+          "pinyin": "Qīyuè nàlǐ méiyǒu xuéshēng, zhèlǐ yǒu.",
+          "es": "En julio allí no hay estudiantes; aquí, sí."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["一月", "十月"]
+          "distractors": ["一月", "四月"]
         },
         {
           "type": "translate",
           "example": 1,
-          "direction": "es-zh",
-          "distractors": ["八月", "没有"],
-          "accept": ["我们七月有时间。"]
+          "direction": "zh-es",
+          "distractors": ["agosto", "profesores"],
+          "accept": ["Allí en julio no hay estudiantes; aquí, sí."]
         }
       ]
     },
     "bayue": {
-      "note": "Agosto = mes ocho: 八月.",
+      "note": "Agosto: el mes 8 (bāyuè).",
       "examples": [
         {
-          "zh": ["八月", "他们", "有", "时间", "。"],
-          "pinyin": "Bāyuè tāmen yǒu shíjiān.",
-          "es": "En agosto ellos tienen tiempo."
+          "zh": ["八月", "十", "五", "日", "是", "星期六", "。"],
+          "pinyin": "Bāyuè shíwǔ rì shì xīngqīliù.",
+          "es": "El 15 de agosto es sábado."
         },
         {
-          "zh": ["我", "八月", "买", "车", "。"],
-          "pinyin": "Wǒ bāyuè mǎi chē.",
-          "es": "En agosto compro un coche."
+          "zh": ["八月", "我们", "没有", "中文", "老师", "。"],
+          "pinyin": "Bāyuè wǒmen méiyǒu Zhōngwén lǎoshī.",
+          "es": "En agosto no tenemos profesor de chino."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 1,
-          "distractors": ["六月", "十二月"]
+          "distractors": ["二月", "四月"]
         },
         {
           "type": "translate",
-          "example": 0,
-          "direction": "zh-es",
-          "distractors": ["junio", "no"],
-          "accept": ["Ellos tienen tiempo en agosto."]
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["你们", "西班牙语"],
+          "accept": ["我们八月没有中文老师。"]
         }
       ]
     },
     "jiuyue": {
-      "note": "Septiembre = mes nueve: 九月.",
+      "note": "Septiembre: el mes 9 (jiǔyuè).",
       "examples": [
         {
-          "zh": ["九月", "我", "有", "中文", "考试", "。"],
-          "pinyin": "Jiǔyuè wǒ yǒu Zhōngwén kǎoshì.",
-          "es": "En septiembre tengo examen de chino."
+          "zh": ["九月", "一", "日", "是", "星期二", "。"],
+          "pinyin": "Jiǔyuè yī rì shì xīngqī'èr.",
+          "es": "El 1 de septiembre es martes."
         },
         {
-          "zh": ["九月", "我们", "买", "书", "。"],
-          "pinyin": "Jiǔyuè wǒmen mǎi shū.",
-          "es": "En septiembre compramos libros."
+          "zh": ["九月", "这里", "有", "中国", "学生", "吗", "？"],
+          "pinyin": "Jiǔyuè zhèlǐ yǒu Zhōngguó xuéshēng ma?",
+          "es": "¿En septiembre hay estudiantes chinos aquí?"
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["七月", "十月"]
+          "distractors": ["六月", "十月"]
         },
         {
           "type": "translate",
           "example": 1,
-          "direction": "es-zh",
-          "distractors": ["十月", "本"],
-          "accept": ["我们九月买书。"]
+          "direction": "zh-es",
+          "distractors": ["octubre", "allí"],
+          "accept": ["¿Hay estudiantes chinos aquí en septiembre?", "¿Aquí hay estudiantes chinos en septiembre?"]
         }
       ]
     },
     "shiyue": {
-      "note": "Octubre = mes diez: 十月.",
+      "note": "Octubre: el mes 10 (shíyuè). No lo confundas con 四月, abril (sìyuè).",
       "examples": [
         {
-          "zh": ["十月", "我", "没有", "时间", "。"],
-          "pinyin": "Shíyuè wǒ méiyǒu shíjiān.",
-          "es": "En octubre no tengo tiempo."
+          "zh": ["十月", "一", "日", "是", "星期四", "。"],
+          "pinyin": "Shíyuè yī rì shì xīngqīsì.",
+          "es": "El 1 de octubre es jueves."
         },
         {
-          "zh": ["我", "同学", "十月", "买", "手机", "。"],
-          "pinyin": "Wǒ tóngxué shíyuè mǎi shǒujī.",
-          "es": "Mi compañero de clase compra un móvil en octubre."
+          "zh": ["十月", "那里", "有", "西班牙", "老师", "。"],
+          "pinyin": "Shíyuè nàlǐ yǒu Xībānyá lǎoshī.",
+          "es": "En octubre allí hay profesores españoles."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["四月", "十一月"]
+          "distractors": ["十一月", "四月"]
         },
         {
           "type": "translate",
           "example": 1,
-          "direction": "zh-es",
-          "distractors": ["noviembre", "libro"],
-          "accept": ["En octubre mi compañero de clase compra un móvil."]
+          "direction": "es-zh",
+          "distractors": ["这里", "没有"],
+          "accept": ["那里十月有西班牙老师。"]
         }
       ]
     },
     "shiyiyue": {
-      "note": "Noviembre = mes once: 十一月 (十一 = 11). Aquí 一 se pronuncia yī.",
+      "note": "Noviembre: el mes 11 (十一 + 月). Aquí 一 mantiene el 1.er tono: shíyīyuè.",
       "examples": [
         {
-          "zh": ["十一月", "我们", "有", "考试", "。"],
-          "pinyin": "Shíyīyuè wǒmen yǒu kǎoshì.",
-          "es": "En noviembre tenemos exámenes."
+          "zh": ["十一月", "十", "一", "日", "是", "星期三", "。"],
+          "pinyin": "Shíyīyuè shíyī rì shì xīngqīsān.",
+          "es": "El 11 de noviembre es miércoles."
         },
         {
-          "zh": ["我", "十一月", "买", "衣服", "。"],
-          "pinyin": "Wǒ shíyīyuè mǎi yīfu.",
-          "es": "En noviembre compro ropa."
+          "zh": ["十一月", "我们", "有", "中国", "老师", "。"],
+          "pinyin": "Shíyīyuè wǒmen yǒu Zhōngguó lǎoshī.",
+          "es": "En noviembre tenemos un profesor chino."
         }
       ],
       "exercises": [
         {
           "type": "fill",
-          "example": 0,
-          "distractors": ["十月", "十二月"]
+          "example": 1,
+          "distractors": ["十二月", "一月"]
         },
         {
           "type": "choice",
-          "question": "¿Qué mes es 十一月?",
-          "options": ["noviembre", "enero", "octubre"],
-          "answer": "noviembre",
-          "explanation": "十一 = 11: el mes once."
+          "question": "«Noviembre» se dice…",
+          "options": ["十一月", "一十月", "十月一"],
+          "answer": "十一月",
+          "explanation": "Noviembre es el mes 11: 十一 + 月."
         },
         {
           "type": "translate",
           "example": 1,
-          "direction": "es-zh",
-          "distractors": ["十二月", "件"],
-          "accept": ["十一月我买衣服。"]
+          "direction": "zh-es",
+          "distractors": ["octubre", "estudiante"],
+          "accept": ["Tenemos un profesor chino en noviembre."]
         }
       ]
     },
     "shieryue": {
-      "note": "Diciembre = mes doce: 十二月. En pinyin lleva apóstrofo: shí'èryuè.",
+      "note": "Diciembre: el mes 12 (十二 + 月). En pinyin lleva apóstrofo: shí'èryuè.",
       "examples": [
         {
-          "zh": ["十二月", "我", "有", "时间", "。"],
-          "pinyin": "Shí'èryuè wǒ yǒu shíjiān.",
-          "es": "En diciembre tengo tiempo."
+          "zh": ["十二月", "二", "十", "五", "日", "是", "星期五", "。"],
+          "pinyin": "Shí'èryuè èrshíwǔ rì shì xīngqīwǔ.",
+          "es": "El 25 de diciembre es viernes."
         },
         {
-          "zh": ["十二月", "我们", "没有", "考试", "。"],
-          "pinyin": "Shí'èryuè wǒmen méiyǒu kǎoshì.",
-          "es": "En diciembre no tenemos exámenes."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["二月", "十一月"]
-        },
-        {
-          "type": "choice",
-          "question": "«Diciembre» se dice…",
-          "options": ["十二月", "二十月", "十月二"],
-          "answer": "十二月",
-          "explanation": "Mes doce: 十二 + 月."
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "zh-es",
-          "distractors": ["enero", "no"],
-          "accept": ["Tengo tiempo en diciembre."]
-        }
-      ]
-    },
-    "che": {
-      "note": "Coche, vehículo. El carácter tradicional, 車, era el dibujo de un carro visto desde arriba.",
-      "examples": [
-        {
-          "zh": ["我", "没有", "车", "。"],
-          "pinyin": "Wǒ méiyǒu chē.",
-          "es": "No tengo coche."
-        },
-        {
-          "zh": ["你", "有", "车", "吗", "？"],
-          "pinyin": "Nǐ yǒu chē ma?",
-          "es": "¿Tienes coche?"
+          "zh": ["十二月", "我们", "也", "有", "中文", "老师", "吗", "？"],
+          "pinyin": "Shí'èryuè wǒmen yě yǒu Zhōngwén lǎoshī ma?",
+          "es": "¿En diciembre también tenemos profesor de chino?"
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["猫", "书"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "有", "车", "吗", "？"],
-            "pinyin": "Nǐ yǒu chē ma?",
-            "es": "¿Tienes coche?"
-          },
-          "answer": {
-            "zh": ["没有", "，", "我", "没有", "车", "。"],
-            "pinyin": "Méiyǒu, wǒ méiyǒu chē.",
-            "es": "No, no tengo coche."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "是", "老师", "。"],
-              "pinyin": "Wǒ shì lǎoshī.",
-              "es": "Soy profesor."
-            },
-            {
-              "zh": ["他", "有", "猫", "。"],
-              "pinyin": "Tā yǒu māo.",
-              "es": "Él tiene un gato."
-            }
-          ]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "es-zh",
-          "distractors": ["不", "有"]
-        }
-      ]
-    },
-    "xihuan": {
-      "note": "Gustar. Funciona al revés que en español: quien siente el gusto es el sujeto. 我喜欢咖啡 = «yo gusto el café» → me gusta el café. Se niega con 不: 我不喜欢啤酒.",
-      "examples": [
-        {
-          "zh": ["我", "喜欢", "咖啡", "。"],
-          "pinyin": "Wǒ xǐhuan kāfēi.",
-          "es": "Me gusta el café."
-        },
-        {
-          "zh": ["他", "不", "喜欢", "啤酒", "。"],
-          "pinyin": "Tā bù xǐhuan píjiǔ.",
-          "es": "A él no le gusta la cerveza."
-        },
-        {
-          "zh": ["你", "喜欢", "猫", "吗", "？"],
-          "pinyin": "Nǐ xǐhuan māo ma?",
-          "es": "¿Te gustan los gatos?"
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["有", "是"]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "zh-es",
-          "distractors": ["leche", "te"]
-        },
-        {
-          "type": "choice",
-          "question": "«No me gusta la leche» se dice…",
-          "options": ["我不喜欢牛奶。", "我没有喜欢牛奶。", "牛奶不喜欢我。"],
-          "answer": "我不喜欢牛奶。",
-          "explanation": "喜欢 se niega con 不. Y el orden es «yo + 喜欢 + cosa»: 牛奶不喜欢我 querría decir que la leche no te aprecia a ti."
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "喜欢", "猫", "吗", "？"],
-            "pinyin": "Nǐ xǐhuan māo ma?",
-            "es": "¿Te gustan los gatos?"
-          },
-          "answer": {
-            "zh": ["喜欢", "！", "我", "有", "猫", "。"],
-            "pinyin": "Xǐhuan! Wǒ yǒu māo.",
-            "es": "¡Sí! Tengo un gato."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "是", "学生", "。"],
-              "pinyin": "Wǒ shì xuéshēng.",
-              "es": "Soy estudiante."
-            },
-            {
-              "zh": ["我", "没有", "车", "。"],
-              "pinyin": "Wǒ méiyǒu chē.",
-              "es": "No tengo coche."
-            }
-          ]
-        }
-      ]
-    },
-    "shu": {
-      "note": "Libro. Su clasificador es 本 (běn): 一本书, 三本书. Un libro de chino es 中文书.",
-      "examples": [
-        {
-          "zh": ["我", "有", "一", "本", "中文", "书", "。"],
-          "pinyin": "Wǒ yǒu yì běn Zhōngwén shū.",
-          "es": "Tengo un libro de chino."
-        },
-        {
-          "zh": ["你", "喜欢", "书", "吗", "？"],
-          "pinyin": "Nǐ xǐhuan shū ma?",
-          "es": "¿Te gustan los libros?"
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["车", "猫"]
+          "distractors": ["十一月", "二月"]
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "es-zh",
-          "distractors": ["有", "猫"]
-        },
-        {
-          "type": "choice",
-          "question": "¿Qué clasificador va con 书?",
-          "options": ["本", "件", "栋"],
-          "answer": "本",
-          "explanation": "本 es el clasificador de los libros: 一本书."
+          "distractors": ["不", "你们"],
+          "accept": ["我们十二月也有中文老师吗？"]
         }
       ]
     },
-    "mai": {
-      "note": "Comprar (3.er tono). No lo confundas con 卖 mài (4.º tono), «vender»: solo cambia el tono.",
+    "ri": {
+      "note": "Día del mes, en las fechas. Primero va el mes y después el día, al revés que en español: 十一月五日 = 5 de noviembre. Al hablar se suele decir 号 (hào): 五号. También aparece en 星期日, otra forma de decir «domingo».",
       "examples": [
         {
-          "zh": ["我", "买", "一", "杯", "咖啡", "。"],
-          "pinyin": "Wǒ mǎi yì bēi kāfēi.",
-          "es": "Compro un café."
+          "zh": ["十一月", "五", "日", "是", "星期四", "。"],
+          "pinyin": "Shíyīyuè wǔ rì shì xīngqīsì.",
+          "es": "El 5 de noviembre es jueves."
         },
         {
-          "zh": ["他们", "不", "买", "肉", "。"],
-          "pinyin": "Tāmen bù mǎi ròu.",
-          "es": "Ellos no compran carne."
+          "zh": ["三月", "十", "四", "日", "是", "星期六", "。"],
+          "pinyin": "Sānyuè shísì rì shì xīngqīliù.",
+          "es": "El 14 de marzo es sábado."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["喜欢", "是"]
+          "distractors": ["年", "星期"]
+        },
+        {
+          "type": "choice",
+          "question": "«El 3 de mayo» se dice…",
+          "options": ["五月三日", "三日五月", "三月五日"],
+          "answer": "五月三日",
+          "explanation": "En chino se va de lo grande a lo pequeño: primero el mes (五月, mayo) y después el día (三日)."
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["四月", "年"]
+        }
+      ]
+    },
+    "nian": {
+      "note": "Año. Los años se leen cifra a cifra: 1997 = 一九九七年 (yī jiǔ jiǔ qī nián). En una fecha completa va primero el año, luego el mes y luego el día. Para decir en qué año naciste: 我是一九九七年的 («soy de 1997»).",
+      "examples": [
+        {
+          "zh": ["我", "是", "一", "九", "九", "七", "年", "的", "。"],
+          "pinyin": "Wǒ shì yī jiǔ jiǔ qī nián de.",
+          "es": "Soy de 1997."
+        },
+        {
+          "zh": ["他", "女儿", "是", "一", "九", "八", "九", "年", "的", "吗", "？"],
+          "pinyin": "Tā nǚ'ér shì yī jiǔ bā jiǔ nián de ma?",
+          "es": "¿Su hija es de 1989?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["日", "星期"]
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "zh-es",
-          "distractors": ["compramos", "leche"]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "es-zh",
-          "distractors": ["杯子", "本"]
-        }
-      ]
-    },
-    "rou": {
-      "note": "Carne. Se cuenta en trozos con 块: 一块肉 (yí kuài ròu), «un trozo de carne».",
-      "examples": [
-        {
-          "zh": ["我", "买", "一", "块", "肉", "。"],
-          "pinyin": "Wǒ mǎi yí kuài ròu.",
-          "es": "Compro un trozo de carne."
-        },
-        {
-          "zh": ["我", "女朋友", "不", "喜欢", "肉", "。"],
-          "pinyin": "Wǒ nǚpéngyou bù xǐhuan ròu.",
-          "es": "A mi novia no le gusta la carne."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["书", "车"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["男朋友", "没有"]
-        }
-      ]
-    },
-    "niunai": {
-      "note": "Leche: 牛 (vaca) + 奶 (leche). Un vaso de leche: 一杯牛奶.",
-      "examples": [
-        {
-          "zh": ["我", "喜欢", "牛奶", "。"],
-          "pinyin": "Wǒ xǐhuan niúnǎi.",
-          "es": "Me gusta la leche."
-        },
-        {
-          "zh": ["她", "买", "一", "杯", "牛奶", "。"],
-          "pinyin": "Tā mǎi yì bēi niúnǎi.",
-          "es": "Ella compra un vaso de leche."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["啤酒", "咖啡"]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "zh-es",
-          "distractors": ["café", "no"]
-        }
-      ]
-    },
-    "yifu": {
-      "note": "Ropa (la 2.ª sílaba es átona: yīfu). Las prendas se cuentan con 件: 一件衣服 (yí jiàn yīfu).",
-      "examples": [
-        {
-          "zh": ["她", "买", "一", "件", "衣服", "。"],
-          "pinyin": "Tā mǎi yí jiàn yīfu.",
-          "es": "Ella compra una prenda de ropa."
-        },
-        {
-          "zh": ["我", "喜欢", "你", "的", "衣服", "。"],
-          "pinyin": "Wǒ xǐhuan nǐ de yīfu.",
-          "es": "Me gusta tu ropa."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["书", "肉"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["他", "书"]
-        }
-      ]
-    },
-    "beizi": {
-      "note": "Vaso, taza (el objeto). Para contar bebidas se usa solo 杯: 一杯咖啡 = un café; 杯子 es el vaso en sí.",
-      "examples": [
-        {
-          "zh": ["这里", "有", "杯子", "吗", "？"],
-          "pinyin": "Zhèlǐ yǒu bēizi ma?",
-          "es": "¿Hay vasos aquí?"
-        },
-        {
-          "zh": ["那里", "没有", "杯子", "。"],
-          "pinyin": "Nàlǐ méiyǒu bēizi.",
-          "es": "Allí no hay vasos."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["杯", "块"]
+          "distractors": ["hijo", "1998"],
+          "accept": ["¿Es su hija de 1989?"]
         },
         {
           "type": "choice",
-          "question": "«Un vaso de leche» se dice…",
-          "options": ["一杯牛奶", "一杯子牛奶", "牛奶一杯"],
-          "answer": "一杯牛奶",
-          "explanation": "Para contar la bebida se usa el clasificador 杯, no el sustantivo 杯子."
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["aquí", "libros"],
-          "accept": ["No hay vasos allí."]
-        }
-      ]
-    },
-    "lou": {
-      "note": "Edificio (de varios pisos). Se cuenta con 栋: 一栋楼 (yí dòng lóu), «un edificio».",
-      "examples": [
-        {
-          "zh": ["我", "朋友", "有", "一", "栋", "楼", "。"],
-          "pinyin": "Wǒ péngyou yǒu yí dòng lóu.",
-          "es": "Mi amigo tiene un edificio."
-        },
-        {
-          "zh": ["那里", "有", "三", "栋", "楼", "。"],
-          "pinyin": "Nàlǐ yǒu sān dòng lóu.",
-          "es": "Allí hay tres edificios."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["书", "车"]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "es-zh",
-          "distractors": ["本", "他"]
-        }
-      ]
-    },
-    "jian": {
-      "note": "Clasificador para las prendas de ropa: número + 件 + 衣服. En chino no se puede decir «tres ropas»: entre el número y el sustantivo siempre va un clasificador.",
-      "examples": [
-        {
-          "zh": ["我", "有", "五", "件", "衣服", "。"],
-          "pinyin": "Wǒ yǒu wǔ jiàn yīfu.",
-          "es": "Tengo cinco prendas de ropa."
-        },
-        {
-          "zh": ["我", "女儿", "有", "十", "件", "衣服", "。"],
-          "pinyin": "Wǒ nǚ'ér yǒu shí jiàn yīfu.",
-          "es": "Mi hija tiene diez prendas de ropa."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["本", "杯"]
-        },
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["块", "栋"]
-        },
-        {
-          "type": "choice",
-          "question": "¿Qué clasificador va con 衣服?",
-          "options": ["件", "本", "杯"],
-          "answer": "件",
-          "explanation": "件 sirve para las prendas: 一件衣服."
-        }
-      ]
-    },
-    "bei": {
-      "note": "Clasificador para bebidas: 一杯咖啡 (un café), 三杯啤酒 (tres cervezas). Es el mismo carácter que el de 杯子 (vaso).",
-      "examples": [
-        {
-          "zh": ["我", "买", "一", "杯", "啤酒", "。"],
-          "pinyin": "Wǒ mǎi yì bēi píjiǔ.",
-          "es": "Compro una cerveza."
-        },
-        {
-          "zh": ["他", "有", "三", "杯", "咖啡", "。"],
-          "pinyin": "Tā yǒu sān bēi kāfēi.",
-          "es": "Él tiene tres cafés."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["件", "本"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["vasos", "cervezas"]
-        },
-        {
-          "type": "choice",
-          "question": "«Cuatro cervezas» se dice…",
-          "options": ["四杯啤酒", "四啤酒", "四件啤酒"],
-          "answer": "四杯啤酒",
-          "explanation": "Entre el número y el sustantivo va el clasificador; para bebidas, 杯."
-        }
-      ]
-    },
-    "kuai": {
-      "note": "Clasificador de trozos: 一块肉 (un trozo de carne). En la calle también es la forma coloquial de decir «yuan», la moneda china: 十块 = diez yuanes.",
-      "examples": [
-        {
-          "zh": ["我", "买", "三", "块", "肉", "。"],
-          "pinyin": "Wǒ mǎi sān kuài ròu.",
-          "es": "Compro tres trozos de carne."
-        },
-        {
-          "zh": ["我", "有", "二", "十", "块", "。"],
-          "pinyin": "Wǒ yǒu èrshí kuài.",
-          "es": "Tengo veinte yuanes."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["件", "栋"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["本", "杯"]
-        },
-        {
-          "type": "choice",
-          "question": "En 我有十块, 块 significa…",
-          "options": ["yuanes (dinero)", "trozos de carne", "edificios"],
-          "answer": "yuanes (dinero)",
-          "explanation": "Sin sustantivo detrás, 十块 se entiende como «diez yuanes»."
-        }
-      ]
-    },
-    "dong": {
-      "note": "Clasificador de edificios: 一栋楼 (yí dòng lóu), «un edificio».",
-      "examples": [
-        {
-          "zh": ["他们", "有", "五", "栋", "楼", "。"],
-          "pinyin": "Tāmen yǒu wǔ dòng lóu.",
-          "es": "Ellos tienen cinco edificios."
-        },
-        {
-          "zh": ["这里", "有", "一", "栋", "楼", "。"],
-          "pinyin": "Zhèlǐ yǒu yí dòng lóu.",
-          "es": "Aquí hay un edificio."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["本", "块"]
-        },
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["件", "杯"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["allí", "edificios"],
-          "accept": ["Hay un edificio aquí."]
-        }
-      ]
-    },
-    "ben": {
-      "note": "Clasificador de libros (y de cuadernos, revistas…): 一本书 (yì běn shū).",
-      "examples": [
-        {
-          "zh": ["我", "买", "一", "本", "书", "。"],
-          "pinyin": "Wǒ mǎi yì běn shū.",
-          "es": "Compro un libro."
-        },
-        {
-          "zh": ["老师", "有", "四", "十", "本", "书", "。"],
-          "pinyin": "Lǎoshī yǒu sìshí běn shū.",
-          "es": "El profesor tiene cuarenta libros."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["件", "杯"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["件", "三"]
-        },
-        {
-          "type": "choice",
-          "question": "¿Cuál está bien?",
-          "options": ["我有三本书。", "我有三书。", "我有书三本。"],
-          "answer": "我有三本书。",
-          "explanation": "Número + clasificador + sustantivo: 三本书."
+          "question": "«5 de noviembre de 1998» se dice…",
+          "options": ["一九九八年十一月五日", "五日十一月一九九八年", "十一月五日一九九八年"],
+          "answer": "一九九八年十一月五日",
+          "explanation": "De lo grande a lo pequeño: año (年), mes (月) y día (日)."
         }
       ]
     },
     "you": {
-      "note": "Tener. También significa «hay»: 这里有猫 = aquí hay un gato. ¡Ojo! Se niega con 没 (没有), nunca con 不: 我没有车. Para preguntar vale 吗 (你有车吗？) o la forma 有没有 (你有没有车？).",
+      "note": "Tener. También significa «hay»: 这里有老师 = aquí hay un profesor. ¡Ojo! Se niega con 没 (没有), nunca con 不: 我没有哥哥. Para preguntar vale 吗 (你有姐姐吗？) o la forma 有没有 (你有没有姐姐？).",
       "examples": [
         {
-          "zh": ["我", "有", "手机", "。"],
-          "pinyin": "Wǒ yǒu shǒujī.",
-          "es": "Tengo móvil."
+          "zh": ["我", "有", "妹妹", "。"],
+          "pinyin": "Wǒ yǒu mèimei.",
+          "es": "Tengo una hermana menor."
         },
         {
-          "zh": ["这里", "有", "猫", "。"],
-          "pinyin": "Zhèlǐ yǒu māo.",
-          "es": "Aquí hay un gato."
+          "zh": ["这里", "有", "老师", "。"],
+          "pinyin": "Zhèlǐ yǒu lǎoshī.",
+          "es": "Aquí hay un profesor."
         },
         {
-          "zh": ["你", "有", "没有", "时间", "？"],
-          "pinyin": "Nǐ yǒu méiyǒu shíjiān?",
-          "es": "¿Tienes tiempo?"
+          "zh": ["你", "有", "没有", "男朋友", "？"],
+          "pinyin": "Nǐ yǒu méiyǒu nánpéngyou?",
+          "es": "¿Tienes novio?"
         }
       ],
       "exercises": [
@@ -1508,17 +1089,17 @@
         },
         {
           "type": "choice",
-          "question": "«No tengo coche» se dice…",
-          "options": ["我没有车。", "我不有车。", "我有不车。"],
-          "answer": "我没有车。",
+          "question": "«No tengo hermanas mayores» se dice…",
+          "options": ["我没有姐姐。", "我不有姐姐。", "我有不姐姐。"],
+          "answer": "我没有姐姐。",
           "explanation": "有 es el único verbo que se niega con 没: 没有. 不有 no existe."
         },
         {
           "type": "dialogue",
           "prompt": {
-            "zh": ["你", "有", "手机", "吗", "？"],
-            "pinyin": "Nǐ yǒu shǒujī ma?",
-            "es": "¿Tienes móvil?"
+            "zh": ["你", "有", "弟弟", "吗", "？"],
+            "pinyin": "Nǐ yǒu dìdi ma?",
+            "es": "¿Tienes un hermano menor?"
           },
           "answer": {
             "zh": ["有", "。"],
@@ -1529,7 +1110,7 @@
             {
               "zh": ["是", "。"],
               "pinyin": "Shì.",
-              "es": "Sí, lo soy."
+              "es": "Sí (lo soy)."
             },
             {
               "zh": ["不", "。"],
@@ -1543,22 +1124,22 @@
           "example": 1,
           "direction": "zh-es",
           "distractors": ["allí", "tengo"],
-          "accept": ["Hay un gato aquí."]
+          "accept": ["Hay un profesor aquí."]
         }
       ]
     },
     "meiyou": {
-      "note": "Negación de 有: «no tener» o «no hay». También es la respuesta corta «no» a una pregunta con 有: 你有车吗？— 没有。",
+      "note": "Negación de 有: «no tener» o «no haber». También es la respuesta corta «no» a una pregunta con 有: 你有哥哥吗？— 没有。",
       "examples": [
         {
-          "zh": ["我", "没有", "时间", "。"],
-          "pinyin": "Wǒ méiyǒu shíjiān.",
-          "es": "No tengo tiempo."
+          "zh": ["我", "没有", "姐姐", "。"],
+          "pinyin": "Wǒ méiyǒu jiějie.",
+          "es": "No tengo hermanas mayores."
         },
         {
-          "zh": ["那里", "没有", "咖啡", "。"],
-          "pinyin": "Nàlǐ méiyǒu kāfēi.",
-          "es": "Allí no hay café."
+          "zh": ["那里", "没有", "学生", "。"],
+          "pinyin": "Nàlǐ méiyǒu xuéshēng.",
+          "es": "Allí no hay estudiantes."
         }
       ],
       "exercises": [
@@ -1576,9 +1157,9 @@
         {
           "type": "dialogue",
           "prompt": {
-            "zh": ["你", "有", "啤酒", "吗", "？"],
-            "pinyin": "Nǐ yǒu píjiǔ ma?",
-            "es": "¿Tienes cerveza?"
+            "zh": ["你", "有", "儿子", "吗", "？"],
+            "pinyin": "Nǐ yǒu érzi ma?",
+            "es": "¿Tienes un hijo?"
           },
           "answer": {
             "zh": ["没有", "。"],
@@ -1592,79 +1173,190 @@
               "es": "No lo es."
             },
             {
-              "zh": ["我", "是", "啤酒", "。"],
-              "pinyin": "Wǒ shì píjiǔ.",
-              "es": "Soy cerveza."
+              "zh": ["我", "是", "儿子", "。"],
+              "pinyin": "Wǒ shì érzi.",
+              "es": "Soy hijo."
             }
           ]
         }
       ]
     },
-    "mao": {
-      "note": "Gato. Lleva a la izquierda el radical de los animales, 犭. Su sonido, māo, imita el maullido.",
+    "youqian": {
+      "note": "Rico, con dinero: literalmente «tener dinero» (钱 qián). Como lleva 有, se niega con 没: 没(有)钱 = no tener dinero.",
       "examples": [
         {
-          "zh": ["我", "有", "猫", "。"],
-          "pinyin": "Wǒ yǒu māo.",
-          "es": "Tengo un gato."
+          "zh": ["我", "朋友", "有钱", "。"],
+          "pinyin": "Wǒ péngyou yǒuqián.",
+          "es": "Mi amigo es rico."
         },
         {
-          "zh": ["我", "喜欢", "老师", "的", "猫", "。"],
-          "pinyin": "Wǒ xǐhuan lǎoshī de māo.",
-          "es": "Me gusta el gato del profesor."
+          "zh": ["你", "男朋友", "有钱", "吗", "？"],
+          "pinyin": "Nǐ nánpéngyou yǒuqián ma?",
+          "es": "¿Tu novio es rico?"
+        },
+        {
+          "zh": ["他", "是", "有钱", "的", "学生", "。"],
+          "pinyin": "Tā shì yǒuqián de xuéshēng.",
+          "es": "Es un estudiante rico."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["书", "楼"]
+          "distractors": ["有名", "有用"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["有名", "老师"]
         },
         {
           "type": "translate",
           "example": 1,
           "direction": "zh-es",
-          "distractors": ["amigo", "libro"]
+          "distractors": ["novia", "famoso"],
+          "accept": ["¿Es rico tu novio?"]
+        }
+      ]
+    },
+    "youyong": {
+      "note": "Útil: «tener uso» (用 yòng, usar). Lo contrario es 没(有)用, «inútil».",
+      "examples": [
+        {
+          "zh": ["中文", "有用", "。"],
+          "pinyin": "Zhōngwén yǒuyòng.",
+          "es": "El chino es útil."
+        },
+        {
+          "zh": ["西班牙语", "也", "有用", "吗", "？"],
+          "pinyin": "Xībānyáyǔ yě yǒuyòng ma?",
+          "es": "¿El español también es útil?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["有钱", "有名"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["chino", "interesante"],
+          "accept": ["¿También es útil el español?", "¿Es útil el español también?", "¿El español es útil también?"]
+        },
+        {
+          "type": "choice",
+          "question": "Lo contrario de 有用 (útil) es…",
+          "options": ["没有用", "不有用", "有不用"],
+          "answer": "没有用",
+          "explanation": "Como lleva 有, se niega con 没: 没(有)用, «inútil»."
+        }
+      ]
+    },
+    "youming": {
+      "note": "Famoso: «tener nombre» (名 míng). Delante de un sustantivo lleva 的: 有名的老师, un profesor famoso.",
+      "examples": [
+        {
+          "zh": ["她", "是", "有名", "的", "老师", "。"],
+          "pinyin": "Tā shì yǒumíng de lǎoshī.",
+          "es": "Es una profesora famosa."
+        },
+        {
+          "zh": ["你", "妈妈", "有名", "吗", "？"],
+          "pinyin": "Nǐ māma yǒumíng ma?",
+          "es": "¿Tu madre es famosa?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["有钱", "有用"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["有钱", "学生"]
+        },
+        {
+          "type": "choice",
+          "question": "«Un profesor famoso» se dice…",
+          "options": ["有名的老师", "老师有名的", "有名老师的"],
+          "answer": "有名的老师",
+          "explanation": "Adjetivo + 的 + sustantivo: al revés que en español, el adjetivo va delante."
+        }
+      ]
+    },
+    "youyisi": {
+      "note": "Interesante, divertido: «tener gracia, tener sentido» (意思 yìsi). Lo contrario es 没(有)意思, «aburrido».",
+      "examples": [
+        {
+          "zh": ["中文", "有意思", "！"],
+          "pinyin": "Zhōngwén yǒu yìsi!",
+          "es": "¡El chino es interesante!"
+        },
+        {
+          "zh": ["她", "是", "有意思", "的", "女孩", "。"],
+          "pinyin": "Tā shì yǒu yìsi de nǚhái.",
+          "es": "Es una chica interesante."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["有钱", "有用"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["famosa", "chico"]
         },
         {
           "type": "dialogue",
           "prompt": {
-            "zh": ["你", "有", "猫", "吗", "？"],
-            "pinyin": "Nǐ yǒu māo ma?",
-            "es": "¿Tienes gato?"
+            "zh": ["中文", "有意思", "吗", "？"],
+            "pinyin": "Zhōngwén yǒu yìsi ma?",
+            "es": "¿Es interesante el chino?"
           },
           "answer": {
-            "zh": ["有", "，", "我", "有", "猫", "。"],
-            "pinyin": "Yǒu, wǒ yǒu māo.",
-            "es": "Sí, tengo un gato."
+            "zh": ["有意思", "！"],
+            "pinyin": "Yǒu yìsi!",
+            "es": "¡Sí, es interesante!"
           },
           "wrong": [
             {
-              "zh": ["我", "是", "猫", "。"],
-              "pinyin": "Wǒ shì māo.",
-              "es": "Soy un gato."
+              "zh": ["是", "中文", "。"],
+              "pinyin": "Shì Zhōngwén.",
+              "es": "Es chino."
             },
             {
-              "zh": ["没有", "，", "我", "有", "猫", "。"],
-              "pinyin": "Méiyǒu, wǒ yǒu māo.",
-              "es": "No, tengo un gato."
+              "zh": ["我", "有", "中文", "。"],
+              "pinyin": "Wǒ yǒu Zhōngwén.",
+              "es": "Tengo chino."
             }
           ]
         }
       ]
     },
     "zheli": {
-      "note": "Aquí: 这 (esto) + 里 (dentro), «en este sitio». Su pareja es 那里 (allí). Los dos pueden ir al principio de la frase con 有 para decir lo que hay: 这里有咖啡 = aquí hay café.",
+      "note": "Aquí: 这 (esto) + 里 (dentro), «en este sitio». Su pareja es 那里 (allí). Los dos pueden ir al principio de la frase con 有 para decir lo que hay: 这里有老师 = aquí hay un profesor.",
       "examples": [
         {
-          "zh": ["这里", "有", "咖啡", "吗", "？"],
-          "pinyin": "Zhèlǐ yǒu kāfēi ma?",
-          "es": "¿Hay café aquí?"
+          "zh": ["这里", "有", "中国", "学生", "吗", "？"],
+          "pinyin": "Zhèlǐ yǒu Zhōngguó xuéshēng ma?",
+          "es": "¿Hay estudiantes chinos aquí?"
         },
         {
-          "zh": ["这里", "没有", "啤酒", "。"],
-          "pinyin": "Zhèlǐ méiyǒu píjiǔ.",
-          "es": "Aquí no hay cerveza."
+          "zh": ["这里", "没有", "西班牙语", "老师", "。"],
+          "pinyin": "Zhèlǐ méiyǒu Xībānyáyǔ lǎoshī.",
+          "es": "Aquí no hay profesor de español."
         }
       ],
       "exercises": [
@@ -1677,8 +1369,8 @@
           "type": "translate",
           "example": 0,
           "direction": "zh-es",
-          "distractors": ["allí", "leche"],
-          "accept": ["¿Aquí hay café?"]
+          "distractors": ["allí", "españoles"],
+          "accept": ["¿Aquí hay estudiantes chinos?"]
         }
       ]
     },
@@ -1686,14 +1378,14 @@
       "note": "Allí: 那 (eso, aquello) + 里 (dentro). No lo confundas con 哪里 nǎlǐ («¿dónde?»): solo cambia el tono de la primera sílaba.",
       "examples": [
         {
-          "zh": ["那里", "有", "猫", "。"],
-          "pinyin": "Nàlǐ yǒu māo.",
-          "es": "Allí hay un gato."
+          "zh": ["那里", "有", "女孩", "。"],
+          "pinyin": "Nàlǐ yǒu nǚhái.",
+          "es": "Allí hay una chica."
         },
         {
-          "zh": ["那里", "有", "啤酒", "吗", "？"],
-          "pinyin": "Nàlǐ yǒu píjiǔ ma?",
-          "es": "¿Hay cerveza allí?"
+          "zh": ["那里", "有", "你", "的", "朋友", "吗", "？"],
+          "pinyin": "Nàlǐ yǒu nǐ de péngyou ma?",
+          "es": "¿Hay algún amigo tuyo allí?"
         }
       ],
       "exercises": [
@@ -1717,48 +1409,768 @@
         }
       ]
     },
-    "wenti": {
-      "note": "Pregunta, y también «problema». 我有问题 = tengo una pregunta; 没有问题 = no hay problema (muy usado como «¡claro!, ¡sin problema!»).",
+    "fuqin": {
+      "note": "Padre, en un registro formal o escrito (documentos, discursos). En casa se dice 爸爸. 父 es «padre» y 亲, «pariente», igual que en 母亲 (madre).",
       "examples": [
         {
-          "zh": ["老师", "，", "我", "有", "问题", "。"],
-          "pinyin": "Lǎoshī, wǒ yǒu wèntí.",
-          "es": "Profesor, tengo una pregunta."
+          "zh": ["我", "父亲", "是", "老师", "。"],
+          "pinyin": "Wǒ fùqīn shì lǎoshī.",
+          "es": "Mi padre es profesor."
         },
         {
-          "zh": ["没有", "问题", "！"],
-          "pinyin": "Méiyǒu wèntí!",
-          "es": "¡No hay problema!"
+          "zh": ["他", "父亲", "是", "有名", "的", "中国", "老师", "。"],
+          "pinyin": "Tā fùqīn shì yǒumíng de Zhōngguó lǎoshī.",
+          "es": "Su padre es un profesor chino famoso."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["时间", "考试"]
+          "distractors": ["母亲", "儿子"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["madre", "español"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál es la forma familiar (la que se usa en casa) de 父亲?",
+          "options": ["爸爸", "妈妈", "哥哥"],
+          "answer": "爸爸",
+          "explanation": "父亲 y 爸爸 significan «padre»; 爸爸 es lo que se dice en casa («papá»)."
+        }
+      ]
+    },
+    "baba": {
+      "note": "Papá. La 2.ª sílaba es átona: bàba. Con la familia el 的 se suele omitir: 我爸爸 = mi padre.",
+      "examples": [
+        {
+          "zh": ["我", "爸爸", "是", "西班牙语", "老师", "。"],
+          "pinyin": "Wǒ bàba shì Xībānyáyǔ lǎoshī.",
+          "es": "Mi padre es profesor de español."
+        },
+        {
+          "zh": ["你", "爸爸", "有钱", "吗", "？"],
+          "pinyin": "Nǐ bàba yǒuqián ma?",
+          "es": "¿Tu padre es rico?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["妈妈", "哥哥"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["妈妈", "不"]
         },
         {
           "type": "dialogue",
           "prompt": {
-            "zh": ["你们", "有", "问题", "吗", "？"],
-            "pinyin": "Nǐmen yǒu wèntí ma?",
-            "es": "¿Tenéis preguntas?"
+            "zh": ["他", "是", "你", "爸爸", "吗", "？"],
+            "pinyin": "Tā shì nǐ bàba ma?",
+            "es": "¿Es tu padre?"
           },
           "answer": {
-            "zh": ["老师", "，", "我", "有", "问题", "。"],
-            "pinyin": "Lǎoshī, wǒ yǒu wèntí.",
-            "es": "Profesor, tengo una pregunta."
+            "zh": ["是", "，", "他", "是", "我", "爸爸", "。"],
+            "pinyin": "Shì, tā shì wǒ bàba.",
+            "es": "Sí, es mi padre."
           },
           "wrong": [
             {
-              "zh": ["我", "是", "问题", "。"],
-              "pinyin": "Wǒ shì wèntí.",
-              "es": "Soy una pregunta."
+              "zh": ["有", "，", "我", "有", "爸爸", "。"],
+              "pinyin": "Yǒu, wǒ yǒu bàba.",
+              "es": "Sí, tengo padre."
             },
             {
-              "zh": ["我们", "是", "老师", "。"],
-              "pinyin": "Wǒmen shì lǎoshī.",
-              "es": "Somos profesores."
+              "zh": ["不", "，", "他", "是", "我", "爸爸", "。"],
+              "pinyin": "Bù, tā shì wǒ bàba.",
+              "es": "No, es mi padre."
+            }
+          ]
+        }
+      ]
+    },
+    "muqin": {
+      "note": "Madre, en un registro formal o escrito. En casa se dice 妈妈. 母 (madre) + 亲 (pariente), igual que 父亲 (padre).",
+      "examples": [
+        {
+          "zh": ["她", "母亲", "是", "中国", "老师", "。"],
+          "pinyin": "Tā mǔqīn shì Zhōngguó lǎoshī.",
+          "es": "Su madre es una profesora china."
+        },
+        {
+          "zh": ["你", "母亲", "也", "是", "老师", "吗", "？"],
+          "pinyin": "Nǐ mǔqīn yě shì lǎoshī ma?",
+          "es": "¿Tu madre también es profesora?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["父亲", "女儿"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["父亲", "西班牙"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["她", "是", "你", "母亲", "吗", "？"],
+            "pinyin": "Tā shì nǐ mǔqīn ma?",
+            "es": "¿Es tu madre?"
+          },
+          "answer": {
+            "zh": ["不", "是", "，", "她", "是", "我", "姐姐", "。"],
+            "pinyin": "Bú shì, tā shì wǒ jiějie.",
+            "es": "No, es mi hermana mayor."
+          },
+          "wrong": [
+            {
+              "zh": ["没有", "，", "她", "是", "我", "姐姐", "。"],
+              "pinyin": "Méiyǒu, tā shì wǒ jiějie.",
+              "es": "No (no tengo), es mi hermana mayor."
+            },
+            {
+              "zh": ["她", "有", "母亲", "。"],
+              "pinyin": "Tā yǒu mǔqīn.",
+              "es": "Ella tiene madre."
+            }
+          ]
+        }
+      ]
+    },
+    "mama": {
+      "note": "Mamá. Se escribe con el radical de mujer, 女, más 马 (mǎ, caballo), que da el sonido. La 2.ª sílaba es átona: māma. No confundas 妈 con la partícula de pregunta 吗: comparten el 马.",
+      "examples": [
+        {
+          "zh": ["我", "妈妈", "有", "中国", "朋友", "。"],
+          "pinyin": "Wǒ māma yǒu Zhōngguó péngyou.",
+          "es": "Mi madre tiene amigos chinos."
+        },
+        {
+          "zh": ["我", "妈妈", "不", "是", "老师", "，", "她", "是", "学生", "。"],
+          "pinyin": "Wǒ māma bú shì lǎoshī, tā shì xuéshēng.",
+          "es": "Mi madre no es profesora; es estudiante."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["爸爸", "姐姐"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["padre", "profesor"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué carácter significa «mamá»?",
+          "options": ["妈", "吗", "马"],
+          "answer": "妈",
+          "explanation": "妈 lleva el radical de mujer, 女. 吗 lleva 口 (boca): es la partícula de pregunta. 马 solo es «caballo»."
+        }
+      ]
+    },
+    "fumu": {
+      "note": "Padres (padre y madre): el 父 de 父亲 + el 母 de 母亲. Es la palabra normal, tanto hablando como por escrito. Más formal: 父母亲; en casa: 爸妈. Como con 爸爸 y 妈妈, el 的 se suele omitir: 我父母 = mis padres.",
+      "examples": [
+        {
+          "zh": ["我", "父母", "是", "老师", "。"],
+          "pinyin": "Wǒ fùmǔ shì lǎoshī.",
+          "es": "Mis padres son profesores."
+        },
+        {
+          "zh": ["你", "父母", "也", "是", "西班牙", "人", "吗", "？"],
+          "pinyin": "Nǐ fùmǔ yě shì Xībānyárén ma?",
+          "es": "¿Tus padres también son españoles?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["兄弟", "子女"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["中国", "不"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "父母", "是", "中国", "人", "吗", "？"],
+            "pinyin": "Nǐ fùmǔ shì Zhōngguórén ma?",
+            "es": "¿Tus padres son chinos?"
+          },
+          "answer": {
+            "zh": ["不", "是", "，", "他们", "是", "西班牙", "人", "。"],
+            "pinyin": "Bú shì, tāmen shì Xībānyárén.",
+            "es": "No, son españoles."
+          },
+          "wrong": [
+            {
+              "zh": ["是", "，", "他们", "是", "西班牙", "人", "。"],
+              "pinyin": "Shì, tāmen shì Xībānyárén.",
+              "es": "Sí, son españoles."
+            },
+            {
+              "zh": ["不", "是", "，", "他们", "是", "我", "父母", "。"],
+              "pinyin": "Bú shì, tāmen shì wǒ fùmǔ.",
+              "es": "No, son mis padres."
+            }
+          ]
+        }
+      ]
+    },
+    "fumuqin": {
+      "note": "Padres, en un registro formal o escrito, como 父亲 y 母亲: es 父亲 + 母亲 con el 亲 (pariente) una sola vez. Hablando se dice 父母 o, en casa, 爸妈.",
+      "examples": [
+        {
+          "zh": ["他", "父母亲", "是", "中国", "人", "。"],
+          "pinyin": "Tā fùmǔqīn shì Zhōngguórén.",
+          "es": "Sus padres son chinos."
+        },
+        {
+          "zh": ["他们", "是", "我", "的", "父母亲", "。"],
+          "pinyin": "Tāmen shì wǒ de fùmǔqīn.",
+          "es": "Ellos son mis padres."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["子女", "兄弟姐妹"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["madres", "españoles"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál es la forma más formal de decir «padres»?",
+          "options": ["父母亲", "父母", "爸妈"],
+          "answer": "父母亲",
+          "explanation": "父母亲 (父亲 + 母亲) suena tan formal como 父亲 y 母亲. 父母 vale para todo y 爸妈 es la forma de casa."
+        }
+      ]
+    },
+    "bama": {
+      "note": "Papá y mamá: la primera sílaba de 爸爸 y la de 妈妈. Es la forma de casa de decir «mis padres»: 我爸妈. Aquí las dos sílabas llevan tono (bàmā), mientras que en 爸爸 y 妈妈 la segunda es átona.",
+      "examples": [
+        {
+          "zh": ["你", "爸妈", "有名", "吗", "？"],
+          "pinyin": "Nǐ bàmā yǒumíng ma?",
+          "es": "¿Tus padres son famosos?"
+        },
+        {
+          "zh": ["她", "爸妈", "不", "是", "老师", "。"],
+          "pinyin": "Tā bàmā bú shì lǎoshī.",
+          "es": "Sus padres no son profesores."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["女儿", "兄弟"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["ricos", "mis"],
+          "accept": ["¿Son famosos tus padres?"]
+        },
+        {
+          "type": "choice",
+          "question": "爸妈 sale de…",
+          "options": ["爸爸 + 妈妈", "父亲 + 母亲", "爸爸 + 妹妹"],
+          "answer": "爸爸 + 妈妈",
+          "explanation": "Se toma la primera sílaba de cada uno: 爸(爸) + 妈(妈). Con 父亲 + 母亲 sale 父母亲."
+        }
+      ]
+    },
+    "xiongdi": {
+      "note": "Hermanos (varones) en general, sin decir quién es mayor: 兄 es el hermano mayor y 弟, el menor. Su versión femenina es 姐妹 (hermanas); para «hermanos y hermanas» se dice 兄弟姐妹.",
+      "examples": [
+        {
+          "zh": ["你", "有", "兄弟", "吗", "？"],
+          "pinyin": "Nǐ yǒu xiōngdì ma?",
+          "es": "¿Tienes hermanos varones?"
+        },
+        {
+          "zh": ["我", "没有", "兄弟", "，", "我", "有", "姐姐", "。"],
+          "pinyin": "Wǒ méiyǒu xiōngdì, wǒ yǒu jiějie.",
+          "es": "No tengo hermanos varones; tengo una hermana mayor."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["子女", "同学"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "兄弟", "吗", "？"],
+            "pinyin": "Nǐ yǒu xiōngdì ma?",
+            "es": "¿Tienes hermanos varones?"
+          },
+          "answer": {
+            "zh": ["有", "，", "我", "有", "哥哥", "。"],
+            "pinyin": "Yǒu, wǒ yǒu gēge.",
+            "es": "Sí, tengo un hermano mayor."
+          },
+          "wrong": [
+            {
+              "zh": ["有", "，", "我", "有", "姐姐", "。"],
+              "pinyin": "Yǒu, wǒ yǒu jiějie.",
+              "es": "Sí, tengo una hermana mayor."
+            },
+            {
+              "zh": ["是", "，", "我", "是", "兄弟", "。"],
+              "pinyin": "Shì, wǒ shì xiōngdì.",
+              "es": "Sí, soy hermanos."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "妹妹"]
+        }
+      ]
+    },
+    "jiemei": {
+      "note": "Hermanas en general, sin decir quién es mayor: 姐 (hermana mayor) + 妹 (hermana menor). Es la versión femenina de 兄弟; los dos juntos, 兄弟姐妹, son «hermanos y hermanas».",
+      "examples": [
+        {
+          "zh": ["你", "有", "姐妹", "吗", "？"],
+          "pinyin": "Nǐ yǒu jiěmèi ma?",
+          "es": "¿Tienes hermanas?"
+        },
+        {
+          "zh": ["她", "有", "兄弟", "，", "也", "有", "姐妹", "。"],
+          "pinyin": "Tā yǒu xiōngdì, yě yǒu jiěmèi.",
+          "es": "Ella tiene hermanos y también hermanas."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["兄弟", "子女"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "姐妹", "吗", "？"],
+            "pinyin": "Nǐ yǒu jiěmèi ma?",
+            "es": "¿Tienes hermanas?"
+          },
+          "answer": {
+            "zh": ["有", "，", "我", "有", "妹妹", "。"],
+            "pinyin": "Yǒu, wǒ yǒu mèimei.",
+            "es": "Sí, tengo una hermana menor."
+          },
+          "wrong": [
+            {
+              "zh": ["有", "，", "我", "有", "弟弟", "。"],
+              "pinyin": "Yǒu, wǒ yǒu dìdi.",
+              "es": "Sí, tengo un hermano menor."
+            },
+            {
+              "zh": ["是", "，", "我", "是", "姐妹", "。"],
+              "pinyin": "Shì, wǒ shì jiěmèi.",
+              "es": "Sí, soy hermanas."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "哥哥"],
+          "accept": ["她有姐妹，也有兄弟。"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál es la versión femenina de 兄弟 (hermanos)?",
+          "options": ["姐妹", "妹妹", "女儿"],
+          "answer": "姐妹",
+          "explanation": "姐妹 = 姐 (hermana mayor) + 妹 (hermana menor), igual que 兄弟 = 兄 + 弟."
+        }
+      ]
+    },
+    "xiongdijiemei": {
+      "note": "Hermanos y hermanas: 兄弟 (hermanos varones) + 姐妹 (hermanas). Es lo que se pregunta para saber si alguien tiene hermanos: 你有兄弟姐妹吗？ En español basta con decir «hermanos», pero en chino 兄弟 son solo los varones.",
+      "examples": [
+        {
+          "zh": ["你", "有", "兄弟姐妹", "吗", "？"],
+          "pinyin": "Nǐ yǒu xiōngdì jiěmèi ma?",
+          "es": "¿Tienes hermanos?"
+        },
+        {
+          "zh": ["我", "没有", "兄弟姐妹", "。"],
+          "pinyin": "Wǒ méiyǒu xiōngdì jiěmèi.",
+          "es": "No tengo hermanos."
+        },
+        {
+          "zh": ["我", "的", "兄弟姐妹", "也", "是", "学生", "。"],
+          "pinyin": "Wǒ de xiōngdì jiěmèi yě shì xuéshēng.",
+          "es": "Mis hermanos también son estudiantes."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["父母", "同学"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "你"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["padres", "profesores"],
+          "accept": ["Mis hermanos son también estudiantes.", "Mis hermanos son estudiantes también."]
+        },
+        {
+          "type": "choice",
+          "question": "Para preguntar «¿Tienes hermanos?» (chicos o chicas) se dice…",
+          "options": ["你有兄弟姐妹吗？", "你有兄弟吗？", "你有姐妹吗？"],
+          "answer": "你有兄弟姐妹吗？",
+          "explanation": "兄弟 son solo hermanos varones y 姐妹, solo hermanas. Para los dos se dice 兄弟姐妹."
+        }
+      ]
+    },
+    "gege": {
+      "note": "Hermano mayor. En chino no hay una palabra corriente para «hermano» a secas: se dice si es mayor (哥哥) o menor (弟弟). La 2.ª sílaba es átona: gēge.",
+      "examples": [
+        {
+          "zh": ["我", "哥哥", "是", "学生", "。"],
+          "pinyin": "Wǒ gēge shì xuéshēng.",
+          "es": "Mi hermano mayor es estudiante."
+        },
+        {
+          "zh": ["你", "哥哥", "有", "女朋友", "吗", "？"],
+          "pinyin": "Nǐ gēge yǒu nǚpéngyou ma?",
+          "es": "¿Tu hermano mayor tiene novia?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["弟弟", "姐姐"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["男朋友", "不"]
+        },
+        {
+          "type": "choice",
+          "question": "«Hermano mayor» y «hermano menor» se dicen…",
+          "options": ["哥哥 y 弟弟", "弟弟 y 哥哥", "姐姐 y 妹妹"],
+          "answer": "哥哥 y 弟弟",
+          "explanation": "哥哥 (gēge) es el mayor; 弟弟 (dìdi), el menor. 姐姐 y 妹妹 son las hermanas."
+        }
+      ]
+    },
+    "didi": {
+      "note": "Hermano menor. Su carácter, 弟, también está en 兄弟 (hermanos). La 2.ª sílaba es átona: dìdi.",
+      "examples": [
+        {
+          "zh": ["我", "弟弟", "也", "是", "学生", "。"],
+          "pinyin": "Wǒ dìdi yě shì xuéshēng.",
+          "es": "Mi hermano menor también es estudiante."
+        },
+        {
+          "zh": ["她", "没有", "弟弟", "。"],
+          "pinyin": "Tā méiyǒu dìdi.",
+          "es": "Ella no tiene hermanos menores."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["哥哥", "妹妹"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["mayores", "él"]
+        }
+      ]
+    },
+    "jiejie": {
+      "note": "Hermana mayor. Lleva el radical de mujer, 女, como 妹妹, 妈妈 y 女儿. La 2.ª sílaba es átona: jiějie.",
+      "examples": [
+        {
+          "zh": ["我", "姐姐", "有", "男朋友", "。"],
+          "pinyin": "Wǒ jiějie yǒu nánpéngyou.",
+          "es": "Mi hermana mayor tiene novio."
+        },
+        {
+          "zh": ["你", "姐姐", "是", "老师", "吗", "？"],
+          "pinyin": "Nǐ jiějie shì lǎoshī ma?",
+          "es": "¿Tu hermana mayor es profesora?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["妹妹", "哥哥"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["menor", "estudiante"],
+          "accept": ["¿Es profesora tu hermana mayor?"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "姐姐", "吗", "？"],
+            "pinyin": "Nǐ yǒu jiějie ma?",
+            "es": "¿Tienes hermanas mayores?"
+          },
+          "answer": {
+            "zh": ["没有", "，", "我", "有", "妹妹", "。"],
+            "pinyin": "Méiyǒu, wǒ yǒu mèimei.",
+            "es": "No, tengo una hermana menor."
+          },
+          "wrong": [
+            {
+              "zh": ["有", "，", "我", "没有", "姐姐", "。"],
+              "pinyin": "Yǒu, wǒ méiyǒu jiějie.",
+              "es": "Sí, no tengo hermanas mayores."
+            },
+            {
+              "zh": ["是", "，", "我", "是", "姐姐", "。"],
+              "pinyin": "Shì, wǒ shì jiějie.",
+              "es": "Sí, soy la hermana mayor."
+            }
+          ]
+        }
+      ]
+    },
+    "meimei": {
+      "note": "Hermana menor: 女 (mujer) + 未 (wèi), que da el sonido. La 2.ª sílaba es átona: mèimei.",
+      "examples": [
+        {
+          "zh": ["我", "妹妹", "不", "是", "学生", "。"],
+          "pinyin": "Wǒ mèimei bú shì xuéshēng.",
+          "es": "Mi hermana menor no es estudiante."
+        },
+        {
+          "zh": ["我", "没有", "妹妹", "，", "也", "没有", "弟弟", "。"],
+          "pinyin": "Wǒ méiyǒu mèimei, yě méiyǒu dìdi.",
+          "es": "No tengo hermana menor ni hermano menor."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["姐姐", "女儿"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["姐姐", "没有"]
+        }
+      ]
+    },
+    "erzi": {
+      "note": "Hijo (varón). 子 es átono: érzi. Para «hijos» en general, sin decir si son chicos o chicas, se usa 子女.",
+      "examples": [
+        {
+          "zh": ["你", "有", "儿子", "吗", "？"],
+          "pinyin": "Nǐ yǒu érzi ma?",
+          "es": "¿Tienes un hijo?"
+        },
+        {
+          "zh": ["他", "儿子", "是", "学生", "。"],
+          "pinyin": "Tā érzi shì xuéshēng.",
+          "es": "Su hijo es estudiante."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["女儿", "朋友"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["hija", "profesor"]
+        }
+      ]
+    },
+    "nver": {
+      "note": "Hija: 女 (mujer) + 儿 (niño). En pinyin lleva apóstrofo: nǚ'ér.",
+      "examples": [
+        {
+          "zh": ["她", "女儿", "有", "男朋友", "。"],
+          "pinyin": "Tā nǚ'ér yǒu nánpéngyou.",
+          "es": "Su hija tiene novio."
+        },
+        {
+          "zh": ["我", "没有", "儿子", "，", "我", "有", "女儿", "。"],
+          "pinyin": "Wǒ méiyǒu érzi, wǒ yǒu nǚ'ér.",
+          "es": "No tengo un hijo, sino una hija."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["儿子", "男朋友"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["子女", "不"]
+        }
+      ]
+    },
+    "zinv": {
+      "note": "Hijos e hijas en general: 子 (hijo) + 女 (hija). Es algo formal; en la conversación se suele decir 孩子. Para uno concreto: 儿子 (hijo) o 女儿 (hija).",
+      "examples": [
+        {
+          "zh": ["你", "有", "子女", "吗", "？"],
+          "pinyin": "Nǐ yǒu zǐnǚ ma?",
+          "es": "¿Tienes hijos?"
+        },
+        {
+          "zh": ["他们", "没有", "子女", "。"],
+          "pinyin": "Tāmen méiyǒu zǐnǚ.",
+          "es": "Ellos no tienen hijos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["兄弟", "朋友"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "子女", "吗", "？"],
+            "pinyin": "Nǐ yǒu zǐnǚ ma?",
+            "es": "¿Tienes hijos?"
+          },
+          "answer": {
+            "zh": ["有", "，", "我", "有", "儿子", "。"],
+            "pinyin": "Yǒu, wǒ yǒu érzi.",
+            "es": "Sí, tengo un hijo."
+          },
+          "wrong": [
+            {
+              "zh": ["没有", "，", "我", "有", "女儿", "。"],
+              "pinyin": "Méiyǒu, wǒ yǒu nǚ'ér.",
+              "es": "No, tengo una hija."
+            },
+            {
+              "zh": ["我", "是", "子女", "。"],
+              "pinyin": "Wǒ shì zǐnǚ.",
+              "es": "Soy hijos."
+            }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["我们", "不"]
+        }
+      ]
+    },
+    "haizi": {
+      "note": "Niño, y también «hijo» o «hija» sin decir si es chico o chica: 你有孩子吗？ = ¿Tienes hijos? Es la palabra de la conversación; 子女 significa lo mismo pero es más formal. Comparte 孩 con 男孩 y 女孩.",
+      "examples": [
+        {
+          "zh": ["你", "有", "孩子", "吗", "？"],
+          "pinyin": "Nǐ yǒu háizi ma?",
+          "es": "¿Tienes hijos?"
+        },
+        {
+          "zh": ["那里", "的", "孩子", "是", "我", "儿子", "。"],
+          "pinyin": "Nàlǐ de háizi shì wǒ érzi.",
+          "es": "El niño de allí es mi hijo."
+        },
+        {
+          "zh": ["我", "没有", "孩子", "。"],
+          "pinyin": "Wǒ méiyǒu háizi.",
+          "es": "No tengo hijos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 2,
+          "distractors": ["男孩", "兄弟"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": ["你", "有", "孩子", "吗", "？"],
+            "pinyin": "Nǐ yǒu háizi ma?",
+            "es": "¿Tienes hijos?"
+          },
+          "answer": {
+            "zh": ["有", "，", "我", "有", "女儿", "。"],
+            "pinyin": "Yǒu, wǒ yǒu nǚ'ér.",
+            "es": "Sí, tengo una hija."
+          },
+          "wrong": [
+            {
+              "zh": ["我", "是", "孩子", "。"],
+              "pinyin": "Wǒ shì háizi.",
+              "es": "Soy un niño."
+            },
+            {
+              "zh": ["没有", "，", "我", "有", "儿子", "。"],
+              "pinyin": "Méiyǒu, wǒ yǒu érzi.",
+              "es": "No, tengo un hijo."
             }
           ]
         },
@@ -1766,141 +2178,208 @@
           "type": "translate",
           "example": 1,
           "direction": "zh-es",
-          "distractors": ["tengo", "pregunta"]
-        }
-      ]
-    },
-    "shijian": {
-      "note": "Tiempo: el que pasa o el que tienes, no el meteorológico. 我没有时间 = no tengo tiempo.",
-      "examples": [
-        {
-          "zh": ["你", "有", "时间", "吗", "？"],
-          "pinyin": "Nǐ yǒu shíjiān ma?",
-          "es": "¿Tienes tiempo?"
-        },
-        {
-          "zh": ["老师", "没有", "时间", "。"],
-          "pinyin": "Lǎoshī méiyǒu shíjiān.",
-          "es": "El profesor no tiene tiempo."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["问题", "考试"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "有", "时间", "吗", "？"],
-            "pinyin": "Nǐ yǒu shíjiān ma?",
-            "es": "¿Tienes tiempo?"
-          },
-          "answer": {
-            "zh": ["没有", "，", "我", "有", "考试", "。"],
-            "pinyin": "Méiyǒu, wǒ yǒu kǎoshì.",
-            "es": "No, tengo un examen."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "是", "时间", "。"],
-              "pinyin": "Wǒ shì shíjiān.",
-              "es": "Soy el tiempo."
-            },
-            {
-              "zh": ["我", "喜欢", "猫", "。"],
-              "pinyin": "Wǒ xǐhuan māo.",
-              "es": "Me gustan los gatos."
-            }
-          ]
+          "distractors": ["hija", "aquí"]
         },
         {
           "type": "translate",
-          "example": 0,
+          "example": 2,
           "direction": "es-zh",
-          "distractors": ["是", "问题"]
+          "distractors": ["不", "他们"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué diferencia hay entre 孩子 y 子女?",
+          "options": ["Los dos son «hijos»; 孩子 es más coloquial y también significa «niño».", "孩子 son solo los hijos varones.", "子女 significa «niño pequeño»."],
+          "answer": "Los dos son «hijos»; 孩子 es más coloquial y también significa «niño».",
+          "explanation": "子女 (formal) = hijos e hijas. 孩子 = hijos, en la conversación, y también cualquier niño."
         }
       ]
     },
-    "pijiu": {
-      "note": "Cerveza: 啤 (pí, del inglés «beer») + 酒 (jiǔ, bebida alcohólica). Se cuenta con 杯: 一杯啤酒.",
+    "ren": {
+      "note": "Persona: el dibujo de alguien andando, con dos trazos como piernas. Está en 男人 y 女人, y sirve para las nacionalidades: país + 人 → 中国人 (chino), 西班牙人 (español). Con 有 significa «alguien»: 有人 (hay alguien), 没有人 (no hay nadie).",
       "examples": [
         {
-          "zh": ["我", "不", "喜欢", "啤酒", "。"],
-          "pinyin": "Wǒ bù xǐhuan píjiǔ.",
-          "es": "No me gusta la cerveza."
+          "zh": ["他", "是", "中国", "人", "。"],
+          "pinyin": "Tā shì Zhōngguórén.",
+          "es": "Él es chino."
         },
         {
-          "zh": ["我们", "买", "五", "杯", "啤酒", "。"],
-          "pinyin": "Wǒmen mǎi wǔ bēi píjiǔ.",
-          "es": "Compramos cinco cervezas."
+          "zh": ["那里", "有", "人", "吗", "？"],
+          "pinyin": "Nàlǐ yǒu rén ma?",
+          "es": "¿Hay alguien allí?"
+        },
+        {
+          "zh": ["这里", "没有", "人", "。"],
+          "pinyin": "Zhèlǐ méiyǒu rén.",
+          "es": "Aquí no hay nadie."
         }
       ],
       "exercises": [
         {
           "type": "fill",
-          "example": 1,
-          "distractors": ["牛奶", "咖啡"]
+          "example": 0,
+          "distractors": ["老师", "学生"]
         },
         {
           "type": "translate",
-          "example": 0,
+          "example": 1,
           "direction": "zh-es",
-          "distractors": ["leche", "gustan"]
+          "distractors": ["aquí", "nadie"],
+          "accept": ["¿Allí hay alguien?"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["那里", "吗"]
+        },
+        {
+          "type": "choice",
+          "question": "«Ella es española» se dice…",
+          "options": ["她是西班牙人。", "她是西班牙语。", "她是西班牙。"],
+          "answer": "她是西班牙人。",
+          "explanation": "Nacionalidad = país + 人: 中国人 (chino), 西班牙人 (español). 西班牙语 es el idioma y 西班牙, el país."
         }
       ]
     },
-    "kaoshi": {
-      "note": "Examen (también «examinarse»). 我有考试 = tengo examen; 中文考试 = examen de chino.",
+    "nanren": {
+      "note":"Hombre: 男 (varón: un campo 田 arriba y 力, fuerza, abajo) + 人 (persona). Su pareja es 女人 (mujer).",
       "examples": [
         {
-          "zh": ["星期五", "我", "有", "考试", "。"],
-          "pinyin": "Xīngqīwǔ wǒ yǒu kǎoshì.",
-          "es": "El viernes tengo examen."
+          "zh": ["那里", "的", "男人", "是", "我", "爸爸", "。"],
+          "pinyin": "Nàlǐ de nánrén shì wǒ bàba.",
+          "es": "El hombre de allí es mi padre."
         },
         {
-          "zh": ["我们", "没有", "中文", "考试", "。"],
-          "pinyin": "Wǒmen méiyǒu Zhōngwén kǎoshì.",
-          "es": "No tenemos examen de chino."
+          "zh": ["他", "不", "是", "男孩", "，", "他", "是", "男人", "。"],
+          "pinyin": "Tā bú shì nánhái, tā shì nánrén.",
+          "es": "No es un chico, es un hombre."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "blank": "男人",
+          "distractors": ["女人", "男朋友"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["这里", "妈妈"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál significa «hombre»?",
+          "options": ["男人", "女人", "男孩"],
+          "answer": "男人",
+          "explanation": "男人 = 男 (varón) + 人 (persona). 女人 es «mujer» y 男孩, «chico»."
+        }
+      ]
+    },
+    "nvren": {
+      "note": "Mujer: 女 (mujer; dibujo de una mujer arrodillada) + 人 (persona). Su pareja es 男人 (hombre).",
+      "examples": [
+        {
+          "zh": ["这里", "有", "男人", "，", "也", "有", "女人", "。"],
+          "pinyin": "Zhèlǐ yǒu nánrén, yě yǒu nǚrén.",
+          "es": "Aquí hay hombres y también mujeres."
+        },
+        {
+          "zh": ["我", "妈妈", "是", "有意思", "的", "女人", "。"],
+          "pinyin": "Wǒ māma shì yǒu yìsi de nǚrén.",
+          "es": "Mi madre es una mujer interesante."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["男人", "女孩子"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["padre", "famosa"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["那里", "没有"],
+          "accept": ["这里有女人，也有男人。"]
+        }
+      ]
+    },
+    "nanhaizi-informal": {
+      "note": "Chico, niño: 男孩 + 子. Significa lo mismo que 男孩 (lección 1), pero es más coloquial. El 子 final es átono: nánháizi.",
+      "examples": [
+        {
+          "zh": ["那里", "的", "男孩子", "是", "我", "弟弟", "。"],
+          "pinyin": "Nàlǐ de nánháizi shì wǒ dìdi.",
+          "es": "El chico de allí es mi hermano menor."
+        },
+        {
+          "zh": ["他们", "是", "有意思", "的", "男孩子", "。"],
+          "pinyin": "Tāmen shì yǒu yìsi de nánháizi.",
+          "es": "Son unos chicos divertidos."
         }
       ],
       "exercises": [
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["时间", "问题"]
+          "distractors": ["女孩子", "男朋友"]
         },
         {
           "type": "translate",
           "example": 1,
-          "direction": "es-zh",
-          "distractors": ["不", "西班牙语"]
+          "direction": "zh-es",
+          "distractors": ["chicas", "aburridos"]
         },
         {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "星期一", "有", "考试", "吗", "？"],
-            "pinyin": "Nǐ xīngqīyī yǒu kǎoshì ma?",
-            "es": "¿Tienes examen el lunes?"
-          },
-          "answer": {
-            "zh": ["没有", "，", "我", "星期二", "有", "考试", "。"],
-            "pinyin": "Méiyǒu, wǒ xīngqī'èr yǒu kǎoshì.",
-            "es": "No, tengo examen el martes."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "没有", "猫", "。"],
-              "pinyin": "Wǒ méiyǒu māo.",
-              "es": "No tengo gato."
-            },
-            {
-              "zh": ["我", "是", "学生", "。"],
-              "pinyin": "Wǒ shì xuéshēng.",
-              "es": "Soy estudiante."
-            }
-          ]
+          "type": "choice",
+          "question": "¿Qué diferencia hay entre 男孩 y 男孩子?",
+          "options": ["Significan lo mismo; 男孩子 es más coloquial.", "男孩子 es un bebé y 男孩, un hombre.", "男孩子 significa «hijo»."],
+          "answer": "Significan lo mismo; 男孩子 es más coloquial.",
+          "explanation": "Los dos son «chico, niño». Lo mismo pasa con 女孩 y 女孩子 (chica)."
+        }
+      ]
+    },
+    "nvhaizi-informal": {
+      "note": "Chica, niña: 女孩 + 子. Igual que 女孩 (lección 1), pero más coloquial. El 子 final es átono: nǚháizi.",
+      "examples": [
+        {
+          "zh": ["那里", "有", "男孩子", "，", "也", "有", "女孩子", "。"],
+          "pinyin": "Nàlǐ yǒu nánháizi, yě yǒu nǚháizi.",
+          "es": "Allí hay chicos y también chicas."
+        },
+        {
+          "zh": ["那里", "的", "女孩子", "是", "我", "同学", "。"],
+          "pinyin": "Nàlǐ de nǚháizi shì wǒ tóngxué.",
+          "es": "La chica de allí es mi compañera de clase."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["男孩子", "女人"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["这里", "男人"],
+          "accept": ["那里有女孩子，也有男孩子。"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["chico", "amiga"]
         }
       ]
     },
@@ -1966,9 +2445,9 @@
           "es": "Tengo novia."
         },
         {
-          "zh": ["他", "女朋友", "喜欢", "猫", "。"],
-          "pinyin": "Tā nǚpéngyou xǐhuan māo.",
-          "es": "A su novia le gustan los gatos."
+          "zh": ["他", "女朋友", "是", "我", "同学", "。"],
+          "pinyin": "Tā nǚpéngyou shì wǒ tóngxué.",
+          "es": "Su novia es mi compañera de clase."
         }
       ],
       "exercises": [
@@ -1992,422 +2471,8 @@
         }
       ]
     },
-    "youqian": {
-      "note": "Rico, con dinero: literalmente «tener dinero» (钱 qián). Como lleva 有, se niega con 没: 没(有)钱 = no tener dinero.",
-      "examples": [
-        {
-          "zh": ["我", "朋友", "有钱", "。"],
-          "pinyin": "Wǒ péngyou yǒuqián.",
-          "es": "Mi amigo es rico."
-        },
-        {
-          "zh": ["你", "男朋友", "有钱", "吗", "？"],
-          "pinyin": "Nǐ nánpéngyou yǒuqián ma?",
-          "es": "¿Tu novio es rico?"
-        },
-        {
-          "zh": ["他", "是", "有钱", "的", "学生", "。"],
-          "pinyin": "Tā shì yǒuqián de xuéshēng.",
-          "es": "Es un estudiante rico."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["有名", "有用"]
-        },
-        {
-          "type": "translate",
-          "example": 2,
-          "direction": "es-zh",
-          "distractors": ["有名", "老师"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["novia", "famoso"],
-          "accept": ["¿Es rico tu novio?"]
-        }
-      ]
-    },
-    "youyong": {
-      "note": "Útil: «tener uso» (用 yòng, usar). Lo contrario es 没(有)用, «inútil».",
-      "examples": [
-        {
-          "zh": ["中文", "有用", "。"],
-          "pinyin": "Zhōngwén yǒuyòng.",
-          "es": "El chino es útil."
-        },
-        {
-          "zh": ["我", "喜欢", "有用", "的", "书", "。"],
-          "pinyin": "Wǒ xǐhuan yǒuyòng de shū.",
-          "es": "Me gustan los libros útiles."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["有钱", "有名"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["interesantes", "libro"]
-        }
-      ]
-    },
-    "youming": {
-      "note": "Famoso: «tener nombre» (名 míng). Delante de un sustantivo lleva 的: 有名的老师, un profesor famoso.",
-      "examples": [
-        {
-          "zh": ["她", "是", "有名", "的", "老师", "。"],
-          "pinyin": "Tā shì yǒumíng de lǎoshī.",
-          "es": "Es una profesora famosa."
-        },
-        {
-          "zh": ["你", "的", "猫", "有名", "吗", "？"],
-          "pinyin": "Nǐ de māo yǒumíng ma?",
-          "es": "¿Tu gato es famoso?"
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["有钱", "有用"]
-        },
-        {
-          "type": "translate",
-          "example": 0,
-          "direction": "es-zh",
-          "distractors": ["有钱", "学生"]
-        },
-        {
-          "type": "choice",
-          "question": "«Un libro famoso» se dice…",
-          "options": ["有名的书", "书有名的", "有名书的"],
-          "answer": "有名的书",
-          "explanation": "Adjetivo + 的 + sustantivo: al revés que en español, el adjetivo va delante."
-        }
-      ]
-    },
-    "youyisi": {
-      "note": "Interesante, divertido: «tener gracia, tener sentido» (意思 yìsi). Lo contrario es 没(有)意思, «aburrido».",
-      "examples": [
-        {
-          "zh": ["中文", "有意思", "！"],
-          "pinyin": "Zhōngwén yǒu yìsi!",
-          "es": "¡El chino es interesante!"
-        },
-        {
-          "zh": ["我", "有", "一", "本", "有意思", "的", "书", "。"],
-          "pinyin": "Wǒ yǒu yì běn yǒu yìsi de shū.",
-          "es": "Tengo un libro interesante."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["有钱", "有名"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["famoso", "útil"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["中文", "有意思", "吗", "？"],
-            "pinyin": "Zhōngwén yǒu yìsi ma?",
-            "es": "¿Es interesante el chino?"
-          },
-          "answer": {
-            "zh": ["有意思", "！"],
-            "pinyin": "Yǒu yìsi!",
-            "es": "¡Sí, es interesante!"
-          },
-          "wrong": [
-            {
-              "zh": ["是", "中文", "。"],
-              "pinyin": "Shì Zhōngwén.",
-              "es": "Es chino."
-            },
-            {
-              "zh": ["我", "有", "中文", "。"],
-              "pinyin": "Wǒ yǒu Zhōngwén.",
-              "es": "Tengo chino."
-            }
-          ]
-        }
-      ]
-    },
-    "de": {
-      "note": "Une un modificador con un sustantivo, en orden inverso al español: 我的书 (mi libro), 老师的猫 (el gato del profesor), 我朋友的车 (el coche de mi amigo; como el genitivo sajón inglés: my friend's car), 有名的老师 (un profesor famoso). Con la familia y la pareja se suele omitir: 我男朋友.",
-      "examples": [
-        {
-          "zh": ["我", "喜欢", "你", "的", "车", "。"],
-          "pinyin": "Wǒ xǐhuan nǐ de chē.",
-          "es": "Me gusta tu coche."
-        },
-        {
-          "zh": ["他", "是", "我", "朋友", "的", "儿子", "。"],
-          "pinyin": "Tā shì wǒ péngyou de érzi.",
-          "es": "Es el hijo de mi amigo."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["是", "有"]
-        },
-        {
-          "type": "choice",
-          "question": "«El coche de mi amigo» se dice…",
-          "options": ["我朋友的车", "车的我朋友", "我的车朋友"],
-          "answer": "我朋友的车",
-          "explanation": "Como en inglés (my friend's car): primero el poseedor, luego 的 y al final lo poseído."
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["女儿", "有"]
-        },
-        {
-          "type": "choice",
-          "question": "¿Qué significa 我同学的手机?",
-          "options": ["el móvil de mi compañero", "mi compañero del móvil", "el compañero de mi móvil"],
-          "answer": "el móvil de mi compañero",
-          "explanation": "我同学 (mi compañero) + 的 + 手机 (móvil): el móvil de mi compañero."
-        }
-      ]
-    },
-    "shouji": {
-      "note": "Móvil: 手 (mano) + 机 (máquina), «la máquina de la mano».",
-      "examples": [
-        {
-          "zh": ["我", "没有", "手机", "。"],
-          "pinyin": "Wǒ méiyǒu shǒujī.",
-          "es": "No tengo móvil."
-        },
-        {
-          "zh": ["你", "有", "没有", "手机", "？"],
-          "pinyin": "Nǐ yǒu méiyǒu shǒujī?",
-          "es": "¿Tienes móvil?"
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["咖啡", "书"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "有", "没有", "手机", "？"],
-            "pinyin": "Nǐ yǒu méiyǒu shǒujī?",
-            "es": "¿Tienes móvil?"
-          },
-          "answer": {
-            "zh": ["没有", "。"],
-            "pinyin": "Méiyǒu.",
-            "es": "No (no tengo)."
-          },
-          "wrong": [
-            {
-              "zh": ["不", "。"],
-              "pinyin": "Bù.",
-              "es": "No."
-            },
-            {
-              "zh": ["是", "手机", "。"],
-              "pinyin": "Shì shǒujī.",
-              "es": "Es un móvil."
-            }
-          ]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["不", "是"]
-        }
-      ]
-    },
-    "erzi": {
-      "note": "Hijo (varón). 子 es átono: érzi. Para «hijos» en general, sin decir si son chicos o chicas, se usa 孩子.",
-      "examples": [
-        {
-          "zh": ["你", "有", "儿子", "吗", "？"],
-          "pinyin": "Nǐ yǒu érzi ma?",
-          "es": "¿Tienes un hijo?"
-        },
-        {
-          "zh": ["他", "儿子", "是", "学生", "。"],
-          "pinyin": "Tā érzi shì xuéshēng.",
-          "es": "Su hijo es estudiante."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["女儿", "朋友"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "zh-es",
-          "distractors": ["hija", "profesor"]
-        }
-      ]
-    },
-    "nver": {
-      "note": "Hija: 女 (mujer) + 儿 (niño). En pinyin lleva apóstrofo: nǚ'ér.",
-      "examples": [
-        {
-          "zh": ["我", "女儿", "喜欢", "牛奶", "。"],
-          "pinyin": "Wǒ nǚ'ér xǐhuan niúnǎi.",
-          "es": "A mi hija le gusta la leche."
-        },
-        {
-          "zh": ["她", "女儿", "有", "猫", "。"],
-          "pinyin": "Tā nǚ'ér yǒu māo.",
-          "es": "Su hija tiene un gato."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 0,
-          "distractors": ["儿子", "男朋友"]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["儿子", "没有"]
-        }
-      ]
-    },
-    "haizi": {
-      "note": "Niño, y también «hijo» o «hija» sin decir el sexo: 你有孩子吗？ = ¿Tienes hijos? Comparte 孩 con 男孩 y 女孩.",
-      "examples": [
-        {
-          "zh": ["你", "有", "孩子", "吗", "？"],
-          "pinyin": "Nǐ yǒu háizi ma?",
-          "es": "¿Tienes hijos?"
-        },
-        {
-          "zh": ["我", "没有", "孩子", "。"],
-          "pinyin": "Wǒ méiyǒu háizi.",
-          "es": "No tengo hijos."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["男孩", "车"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "有", "孩子", "吗", "？"],
-            "pinyin": "Nǐ yǒu háizi ma?",
-            "es": "¿Tienes hijos?"
-          },
-          "answer": {
-            "zh": ["有", "，", "我", "有", "女儿", "。"],
-            "pinyin": "Yǒu, wǒ yǒu nǚ'ér.",
-            "es": "Sí, tengo una hija."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "是", "孩子", "。"],
-              "pinyin": "Wǒ shì háizi.",
-              "es": "Soy un niño."
-            },
-            {
-              "zh": ["没有", "，", "我", "有", "儿子", "。"],
-              "pinyin": "Méiyǒu, wǒ yǒu érzi.",
-              "es": "No, tengo un hijo."
-            }
-          ]
-        },
-        {
-          "type": "translate",
-          "example": 1,
-          "direction": "es-zh",
-          "distractors": ["不", "猫"]
-        }
-      ]
-    },
-    "kafei": {
-      "note": "Café: es una adaptación del sonido de la palabra «café» (kāfēi). Un café: 一杯咖啡.",
-      "examples": [
-        {
-          "zh": ["你", "喜欢", "咖啡", "吗", "？"],
-          "pinyin": "Nǐ xǐhuan kāfēi ma?",
-          "es": "¿Te gusta el café?"
-        },
-        {
-          "zh": ["老师", "喜欢", "咖啡", "，", "不", "喜欢", "牛奶", "。"],
-          "pinyin": "Lǎoshī xǐhuan kāfēi, bù xǐhuan niúnǎi.",
-          "es": "Al profesor le gusta el café, no la leche."
-        }
-      ],
-      "exercises": [
-        {
-          "type": "fill",
-          "example": 1,
-          "distractors": ["啤酒", "肉"]
-        },
-        {
-          "type": "dialogue",
-          "prompt": {
-            "zh": ["你", "喜欢", "咖啡", "吗", "？"],
-            "pinyin": "Nǐ xǐhuan kāfēi ma?",
-            "es": "¿Te gusta el café?"
-          },
-          "answer": {
-            "zh": ["不", "喜欢", "，", "我", "喜欢", "牛奶", "。"],
-            "pinyin": "Bù xǐhuan, wǒ xǐhuan niúnǎi.",
-            "es": "No, me gusta la leche."
-          },
-          "wrong": [
-            {
-              "zh": ["我", "是", "咖啡", "。"],
-              "pinyin": "Wǒ shì kāfēi.",
-              "es": "Soy café."
-            },
-            {
-              "zh": ["我", "有", "车", "。"],
-              "pinyin": "Wǒ yǒu chē.",
-              "es": "Tengo coche."
-            }
-          ]
-        },
-        {
-          "type": "choice",
-          "question": "Responde «no» a 你喜欢咖啡吗？",
-          "options": ["不喜欢。", "没有。", "不是。"],
-          "answer": "不喜欢。",
-          "explanation": "Se responde repitiendo el verbo: 喜欢 se niega con 不. 没有 solo niega a 有."
-        }
-      ]
-    },
     "ma": {
-      "note": "Se pone al final de una frase afirmativa para convertirla en una pregunta de sí o no: 你有车。→ 你有车吗？ Es de tono neutro. No se usa con 有没有, que ya es una pregunta: 你有没有车？",
+      "note": "Se pone al final de una frase afirmativa para convertirla en una pregunta de sí o no: 你有哥哥。→ 你有哥哥吗？ Es de tono neutro. No se usa con 有没有, que ya es una pregunta: 你有没有哥哥？",
       "examples": [
         {
           "zh": ["你", "是", "学生", "吗", "？"],
@@ -2415,9 +2480,9 @@
           "es": "¿Eres estudiante?"
         },
         {
-          "zh": ["他们", "有", "猫", "吗", "？"],
-          "pinyin": "Tāmen yǒu māo ma?",
-          "es": "¿Ellos tienen gato?"
+          "zh": ["他们", "有", "中文", "老师", "吗", "？"],
+          "pinyin": "Tāmen yǒu Zhōngwén lǎoshī ma?",
+          "es": "¿Ellos tienen profesor de chino?"
         }
       ],
       "exercises": [
@@ -2435,9 +2500,51 @@
         {
           "type": "choice",
           "question": "¿Qué pregunta está MAL?",
-          "options": ["你有没有车吗？", "你有车吗？", "你有没有车？"],
-          "answer": "你有没有车吗？",
+          "options": ["你有没有哥哥吗？", "你有哥哥吗？", "你有没有哥哥？"],
+          "answer": "你有没有哥哥吗？",
           "explanation": "有没有 ya convierte la frase en pregunta: no se le añade 吗."
+        }
+      ]
+    },
+    "de": {
+      "note": "Une un modificador con un sustantivo, en orden inverso al español: 我的朋友 (mi amigo), 老师的女儿 (la hija del profesor), 我朋友的儿子 (el hijo de mi amigo; como el genitivo sajón inglés: my friend's son), 有名的老师 (un profesor famoso). Con la familia y la pareja se suele omitir: 我妈妈, 我男朋友.",
+      "examples": [
+        {
+          "zh": ["她", "是", "老师", "的", "女儿", "。"],
+          "pinyin": "Tā shì lǎoshī de nǚ'ér.",
+          "es": "Es la hija del profesor."
+        },
+        {
+          "zh": ["他", "是", "我", "朋友", "的", "儿子", "。"],
+          "pinyin": "Tā shì wǒ péngyou de érzi.",
+          "es": "Es el hijo de mi amigo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["是", "有"]
+        },
+        {
+          "type": "choice",
+          "question": "«El hermano mayor de mi amigo» se dice…",
+          "options": ["我朋友的哥哥", "哥哥的我朋友", "我的哥哥朋友"],
+          "answer": "我朋友的哥哥",
+          "explanation": "Como en inglés (my friend's brother): primero el poseedor, luego 的 y al final lo poseído."
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["女儿", "有"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué significa 我同学的妈妈?",
+          "options": ["la madre de mi compañero", "mi compañero de la madre", "el compañero de mi madre"],
+          "answer": "la madre de mi compañero",
+          "explanation": "我同学 (mi compañero) + 的 + 妈妈 (madre): la madre de mi compañero."
         }
       ]
     }
