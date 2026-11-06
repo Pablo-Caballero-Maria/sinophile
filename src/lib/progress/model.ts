@@ -212,6 +212,12 @@ export function recordAnswer(p: Progress, wordId: string, skill: Skill, correct:
   });
 }
 
+/** Ungraded practice (free drawing): counts for the daily goal and the streak, not for accuracy or spaced repetition. */
+export function recordPractice(p: Progress, xp: number, today = dayKey()): Progress {
+  const day = p.days[today] ?? emptyDay();
+  return touch({ ...p, days: { ...p.days, [today]: { ...day, xp: day.xp + xp } } });
+}
+
 export interface SessionSummaryInput {
   lessonId?: string;
   accuracy: number;

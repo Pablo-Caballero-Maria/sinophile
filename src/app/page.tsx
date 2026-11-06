@@ -2,12 +2,14 @@
 import { CalendarCheck, Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert, UserRound } from "lucide-react";
 import Link from "next/link";
 import { LESSONS, VOCAB, VOCAB_IDS, VOCAB_ISSUES } from "@/lib/data/vocab";
+import { reviewable } from "@/lib/exercises/silent";
 import { dueItems, isSeen, lessonMastery, lessonStars, streakInfo, type Progress } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { useSettings } from "@/lib/settings/store";
 import { useAccount, useReady, type AccountState } from "@/lib/account/client";
 import { dayKey } from "@/lib/text";
 import type { Lesson } from "@/lib/types";
+import { SilentModeCheckbox } from "@/components/silent-mode";
 import { ButtonLink, Card, cn, EmptyState, Ring, SectionTitle, Skeleton, Stars } from "@/components/ui";
 
 function recommendation(p: Progress, due: number): { label: string; href: string } | null {
@@ -20,10 +22,10 @@ function recommendation(p: Progress, due: number): { label: string; href: string
 }
 
 function DailyCard({ progress }: { progress: Progress }) {
-  const { dailyGoal } = useSettings();
+  const { dailyGoal, silentMode } = useSettings();
   const today = progress.days[dayKey()]?.xp ?? 0;
   const streak = streakInfo(progress);
-  const due = dueItems(progress, VOCAB_IDS).length;
+  const due = reviewable(dueItems(progress, VOCAB_IDS), silentMode).length;
   const next = recommendation(progress, due);
   const done = today >= dailyGoal;
   return (
@@ -103,13 +105,14 @@ const QUICK = [
   { href: "/sesion?modo=infinito", label: "Infinito", icon: InfinityIcon, color: "text-brand" },
   { href: "/practicar#examen", label: "Examen", icon: GraduationCap, color: "text-gold" },
   { href: "/sesion?modo=escritura", label: "Escritura", icon: PenLine, color: "text-ok" },
-  { href: "/sesion?modo=tarjetas", label: "Tarjetas", icon: Layers, color: "text-tone-2" },
+  { href: "/sesion?modo=tarjetas", label: "Tarjetas", icon: Layers, color: "text-accent-orange" },
 ];
 
 export default function HomePage() {
   const ready = useReady();
   const account = useAccount();
   const progress = useProgress();
+  const { silentMode } = useSettings();
 
   if (LESSONS.length === 0) {
     return (
@@ -120,7 +123,7 @@ export default function HomePage() {
   }
 
   const current = LESSONS.find((l) => l.words.some((w) => !isSeen(progress, w.id)));
-  const due = ready ? dueItems(progress, VOCAB_IDS).length : 0;
+  const due = ready ? reviewable(dueItems(progress, VOCAB_IDS), silentMode).length : 0;
 
   return (
     <div className="animate-fade-in">
@@ -145,6 +148,7 @@ export default function HomePage() {
           </Link>
         ))}
       </div>
+      <SilentModeCheckbox className="mt-3" />
 
       <SectionTitle action={<span className="flex items-center gap-1 text-sm text-muted"><CalendarCheck size={16} />{VOCAB.length} palabras</span>}>
         Tus lecciones

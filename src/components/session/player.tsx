@@ -3,14 +3,15 @@
  * Runs a practice session: builds the exercise queue, renders the current
  * exercise, records every answer (SRS + XP), shows feedback and the summary.
  */
-import { Flame, Heart, X } from "lucide-react";
+import { Flame, Heart, VolumeX, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { VOCAB, VOCAB_BY_ID, wordsOfLessons } from "@/lib/data/vocab";
 import { buildSession, nextInfinite, type GenContext } from "@/lib/exercises/generate";
-import { current, initialSession, MAX_LIVES, sessionReducer, xpFor } from "@/lib/exercises/session";
+import { current, initialSession, MAX_LIVES, PRACTICE_XP, sessionReducer, xpFor } from "@/lib/exercises/session";
+import { isNoisyMode } from "@/lib/exercises/silent";
 import type { AnswerResult, SessionMode, SessionParams } from "@/lib/exercises/types";
-import { answer, progressStore } from "@/lib/progress/store";
+import { addPracticeXp, answer, progressStore } from "@/lib/progress/store";
 import { useSettings } from "@/lib/settings/store";
 import { playSound } from "@/lib/sound";
 import { recognitionSupported } from "@/lib/speech";
@@ -38,6 +39,8 @@ const EMPTY_MESSAGES: Partial<Record<SessionMode, string>> = {
   frases: "Estas palabras todavía no tienen frases en exercises.json.",
 };
 
+const SILENT_MESSAGE = "En modo silencioso no hay ejercicios de escucha ni de pronunciación. Desmarca la casilla en Practicar para hacerlos.";
+
 const speechInputSupported = () =>
   recognitionSupported() || (typeof MediaRecorder !== "undefined" && !!navigator.mediaDevices?.getUserMedia);
 
@@ -61,7 +64,8 @@ export function SessionRunner({ params, sets, onRestart }: { params: SessionPara
     sets,
     progress: progressStore.get(),
     showPinyin: settings.showPinyin,
-    speaking: params.mode === "pronunciacion" || (settings.speakingInLessons && speechInputSupported()),
+    speaking: !settings.silentMode && (params.mode === "pronunciacion" || (settings.speakingInLessons && speechInputSupported())),
+    silent: settings.silentMode,
     sessionLength: settings.sessionLength,
     random: Math.random,
   }));
@@ -81,6 +85,12 @@ export function SessionRunner({ params, sets, onRestart }: { params: SessionPara
     [exercise, params.mode, state],
   );
 
+  const onPractice = useCallback(() => {
+    if (state.phase !== "answer") return;
+    addPracticeXp(PRACTICE_XP);
+    dispatch({ type: "practice" });
+  }, [state.phase]);
+
   const onContinue = useCallback(() => {
     const more = params.mode === "infinito" ? nextInfinite(words, { ...ctx, progress: progressStore.get() }) : undefined;
     dispatch({ type: "next", more });
@@ -91,7 +101,8 @@ export function SessionRunner({ params, sets, onRestart }: { params: SessionPara
     else dispatch({ type: "skip" });
   }, [ctx, params.mode, words]);
 
-  const exit = useCallback(() => (state.answered === 0 ? router.push(exitHref) : setConfirmExit(true)), [exitHref, router, state.answered]);
+  const untouched = state.answered + state.practiced === 0;
+  const exit = useCallback(() => (untouched ? router.push(exitHref) : setConfirmExit(true)), [exitHref, router, untouched]);
 
   // Every new exercise starts at the top of the page.
   useEffect(() => {
@@ -108,7 +119,7 @@ export function SessionRunner({ params, sets, onRestart }: { params: SessionPara
     return (
       <div className="mx-auto max-w-2xl px-4 pt-16">
         <EmptyState icon="🎉" title="Nada que practicar aquí">
-          {EMPTY_MESSAGES[params.mode] ?? "No hay palabras para esta selección."}
+          {ctx.silent && isNoisyMode(params.mode) ? SILENT_MESSAGE : (EMPTY_MESSAGES[params.mode] ?? "No hay palabras para esta selección.")}
         </EmptyState>
         <ButtonLink href={exitHref} full>
           Volver
@@ -138,6 +149,7 @@ export function SessionRunner({ params, sets, onRestart }: { params: SessionPara
               <span className="ml-auto text-lg font-black text-gold">{state.correct}</span>
             </div>
           )}
+          {ctx.silent && <VolumeX size={22} role="img" aria-label="Modo silencioso" className="shrink-0 text-muted" />}
           {state.combo >= 3 && params.mode !== "examen" && (
             <span key={state.combo} className="animate-pop rounded-full bg-gold-soft px-2 py-0.5 text-sm font-black text-gold">
               <Flame size={14} className="inline fill-gold align-[-2px]" /> {state.combo}
@@ -154,7 +166,7 @@ export function SessionRunner({ params, sets, onRestart }: { params: SessionPara
       <main className="mx-auto w-full max-w-2xl px-4 pb-48 pt-4">
         {exercise && (
           <div key={`${exercise.key}-${state.index}`} className="animate-fade-in">
-            <ExerciseView exercise={exercise} answered={state.phase === "feedback"} onAnswer={onAnswer} onSkip={onSkip} />
+            <ExerciseView exercise={exercise} answered={state.phase === "feedback"} onAnswer={onAnswer} onSkip={onSkip} onPractice={onPractice} />
           </div>
         )}
       </main>

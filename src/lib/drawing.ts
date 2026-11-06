@@ -1,7 +1,8 @@
 /**
  * Grading of free-hand drawings (no template) against the reference stroke
- * medians. Inspired by Hanzi Writer's stroke matcher, but applied after the
- * fact so the learner gets no hints while drawing.
+ * medians, used by the writing questions of exams. Inspired by Hanzi Writer's
+ * stroke matcher, but applied after the fact so the learner gets no hints while
+ * drawing.
  *
  * Coordinates: everything is converted to a 1024×1024 box with y pointing down.
  * The learner's drawing is first normalised (translated + uniformly scaled) so
@@ -21,6 +22,18 @@ export interface DrawingGrade {
   /** 0..1 */
   score: number;
   passed: boolean;
+}
+
+/** SVG path of a drawn stroke, smoothed like the canvas: quadratic curves through the midpoints. */
+export function strokePath(stroke: Point[]): string {
+  if (stroke.length === 0) return "";
+  const [first] = stroke;
+  if (stroke.length === 1) return `M${first.x} ${first.y}L${first.x} ${first.y}`; // a dot, thanks to the round caps
+  const curves = stroke.slice(1).map((p, i) => {
+    const prev = stroke[i];
+    return `Q${prev.x} ${prev.y} ${(prev.x + p.x) / 2} ${(prev.y + p.y) / 2}`;
+  });
+  return `M${first.x} ${first.y}${curves.join("")}`;
 }
 
 const dist = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);

@@ -47,8 +47,9 @@ export function Pinyin({ text, colored, className }: { text: string; colored?: b
   );
 }
 
-/** Speaker button (+ optional slow "turtle" button). */
+/** Speaker button (+ optional slow "turtle" button). Hidden in silent mode. */
 export function SpeakButton({ text, slow = true, size = "md", autoPlay = false, className }: { text: string; slow?: boolean; size?: "sm" | "md" | "lg"; autoPlay?: boolean; className?: string }) {
+  const { silentMode } = useSettings();
   const [playing, setPlaying] = useState(false);
   const play = (isSlow = false) => {
     setPlaying(true);
@@ -59,6 +60,7 @@ export function SpeakButton({ text, slow = true, size = "md", autoPlay = false, 
     const timer = setTimeout(() => void speak(text), 250);
     return () => clearTimeout(timer);
   }, [autoPlay, text]);
+  if (silentMode) return null;
   const dims = { sm: "h-9 w-9", md: "h-12 w-12", lg: "h-20 w-20" }[size];
   const icon = { sm: 18, md: 22, lg: 36 }[size];
   return (

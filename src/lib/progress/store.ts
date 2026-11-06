@@ -6,7 +6,7 @@
  */
 import { createStore, useStore } from "../store";
 import { newlyUnlocked, type Achievement, type SessionContext } from "./achievements";
-import { emptyProgress, recordAnswer, recordSession, type Progress, type SessionSummaryInput } from "./model";
+import { emptyProgress, recordAnswer, recordPractice, recordSession, type Progress, type SessionSummaryInput } from "./model";
 import type { Skill } from "../types";
 
 export const progressStore = createStore<Progress>(emptyProgress());
@@ -14,6 +14,8 @@ export const useProgress = () => useStore(progressStore);
 
 export const answer = (wordId: string, skill: Skill, correct: boolean, xp: number) =>
   progressStore.set((p) => recordAnswer(p, wordId, skill, correct, xp));
+
+export const addPracticeXp = (xp: number) => progressStore.set((p) => recordPractice(p, xp));
 
 /** Records a finished session and returns the achievements it unlocked. */
 export function finishSession(summary: SessionSummaryInput, context: SessionContext): Achievement[] {

@@ -41,7 +41,7 @@ function VoicePicker() {
         Velocidad: {settings.ttsRate.toFixed(2)}×
       </label>
       <input id="rate" type="range" min={0.5} max={1.2} step={0.05} value={settings.ttsRate} onChange={(e) => updateSettings({ ttsRate: Number(e.target.value) })} />
-      <Button variant="secondary" size="sm" className="self-start" onClick={() => void speak("你好，我是你的中文老师。")}>
+      <Button variant="secondary" size="sm" className="self-start" disabled={settings.silentMode} onClick={() => void speak("你好，我是你的中文老师。")}>
         Probar voz
       </Button>
     </div>
@@ -207,12 +207,13 @@ export default function SettingsPage() {
             { value: "dark", label: "Oscuro" },
           ]}
         />
-        <Toggle checked={settings.toneColors} onChange={(toneColors) => updateSettings({ toneColors })} label="Colorear por tonos" description="1.º rojo · 2.º naranja · 3.º verde · 4.º azul · neutro gris" />
+        <Toggle checked={settings.toneColors} onChange={(toneColors) => updateSettings({ toneColors })} label="Colorear por tonos" description="1.º azul · 2.º verde · 3.º amarillo · 4.º rojo · neutro gris" />
         <Toggle checked={settings.showPinyin} onChange={(showPinyin) => updateSettings({ showPinyin })} label="Mostrar pinyin en los ejercicios" />
       </Card>
 
       <SectionTitle>Audio y voz</SectionTitle>
       <Card>
+        <Toggle checked={settings.silentMode} onChange={(silentMode) => updateSettings({ silentMode })} label="Modo silencioso" description="Sin ejercicios de escucha ni de pronunciación, y sin ningún sonido." />
         <Toggle checked={settings.sound} onChange={(sound) => updateSettings({ sound })} label="Efectos de sonido" />
         <Toggle checked={settings.autoplayAudio} onChange={(autoplayAudio) => updateSettings({ autoplayAudio })} label="Reproducir audio automáticamente" />
         <VoicePicker />

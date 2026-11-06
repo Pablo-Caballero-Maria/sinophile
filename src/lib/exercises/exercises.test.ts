@@ -4,9 +4,10 @@ import { readDataDir } from "../../../scripts/data-files";
 import { sanitizeAllExercises, sanitizeLessons } from "../data/validate";
 import { emptyProgress, recordAnswer } from "../progress/model";
 import { seededRandom } from "../text";
-import { buildSession, meaningChoice, nextInfinite, reverseChoice, type GenContext } from "./generate";
+import { buildSession, drillFor, meaningChoice, nextInfinite, reverseChoice, type GenContext } from "./generate";
 import { checkChoice, checkTiles, checkTyping } from "./check";
-import { initialSession, sessionReducer, examGrade } from "./session";
+import { accuracy, initialSession, PRACTICE_XP, sessionReducer, examGrade } from "./session";
+import { reviewable } from "./silent";
 import type { Exercise, SessionMode } from "./types";
 
 const raw = readDataDir(fileURLToPath(new URL("../../../data", import.meta.url)));
@@ -18,6 +19,7 @@ const ctx = (seed = 1, progress = emptyProgress()): GenContext => ({
   progress,
   showPinyin: true,
   speaking: true,
+  silent: false,
   sessionLength: 15,
   random: seededRandom(seed),
   today: "2026-11-03",
@@ -68,13 +70,93 @@ describe("session generation", () => {
 
   it("never offers a word with a shared meaning as a wrong option (孩子/子女, 男孩/男孩子)", () => {
     const byId = new Map(vocab.entries.map((w) => [w.id, w]));
-    for (const [id, other] of [["haizi", "zinv"], ["zinv", "haizi"], ["nanhaizi", "nanhaizi-informal"]]) {
+    for (const [id, other] of [["haizi", "zinv"], ["zinv", "haizi"], ["nanhaizi", "nanhaizi-informal"], ["zhongwen", "zhongguoren"], ["xibanyayu", "xibanyaren"], ["xibanyaren", "xibanyayu"]]) {
       for (let seed = 1; seed <= 60; seed++) {
         for (const ex of [meaningChoice(byId.get(id)!, ctx(seed)), reverseChoice(byId.get(id)!, ctx(seed))]) {
           if (ex.type === "choice") expect(ex.options.map((o) => o.id), `${id} (seed ${seed})`).not.toContain(other);
         }
       }
     }
+  });
+});
+
+describe("silent mode", () => {
+  const modes: SessionMode[] = ["leccion", "repaso", "examen", "escritura", "tarjetas", "tonos", "frases", "infinito"];
+  const words = vocab.entries.slice(0, 8);
+  let history = emptyProgress();
+  for (const w of words) for (const skill of ["meaning", "listening", "speaking"] as const) history = recordAnswer(history, w.id, skill, true, 10, "2026-11-01");
+  const silentCtx = (seed: number): GenContext => ({ ...ctx(seed, history), speaking: false, silent: true });
+
+  const needsSound = (ex: Exercise) => ex.type === "speak" || ((ex.type === "choice" || ex.type === "tiles" || ex.type === "typing") && ex.prompt.kind === "audio");
+
+  it("the check above does detect sound exercises in normal sessions", () => {
+    const list = buildSession({ mode: "escucha", lessons: [], words: [] }, vocab.entries, ctx(1, history));
+    expect(list.length).toBeGreaterThan(0);
+    expect(list.every(needsSound)).toBe(true);
+  });
+
+  it.each(modes)("builds a %s session with nothing that needs sound", (mode) => {
+    for (let seed = 1; seed <= 20; seed++) {
+      const list = buildSession({ mode, lessons: [], words: [] }, vocab.entries, silentCtx(seed));
+      expect(list.length, mode).toBeGreaterThan(0);
+      list.forEach(assertValid);
+      expect(list.filter(needsSound), mode).toEqual([]);
+    }
+  });
+
+  it("has nothing to offer in the modes made of sound", () => {
+    for (const mode of ["escucha", "pronunciacion"] as const) expect(buildSession({ mode, lessons: [], words: [] }, vocab.entries, silentCtx(1))).toEqual([]);
+  });
+
+  it("keeps the exam at the requested number of questions", () => {
+    expect(buildSession({ mode: "examen", lessons: [], words: [], count: 20 }, vocab.entries, silentCtx(1))).toHaveLength(20);
+  });
+
+  it("keeps sentence sessions made only of sentences", () => {
+    const list = buildSession({ mode: "frases", lessons: [], words: [] }, vocab.entries, silentCtx(1));
+    expect(list.every((ex) => ex.skill === "sentences")).toBe(true);
+  });
+
+  it("infinite mode never asks for sound", () => {
+    const c = silentCtx(7);
+    for (let i = 0; i < 300; i++) expect(needsSound(nextInfinite(vocab.entries, c))).toBe(false);
+  });
+
+  it("reviews leave the listening and speaking items for later", () => {
+    const list = buildSession({ mode: "repaso", lessons: [], words: [] }, words, silentCtx(1));
+    expect(new Set(list.map((ex) => ex.skill))).toEqual(new Set(["meaning"]));
+    const due = [{ skill: "listening" as const }, { skill: "speaking" as const }, { skill: "meaning" as const }, { skill: "pinyin" as const }];
+    expect(reviewable(due, false)).toEqual(due);
+    expect(reviewable(due, true).map((d) => d.skill)).toEqual(["meaning", "pinyin"]);
+  });
+});
+
+describe("writing exercises", () => {
+  const styles = (list: Exercise[]) => list.map((ex) => (ex.type === "write" ? ex.style : ex.type));
+  const session = (style: "guiado" | "libre" | "mixto", seed = 1) => buildSession({ mode: "escritura", style, lessons: [], words: [] }, vocab.entries, ctx(seed));
+
+  it("uses the chosen style", () => {
+    expect(new Set(styles(session("guiado")))).toEqual(new Set(["guided"]));
+    expect(new Set(styles(session("libre")))).toEqual(new Set(["free"]));
+    expect(styles(session("mixto")).slice(0, 2)).toEqual(["guided", "free"]);
+  });
+
+  it("free drawing doesn't repeat the same words every session, as it never changes their strength", () => {
+    const wordsOf = (list: Exercise[]) => list.map((ex) => ex.wordIds[0]).join();
+    expect(wordsOf(session("libre", 1))).not.toBe(wordsOf(session("libre", 2)));
+  });
+
+  it("corrects only the writing of exams", () => {
+    const exam = buildSession({ mode: "examen", withWriting: true, count: 40, lessons: [], words: [] }, vocab.entries, ctx());
+    expect(styles(exam)).toContain("graded");
+    expect(styles(exam)).not.toContain("free");
+  });
+
+  it("spaced repetition always gets a result, so it never uses free drawing", () => {
+    let progress = emptyProgress();
+    const [word] = vocab.entries;
+    for (const day of ["2026-11-01", "2026-11-03", "2026-11-08", "2026-11-20", "2026-12-20"]) progress = recordAnswer(progress, word.id, "writing", true, 10, day);
+    expect(styles([drillFor(word, "writing", ctx(1, progress))])).toEqual(["guided"]);
   });
 });
 
@@ -138,6 +220,16 @@ describe("session state machine", () => {
     expect(s.xp).toBe(15);
     s = sessionReducer(s, { type: "next" });
     expect(s.phase).toBe("done");
+  });
+
+  it("ungraded practice earns flat XP and moves on without counting as an answer", () => {
+    let s = initialSession("escritura", list.slice(0, 2));
+    s = sessionReducer(s, { type: "practice" });
+    expect(s).toMatchObject({ index: 1, phase: "answer", practiced: 1, answered: 0, correct: 0, combo: 0, xp: PRACTICE_XP, log: [] });
+    s = sessionReducer(s, { type: "practice" });
+    expect(s).toMatchObject({ phase: "done", practiced: 2, xp: 2 * PRACTICE_XP });
+    expect(sessionReducer(s, { type: "practice" })).toBe(s); // already finished
+    expect(accuracy(s)).toBe(100); // no graded answers: the summary shows no accuracy
   });
 
   it("ends infinite mode after three mistakes", () => {

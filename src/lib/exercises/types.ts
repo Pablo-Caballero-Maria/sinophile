@@ -32,13 +32,21 @@ interface Base {
   instruction: string;
 }
 
+/**
+ * How a hanzi is written:
+ *  - guided: traced over the outline, with the stroke order checked live;
+ *  - free: drawn from memory with no evaluation (the hanzi is revealed afterwards);
+ *  - graded: drawn from memory and corrected automatically (exams need a mark).
+ */
+export type WriteStyle = "guided" | "free" | "graded";
+
 export type Exercise =
   | (Base & { type: "intro"; word: VocabEntry; note?: string; example?: Sentence })
   | (Base & { type: "choice"; prompt: Prompt; options: Option[]; answerId: string; explanation?: string })
   | (Base & { type: "match"; pairs: { wordId: string; left: Display; right: Display }[] })
   | (Base & { type: "tiles"; prompt: Prompt; lang: "zh" | "es"; tiles: string[]; answers: string[]; solution: string })
   | (Base & { type: "typing"; prompt: Prompt; mode: "pinyin" | "es"; answers: string[]; solution: string })
-  | (Base & { type: "write"; word: VocabEntry; guided: boolean })
+  | (Base & { type: "write"; word: VocabEntry; style: WriteStyle })
   | (Base & { type: "speak"; hanzi: string; pinyin: string; translation: string })
   | (Base & { type: "flashcard"; word: VocabEntry; reverse: boolean });
 

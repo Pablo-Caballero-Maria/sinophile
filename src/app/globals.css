@@ -3,6 +3,9 @@
 /*
  * Design tokens. Light by default; dark follows the OS automatically unless the
  * user forces a theme in Ajustes (html[data-theme]).
+ *
+ * --tone-N is only for tone colouring: 1 blue, 2 green, 3 yellow, 4 red, neutral grey
+ * (yellow is darker in the light theme to stay readable on white).
  */
 :root {
   color-scheme: light;
@@ -27,10 +30,12 @@
   --sky: #2f7fe0;
   --sky-strong: #1f5fae;
   --sky-soft: #e0edfc;
-  --tone-1: #d92d2d;
-  --tone-2: #d97706;
-  --tone-3: #16a34a;
-  --tone-4: #2563eb;
+  --accent-orange: #d97706;
+  --accent-blue: #2563eb;
+  --tone-1: #2563eb;
+  --tone-2: #16a34a;
+  --tone-3: #b89600;
+  --tone-4: #d92d2d;
   --tone-5: #8a8178;
 }
 
@@ -57,10 +62,12 @@
   --sky: #5aa0f2;
   --sky-strong: #3b78c2;
   --sky-soft: #1b2b40;
-  --tone-1: #ff6b6b;
-  --tone-2: #f5a524;
-  --tone-3: #4ade80;
-  --tone-4: #60a5fa;
+  --accent-orange: #f5a524;
+  --accent-blue: #60a5fa;
+  --tone-1: #60a5fa;
+  --tone-2: #4ade80;
+  --tone-3: #facc15;
+  --tone-4: #ff6b6b;
   --tone-5: #a8a29e;
 }
 
@@ -88,10 +95,12 @@
     --sky: #5aa0f2;
     --sky-strong: #3b78c2;
     --sky-soft: #1b2b40;
-    --tone-1: #ff6b6b;
-    --tone-2: #f5a524;
-    --tone-3: #4ade80;
-    --tone-4: #60a5fa;
+    --accent-orange: #f5a524;
+    --accent-blue: #60a5fa;
+    --tone-1: #60a5fa;
+    --tone-2: #4ade80;
+    --tone-3: #facc15;
+    --tone-4: #ff6b6b;
     --tone-5: #a8a29e;
   }
 }
@@ -118,6 +127,8 @@
   --color-sky: var(--sky);
   --color-sky-strong: var(--sky-strong);
   --color-sky-soft: var(--sky-soft);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-blue: var(--accent-blue);
   --color-tone-1: var(--tone-1);
   --color-tone-2: var(--tone-2);
   --color-tone-3: var(--tone-3);

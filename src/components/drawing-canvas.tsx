@@ -6,7 +6,7 @@
  * "solo lápiz" is enabled in settings).
  */
 import { useEffect, useImperativeHandle, useRef, type Ref } from "react";
-import type { Point } from "@/lib/drawing";
+import { strokePath, type Point } from "@/lib/drawing";
 import { useSettings } from "@/lib/settings/store";
 import { RiceGrid, themeColor } from "./hanzi";
 
@@ -17,6 +17,8 @@ export interface DrawingCanvasHandle {
 }
 
 let penDetected = false; // shared across canvases for the whole visit
+
+const lineWidth = (size: number) => Math.max(6, size / 26);
 
 export function DrawingCanvas({
   size,
@@ -46,7 +48,7 @@ export function DrawingCanvas({
     ctx.clearRect(0, 0, size, size);
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.lineWidth = Math.max(6, size / 26);
+    ctx.lineWidth = lineWidth(size);
     const fg = themeColor("fg");
     strokes.current.forEach((stroke, i) => {
       ctx.strokeStyle = strokeColors?.[i] ?? fg;
@@ -135,6 +137,20 @@ export function DrawingCanvas({
         onPointerCancel={onUp}
         aria-label="Zona de dibujo"
       />
+    </div>
+  );
+}
+
+/** Read-only copy of a finished drawing at any size. `canvasSize` is the size it was drawn at. */
+export function DrawingPreview({ strokes, canvasSize, size }: { strokes: Point[][]; canvasSize: number; size: number }) {
+  return (
+    <div className="relative shrink-0 rounded-2xl bg-surface" style={{ width: size, height: size }}>
+      <RiceGrid />
+      <svg viewBox={`0 0 ${canvasSize} ${canvasSize}`} className="relative h-full w-full" role="img" aria-label="Tu dibujo">
+        {strokes.map((stroke, i) => (
+          <path key={i} d={strokePath(stroke)} fill="none" stroke="currentColor" strokeWidth={lineWidth(canvasSize)} strokeLinecap="round" strokeLinejoin="round" />
+        ))}
+      </svg>
     </div>
   );
 }

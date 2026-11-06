@@ -27,10 +27,10 @@ export function onVoicesReady(callback: () => void): () => void {
   return () => speechSynthesis.removeEventListener("voiceschanged", callback);
 }
 
-/** Speaks Chinese text. `slow` halves the configured rate. Resolves when finished. */
+/** Speaks Chinese text (nothing in silent mode). `slow` halves the configured rate. Resolves when finished. */
 export function speak(text: string, { slow = false, lang = "zh-CN" } = {}): Promise<void> {
-  if (!ttsSupported() || !text) return Promise.resolve();
-  const { ttsRate, voiceURI } = settingsStore.get();
+  const { ttsRate, voiceURI, silentMode } = settingsStore.get();
+  if (!ttsSupported() || !text || silentMode) return Promise.resolve();
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = lang;

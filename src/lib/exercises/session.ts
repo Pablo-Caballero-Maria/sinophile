@@ -3,7 +3,8 @@
  *
  * answer → feedback → next … → done.  Wrong answers are re-queued once at the
  * end in learning modes (Duolingo-style); infinite mode has 3 lives; exams give
- * no feedback until the end.
+ * no feedback until the end. Ungraded exercises (free drawing) skip the feedback:
+ * they earn flat XP and count as practice, never for or against accuracy.
  */
 import type { AnswerResult, Exercise, SessionMode } from "./types";
 
@@ -26,6 +27,8 @@ export interface SessionState {
   xp: number;
   answered: number;
   correct: number;
+  /** Ungraded exercises finished (not part of answered/correct). */
+  practiced: number;
   /** Keys of exercises already re-queued once. */
   retried: string[];
   log: LogEntry[];
@@ -35,11 +38,14 @@ export interface SessionState {
 export type SessionAction =
   | { type: "answer"; result: AnswerResult }
   | { type: "next"; more?: Exercise }
+  | { type: "practice" }
   | { type: "skip" }
   | { type: "restart"; queue: Exercise[] };
 
 const REQUEUE_MODES: SessionMode[] = ["leccion", "repaso", "escucha", "tonos", "frases"];
 export const MAX_LIVES = 3;
+/** XP for finishing an ungraded exercise. */
+export const PRACTICE_XP = 5;
 
 export const initialSession = (mode: SessionMode, queue: Exercise[], now = Date.now()): SessionState => ({
   mode,
@@ -54,6 +60,7 @@ export const initialSession = (mode: SessionMode, queue: Exercise[], now = Date.
   xp: 0,
   answered: 0,
   correct: 0,
+  practiced: 0,
   retried: [],
   log: [],
   startedAt: now,
@@ -101,6 +108,9 @@ export function sessionReducer(s: SessionState, action: SessionAction): SessionS
     }
     case "next":
       return advance(action.more ? { ...s, queue: [...s.queue, action.more] } : s);
+    case "practice":
+      if (!current(s) || s.phase !== "answer") return s;
+      return advance({ ...s, last: null, practiced: s.practiced + 1, xp: s.xp + PRACTICE_XP });
     case "skip":
       return advance({ ...s, last: null });
     case "restart":

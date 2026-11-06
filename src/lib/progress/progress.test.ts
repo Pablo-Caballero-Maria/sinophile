@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { diffProgress, emptyProgress, isEmptyProgress, mergeProgress, recordAnswer, recordSession, reviveProgress } from "./model";
+import { diffProgress, emptyProgress, isEmptyProgress, mergeProgress, recordAnswer, recordPractice, recordSession, reviveProgress, streakInfo } from "./model";
 
 describe("reviveProgress (untrusted JSON)", () => {
   it("keeps valid data and drops malformed entries and unsafe keys", () => {
@@ -29,6 +29,15 @@ describe("reviveProgress (untrusted JSON)", () => {
 
   it("never throws", () => {
     for (const junk of [null, 3, "x", [], { days: [], items: "no" }]) expect(reviveProgress(junk)).toEqual(emptyProgress());
+  });
+});
+
+describe("ungraded practice", () => {
+  it("counts for the day's XP and the streak, but not as an answer or for spaced repetition", () => {
+    const p = recordPractice(recordPractice(emptyProgress(), 5, "2026-11-06"), 5, "2026-11-06");
+    expect(p.days["2026-11-06"]).toEqual({ xp: 10, answered: 0, correct: 0, sessions: 0, ms: 0 });
+    expect(p.items).toEqual({});
+    expect(streakInfo(p, "2026-11-06").practicedToday).toBe(true);
   });
 });
 

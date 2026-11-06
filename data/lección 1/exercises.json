@@ -576,6 +576,88 @@
         }
       ]
     },
+    "zhongguoren": {
+      "note": "Nacionalidad: 中国 (China) + 人 (persona). No confundir con el idioma, 中文: «soy chino» es 我是中国人.",
+      "examples": [
+        {
+          "zh": ["他们", "是", "中国人", "。"],
+          "pinyin": "Tāmen shì Zhōngguórén.",
+          "es": "Ellos son chinos."
+        },
+        {
+          "zh": ["我", "朋友", "不", "是", "中国人", "。"],
+          "pinyin": "Wǒ péngyou bú shì Zhōngguórén.",
+          "es": "Mi amigo no es chino."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["中文", "中国"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["español", "eres"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["我们", "中文"]
+        },
+        {
+          "type": "choice",
+          "question": "«Ella es china» se dice…",
+          "options": ["她是中国人。", "她是中文。", "她是中国。"],
+          "answer": "她是中国人。",
+          "explanation": "La persona es 中国人; 中文 es el idioma y 中国, el país."
+        }
+      ]
+    },
+    "xibanyaren": {
+      "note": "Nacionalidad: 西班牙 (España) + 人 (persona). No confundir con el idioma, 西班牙语: «soy español» es 我是西班牙人.",
+      "examples": [
+        {
+          "zh": ["我", "是", "西班牙人", "。"],
+          "pinyin": "Wǒ shì Xībānyárén.",
+          "es": "Soy español."
+        },
+        {
+          "zh": ["我们", "也", "是", "西班牙人", "。"],
+          "pinyin": "Wǒmen yě shì Xībānyárén.",
+          "es": "Nosotros también somos españoles."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["西班牙语", "西班牙"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["你们", "不"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["chino", "eres"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué significa 西班牙人?",
+          "options": ["persona de España", "idioma español", "España"],
+          "answer": "persona de España",
+          "explanation": "País + 人 = persona de ese país. El idioma es 西班牙语 y el país, 西班牙."
+        }
+      ]
+    },
     "nanhaizi": {
       "note": "男 (varón) + 孩 (niño) = chico.",
       "examples": [

@@ -143,6 +143,18 @@ export function Segmented<T extends string | number>({
   );
 }
 
+export function Checkbox({ checked, onChange, label, description, className }: { checked: boolean; onChange: (v: boolean) => void; label: string; description?: string; className?: string }) {
+  return (
+    <label className={cn("flex cursor-pointer items-center gap-3 py-1", className)}>
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="h-6 w-6 shrink-0 cursor-pointer accent-sky" />
+      <span>
+        <span className="block font-medium">{label}</span>
+        {description && <span className="block text-sm text-muted">{description}</span>}
+      </span>
+    </label>
+  );
+}
+
 export function Toggle({ checked, onChange, label, description }: { checked: boolean; onChange: (v: boolean) => void; label: string; description?: string }) {
   return (
     <label className="flex cursor-pointer items-center justify-between gap-4 py-2">

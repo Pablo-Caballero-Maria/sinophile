@@ -46,8 +46,8 @@
           "es": "El 2 de febrero es lunes."
         },
         {
-          "zh": ["十二月", "二", "十", "日", "是", "星期天", "。"],
-          "pinyin": "Shí'èryuè èrshí rì shì xīngqītiān.",
+          "zh": ["十二月", "二", "十", "日", "是", "星期日", "。"],
+          "pinyin": "Shí'èryuè èrshí rì shì xīngqīrì.",
           "es": "El 20 de diciembre es domingo."
         }
       ],
@@ -249,7 +249,7 @@
           "question": "«Julio» se dice…",
           "options": ["七月", "一月", "星期七"],
           "answer": "七月",
-          "explanation": "Julio es el mes 7: 七月. 星期七 no existe (el domingo es 星期天)."
+          "explanation": "Julio es el mes 7: 七月. 星期七 no existe (el domingo es 星期日)."
         }
       ]
     },
@@ -355,7 +355,7 @@
       ]
     },
     "xingqi": {
-      "note": "Semana. Los días de lunes a sábado son 星期 + número (星期一 = lunes, el día 1 de la semana…); el domingo es 星期天 o 星期日.",
+      "note": "Semana. Los días de lunes a sábado son 星期 + número (星期一 = lunes, el día 1 de la semana…); el domingo es 星期日.",
       "examples": [
         {
           "zh": ["十一月", "一", "日", "是", "星期", "日", "。"],
@@ -385,9 +385,9 @@
         {
           "type": "choice",
           "question": "«Domingo» se dice…",
-          "options": ["星期天", "星期七", "星期十"],
-          "answer": "星期天",
-          "explanation": "No existe 星期七: el domingo es 星期天 (o 星期日)."
+          "options": ["星期日", "星期七", "星期十"],
+          "answer": "星期日",
+          "explanation": "No existe 星期七: el domingo es 星期日."
         },
         {
           "type": "translate",
@@ -416,7 +416,7 @@
         {
           "type": "fill",
           "example": 0,
-          "distractors": ["星期二", "星期天"]
+          "distractors": ["星期二", "星期日"]
         },
         {
           "type": "translate",
@@ -557,7 +557,7 @@
         {
           "type": "fill",
           "example": 1,
-          "distractors": ["星期天", "五月"]
+          "distractors": ["星期日", "五月"]
         },
         {
           "type": "translate",
@@ -575,7 +575,7 @@
       ]
     },
     "xingqiliu": {
-      "note": "Sábado: el día 6 de la semana. El fin de semana es 星期六 y 星期天.",
+      "note": "Sábado: el día 6 de la semana. El fin de semana es 星期六 y 星期日.",
       "examples": [
         {
           "zh": ["十一月", "七", "日", "是", "星期六", "。"],
@@ -604,16 +604,16 @@
       ]
     },
     "xingqitian": {
-      "note": "Domingo: 星期天, o también 星期日 (más formal o escrito). Es el único día que no lleva número: no existe 星期七.",
+      "note": "Domingo: 星期 + 日 (día). Es el único día que no lleva número: no existe 星期七. Al hablar también se oye 星期天.",
       "examples": [
         {
-          "zh": ["十一月", "八", "日", "是", "星期天", "。"],
-          "pinyin": "Shíyīyuè bā rì shì xīngqītiān.",
+          "zh": ["十一月", "八", "日", "是", "星期日", "。"],
+          "pinyin": "Shíyīyuè bā rì shì xīngqīrì.",
           "es": "El 8 de noviembre es domingo."
         },
         {
-          "zh": ["星期天", "这里", "没有", "老师", "，", "也", "没有", "学生", "。"],
-          "pinyin": "Xīngqītiān zhèlǐ méiyǒu lǎoshī, yě méiyǒu xuéshēng.",
+          "zh": ["星期日", "这里", "没有", "老师", "，", "也", "没有", "学生", "。"],
+          "pinyin": "Xīngqīrì zhèlǐ méiyǒu lǎoshī, yě méiyǒu xuéshēng.",
           "es": "Los domingos aquí no hay profesores ni alumnos."
         }
       ],
@@ -621,9 +621,9 @@
         {
           "type": "choice",
           "question": "¿Cuál NO es un día de la semana?",
-          "options": ["星期七", "星期天", "星期日"],
+          "options": ["星期七", "星期六", "星期日"],
           "answer": "星期七",
-          "explanation": "El domingo es 星期天 o 星期日; 星期七 no existe."
+          "explanation": "El domingo es 星期日; 星期七 no existe."
         },
         {
           "type": "fill",
@@ -677,8 +677,8 @@
           "es": "Febrero no tiene día 30."
         },
         {
-          "zh": ["二月", "一", "日", "是", "星期天", "。"],
-          "pinyin": "Èryuè yī rì shì xīngqītiān.",
+          "zh": ["二月", "一", "日", "是", "星期日", "。"],
+          "pinyin": "Èryuè yī rì shì xīngqīrì.",
           "es": "El 1 de febrero es domingo."
         }
       ],
@@ -700,8 +700,8 @@
       "note": "Marzo: el mes 3.",
       "examples": [
         {
-          "zh": ["三月", "八", "日", "是", "星期天", "。"],
-          "pinyin": "Sānyuè bā rì shì xīngqītiān.",
+          "zh": ["三月", "八", "日", "是", "星期日", "。"],
+          "pinyin": "Sānyuè bā rì shì xīngqīrì.",
           "es": "El 8 de marzo es domingo."
         },
         {
@@ -758,8 +758,8 @@
       "note": "Mayo: el mes 5. El viernes (el día 5 de la semana) es 星期五.",
       "examples": [
         {
-          "zh": ["五月", "三", "十", "一", "日", "是", "星期天", "。"],
-          "pinyin": "Wǔyuè sānshíyī rì shì xīngqītiān.",
+          "zh": ["五月", "三", "十", "一", "日", "是", "星期日", "。"],
+          "pinyin": "Wǔyuè sānshíyī rì shì xīngqīrì.",
           "es": "El 31 de mayo es domingo."
         },
         {
@@ -992,7 +992,7 @@
       ]
     },
     "ri": {
-      "note": "Día del mes, en las fechas. Primero va el mes y después el día, al revés que en español: 十一月五日 = 5 de noviembre. Al hablar se suele decir 号 (hào): 五号. También aparece en 星期日, otra forma de decir «domingo».",
+      "note": "Día del mes, en las fechas. Primero va el mes y después el día, al revés que en español: 十一月五日 = 5 de noviembre. Al hablar se suele decir 号 (hào): 五号. También aparece en 星期日 («domingo»).",
       "examples": [
         {
           "zh": ["十一月", "五", "日", "是", "星期四", "。"],

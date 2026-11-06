@@ -22,6 +22,8 @@ export interface Settings {
   sessionLength: number;
   /** Include pronunciation (microphone) exercises in lessons */
   speakingInLessons: boolean;
+  /** Practising around other people: no listening or pronunciation exercises and no sound at all */
+  silentMode: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -36,6 +38,7 @@ export const DEFAULT_SETTINGS: Settings = {
   autoplayAudio: true,
   sessionLength: 15,
   speakingInLessons: false,
+  silentMode: false,
 };
 
 const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
@@ -58,5 +61,6 @@ export function sanitizeSettings(raw: unknown): Settings {
     autoplayAudio: bool(raw.autoplayAudio, d.autoplayAudio),
     sessionLength: inRange(raw.sessionLength, 5, 50) ? Math.round(raw.sessionLength) : d.sessionLength,
     speakingInLessons: bool(raw.speakingInLessons, d.speakingInLessons),
+    silentMode: bool(raw.silentMode, d.silentMode),
   };
 }

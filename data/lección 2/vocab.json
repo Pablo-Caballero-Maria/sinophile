@@ -16,7 +16,7 @@
   { "id": "xingqisi", "hanzi": "星期四", "pinyin": "xīngqīsì", "es": "jueves" },
   { "id": "xingqiwu", "hanzi": "星期五", "pinyin": "xīngqīwǔ", "es": "viernes" },
   { "id": "xingqiliu", "hanzi": "星期六", "pinyin": "xīngqīliù", "es": "sábado" },
-  { "id": "xingqitian", "hanzi": "星期天", "pinyin": "xīngqītiān", "es": "domingo" },
+  { "id": "xingqitian", "hanzi": "星期日", "pinyin": "xīngqīrì", "es": "domingo" },
   { "id": "yiyue", "hanzi": "一月", "pinyin": "yīyuè", "es": "enero" },
   { "id": "eryue", "hanzi": "二月", "pinyin": "èryuè", "es": "febrero" },
   { "id": "sanyue", "hanzi": "三月", "pinyin": "sānyuè", "es": "marzo" },

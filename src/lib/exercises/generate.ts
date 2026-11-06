@@ -13,7 +13,8 @@ import { isSeen, itemOf, wordMastery, dueItems, type Progress } from "../progres
 import { strength } from "../srs";
 import { dayKey, hasHan, isPunctuation, normalizeLatin, normalizeZh, pick, sample, shuffle, spanishWords, splitMeanings, uniqueBy } from "../text";
 import type { CuratedExercise, Sentence, Skill, VocabEntry, WordSet } from "../types";
-import type { Display, Exercise, Option, Prompt, SessionParams } from "./types";
+import { isNoisyExercise, isNoisyMode, reviewable } from "./silent";
+import type { Display, Exercise, Option, Prompt, SessionParams, WriteStyle } from "./types";
 
 export interface GenContext {
   /** Whole vocabulary (distractor pool). */
@@ -23,6 +24,8 @@ export interface GenContext {
   showPinyin: boolean;
   /** Include microphone exercises. */
   speaking: boolean;
+  /** Silent mode: nothing that needs sound. */
+  silent: boolean;
   sessionLength: number;
   random: () => number;
   today?: string;
@@ -173,11 +176,17 @@ export function matchPairs(words: VocabEntry[], ctx: GenContext, variant: "es" |
   };
 }
 
-export const write = (word: VocabEntry, guided: boolean): Exercise => ({
-  ...base(guided ? "write" : "draw", "writing", word, guided ? "Traza siguiendo el orden de los trazos" : `Escribe de memoria: «${word.es}»`),
+const WRITE_INSTRUCTIONS: Record<WriteStyle, (word: VocabEntry) => string> = {
+  guided: () => "Traza siguiendo el orden de los trazos",
+  free: () => "Dibuja de memoria",
+  graded: (word) => `Escribe de memoria: «${word.es}»`,
+};
+
+export const write = (word: VocabEntry, style: WriteStyle): Exercise => ({
+  ...base(style === "guided" ? "write" : "draw", "writing", word, WRITE_INSTRUCTIONS[style](word)),
   type: "write",
   word,
-  guided,
+  style,
 });
 
 export const speakWord = (word: VocabEntry): Exercise => ({
@@ -329,7 +338,8 @@ export function drillFor(word: VocabEntry, skill: Skill, ctx: GenContext): Exerc
     case "pinyin":
       return box >= 3 ? typePinyin(word) : pinyinChoice(word, ctx);
     case "writing":
-      return write(word, box < 3);
+      // Spaced repetition needs a result to schedule the next review, so never free drawing.
+      return write(word, "guided");
     case "speaking":
       return ctx.speaking ? speakWord(word) : listenChoice(word, ctx);
     case "sentences": {
@@ -337,6 +347,13 @@ export function drillFor(word: VocabEntry, skill: Skill, ctx: GenContext): Exerc
       return list.length ? pick(list, r) : reverseChoice(word, ctx);
     }
   }
+}
+
+/** In silent mode, swaps an exercise that needs sound for another drill of the same word. */
+function silenced(exercise: Exercise, ctx: GenContext): Exercise {
+  if (!ctx.silent || !isNoisyExercise(exercise)) return exercise;
+  const word = ctx.vocab.find((w) => w.id === exercise.wordIds[0])!;
+  return drillFor(word, pick<Skill>(["meaning", "pinyin", "sentences"], ctx.random), ctx);
 }
 
 /* ───────────── sessions ───────────── */
@@ -372,7 +389,7 @@ function lessonSession(words: VocabEntry[], ctx: GenContext): Exercise[] {
   const room = Math.max(4, ctx.sessionLength - opening.length - 1 - (ctx.speaking ? 1 : 0));
   const tail = [
     ...shuffle(candidates.slice(0, room), r),
-    write(writingWord, true),
+    write(writingWord, "guided"),
     ...(ctx.speaking ? [speakWord(pick(focus, r))] : []),
   ];
   return [...opening, ...tail];
@@ -380,7 +397,7 @@ function lessonSession(words: VocabEntry[], ctx: GenContext): Exercise[] {
 
 function reviewSession(words: VocabEntry[], ctx: GenContext): Exercise[] {
   const byId = new Map(words.map((w) => [w.id, w]));
-  const due = dueItems(ctx.progress, new Set(byId.keys()), ctx.today ?? dayKey())
+  const due = reviewable(dueItems(ctx.progress, new Set(byId.keys()), ctx.today ?? dayKey()), ctx.silent)
     .filter((d) => d.skill !== "speaking" || ctx.speaking)
     .slice(0, ctx.sessionLength);
   if (due.length > 0) return shuffle(due.map((d) => drillFor(byId.get(d.wordId)!, d.skill, ctx)), ctx.random);
@@ -398,7 +415,7 @@ function examSession(words: VocabEntry[], ctx: GenContext, count: number, withWr
     (w) => pick([...curatedFor(w, ctx), listenMeaning(w, ctx)], ctx.random),
     (w) => meaningChoice(w, ctx, false),
     (w) => typePinyin(w),
-    (w) => (withWriting ? write(w, false) : listenMeaning(w, ctx)),
+    (w) => (withWriting ? write(w, "graded") : listenMeaning(w, ctx)),
   ];
   const pool = shuffle(words, ctx.random);
   const out: Exercise[] = [];
@@ -411,7 +428,11 @@ function examSession(words: VocabEntry[], ctx: GenContext, count: number, withWr
 
 /** Builds a finite session. (Infinite mode uses nextInfinite instead.) */
 export function buildSession(params: SessionParams, words: VocabEntry[], ctx: GenContext): Exercise[] {
-  if (words.length === 0) return [];
+  if (words.length === 0 || (ctx.silent && isNoisyMode(params.mode))) return [];
+  return assembleSession(params, words, ctx).map((exercise) => silenced(exercise, ctx));
+}
+
+function assembleSession(params: SessionParams, words: VocabEntry[], ctx: GenContext): Exercise[] {
   const r = ctx.random;
   const length = params.count ?? ctx.sessionLength;
   switch (params.mode) {
@@ -423,8 +444,10 @@ export function buildSession(params: SessionParams, words: VocabEntry[], ctx: Ge
       return examSession(words, ctx, params.count ?? 20, !!params.withWriting);
     case "escritura": {
       const style = params.style ?? "mixto";
-      const chosen = weakestFirst(words, ctx, "writing").slice(0, style === "mixto" ? Math.ceil(length / 2) : length);
-      return chosen.flatMap((w) => (style === "guiado" ? [write(w, true)] : style === "libre" ? [write(w, false)] : [write(w, true), write(w, false)]));
+      // Free drawing isn't graded, so it never changes a word's strength: without shuffling, every session would repeat the same words.
+      const pool = style === "libre" ? shuffle(words, r) : weakestFirst(words, ctx, "writing");
+      const chosen = pool.slice(0, style === "mixto" ? Math.ceil(length / 2) : length);
+      return chosen.flatMap((w) => (style === "guiado" ? [write(w, "guided")] : style === "libre" ? [write(w, "free")] : [write(w, "guided"), write(w, "free")]));
     }
     case "tarjetas":
       return weakestFirst(words, ctx).slice(0, params.count ?? 20).map((w) => flashcard(w, r() < 0.3));
@@ -444,7 +467,7 @@ export function buildSession(params: SessionParams, words: VocabEntry[], ctx: Ge
     }
     case "frases": {
       const list = shuffle(words.flatMap((w) => curatedFor(w, ctx)), r).slice(0, length);
-      const dict = words.flatMap((w) => examplesOf(w, ctx).slice(0, 1).map((s) => dictation(w, s, ctx)));
+      const dict = ctx.silent ? [] : words.flatMap((w) => examplesOf(w, ctx).slice(0, 1).map((s) => dictation(w, s, ctx)));
       return shuffle([...list, ...sample(dict, Math.max(2, Math.floor(length / 4)), r)], r).slice(0, length);
     }
     case "infinito":
@@ -471,7 +494,7 @@ export function nextInfinite(words: VocabEntry[], ctx: GenContext): Exercise {
   }
   const skill = pick<Skill>(["meaning", "meaning", "listening", "pinyin", "sentences"], r);
   const exercise = drillFor(word, skill, ctx);
-  return exercise.type === "write" || exercise.type === "speak" ? meaningChoice(word, ctx) : exercise;
+  return silenced(exercise.type === "write" || exercise.type === "speak" ? meaningChoice(word, ctx) : exercise, ctx);
 }
 
 /** Prompt helper for components: the Chinese text a prompt can read aloud. */

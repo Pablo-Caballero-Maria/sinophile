@@ -64,6 +64,8 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
   const grade = examGrade(state);
   const isExam = params.mode === "examen";
   const isInfinite = params.mode === "infinito";
+  /** Anything done at all; a free-drawing session has no graded answers (and so no accuracy). */
+  const activity = state.answered + state.practiced;
 
   const [{ unlocked, previousRecord, bonus, ms }] = useState(() => {
     if (!finished.has(state.startedAt)) {
@@ -72,7 +74,7 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
       const perfect = !isExam && state.answered >= 8 && state.correct === state.answered;
       const bonus = state.answered === 0 ? 0 : isExam ? (grade >= 10 ? 50 : grade >= 5 ? 20 : 0) : perfect ? 20 : 0;
       const unlocked =
-        state.answered === 0
+        activity === 0
           ? []
           : finishSession(
               {
@@ -94,7 +96,7 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
   });
 
   const newRecord = isInfinite && state.correct > previousRecord;
-  const celebrate = state.answered > 0 && (isExam ? grade >= 5 : isInfinite ? newRecord : acc >= 70);
+  const celebrate = activity > 0 && (isExam ? grade >= 5 : isInfinite ? newRecord : acc >= 70);
 
   useEffect(() => {
     if (!celebrate) return;
@@ -110,9 +112,9 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
       ? newRecord
         ? "¡Nuevo récord!"
         : "Fin de la partida"
-      : state.answered === 0
+      : activity === 0
         ? "Sesión terminada"
-        : acc === 100
+        : acc === 100 && state.answered > 0
           ? "¡Sesión perfecta!"
           : "¡Sesión completada!";
   const mistakes = state.log.filter((l) => !l.result.correct);
@@ -141,13 +143,13 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Tile icon={<Zap size={20} />} label="XP" value={`${state.xp + bonus}`} color="border-gold text-gold" />
-        <Tile icon={<Target size={20} />} label="Precisión" value={`${acc}%`} color="border-ok text-ok" />
+        <Tile icon={<Target size={20} />} label="Precisión" value={state.answered > 0 ? `${acc}%` : "—"} color="border-ok text-ok" />
         <Tile icon={<Clock size={20} />} label="Tiempo" value={`${minutes} min`} color="border-sky text-sky" />
         <Tile icon={<Flame size={20} />} label="Combo" value={`${state.maxCombo}`} color="border-brand text-brand" />
       </div>
       {bonus > 0 && <p className="mt-3 text-center text-sm font-semibold text-gold">Incluye +{bonus} XP de bonificación</p>}
 
-      {account.status !== "user" && state.answered > 0 && (
+      {account.status !== "user" && activity > 0 && (
         <Link href="/cuenta" className="mt-6 flex items-center gap-3 rounded-2xl border-2 border-sky/40 bg-sky-soft p-3 text-sm">
           <UserRound size={22} className="shrink-0 text-sky" />
           <span>

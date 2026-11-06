@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { HanziQuiz, Hanzi, Pinyin, SentenceView, SpeakButton, StrokeOrder, useStrokeData, wordHref } from "@/components/hanzi";
-import { Badge, Button, ButtonLink, Card, EmptyState, PageHeader, ProgressBar, SectionTitle, Skeleton } from "@/components/ui";
+import { Badge, Button, ButtonLink, Card, cn, EmptyState, PageHeader, ProgressBar, SectionTitle, Skeleton } from "@/components/ui";
 import { suggestId, vocabLine } from "@/lib/data/format";
 import { useExercises } from "@/lib/data/remote";
 import { LESSON_BY_ID, VOCAB, VOCAB_BY_ID, vocabByHanzi } from "@/lib/data/vocab";
 import { lookup } from "@/lib/dictionary";
 import { itemOf } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
+import { useSettings } from "@/lib/settings/store";
 import { useReady } from "@/lib/account/client";
 import { MAX_BOX } from "@/lib/srs";
 import { formatDay, hanChars } from "@/lib/text";
@@ -45,6 +46,7 @@ function CharacterCard({ char, definition }: { char: string; definition?: string
 }
 
 function WordView() {
+  const { silentMode } = useSettings();
   const sp = useSearchParams();
   const ready = useReady();
   const progress = useProgress();
@@ -110,13 +112,15 @@ function WordView() {
       </Card>
 
       {word ? (
-        <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className={cn("mt-4 grid gap-3", !silentMode && "grid-cols-2")}>
           <ButtonLink href={`/sesion?modo=escritura&estilo=mixto&id=${word.id}`} variant="ok">
             <PenLine size={20} /> Escribir
           </ButtonLink>
-          <ButtonLink href={`/sesion?modo=pronunciacion&id=${word.id}`} variant="secondary">
-            <Mic size={20} className="text-brand" /> Pronunciar
-          </ButtonLink>
+          {!silentMode && (
+            <ButtonLink href={`/sesion?modo=pronunciacion&id=${word.id}`} variant="secondary">
+              <Mic size={20} className="text-brand" /> Pronunciar
+            </ButtonLink>
+          )}
         </div>
       ) : (
         pinyin && (

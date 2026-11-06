@@ -13,6 +13,8 @@ export interface ExerciseProps<T> {
   onAnswer: (result: AnswerResult) => void;
   /** Skip without grading (intro cards, "can't listen now"). */
   onSkip: () => void;
+  /** An ungraded exercise was finished (free drawing): earns practice XP and moves on. */
+  onPractice: () => void;
 }
 
 export function Instruction({ children }: { children: ReactNode }) {

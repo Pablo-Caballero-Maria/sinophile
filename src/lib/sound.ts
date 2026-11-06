@@ -25,7 +25,8 @@ const NOTES: Record<SoundName, [frequency: number, start: number, duration: numb
 let ctx: AudioContext | null = null;
 
 export function playSound(name: SoundName) {
-  if (typeof window === "undefined" || !settingsStore.get().sound) return;
+  const { sound, silentMode } = settingsStore.get();
+  if (typeof window === "undefined" || !sound || silentMode) return;
   try {
     ctx ??= new AudioContext();
     if (ctx.state === "suspended") void ctx.resume();

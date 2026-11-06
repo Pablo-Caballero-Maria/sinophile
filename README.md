@@ -68,13 +68,18 @@ API (`src/app/api/`): `GET/DELETE /api/account`, `POST /api/auth/register|login|
   repaso inteligente, modo infinito (3 vidas), exámenes con nota de 0 a 10, tarjetas.
 - Ejercicios: significado, español→chino, escucha, dictado de frases, pinyin y tonos (elegir y escribir),
   emparejar, rellenar huecos, traducir con fichas en ambas direcciones, diálogos, preguntas,
-  **escritura de hanzi guiada** (orden de trazos con Hanzi Writer) y **libre** (lienzo en blanco con
-  corrección automática trazo a trazo, pensado para iPad + Apple Pencil), pronunciación (reconocimiento de voz
-  o grabación + comparación).
+  **escritura de hanzi guiada** (orden de trazos con Hanzi Writer) y **libre** (pensada para iPad + Apple Pencil:
+  ves la palabra en español, la dibujas en un lienzo en blanco y se revela el hanzi, sin corrección, con la opción
+  de repetirla o pasar a la siguiente; da XP pero no cuenta para la precisión ni para la repetición espaciada),
+  pronunciación (reconocimiento de voz o grabación + comparación). La escritura de memoria de los exámenes sí se
+  corrige trazo a trazo, porque el examen necesita una nota.
+- **Modo silencioso**, para practicar rodeado de gente: una casilla en Inicio, Practicar y cada lección (también en
+  Ajustes → Audio y voz) que quita los ejercicios de escucha y de pronunciación y apaga todos los sonidos. Los modos
+  Escucha y Pronunciación desaparecen mientras está marcada, y se guarda con los ajustes de la cuenta.
 - Gamificación: XP, niveles, racha diaria, meta diaria, combos, logros, estrellas por lección, récords.
 - Diccionario (tu vocabulario + CC-CEDICT) con búsqueda por hanzi, pinyin con o sin tonos, español o inglés;
   traductor español ⇄ chino; ficha de palabra con trazos animados, ejemplos y dominio por destreza.
-- Colores por tono, voz china (TTS del navegador), modo oscuro automático, diseño móvil/iPad.
+- Colores por tono (1.º azul, 2.º verde, 3.º amarillo, 4.º rojo, neutro gris), voz china (TTS del navegador), modo oscuro automático, diseño móvil/iPad.
 
 ## Desarrollo
 
@@ -104,12 +109,12 @@ src/
   lib/
     account/      sesión en el navegador (invitado / cuenta), guardado en segundo plano, llamadas a la API
     data/         carga + validación de las lecciones
-    exercises/    tipos, generador de sesiones, corrección, máquina de estados de la sesión
+    exercises/    tipos, generador de sesiones, corrección, máquina de estados de la sesión, modo silencioso
     progress/     modelo de progreso (XP, rachas, dominio, combinación), logros, store en memoria
     settings/     ajustes (modelo + store en memoria)
     pinyin.ts     tonos, comparación tolerante, división en sílabas (con erhua)
     srs.ts        repetición espaciada
-    drawing.ts    corrección de dibujo libre
+    drawing.ts    dibujo a mano: corrección (exámenes) y conversión de trazos a SVG
     speech.ts     voz (TTS) y reconocimiento
     dictionary.ts búsqueda
 ```

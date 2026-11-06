@@ -20,6 +20,12 @@ describe("settings", () => {
     expect(s).toEqual({ ...DEFAULT_SETTINGS, dailyGoal: 100, theme: "dark", sessionLength: 20 });
     expect(s).not.toHaveProperty("sync");
   });
+
+  it("keeps silent mode, which is off by default", () => {
+    expect(DEFAULT_SETTINGS.silentMode).toBe(false);
+    expect(sanitizeSettings({ silentMode: true }).silentMode).toBe(true);
+    expect(sanitizeSettings({ silentMode: "yes" }).silentMode).toBe(false);
+  });
 });
 
 describe("Saver (background uploads)", () => {

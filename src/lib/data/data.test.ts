@@ -42,6 +42,27 @@ describe("data/ folder (the real lessons)", () => {
   });
 });
 
+describe("words the learner asked to fix", () => {
+  const wordOf = (hanzi: string) => real.entries.find((w) => w.hanzi === hanzi);
+
+  it("«domingo» is 星期日 and no exercise offers 星期天 (only the word's note mentions it)", () => {
+    expect(wordOf("星期日")).toMatchObject({ id: "xingqitian", pinyin: "xīngqīrì", es: "domingo", lesson: "2" });
+    expect(wordOf("星期天")).toBeUndefined();
+    const { note, ...exercises } = realExercises.file.words.xingqitian;
+    expect(note).toContain("星期天");
+    const others = Object.entries(realExercises.file.words).filter(([id]) => id !== "xingqitian");
+    expect(JSON.stringify([exercises, others])).not.toContain("星期天");
+    expect(JSON.stringify([exercises, others])).not.toMatch(/ngqītiān/i);
+  });
+
+  it("lesson 1 has the nationalities, told apart from the languages", () => {
+    expect(wordOf("中国人")).toMatchObject({ pinyin: "Zhōngguórén", es: "chino (nacionalidad)", lesson: "1" });
+    expect(wordOf("西班牙人")).toMatchObject({ pinyin: "Xībānyárén", es: "español (nacionalidad)", lesson: "1" });
+    expect(wordOf("中文")?.es).toBe("chino");
+    expect(wordOf("西班牙语")?.es).toBe("español");
+  });
+});
+
 describe("lesson validation", () => {
   const word = (id: string, hanzi = "你") => ({ id, hanzi, pinyin: "nǐ", es: "tú" });
 

@@ -2,35 +2,21 @@
 /**
  * Writing hanzi, one character at a time:
  *  - guided: Hanzi Writer quiz over the outline, checking stroke order live;
- *  - free: blank grid; when done, the drawing is graded against the reference
- *    strokes and the real character + stroke-order animation are revealed.
+ *  - free: drawn from memory with no evaluation (free-draw.tsx);
+ *  - graded (exams): blank grid; when done, the drawing is graded against the
+ *    reference strokes and the real character + stroke-order animation are revealed.
  */
 import { Eraser, Eye, Undo2 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { gradeDrawing, type DrawingGrade } from "@/lib/drawing";
-import type { Exercise } from "@/lib/exercises/types";
 import { loadStrokes, type StrokeData } from "@/lib/strokes";
 import { hanChars } from "@/lib/text";
 import { DrawingCanvas, type DrawingCanvasHandle } from "../drawing-canvas";
 import { CharacterSvg, HanziQuiz, Pinyin, SpeakButton, StrokeOrder, themeColor } from "../hanzi";
 import { Button, cn } from "../ui";
 import { Footer, Instruction, type ExerciseProps } from "./common";
-
-type Write = Extract<Exercise, { type: "write" }>;
-
-/** Square size that fits phones and iPads. */
-const boxSize = () => (typeof window === "undefined" ? 300 : Math.round(Math.min(340, window.innerWidth - 48, window.innerHeight * 0.5)));
-
-function CharDots({ total, index }: { total: number; index: number }) {
-  if (total < 2) return null;
-  return (
-    <div className="mb-3 flex justify-center gap-1.5">
-      {Array.from({ length: total }, (_, i) => (
-        <span key={i} className={cn("h-2 w-6 rounded-full", i < index ? "bg-ok" : i === index ? "bg-sky" : "bg-line")} />
-      ))}
-    </div>
-  );
-}
+import { FreeDraw } from "./free-draw";
+import { boxSize, CharDots, type Write } from "./write-shared";
 
 function WordHeader({ ex }: { ex: Write }) {
   return (
@@ -85,7 +71,7 @@ function GuidedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
   );
 }
 
-function FreeWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps<Write>) {
+function GradedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps<Write>) {
   const chars = hanChars(ex.word.hanzi);
   const [index, setIndex] = useState(0);
   const [strokeCount, setStrokeCount] = useState(0);
@@ -172,5 +158,12 @@ function FreeWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps<W
 }
 
 export function WriteExercise(props: ExerciseProps<Write>) {
-  return props.exercise.guided ? <GuidedWrite {...props} /> : <FreeWrite {...props} />;
+  switch (props.exercise.style) {
+    case "guided":
+      return <GuidedWrite {...props} />;
+    case "free":
+      return <FreeDraw {...props} />;
+    case "graded":
+      return <GradedWrite {...props} />;
+  }
 }

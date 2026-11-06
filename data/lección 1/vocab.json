@@ -16,6 +16,8 @@
   { "id": "xibanya", "hanzi": "西班牙", "pinyin": "Xībānyá", "es": "España" },
   { "id": "zhongwen", "hanzi": "中文", "pinyin": "Zhōngwén", "es": "chino" },
   { "id": "xibanyayu", "hanzi": "西班牙语", "pinyin": "Xībānyáyǔ", "es": "español" },
+  { "id": "zhongguoren", "hanzi": "中国人", "pinyin": "Zhōngguórén", "es": "chino (nacionalidad)" },
+  { "id": "xibanyaren", "hanzi": "西班牙人", "pinyin": "Xībānyárén", "es": "español (nacionalidad)" },
   { "id": "nanhaizi", "hanzi": "男孩", "pinyin": "nánhái", "es": "chico" },
   { "id": "nvhaizi", "hanzi": "女孩", "pinyin": "nǚhái", "es": "chica" },
   { "id": "bu", "hanzi": "不", "pinyin": "bù", "es": "no" },

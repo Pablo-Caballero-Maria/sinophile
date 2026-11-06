@@ -2,14 +2,18 @@
 import { GraduationCap, Headphones, Infinity as InfinityIcon, Layers, MessageSquareText, Mic, Music, PenLine, RotateCcw, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { SilentModeCheckbox } from "@/components/silent-mode";
 import { Badge, ButtonLink, Card, cn, PageHeader, SectionTitle, Segmented, Toggle } from "@/components/ui";
 import { LESSONS, VOCAB_IDS } from "@/lib/data/vocab";
+import { isNoisyMode, reviewable } from "@/lib/exercises/silent";
+import type { SessionMode } from "@/lib/exercises/types";
 import { dueItems } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
+import { useSettings } from "@/lib/settings/store";
 import { useReady } from "@/lib/account/client";
 
 interface Mode {
-  modo: string;
+  modo: SessionMode;
   title: string;
   description: string;
   icon: LucideIcon;
@@ -18,10 +22,10 @@ interface Mode {
 
 const MODES: Mode[] = [
   { modo: "infinito", title: "Modo infinito", description: "Ejercicios sin fin hasta perder 3 vidas.", icon: InfinityIcon, color: "bg-brand" },
-  { modo: "tarjetas", title: "Tarjetas", description: "Flashcards rápidas: ¿te la sabes o no?", icon: Layers, color: "bg-tone-2" },
+  { modo: "tarjetas", title: "Tarjetas", description: "Flashcards rápidas: ¿te la sabes o no?", icon: Layers, color: "bg-accent-orange" },
   { modo: "escucha", title: "Escucha", description: "Reconoce palabras y frases de oído.", icon: Headphones, color: "bg-sky" },
   { modo: "pronunciacion", title: "Pronunciación", description: "Habla y comprueba si se te entiende.", icon: Mic, color: "bg-brand" },
-  { modo: "tonos", title: "Pinyin y tonos", description: "Distingue y escribe los tonos.", icon: Music, color: "bg-tone-4" },
+  { modo: "tonos", title: "Pinyin y tonos", description: "Distingue y escribe los tonos.", icon: Music, color: "bg-accent-blue" },
   { modo: "frases", title: "Frases", description: "Huecos, traducciones y diálogos.", icon: MessageSquareText, color: "bg-gold" },
 ];
 
@@ -45,13 +49,14 @@ function ModeCard({ mode, href, badge }: { mode: Mode; href: string; badge?: str
 export default function PracticePage() {
   const ready = useReady();
   const progress = useProgress();
+  const { silentMode } = useSettings();
   const [scope, setScope] = useState<string[]>([]);
   const [writingStyle, setWritingStyle] = useState<"guiado" | "libre" | "mixto">("mixto");
   const [examSize, setExamSize] = useState(20);
   const [examWriting, setExamWriting] = useState(false);
 
   const l = scope.length ? `&l=${scope.join(",")}` : "";
-  const due = ready ? dueItems(progress, VOCAB_IDS).length : 0;
+  const due = ready ? reviewable(dueItems(progress, VOCAB_IDS), silentMode).length : 0;
   const toggle = (id: string) => setScope((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   const lastExam = progress.exams.at(-1);
 
@@ -75,6 +80,8 @@ export default function PracticePage() {
         ))}
       </div>
 
+      <SilentModeCheckbox className="mt-3" />
+
       <Card tone="sky" className="mt-4 flex items-center gap-4">
         <RotateCcw size={36} className="shrink-0 text-sky" />
         <div className="min-w-0 flex-1">
@@ -88,7 +95,7 @@ export default function PracticePage() {
 
       <SectionTitle>Modos de práctica</SectionTitle>
       <div className="grid gap-3 sm:grid-cols-2">
-        {MODES.map((mode) => (
+        {MODES.filter((mode) => !silentMode || !isNoisyMode(mode.modo)).map((mode) => (
           <ModeCard key={mode.modo} mode={mode} href={`/sesion?modo=${mode.modo}${l}`} badge={mode.modo === "infinito" && ready && progress.records.infinite ? `Récord ${progress.records.infinite}` : undefined} />
         ))}
       </div>
@@ -100,7 +107,7 @@ export default function PracticePage() {
             <PenLine size={24} />
           </span>
           <p className="text-sm text-muted">
-            <b className="text-fg">Guiada</b>: trazas sobre la plantilla y se corrige el orden de trazos. <b className="text-fg">Libre</b>: escribes de memoria en blanco y al final se te muestra cómo era.
+            <b className="text-fg">Guiada</b>: trazas sobre la plantilla y se corrige el orden de trazos. <b className="text-fg">Libre</b>: ves la palabra en español, la dibujas de memoria y se te revela el hanzi, sin corrección.
           </p>
         </div>
         <Segmented

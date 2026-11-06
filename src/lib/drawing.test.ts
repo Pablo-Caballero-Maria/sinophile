@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { gradeDrawing, mediansToScreen, type Point } from "./drawing";
+import { gradeDrawing, mediansToScreen, strokePath, type Point } from "./drawing";
 import { indexVocab, search } from "./dictionary";
 import { VOCAB } from "./data/vocab";
 
@@ -10,6 +10,17 @@ const strokes = (char: string) =>
 /** Simulates a learner drawing the medians in a 300px canvas, optionally shrunk/shifted. */
 const drawLike = (medians: number[][][], scale = 1, dx = 0): Point[][] =>
   mediansToScreen(medians).map((stroke) => stroke.map((p) => ({ x: ((p.x * scale) / 1024) * 300 + dx, y: ((p.y * scale) / 1024) * 300 })));
+
+describe("drawing preview path", () => {
+  it("draws nothing without points and a dot for a single point", () => {
+    expect(strokePath([])).toBe("");
+    expect(strokePath([{ x: 3, y: 4 }])).toBe("M3 4L3 4");
+  });
+
+  it("smooths through midpoints, like the canvas", () => {
+    expect(strokePath([{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 10, y: 20 }])).toBe("M0 0Q0 0 5 0Q10 0 10 10");
+  });
+});
 
 describe("free drawing grade", () => {
   it("accepts a faithful drawing, even if small and off-centre", () => {
