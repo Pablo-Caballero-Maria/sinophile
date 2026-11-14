@@ -68,9 +68,11 @@ describe("session generation", () => {
     for (let i = 0; i < 100; i++) assertValid(nextInfinite(vocab.entries, c));
   });
 
-  it("never offers a word with a shared meaning as a wrong option (孩子/子女, 男孩/男孩子)", () => {
+  it("never offers a word with a shared meaning as a wrong option (孩子/子女, 男孩/男孩子, 星期/周, 日/号)", () => {
     const byId = new Map(vocab.entries.map((w) => [w.id, w]));
-    for (const [id, other] of [["haizi", "zinv"], ["zinv", "haizi"], ["nanhaizi", "nanhaizi-informal"], ["zhongwen", "zhongguoren"], ["xibanyayu", "xibanyaren"], ["xibanyaren", "xibanyayu"]]) {
+    const pairs = [["haizi", "zinv"], ["zinv", "haizi"], ["nanhaizi", "nanhaizi-informal"], ["zhongwen", "zhongguoren"], ["xibanyayu", "xibanyaren"], ["xibanyaren", "xibanyayu"]];
+    pairs.push(["xingqi", "zhou"], ["zhou", "xingqi"], ["ri", "hao"], ["hao", "ri"], ["shenme", "na-cual"], ["na-cual", "shenme"]);
+    for (const [id, other] of pairs) {
       for (let seed = 1; seed <= 60; seed++) {
         for (const ex of [meaningChoice(byId.get(id)!, ctx(seed)), reverseChoice(byId.get(id)!, ctx(seed))]) {
           if (ex.type === "choice") expect(ex.options.map((o) => o.id), `${id} (seed ${seed})`).not.toContain(other);

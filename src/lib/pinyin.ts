@@ -153,9 +153,12 @@ export function segmentPinyin(text: string): { text: string; tone: Tone | null }
  * Tones per character of `hanzi`, or null when syllables and characters
  * cannot be aligned (unusual spelling). Erhua is supported: in 这儿 "zhèr"
  * the 儿 has no syllable of its own and takes the tone of the one it joins.
+ * Names in Latin letters (我叫Pablo, "Wǒ jiào Pablo.") are not pinyin, so they
+ * are left out of the pinyin before aligning.
  */
 export function charTones(hanzi: string, pinyin: string): Tone[] | null {
   const chars = [...hanzi].filter((c) => /\p{Script=Han}/u.test(c));
+  for (const name of hanzi.match(/[A-Za-z]+/g) ?? []) pinyin = pinyin.replace(new RegExp(`(?<!\\p{L})${name}(?!\\p{L})`, "u"), " ");
   const syllables = splitSyllables(pinyin);
   if (chars.length === syllables.length) return syllables.map((s) => s.tone);
   const tones: Tone[] = [];

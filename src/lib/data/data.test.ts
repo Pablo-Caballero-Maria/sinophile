@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { readDataDir } from "../../../scripts/data-files";
+import { normalizeLatin, splitMeanings } from "../text";
 import { suggestId, vocabLine } from "./format";
 import { lessonNumber, sanitizeAllExercises, sanitizeExercises, sanitizeLessons, type LessonBundle } from "./validate";
 
@@ -29,13 +30,19 @@ describe("data/ folder (the real lessons)", () => {
 
   it("curated sentences only use words of the same or earlier lessons", () => {
     const numberOf = new Map(real.lessons.map((l) => [l.id, l.number]));
+    // People's names (我叫Pablo) may appear in dialogues, but not in the example sentences, which
+    // are also read aloud and checked with speech recognition.
+    const name = /^\p{Lu}\p{Ll}+$/u;
     for (const lesson of real.lessons) {
       const known = new Set(real.entries.filter((w) => numberOf.get(w.lesson)! <= lesson.number).map((w) => w.hanzi));
+      const ok = (token: string) => known.has(token) || /^[，。！？、]$/.test(token);
       for (const word of lesson.words) {
         const set = realExercises.file.words[word.id];
-        const sentences = [...set.examples, ...set.exercises.flatMap((e) => (e.type === "dialogue" ? [e.prompt, e.answer, ...e.wrong] : []))];
-        for (const s of sentences) {
-          for (const token of s.zh) expect(known.has(token) || /^[，。！？、]$/.test(token), `${word.id}: ${token} (${s.zh.join("")})`).toBe(true);
+        for (const s of set.examples) {
+          for (const token of s.zh) expect(ok(token), `${word.id}: ${token} (${s.zh.join("")})`).toBe(true);
+        }
+        for (const s of set.exercises.flatMap((e) => (e.type === "dialogue" ? [e.prompt, e.answer, ...e.wrong] : []))) {
+          for (const token of s.zh) expect(ok(token) || name.test(token), `${word.id}: ${token} (${s.zh.join("")})`).toBe(true);
         }
       }
     }
@@ -53,6 +60,21 @@ describe("words the learner asked to fix", () => {
     const others = Object.entries(realExercises.file.words).filter(([id]) => id !== "xingqitian");
     expect(JSON.stringify([exercises, others])).not.toContain("星期天");
     expect(JSON.stringify([exercises, others])).not.toMatch(/ngqītiān/i);
+  });
+
+  it("lesson 4: 周 and 号 are synonyms of 星期 and 日, and the three ways of asking the age are there", () => {
+    const meanings = (hanzi: string) => splitMeanings(wordOf(hanzi)!.es).map(normalizeLatin);
+    expect(meanings("周")).toEqual(meanings("星期"));
+    expect(meanings("号")).toEqual(meanings("日"));
+    for (const hanzi of ["叫", "什么", "名字", "大家好", "哪", "国", "是吗", "几", "岁", "多大", "您", "年纪"]) {
+      expect(wordOf(hanzi)?.lesson, hanzi).toBe("4");
+    }
+    const colours = ["黄色", "蓝色", "白色", "灰色", "棕色", "紫色", "橙色", "黑色", "红色", "粉色", "绿色"];
+    expect(colours.map((hanzi) => wordOf(hanzi)?.lesson)).toEqual(colours.map(() => "4"));
+    const sentences = (id: string) => realExercises.file.words[id].examples.map((s) => s.zh.join(""));
+    expect(sentences("ji")).toContain("你几岁？");
+    expect(sentences("duoda")).toContain("你多大？");
+    expect(sentences("nianji")).toContain("您多大年纪？");
   });
 
   it("lesson 1 has the nationalities, told apart from the languages", () => {

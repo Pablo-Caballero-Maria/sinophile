@@ -72,6 +72,10 @@ Formato de exercises.json
     ("朋友", no "朋","友"). Lo que no es una palabra del vocabulario se separa en las
     palabras que sí lo son (二十 → "二", "十"; 中文书 → "中文", "书").
   • La puntuación china (，。！？) va en tokens separados.
+  • Los nombres de persona se pueden escribir en letras latinas, como un token aparte
+    (我叫Pablo → "我", "叫", "Pablo"; pinyin "Wǒ jiào Pablo."), pero SOLO en los diálogos:
+    las frases de ejemplo se leen en voz alta y se corrigen con reconocimiento de voz, así
+    que deben ser todo caracteres chinos.
 
 <Ejercicio> = uno de estos cuatro tipos:
 

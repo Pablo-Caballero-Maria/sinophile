@@ -53,6 +53,12 @@ describe("pinyin", () => {
     expect(charTones("你好", "nǐ")).toBeNull();
   });
 
+  it("skips names written in Latin letters (我叫Pablo)", () => {
+    expect(charTones("我叫Pablo。", "Wǒ jiào Pablo.")).toEqual([3, 4]);
+    expect(charTones("Pablo是西班牙人。", "Pablo shì Xībānyárén.")).toEqual([4, 1, 1, 2, 2]);
+    expect(charTones("我叫Ana，她叫Pablo。", "Wǒ jiào Ana, tā jiào Pablo.")).toEqual([3, 4, 1, 4]);
+  });
+
   it("generates distinct tone variants", () => {
     const variants = toneVariants("nǐ hǎo", 3, seededRandom(1));
     expect(variants).toHaveLength(3);

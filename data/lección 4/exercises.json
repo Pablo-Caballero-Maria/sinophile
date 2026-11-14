@@ -1,0 +1,1023 @@
+{
+  "version": 1,
+  "words": {
+    "jiao": {
+      "note": "«Llamarse». Para decir tu nombre: 我叫 + nombre (我叫Pablo). Para preguntarlo: 你叫什么名字？ (literalmente «¿cómo te llamas de nombre?»). 叫 ya es el verbo, así que no lleva 是: 我叫Pablo, no 我是叫Pablo.",
+      "examples": [
+        {
+          "zh": ["你", "叫", "什么", "名字", "？"],
+          "pinyin": "Nǐ jiào shénme míngzi?",
+          "es": "¿Cómo te llamas?"
+        },
+        {
+          "zh": ["他", "叫", "什么", "名字", "？"],
+          "pinyin": "Tā jiào shénme míngzi?",
+          "es": "¿Cómo se llama él?"
+        },
+        {
+          "zh": ["你", "的", "老师", "叫", "什么", "名字", "？"],
+          "pinyin": "Nǐ de lǎoshī jiào shénme míngzi?",
+          "es": "¿Cómo se llama tu profesor?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["是", "有"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["是", "她"],
+          "accept": ["你老师叫什么名字？"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "叫", "什么", "名字", "？"], "pinyin": "Nǐ jiào shénme míngzi?", "es": "¿Cómo te llamas?" },
+          "answer": { "zh": ["我", "叫", "Pablo", "。"], "pinyin": "Wǒ jiào Pablo.", "es": "Me llamo Pablo." },
+          "wrong": [
+            { "zh": ["我", "是", "西班牙人", "。"], "pinyin": "Wǒ shì Xībānyárén.", "es": "Soy español." },
+            { "zh": ["我", "二", "十", "岁", "。"], "pinyin": "Wǒ èrshí suì.", "es": "Tengo veinte años." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«Me llamo Pablo» se dice…",
+          "options": ["我叫Pablo。", "我是叫Pablo。", "我叫是Pablo。"],
+          "answer": "我叫Pablo。",
+          "explanation": "叫 ya es el verbo («llamarse»), así que no se añade 是."
+        }
+      ]
+    },
+    "shenme": {
+      "note": "«Qué». En chino la palabra interrogativa no va al principio: se queda en el sitio de la respuesta (我喜欢咖啡 → 你喜欢什么？). Como ya es una pregunta, no lleva 吗.",
+      "examples": [
+        {
+          "zh": ["你", "有", "什么", "问题", "？"],
+          "pinyin": "Nǐ yǒu shénme wèntí?",
+          "es": "¿Qué pregunta tienes?"
+        },
+        {
+          "zh": ["你", "喜欢", "什么", "？"],
+          "pinyin": "Nǐ xǐhuan shénme?",
+          "es": "¿Qué te gusta?"
+        },
+        {
+          "zh": ["你", "买", "什么", "？"],
+          "pinyin": "Nǐ mǎi shénme?",
+          "es": "¿Qué compras?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["吗", "几"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["他", "喜欢"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["gustas", "compras"]
+        },
+        {
+          "type": "choice",
+          "question": "«¿Qué te gusta?» se dice…",
+          "options": ["你喜欢什么？", "什么你喜欢？", "你什么喜欢？"],
+          "answer": "你喜欢什么？",
+          "explanation": "什么 va en el sitio de la respuesta: 我喜欢咖啡 → 你喜欢什么？"
+        }
+      ]
+    },
+    "mingzi": {
+      "note": "«Nombre». La 2.ª sílaba es átona: míngzi. 名 es el mismo carácter de 有名 (famoso, «que tiene nombre»). «Mi nombre» es 我的名字.",
+      "examples": [
+        {
+          "zh": ["你", "的", "中文", "名字", "是", "什么", "？"],
+          "pinyin": "Nǐ de Zhōngwén míngzi shì shénme?",
+          "es": "¿Cuál es tu nombre chino?"
+        },
+        {
+          "zh": ["你", "朋友", "叫", "什么", "名字", "？"],
+          "pinyin": "Nǐ péngyou jiào shénme míngzi?",
+          "es": "¿Cómo se llama tu amigo?"
+        },
+        {
+          "zh": ["我", "没有", "中文", "名字", "。"],
+          "pinyin": "Wǒ méiyǒu Zhōngwén míngzi.",
+          "es": "No tengo nombre chino."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["年纪", "国"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["有", "不"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["nombre", "mi"]
+        }
+      ]
+    },
+    "dajiahao": {
+      "note": "«Hola a todos». Sirve para saludar a un grupo, por ejemplo al empezar a presentarte en clase. 大家 (dàjiā) significa «todos» y 好, «bien», como en 你好.",
+      "examples": [
+        {
+          "zh": ["大家好", "！"],
+          "pinyin": "Dàjiā hǎo!",
+          "es": "¡Hola a todos!"
+        },
+        {
+          "zh": ["大家好", "！", "我", "是", "你们", "的", "老师", "。"],
+          "pinyin": "Dàjiā hǎo! Wǒ shì nǐmen de lǎoshī.",
+          "es": "¡Hola a todos! Soy vuestro profesor."
+        },
+        {
+          "zh": ["大家好", "！", "我们", "是", "西班牙", "学生", "。"],
+          "pinyin": "Dàjiā hǎo! Wǒmen shì Xībānyá xuéshēng.",
+          "es": "¡Hola a todos! Somos estudiantes españoles."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["你好", "是吗"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["你好", "中国"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["nuestro", "eres"]
+        },
+        {
+          "type": "choice",
+          "question": "Entras en clase y saludas a todos tus compañeros a la vez. ¿Qué dices?",
+          "options": ["大家好！", "你好！", "是吗？"],
+          "answer": "大家好！",
+          "explanation": "大家好 es «hola a todos»; 你好 se dice a una sola persona."
+        }
+      ]
+    },
+    "na-cual": {
+      "note": "«Qué / cuál», cuando se elige entre varios: 哪国 = qué país. 你是哪国人？ = ¿De qué país eres? (literalmente «¿eres persona de qué país?»). Como 什么, va en el sitio de la respuesta y no lleva 吗. También se oye něi. No lo confundas con 那 (nà, 4.º tono, «ese, aquel», como en 那里): 哪 lleva delante 口, la boca que pregunta.",
+      "examples": [
+        {
+          "zh": ["你", "是", "哪", "国", "人", "？"],
+          "pinyin": "Nǐ shì nǎ guó rén?",
+          "es": "¿De qué país eres?"
+        },
+        {
+          "zh": ["你们", "是", "哪", "国", "学生", "？"],
+          "pinyin": "Nǐmen shì nǎ guó xuéshēng?",
+          "es": "¿De qué país sois los estudiantes?"
+        },
+        {
+          "zh": ["他", "的", "女朋友", "是", "哪", "国", "人", "？"],
+          "pinyin": "Tā de nǚpéngyou shì nǎ guó rén?",
+          "es": "¿De qué país es su novia?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["什么", "几"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["吗", "什么"],
+          "accept": ["他女朋友是哪国人？"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你们", "是", "哪", "国", "学生", "？"], "pinyin": "Nǐmen shì nǎ guó xuéshēng?", "es": "¿De qué país sois los estudiantes?" },
+          "answer": { "zh": ["我们", "是", "西班牙", "学生", "。"], "pinyin": "Wǒmen shì Xībānyá xuéshēng.", "es": "Somos estudiantes españoles." },
+          "wrong": [
+            { "zh": ["我", "叫", "Pablo", "。"], "pinyin": "Wǒ jiào Pablo.", "es": "Me llamo Pablo." },
+            { "zh": ["我们", "二", "十", "岁", "。"], "pinyin": "Wǒmen èrshí suì.", "es": "Tenemos veinte años." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«¿De qué país es él?» se dice…",
+          "options": ["他是哪国人？", "他是哪国人吗？", "他是那国人？"],
+          "answer": "他是哪国人？",
+          "explanation": "哪 (nǎ) ya hace la pregunta, así que no se añade 吗. 那 (nà) significa «ese, aquel»."
+        }
+      ]
+    },
+    "guo": {
+      "note": "«País». Está en 中国 (el «país del centro») y en la pregunta 哪国人 (¿de qué país?). La nacionalidad se forma añadiendo 人 al país: 中国人, 西班牙人.",
+      "examples": [
+        {
+          "zh": ["他们", "是", "哪", "国", "人", "？"],
+          "pinyin": "Tāmen shì nǎ guó rén?",
+          "es": "¿De qué país son ellos?"
+        },
+        {
+          "zh": ["你", "妈妈", "是", "哪", "国", "人", "？"],
+          "pinyin": "Nǐ māma shì nǎ guó rén?",
+          "es": "¿De qué país es tu madre?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["中国", "人"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["padre", "eres"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "是", "哪", "国", "人", "？"], "pinyin": "Nǐ shì nǎ guó rén?", "es": "¿De qué país eres?" },
+          "answer": { "zh": ["我", "是", "西班牙人", "。"], "pinyin": "Wǒ shì Xībānyárén.", "es": "Soy español." },
+          "wrong": [
+            { "zh": ["我", "是", "学生", "。"], "pinyin": "Wǒ shì xuéshēng.", "es": "Soy estudiante." },
+            { "zh": ["我", "叫", "Pablo", "。"], "pinyin": "Wǒ jiào Pablo.", "es": "Me llamo Pablo." }
+          ]
+        }
+      ]
+    },
+    "shima": {
+      "note": "Se pone al final de una afirmación para pedir que te la confirmen, como «¿verdad?» o «¿no?»: 你是西班牙人，是吗？ (Eres español, ¿verdad?). Va detrás de una coma. Solo, 是吗？ significa «¿Ah, sí? / ¿De verdad?». Se responde con 是 (sí) o 不是 (no).",
+      "examples": [
+        {
+          "zh": ["你", "是", "西班牙人", "，", "是吗", "？"],
+          "pinyin": "Nǐ shì Xībānyárén, shì ma?",
+          "es": "Eres español, ¿verdad?"
+        },
+        {
+          "zh": ["她", "是", "你", "的", "女朋友", "，", "是吗", "？"],
+          "pinyin": "Tā shì nǐ de nǚpéngyou, shì ma?",
+          "es": "Es tu novia, ¿verdad?"
+        },
+        {
+          "zh": ["你们", "有", "考试", "，", "是吗", "？"],
+          "pinyin": "Nǐmen yǒu kǎoshì, shì ma?",
+          "es": "Tenéis examen, ¿verdad?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["吗", "什么"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["吗", "没有"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "是", "中国人", "，", "是吗", "？"], "pinyin": "Nǐ shì Zhōngguórén, shì ma?", "es": "Eres chino, ¿verdad?" },
+          "answer": { "zh": ["不", "是", "，", "我", "是", "西班牙人", "。"], "pinyin": "Bú shì, wǒ shì Xībānyárén.", "es": "No, soy español." },
+          "wrong": [
+            { "zh": ["是", "，", "我", "是", "西班牙人", "。"], "pinyin": "Shì, wǒ shì Xībānyárén.", "es": "Sí, soy español." },
+            { "zh": ["我", "二", "十", "岁", "。"], "pinyin": "Wǒ èrshí suì.", "es": "Tengo veinte años." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«Eres profesor, ¿verdad?» se dice…",
+          "options": ["你是老师，是吗？", "是吗，你是老师？", "你是吗老师？"],
+          "answer": "你是老师，是吗？",
+          "explanation": "是吗 va al final, detrás de la afirmación y de una coma."
+        }
+      ]
+    },
+    "ji": {
+      "note": "«Cuántos», para cantidades que se esperan pequeñas (menos de 10) y en las fechas: 星期几 (¿qué día de la semana?), 几号 (¿qué día del mes?). A los niños se les pregunta la edad con 你几岁？. Va directamente delante del clasificador: 几本书.",
+      "examples": [
+        {
+          "zh": ["你", "几", "岁", "？"],
+          "pinyin": "Nǐ jǐ suì?",
+          "es": "¿Cuántos años tienes? (a un niño)"
+        },
+        {
+          "zh": ["你", "有", "几", "本书", "？"],
+          "pinyin": "Nǐ yǒu jǐ běn shū?",
+          "es": "¿Cuántos libros tienes?"
+        },
+        {
+          "zh": ["你", "星期", "几", "有", "考试", "？"],
+          "pinyin": "Nǐ xīngqījǐ yǒu kǎoshì?",
+          "es": "¿Qué día de la semana tienes examen?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["什么", "多大"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["吗", "号"],
+          "accept": ["星期几你有考试？"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["cuántas", "tiene"]
+        }
+      ]
+    },
+    "sui": {
+      "note": "«Años» de edad. Para decir la edad no hace falta verbo: 我二十岁 (tengo veinte años), sin 是 ni 有. Para preguntarla hay tres formas, según la edad de la otra persona: a un niño, 你几岁？; a un joven o adulto, 你多大？; a una persona mayor, con respeto, 您多大年纪？. 年 (nián) es el año del calendario, no la edad.",
+      "examples": [
+        {
+          "zh": ["我", "二", "十", "岁", "。"],
+          "pinyin": "Wǒ èrshí suì.",
+          "es": "Tengo veinte años."
+        },
+        {
+          "zh": ["我", "弟弟", "八", "岁", "。"],
+          "pinyin": "Wǒ dìdi bā suì.",
+          "es": "Mi hermano pequeño tiene ocho años."
+        },
+        {
+          "zh": ["我", "爸爸", "五", "十", "六", "岁", "。"],
+          "pinyin": "Wǒ bàba wǔshíliù suì.",
+          "es": "Mi padre tiene cincuenta y seis años."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["年", "号"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["年", "哥哥"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["madre", "días"]
+        },
+        {
+          "type": "choice",
+          "question": "«Tengo veinte años» se dice…",
+          "options": ["我二十岁。", "我有二十岁。", "我是二十年。"],
+          "answer": "我二十岁。",
+          "explanation": "La edad va justo detrás del sujeto, sin 有 ni 是, y se cuenta con 岁, no con 年."
+        }
+      ]
+    },
+    "duoda": {
+      "note": "«¿Qué edad?». 你多大？ es la forma normal de preguntar la edad a alguien joven o de tu edad (literalmente «¿cómo de grande eres?»). A un niño se le pregunta 你几岁？ y a una persona mayor, 您多大年纪？. Se responde igual en los tres casos: 我二十岁.",
+      "examples": [
+        {
+          "zh": ["你", "多大", "？"],
+          "pinyin": "Nǐ duō dà?",
+          "es": "¿Cuántos años tienes?"
+        },
+        {
+          "zh": ["你", "哥哥", "多大", "？"],
+          "pinyin": "Nǐ gēge duō dà?",
+          "es": "¿Cuántos años tiene tu hermano mayor?"
+        },
+        {
+          "zh": ["你", "的", "女朋友", "多大", "？"],
+          "pinyin": "Nǐ de nǚpéngyou duō dà?",
+          "es": "¿Cuántos años tiene tu novia?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["几", "什么"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["几", "吗"],
+          "accept": ["你女朋友多大？"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "多大", "？"], "pinyin": "Nǐ duō dà?", "es": "¿Cuántos años tienes?" },
+          "answer": { "zh": ["我", "二", "十", "二", "岁", "。"], "pinyin": "Wǒ èrshí'èr suì.", "es": "Tengo veintidós años." },
+          "wrong": [
+            { "zh": ["我", "叫", "Pablo", "。"], "pinyin": "Wǒ jiào Pablo.", "es": "Me llamo Pablo." },
+            { "zh": ["我", "是", "西班牙人", "。"], "pinyin": "Wǒ shì Xībānyárén.", "es": "Soy español." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "Le preguntas la edad a un compañero de clase de tu edad. ¿Qué dices?",
+          "options": ["你多大？", "你几岁？", "您多大年纪？"],
+          "answer": "你多大？",
+          "explanation": "几岁 es para niños y 您多大年纪 para personas mayores; con alguien joven, 你多大？"
+        }
+      ]
+    },
+    "nin": {
+      "note": "«Usted», la forma respetuosa de 你: con personas mayores, profesores o desconocidos. Es 你 con 心 (corazón) debajo: un «tú» con respeto. Para hablar a un grupo se suele usar 你们 o 大家.",
+      "examples": [
+        {
+          "zh": ["您", "多大", "年纪", "？"],
+          "pinyin": "Nín duō dà niánjì?",
+          "es": "¿Qué edad tiene usted?"
+        },
+        {
+          "zh": ["您", "是", "老师", "吗", "？"],
+          "pinyin": "Nín shì lǎoshī ma?",
+          "es": "¿Es usted profesor?"
+        },
+        {
+          "zh": ["您", "叫", "什么", "名字", "？"],
+          "pinyin": "Nín jiào shénme míngzi?",
+          "es": "¿Cómo se llama usted?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["你们", "他们"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["你", "是"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["eres", "tú"],
+          "accept": ["¿Usted es profesor?"]
+        }
+      ]
+    },
+    "nianji": {
+      "note": "«Edad». Se usa sobre todo para preguntar con respeto la edad a una persona mayor: 您多大年纪？. A alguien joven no se le pregunta así (sonaría raro): basta con 你多大？. 年 es el mismo carácter de «año».",
+      "examples": [
+        {
+          "zh": ["您", "多大", "年纪", "？"],
+          "pinyin": "Nín duō dà niánjì?",
+          "es": "¿Qué edad tiene usted?"
+        },
+        {
+          "zh": ["你", "爸爸", "多大", "年纪", "？"],
+          "pinyin": "Nǐ bàba duō dà niánjì?",
+          "es": "¿Qué edad tiene tu padre?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["名字", "问题"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["你", "岁"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["您", "多大", "年纪", "？"], "pinyin": "Nín duō dà niánjì?", "es": "¿Qué edad tiene usted?" },
+          "answer": { "zh": ["我", "七", "十", "八", "岁", "。"], "pinyin": "Wǒ qīshíbā suì.", "es": "Tengo setenta y ocho años." },
+          "wrong": [
+            { "zh": ["我", "是", "中国人", "。"], "pinyin": "Wǒ shì Zhōngguórén.", "es": "Soy chino." },
+            { "zh": ["我", "喜欢", "咖啡", "。"], "pinyin": "Wǒ xǐhuan kāfēi.", "es": "Me gusta el café." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "Le preguntas la edad a una señora mayor. ¿Qué dices?",
+          "options": ["您多大年纪？", "你几岁？", "你多大？"],
+          "answer": "您多大年纪？",
+          "explanation": "A las personas mayores se les pregunta con respeto: 您 en vez de 你, y 多大年纪."
+        }
+      ]
+    },
+    "zhou": {
+      "note": "«Semana», otra forma de decir 星期, más corta. Los días se forman igual: 周一 (lunes), 周二 (martes)… 周六 (sábado) y 周日 (domingo). Una semana: 一周.",
+      "examples": [
+        {
+          "zh": ["我", "周", "一", "有", "考试", "。"],
+          "pinyin": "Wǒ zhōuyī yǒu kǎoshì.",
+          "es": "Tengo un examen el lunes."
+        },
+        {
+          "zh": ["我们", "周", "日", "没有", "时间", "。"],
+          "pinyin": "Wǒmen zhōurì méiyǒu shíjiān.",
+          "es": "El domingo no tenemos tiempo."
+        },
+        {
+          "zh": ["考试", "是", "周", "三", "。"],
+          "pinyin": "Kǎoshì shì zhōusān.",
+          "es": "El examen es el miércoles."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["年", "号"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["一", "有"],
+          "accept": ["周日我们没有时间。"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["martes", "semana"],
+          "accept": ["El miércoles es el examen."]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué significa 周五?",
+          "options": ["viernes", "cinco semanas", "mayo"],
+          "answer": "viernes",
+          "explanation": "周 = 星期, así que 周五 = 星期五 (viernes). Mayo es 五月."
+        }
+      ]
+    },
+    "hao": {
+      "note": "«Día» del mes en las fechas. Es más coloquial que 日, que se usa más por escrito: 十一月十四号 = 14 de noviembre. El orden es el contrario que en español: año, mes y día (2026年11月14号). Para preguntar la fecha: 几号？ (¿qué día?).",
+      "examples": [
+        {
+          "zh": ["十一月", "十", "四", "号", "是", "星期六", "。"],
+          "pinyin": "Shíyīyuè shísì hào shì xīngqīliù.",
+          "es": "El 14 de noviembre es sábado."
+        },
+        {
+          "zh": ["我", "五月", "二", "十", "号", "有", "考试", "。"],
+          "pinyin": "Wǒ wǔyuè èrshí hào yǒu kǎoshì.",
+          "es": "Tengo un examen el 20 de mayo."
+        },
+        {
+          "zh": ["考试", "是", "几", "号", "？"],
+          "pinyin": "Kǎoshì shì jǐ hào?",
+          "es": "¿Qué día es el examen?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["年", "岁"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["年", "没有"],
+          "accept": ["五月二十号我有考试。"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["mes", "semana"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["考试", "是", "几", "号", "？"], "pinyin": "Kǎoshì shì jǐ hào?", "es": "¿Qué día es el examen?" },
+          "answer": { "zh": ["十二月", "三", "号", "。"], "pinyin": "Shí'èryuè sān hào.", "es": "El 3 de diciembre." },
+          "wrong": [
+            { "zh": ["我", "三", "岁", "。"], "pinyin": "Wǒ sān suì.", "es": "Tengo tres años." },
+            { "zh": ["我", "有", "三", "本书", "。"], "pinyin": "Wǒ yǒu sān běn shū.", "es": "Tengo tres libros." }
+          ]
+        }
+      ]
+    },
+    "huangse": {
+      "note": "«Amarillo». Era el color del emperador. 黄 (Huáng) también es un apellido muy común. Delante de un sustantivo, el color se une con 的: 黄色的房子 (casa amarilla).",
+      "examples": [
+        {
+          "zh": ["他", "的", "房子", "是", "黄色", "的", "。"],
+          "pinyin": "Tā de fángzi shì huángsè de.",
+          "es": "Su casa es amarilla."
+        },
+        {
+          "zh": ["我", "妹妹", "喜欢", "黄色", "。"],
+          "pinyin": "Wǒ mèimei xǐhuan huángsè.",
+          "es": "A mi hermana pequeña le gusta el amarillo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["红色", "蓝色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["姐姐", "红色"]
+        },
+        {
+          "type": "choice",
+          "question": "«Una casa amarilla» se dice…",
+          "options": ["黄色的房子", "房子黄色的", "的黄色房子"],
+          "answer": "黄色的房子",
+          "explanation": "El color va delante del sustantivo, unido con 的: 黄色的房子."
+        }
+      ]
+    },
+    "lanse": {
+      "note": "«Azul». 蓝 (lán) lleva arriba 艹, el radical de las plantas: el añil es una planta con la que se teñía de azul.",
+      "examples": [
+        {
+          "zh": ["你", "的", "手机", "是", "蓝色", "的", "吗", "？"],
+          "pinyin": "Nǐ de shǒujī shì lánsè de ma?",
+          "es": "¿Tu móvil es azul?"
+        },
+        {
+          "zh": ["我", "买", "蓝色", "的", "车", "。"],
+          "pinyin": "Wǒ mǎi lánsè de chē.",
+          "es": "Compro un coche azul."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["黄色", "绿色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["mi", "verde"],
+          "accept": ["¿Es azul tu móvil?"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "白色"]
+        }
+      ]
+    },
+    "baise": {
+      "note": "«Blanco». 白 (bái) parece un sol (日) con un rayo de luz encima. En China el blanco es tradicionalmente el color del luto.",
+      "examples": [
+        {
+          "zh": ["牛奶", "是", "白色", "的", "。"],
+          "pinyin": "Niúnǎi shì báisè de.",
+          "es": "La leche es blanca."
+        },
+        {
+          "zh": ["这里", "的", "桌子", "是", "白色", "的", "。"],
+          "pinyin": "Zhèlǐ de zhuōzi shì báisè de.",
+          "es": "Las mesas de aquí son blancas."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["黑色", "红色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["那里", "黑色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["negra", "café"]
+        }
+      ]
+    },
+    "huise": {
+      "note": "«Gris». 灰 (huī) significa «ceniza»: lleva dentro 火, el fuego.",
+      "examples": [
+        {
+          "zh": ["我", "朋友", "的", "猫", "是", "灰色", "的", "。"],
+          "pinyin": "Wǒ péngyou de māo shì huīsè de.",
+          "es": "El gato de mi amigo es gris."
+        },
+        {
+          "zh": ["我", "不", "喜欢", "灰色", "。"],
+          "pinyin": "Wǒ bù xǐhuan huīsè.",
+          "es": "No me gusta el gris."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["粉色", "蓝色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["没有", "黑色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["negro", "casa"]
+        }
+      ]
+    },
+    "zongse": {
+      "note": "«Marrón». 棕 (zōng) es la palmera y lleva 木 (árbol): es el color de su fibra. También se dice 咖啡色, «color café».",
+      "examples": [
+        {
+          "zh": ["我", "的", "桌子", "是", "棕色", "的", "。"],
+          "pinyin": "Wǒ de zhuōzi shì zōngsè de.",
+          "es": "Mi mesa es marrón."
+        },
+        {
+          "zh": ["你", "有", "棕色", "的", "猫", "吗", "？"],
+          "pinyin": "Nǐ yǒu zōngsè de māo ma?",
+          "es": "¿Tienes un gato marrón?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["紫色", "橙色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["是", "灰色"]
+        },
+        {
+          "type": "choice",
+          "question": "Otra forma de decir «marrón» es…",
+          "options": ["咖啡色", "牛奶色", "啤酒色"],
+          "answer": "咖啡色",
+          "explanation": "咖啡色, «color café», es otra forma de decir 棕色."
+        }
+      ]
+    },
+    "zise": {
+      "note": "«Morado». 紫 (zǐ) lleva abajo 糸, la seda. La Ciudad Prohibida de Pekín se llama en chino 紫禁城, la «ciudad prohibida púrpura».",
+      "examples": [
+        {
+          "zh": ["她", "的", "手机", "是", "紫色", "的", "。"],
+          "pinyin": "Tā de shǒujī shì zǐsè de.",
+          "es": "Su móvil es morado."
+        },
+        {
+          "zh": ["我", "妈妈", "喜欢", "紫色", "。"],
+          "pinyin": "Wǒ māma xǐhuan zǐsè.",
+          "es": "A mi madre le gusta el morado."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["绿色", "棕色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["你", "粉色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["padre", "rosa"]
+        }
+      ]
+    },
+    "chengse": {
+      "note": "«Naranja». 橙 (chéng) es la naranja, la fruta; lleva 木 porque crece en un árbol. Como en español, el color se llama como la fruta.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "橙色", "的", "车", "。"],
+          "pinyin": "Wǒ xǐhuan chéngsè de chē.",
+          "es": "Me gusta el coche naranja."
+        },
+        {
+          "zh": ["那里", "有", "橙色", "的", "房子", "。"],
+          "pinyin": "Nàlǐ yǒu chéngsè de fángzi.",
+          "es": "Allí hay una casa naranja."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["黑色", "白色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["这里", "红色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["casa", "verde"]
+        }
+      ]
+    },
+    "heise": {
+      "note": "«Negro». Abajo lleva 灬, que es el fuego: el negro del hollín.",
+      "examples": [
+        {
+          "zh": ["他", "的", "猫", "是", "黑色", "的", "。"],
+          "pinyin": "Tā de māo shì hēisè de.",
+          "es": "Su gato es negro."
+        },
+        {
+          "zh": ["我", "买", "黑色", "的", "手机", "。"],
+          "pinyin": "Wǒ mǎi hēisè de shǒujī.",
+          "es": "Compro un móvil negro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["灰色", "白色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["你", "白色"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "的", "猫", "是", "黑色", "的", "吗", "？"], "pinyin": "Nǐ de māo shì hēisè de ma?", "es": "¿Tu gato es negro?" },
+          "answer": { "zh": ["不", "是", "，", "我", "的", "猫", "是", "白色", "的", "。"], "pinyin": "Bú shì, wǒ de māo shì báisè de.", "es": "No, mi gato es blanco." },
+          "wrong": [
+            { "zh": ["是", "，", "我", "的", "猫", "是", "白色", "的", "。"], "pinyin": "Shì, wǒ de māo shì báisè de.", "es": "Sí, mi gato es blanco." },
+            { "zh": ["我", "没有", "车", "。"], "pinyin": "Wǒ méiyǒu chē.", "es": "No tengo coche." }
+          ]
+        }
+      ]
+    },
+    "hongse": {
+      "note": "«Rojo». 红 (hóng) lleva a la izquierda 纟, el radical de la seda (como 绿). En China es el color de la suerte y de las fiestas. Para decir de qué color es algo: 我的车是红色的 (con 的 al final).",
+      "examples": [
+        {
+          "zh": ["我", "的", "车", "是", "红色", "的", "。"],
+          "pinyin": "Wǒ de chē shì hóngsè de.",
+          "es": "Mi coche es rojo."
+        },
+        {
+          "zh": ["中国人", "喜欢", "红色", "。"],
+          "pinyin": "Zhōngguórén xǐhuan hóngsè.",
+          "es": "A los chinos les gusta el rojo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["白色", "黑色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["你", "有"],
+          "accept": ["我车是红色的。"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["blanco", "chino"]
+        }
+      ]
+    },
+    "fense": {
+      "note": "«Rosa». 粉 (fěn) significa «polvo» y lleva 米 (arroz). También se dice 粉红色.",
+      "examples": [
+        {
+          "zh": ["我", "女儿", "喜欢", "粉色", "。"],
+          "pinyin": "Wǒ nǚ'ér xǐhuan fěnsè.",
+          "es": "A mi hija le gusta el rosa."
+        },
+        {
+          "zh": ["我", "女朋友", "的", "车", "是", "粉色", "的", "。"],
+          "pinyin": "Wǒ nǚpéngyou de chē shì fěnsè de.",
+          "es": "El coche de mi novia es rosa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["红色", "紫色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["儿子", "红色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["novio", "rojo"]
+        }
+      ]
+    },
+    "lvse": {
+      "note": "«Verde». 绿 se escribe con ü: lǜ. Lleva a la izquierda 纟, el radical de la seda, como 红.",
+      "examples": [
+        {
+          "zh": ["我", "爸爸", "的", "车", "是", "绿色", "的", "。"],
+          "pinyin": "Wǒ bàba de chē shì lǜsè de.",
+          "es": "El coche de mi padre es verde."
+        },
+        {
+          "zh": ["你", "喜欢", "绿色", "吗", "？"],
+          "pinyin": "Nǐ xǐhuan lǜsè ma?",
+          "es": "¿Te gusta el verde?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["蓝色", "黄色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "什么"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "喜欢", "绿色", "吗", "？"], "pinyin": "Nǐ xǐhuan lǜsè ma?", "es": "¿Te gusta el verde?" },
+          "answer": { "zh": ["不", "喜欢", "，", "我", "喜欢", "蓝色", "。"], "pinyin": "Bù xǐhuan, wǒ xǐhuan lánsè.", "es": "No, me gusta el azul." },
+          "wrong": [
+            { "zh": ["我", "二", "十", "岁", "。"], "pinyin": "Wǒ èrshí suì.", "es": "Tengo veinte años." },
+            { "zh": ["不", "是", "，", "我", "是", "西班牙人", "。"], "pinyin": "Bú shì, wǒ shì Xībānyárén.", "es": "No, soy español." }
+          ]
+        }
+      ]
+    }
+  }
+}
