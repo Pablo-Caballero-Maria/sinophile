@@ -14,8 +14,9 @@ vocabulario está organizado en una carpeta por clase dentro de data/, llamada
   …
   data/instructions.txt            ← este documento
 
-  • vocab.json → NUNCA lo modifiques. Es una lista de { id, hanzi, pinyin, es }.
-    Los ids son únicos en todas las clases.
+  • vocab.json → lo escribe el usuario: no lo modifiques, salvo en los casos de
+    «Cambios en lecciones anteriores» (más abajo). Es una lista de
+    { id, hanzi, pinyin, es }. Los ids son únicos en todas las clases.
   • exercises.json → por cada palabra de ESA clase, una nota, frases de ejemplo y
     ejercicios "curados".
 
@@ -30,6 +31,8 @@ Qué recibirás
   1. Estas instrucciones.
   2. El vocab.json de la lección NUEVA (y su exercises.json, si ya existe).
   3. El vocab.json de todas las lecciones ANTERIORES (vocabulario ya conocido).
+     Si necesitas corregir los ejercicios de una lección anterior y no tienes su
+     exercises.json, pídeselo al usuario.
 
 Tu tarea
 --------
@@ -39,14 +42,39 @@ Tu tarea
 3. Si no hay ninguna pendiente, responde: "No hay vocabulario nuevo: exercises.json ya
    está al día." y no generes nada más.
 4. Si las hay, crea UN conjunto por cada id pendiente (formato abajo) y añádelo a
-   "words". No cambies, reordenes ni borres los conjuntos que ya existan.
+   "words". No cambies, reordenes ni borres los conjuntos que ya existan (salvo en los
+   casos de «Cambios en lecciones anteriores»).
    Solo van en este archivo palabras de ESTA clase: las de otras clases tienen el suyo.
    (Si una clave de "words" no existe en el vocab.json de la clase, avísalo al usuario;
    puedes proponer eliminarla, pero no lo hagas sin decirlo.)
 5. Devuelve el archivo data/lección N/exercises.json COMPLETO y válido (JSON estricto:
    comillas dobles, sin comentarios, sin comas finales), listo para que el usuario lo
-   guarde en GitHub, preferiblemente como archivo descargable. Después, en 2-3 líneas,
-   resume qué ids has añadido.
+   guarde en GitHub, preferiblemente como archivo descargable. Si has cambiado archivos
+   de lecciones anteriores, devuélvelos también completos. Después, en 2-3 líneas,
+   resume qué ids has añadido y qué has cambiado en lecciones anteriores.
+
+Cambios en lecciones anteriores
+-------------------------------
+Si lo que se ha aprendido en la clase nueva obliga a corregir o completar algo de una
+lección anterior, puedes modificar su vocab.json y su exercises.json. Por ejemplo:
+  • Aparece un sinónimo o una forma alternativa (日 → 号, 星期 → 周): la nota de la palabra
+    antigua puede mencionarlo, y las traducciones ("es") de los dos deben compartir un
+    significado para que la app no ofrezca una como opción incorrecta de la otra (o
+    distinguirse claramente, si NO significan lo mismo).
+  • La clase nueva muestra que una traducción, un pinyin, un carácter, una nota o un
+    ejercicio anterior estaba mal o era confuso.
+  • Un distractor anterior se ha vuelto también correcto con lo aprendido después.
+Límites:
+  • NUNCA cambies ni borres un "id" existente: el progreso del usuario se guarda por id.
+    Si una palabra cambia de forma, conserva su id y cambia hanzi, pinyin o es.
+  • No borres palabras ni las muevas de lección sin que el usuario lo pida.
+  • Las frases de una lección anterior siguen pudiendo usar solo el vocabulario conocido
+    hasta ESA lección: las palabras nuevas pueden aparecer en sus notas y explicaciones,
+    pero no en sus frases.
+  • No reordenes las frases de ejemplo (los ejercicios las citan por índice). Si cambias
+    una frase, revisa los ejercicios que la usan ("blank", "distractors", "accept").
+  • Haz solo los cambios necesarios y explica cada uno al usuario (archivo, id, antes →
+    después).
 
 Formato de exercises.json
 -------------------------
@@ -155,7 +183,8 @@ Reglas de calidad (importantes)
 
 Comprobación final antes de responder
 -------------------------------------
-  □ Es JSON válido y conserva todos los conjuntos anteriores sin cambios.
+  □ Es JSON válido y conserva todos los conjuntos anteriores sin cambios, salvo los de
+    «Cambios en lecciones anteriores», que has explicado al usuario (sin tocar ningún id).
   □ Hay un conjunto para cada id pendiente y las claves son ids de ESTA clase.
   □ Todos los "example" son índices existentes; todos los "blank" son tokens de la frase.
   □ Todas las "answer" de "choice" están en sus "options".
