@@ -1,16 +1,21 @@
 "use client";
-/** Home-page card: how many words you know and how they compare with HSK 1. */
+/**
+ * Home-page card: how many words you know and how they compare with HSK 1.
+ * Signed in, every word of the lessons counts; guests (and offline starts) only
+ * count the words they practised during this visit.
+ */
 import { BookOpen, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import { useAccount } from "@/lib/account/client";
 import { VOCAB } from "@/lib/data/vocab";
-import { HSK1, hskSummary, percent } from "@/lib/hsk";
+import { HSK1, hskSummary, percent, type HskSummary } from "@/lib/hsk";
+import { isSeen } from "@/lib/progress/model";
+import { useProgress } from "@/lib/progress/store";
 import { Hanzi } from "./hanzi";
-import { Card, cn, Ring, Segmented } from "./ui";
+import { Card, cn, Ring, Segmented, Skeleton } from "./ui";
 
-const SUMMARY = hskSummary(VOCAB);
-const KNOWN = SUMMARY.known.size;
-const OWN = SUMMARY.hskWords.length;
+const FULL_SUMMARY = hskSummary(VOCAB);
 
 type Filter = "todas" | "conocidas" | "pendientes";
 
@@ -36,9 +41,10 @@ const filterLabel = (count: number, text: string) => (
   </span>
 );
 
-function HskList() {
+function HskList({ summary }: { summary: HskSummary }) {
   const [filter, setFilter] = useState<Filter>("todas");
-  const words = HSK1.filter((w) => (filter === "todas" ? true : SUMMARY.known.has(w.hanzi) === (filter === "conocidas")));
+  const known = summary.known.size;
+  const words = HSK1.filter((w) => (filter === "todas" ? true : summary.known.has(w.hanzi) === (filter === "conocidas")));
   return (
     <div className="mt-3">
       <Segmented
@@ -46,13 +52,13 @@ function HskList() {
         onChange={setFilter}
         options={[
           { value: "todas", label: filterLabel(HSK1.length, "todas") },
-          { value: "conocidas", label: filterLabel(KNOWN, "conocidas") },
-          { value: "pendientes", label: filterLabel(HSK1.length - KNOWN, "por aprender") },
+          { value: "conocidas", label: filterLabel(known, "conocidas") },
+          { value: "pendientes", label: filterLabel(HSK1.length - known, "por aprender") },
         ]}
       />
       <ul className="mt-3 flex flex-wrap gap-1.5">
         {words.map((w) => {
-          const via = SUMMARY.known.get(w.hanzi);
+          const via = summary.known.get(w.hanzi);
           const inside = via && via.hanzi !== w.hanzi;
           return (
             <li key={w.hanzi}>
@@ -85,25 +91,42 @@ function HskList() {
 }
 
 export function VocabSummary() {
-  const total = VOCAB.length;
+  const { status } = useAccount();
+  const progress = useProgress();
+  const signedIn = status === "user";
+  const words = useMemo(() => (signedIn ? VOCAB : VOCAB.filter((w) => isSeen(progress, w.id))), [signedIn, progress]);
+  const summary = useMemo(() => (words === VOCAB ? FULL_SUMMARY : hskSummary(words)), [words]);
+
+  if (status === "loading") return <Skeleton className="h-56 rounded-3xl" />;
+
+  const total = words.length;
+  const known = summary.known.size;
+  const own = summary.hskWords.length;
   return (
     <Card>
       <div className="flex items-center gap-3">
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand">
           <BookOpen size={24} />
         </span>
-        <p className="text-lg font-extrabold leading-tight">
-          Conoces <span className="text-2xl text-brand tabular-nums">{total}</span> {total === 1 ? "palabra" : "palabras"}
-        </p>
+        <div className="min-w-0">
+          <p className="text-lg font-extrabold leading-tight">
+            Conoces <span className="text-2xl text-brand tabular-nums">{total}</span> {total === 1 ? "palabra" : "palabras"}
+          </p>
+          {!signedIn && (
+            <p className="text-sm text-muted">
+              {status === "offline" ? "Sin conexión" : "En modo invitado"} solo cuentan las palabras que practiques ahora.
+            </p>
+          )}
+        </div>
       </div>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
-        <Stat percent={percent(OWN, total)} color="var(--sky)" value={OWN} caption={<>de ellas son del HSK&nbsp;1</>} />
+        <Stat percent={percent(own, total)} color="var(--sky)" value={own} caption={<>de ellas son del HSK&nbsp;1</>} />
         <Stat
-          percent={percent(KNOWN, HSK1.length)}
+          percent={percent(known, HSK1.length)}
           color="var(--ok)"
           value={
             <>
-              {KNOWN}
+              {known}
               <span className="text-base font-bold text-muted">/{HSK1.length}</span>
             </>
           }
@@ -115,7 +138,7 @@ export function VocabSummary() {
           Ver las palabras del HSK 1
           <ChevronDown size={18} className="transition-transform group-open:rotate-180" />
         </summary>
-        <HskList />
+        <HskList summary={summary} />
       </details>
     </Card>
   );
