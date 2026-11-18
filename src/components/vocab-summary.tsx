@@ -1,8 +1,8 @@
 "use client";
 /**
  * Home-page card: how many words you know and how they compare with HSK 1.
- * Signed in, every word of the lessons counts; guests (and offline starts) only
- * count the words they practised during this visit.
+ * A word counts once it has been practised, so each account (and each guest
+ * visit) has its own count.
  */
 import { BookOpen, ChevronDown } from "lucide-react";
 import Link from "next/link";
@@ -14,8 +14,6 @@ import { isSeen } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { Hanzi } from "./hanzi";
 import { Card, cn, Ring, Segmented, Skeleton } from "./ui";
-
-const FULL_SUMMARY = hskSummary(VOCAB);
 
 type Filter = "todas" | "conocidas" | "pendientes";
 
@@ -83,7 +81,7 @@ function HskList({ summary }: { summary: HskSummary }) {
         })}
       </ul>
       <p className="mt-3 text-xs text-muted">
-        Una palabra del HSK 1 cuenta como conocida si la tienes en tus lecciones o aparece dentro de otra que conoces (书 en 本书, 月 en 一月);
+        Una palabra del HSK 1 cuenta como conocida si la has practicado o aparece dentro de otra que conoces (书 en 本书, 月 en 一月);
         杯 cuenta por 杯子. Las palabras formadas solo por palabras del HSK 1 (星期一, 本书) también cuentan como tuyas del HSK 1.
       </p>
     </div>
@@ -93,9 +91,8 @@ function HskList({ summary }: { summary: HskSummary }) {
 export function VocabSummary() {
   const { status } = useAccount();
   const progress = useProgress();
-  const signedIn = status === "user";
-  const words = useMemo(() => (signedIn ? VOCAB : VOCAB.filter((w) => isSeen(progress, w.id))), [signedIn, progress]);
-  const summary = useMemo(() => (words === VOCAB ? FULL_SUMMARY : hskSummary(words)), [words]);
+  const words = useMemo(() => VOCAB.filter((w) => isSeen(progress, w.id)), [progress]);
+  const summary = useMemo(() => hskSummary(words), [words]);
 
   if (status === "loading") return <Skeleton className="h-56 rounded-3xl" />;
 
@@ -112,11 +109,7 @@ export function VocabSummary() {
           <p className="text-lg font-extrabold leading-tight">
             Conoces <span className="text-2xl text-brand tabular-nums">{total}</span> {total === 1 ? "palabra" : "palabras"}
           </p>
-          {!signedIn && (
-            <p className="text-sm text-muted">
-              {status === "offline" ? "Sin conexión" : "En modo invitado"} solo cuentan las palabras que practiques ahora.
-            </p>
-          )}
+          {total === 0 && <p className="text-sm text-muted">Cuando practiques una lección, aquí irán apareciendo sus palabras.</p>}
         </div>
       </div>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
