@@ -30,6 +30,7 @@ Si algún JSON tiene errores, la app ignora lo inválido y lo muestra en **Ajust
 | `lección N/vocab.json` | yo, a mano | palabras de esa clase |
 | `lección N/exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
 | `cedict.json` | `npm run dictionary` | diccionario CC-CEDICT compacto (CC BY-SA 4.0) |
+| `hsk1.json` | `npm run hsk` | las 150 palabras del HSK 1 (HSK 2.0), para el resumen de vocabulario del inicio |
 | `instructions.txt` | — | instrucciones para que Claude escriba el `exercises.json` de una clase |
 
 ## Cuentas y progreso
@@ -76,6 +77,9 @@ API (`src/app/api/`): `GET/DELETE /api/account`, `POST /api/auth/register|login|
 - **Modo silencioso**, para practicar rodeado de gente: una casilla en Inicio, Practicar y cada lección (también en
   Ajustes → Audio y voz) que quita los ejercicios de escucha y de pronunciación y apaga todos los sonidos. Los modos
   Escucha y Pronunciación desaparecen mientras está marcada, y se guarda con los ajustes de la cuenta.
+- **Tu vocabulario** (en Inicio): cuántas palabras conoces, cuántas de ellas son del HSK 1 y qué parte del HSK 1
+  conoces ya, con la lista de sus 150 palabras (todas, conocidas o por aprender). Una palabra del HSK 1 cuenta como
+  conocida si está en tus lecciones o dentro de otra que conoces (书 en 本书, 月 en 一月; 杯 cuenta por 杯子).
 - Gamificación: XP, niveles, racha diaria, meta diaria, combos, logros, estrellas por lección, récords.
 - Diccionario (tu vocabulario + CC-CEDICT) con búsqueda por hanzi, pinyin con o sin tonos, español o inglés;
   traductor español ⇄ chino; ficha de palabra con trazos animados, ejemplos y dominio por destreza.
@@ -117,7 +121,8 @@ src/
     drawing.ts    dibujo a mano: corrección (exámenes) y conversión de trazos a SVG
     speech.ts     voz (TTS) y reconocimiento
     dictionary.ts búsqueda
+    hsk.ts        comparación del vocabulario con la lista del HSK 1
 ```
 
 Créditos: CC-CEDICT (CC BY-SA 4.0), Make Me a Hanzi / hanzi-writer-data (Arphic Public License),
-Hanzi Writer (MIT), pinyin-pro (MIT).
+Hanzi Writer (MIT), pinyin-pro (MIT), lista del HSK 1 de complete-hsk-vocabulary (MIT).

@@ -1,0 +1,1154 @@
+{
+  "version": 1,
+  "words": {
+    "jia": {
+      "note": "«Casa» en el sentido de hogar, y también «familia»: 我家 = mi casa o mi familia (con la familia no hace falta 的). 在家 = en casa. 房子 (lección 3) es la casa como edificio. El carácter es un tejado (宀) con un cerdo (豕) debajo: la casa de una familia de campesinos.",
+      "examples": [
+        {
+          "zh": ["我", "家", "在", "伦敦", "。"],
+          "pinyin": "Wǒ jiā zài Lúndūn.",
+          "es": "Mi casa está en Londres."
+        },
+        {
+          "zh": ["我", "妈妈", "在", "家", "。"],
+          "pinyin": "Wǒ māma zài jiā.",
+          "es": "Mi madre está en casa."
+        },
+        {
+          "zh": ["你", "家", "有", "汽车", "吗", "？"],
+          "pinyin": "Nǐ jiā yǒu qìchē ma?",
+          "es": "¿Tu familia tiene coche?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["教室", "乡村"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["是", "上"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["padres", "tienes"],
+          "accept": ["¿Tiene coche tu familia?"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué diferencia hay entre 家 y 房子?",
+          "options": ["家 es el hogar (y la familia); 房子, el edificio", "Ninguna: significan siempre lo mismo", "家 es un piso y 房子, una casa de campo"],
+          "answer": "家 es el hogar (y la familia); 房子, el edificio",
+          "explanation": "Se dice 我在家 (estoy en casa) y 我家有车 (mi familia tiene coche); 房子 es la vivienda como construcción: 他们没有房子."
+        }
+      ]
+    },
+    "zhu": {
+      "note": "«Vivir» en un sitio, residir. Casi siempre va con 在 + lugar: 我住在伦敦 (vivo en Londres). Lleva 亻 (persona) a la izquierda.",
+      "examples": [
+        {
+          "zh": ["我", "住", "在", "西班牙", "。"],
+          "pinyin": "Wǒ zhù zài Xībānyá.",
+          "es": "Vivo en España."
+        },
+        {
+          "zh": ["我", "父母", "住", "在", "乡村", "。"],
+          "pinyin": "Wǒ fùmǔ zhù zài xiāngcūn.",
+          "es": "Mis padres viven en el campo."
+        },
+        {
+          "zh": ["你", "住", "在", "伦敦", "吗", "？"],
+          "pinyin": "Nǐ zhù zài Lúndūn ma?",
+          "es": "¿Vives en Londres?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["叫", "有"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["是", "中国"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "住", "在", "伦敦", "吗", "？"], "pinyin": "Nǐ zhù zài Lúndūn ma?", "es": "¿Vives en Londres?" },
+          "answer": { "zh": ["不", "，", "我", "住", "在", "乡村", "。"], "pinyin": "Bù, wǒ zhù zài xiāngcūn.", "es": "No, vivo en el campo." },
+          "wrong": [
+            { "zh": ["我", "叫", "Pablo", "。"], "pinyin": "Wǒ jiào Pablo.", "es": "Me llamo Pablo." },
+            { "zh": ["我", "喜欢", "巧克力", "。"], "pinyin": "Wǒ xǐhuan qiǎokèlì.", "es": "Me gusta el chocolate." }
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["vive", "España"]
+        }
+      ]
+    },
+    "zai": {
+      "note": "«Estar en» un sitio: 他在家 (está en casa), 我的手机在桌子上 (mi móvil está encima de la mesa). Para decir dónde está algo NO se usa 是, sino 在. Delante de otro verbo indica dónde ocurre la acción: 我在伦敦工作 (trabajo en Londres).",
+      "examples": [
+        {
+          "zh": ["他", "在", "厕所", "。"],
+          "pinyin": "Tā zài cèsuǒ.",
+          "es": "Está en el baño."
+        },
+        {
+          "zh": ["我", "的", "手机", "在", "桌子", "上", "。"],
+          "pinyin": "Wǒ de shǒujī zài zhuōzi shàng.",
+          "es": "Mi móvil está encima de la mesa."
+        },
+        {
+          "zh": ["她", "在", "乡村", "工作", "。"],
+          "pinyin": "Tā zài xiāngcūn gōngzuò.",
+          "es": "Ella trabaja en el campo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["是", "有"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["是", "椅子"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["vive", "casa"],
+          "accept": ["Trabaja en el campo."]
+        },
+        {
+          "type": "choice",
+          "question": "«El gato está en casa» se dice…",
+          "options": ["猫在家。", "猫是家。", "猫有家。"],
+          "answer": "猫在家。",
+          "explanation": "Para decir dónde está algo o alguien se usa 在 + lugar, nunca 是."
+        }
+      ]
+    },
+    "xiangcun": {
+      "note": "El campo, las zonas rurales (lo contrario de la ciudad). 乡 es «pueblo, tierra natal» y 村, «aldea» (lleva 木, árbol). 住在乡村 = vivir en el campo.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "乡村", "。"],
+          "pinyin": "Wǒ xǐhuan xiāngcūn.",
+          "es": "Me gusta el campo."
+        },
+        {
+          "zh": ["我", "家", "在", "乡村", "。"],
+          "pinyin": "Wǒ jiā zài xiāngcūn.",
+          "es": "Mi casa está en el campo."
+        },
+        {
+          "zh": ["乡村", "有意思", "吗", "？"],
+          "pinyin": "Xiāngcūn yǒu yìsi ma?",
+          "es": "¿El campo es interesante?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["教室", "厕所"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["gustan", "casa"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["有用", "是"]
+        }
+      ]
+    },
+    "ding": {
+      "note": "Clasificador de sombreros y gorros: 一顶帽子 (un sombrero), 三顶帽子 (tres sombreros). Va entre el número y 帽子, como 本 en 一本书. 顶 también significa «cima, lo más alto»: lo que se lleva en lo alto de la cabeza. Con «dos» se dice 两: 两顶帽子.",
+      "examples": [
+        {
+          "zh": ["我", "有", "一", "顶", "帽子", "。"],
+          "pinyin": "Wǒ yǒu yì dǐng màozi.",
+          "es": "Tengo un sombrero."
+        },
+        {
+          "zh": ["我", "爸爸", "有", "五", "顶", "帽子", "。"],
+          "pinyin": "Wǒ bàba yǒu wǔ dǐng màozi.",
+          "es": "Mi padre tiene cinco sombreros."
+        },
+        {
+          "zh": ["她", "买", "一", "顶", "红色", "的", "帽子", "。"],
+          "pinyin": "Tā mǎi yì dǐng hóngsè de màozi.",
+          "es": "Ella compra un sombrero rojo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["杯", "块"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["杯", "妈妈"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["rosa", "sombreros"]
+        },
+        {
+          "type": "choice",
+          "question": "«Tres sombreros» se dice…",
+          "options": ["三顶帽子", "三帽子", "三杯帽子"],
+          "answer": "三顶帽子",
+          "explanation": "Entre el número y el sustantivo va su clasificador: 三顶帽子 (杯 es para bebidas)."
+        }
+      ]
+    },
+    "maozi": {
+      "note": "Sombrero o gorro (cualquier cosa que se pone en la cabeza). 帽 lleva 巾 (tela). La 2.ª sílaba es átona: màozi. Se cuenta con 顶: 一顶帽子.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "你", "的", "帽子", "。"],
+          "pinyin": "Wǒ xǐhuan nǐ de màozi.",
+          "es": "Me gusta tu sombrero."
+        },
+        {
+          "zh": ["他", "的", "帽子", "在", "椅子", "上", "。"],
+          "pinyin": "Tā de màozi zài yǐzi shàng.",
+          "es": "Su sombrero está encima de la silla."
+        },
+        {
+          "zh": ["我", "的", "帽子", "是", "黑色", "的", "。"],
+          "pinyin": "Wǒ de màozi shì hēisè de.",
+          "es": "Mi sombrero es negro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["猫", "手机"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["白色", "你"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["mesa", "debajo"]
+        }
+      ]
+    },
+    "dou": {
+      "note": "«Todos, todo». Es un adverbio: va DETRÁS del sujeto y DELANTE del verbo, nunca delante del sustantivo como en español: 我们都是学生 (todos somos estudiantes). Con negación: 我们都没有车 (ninguno tiene coche).",
+      "examples": [
+        {
+          "zh": ["我们", "都", "是", "学生", "。"],
+          "pinyin": "Wǒmen dōu shì xuéshēng.",
+          "es": "Todos somos estudiantes."
+        },
+        {
+          "zh": ["他们", "都", "住", "在", "伦敦", "。"],
+          "pinyin": "Tāmen dōu zhù zài Lúndūn.",
+          "es": "Todos viven en Londres."
+        },
+        {
+          "zh": ["我", "的", "朋友", "都", "有", "手机", "。"],
+          "pinyin": "Wǒ de péngyou dōu yǒu shǒujī.",
+          "es": "Todos mis amigos tienen móvil."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["也", "不"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["也", "不"]
+        },
+        {
+          "type": "choice",
+          "question": "«Ninguno de nosotros tiene coche» se dice…",
+          "options": ["我们都没有车。", "我们没有都车。", "都我们没有车。"],
+          "answer": "我们都没有车。",
+          "explanation": "都 va detrás del sujeto y delante del verbo y de la negación: 都没有 = ninguno tiene."
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["tiene", "coche"]
+        }
+      ]
+    },
+    "linju": {
+      "note": "Vecino o vecina (no cambia con el género ni con el plural: 我的邻居 = mi vecino, mi vecina o mis vecinos). 邻 significa «de al lado» y 居, «vivir»: el que vive al lado.",
+      "examples": [
+        {
+          "zh": ["我", "的", "邻居", "是", "老师", "。"],
+          "pinyin": "Wǒ de línjū shì lǎoshī.",
+          "es": "Mi vecino es profesor."
+        },
+        {
+          "zh": ["你", "的", "邻居", "有", "猫", "吗", "？"],
+          "pinyin": "Nǐ de línjū yǒu māo ma?",
+          "es": "¿Tu vecino tiene gato?"
+        },
+        {
+          "zh": ["我", "的", "邻居", "都", "是", "中国人", "。"],
+          "pinyin": "Wǒ de línjū dōu shì Zhōngguórén.",
+          "es": "Todos mis vecinos son chinos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["朋友", "同学"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["perro", "tienes"],
+          "accept": ["¿Tiene gato tu vecino?"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["也", "西班牙人"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "的", "邻居", "叫", "什么", "名字", "？"], "pinyin": "Nǐ de línjū jiào shénme míngzi?", "es": "¿Cómo se llama tu vecino?" },
+          "answer": { "zh": ["他", "叫", "Juan", "。"], "pinyin": "Tā jiào Juan.", "es": "Se llama Juan." },
+          "wrong": [
+            { "zh": ["他", "是", "我", "的", "邻居", "。"], "pinyin": "Tā shì wǒ de línjū.", "es": "Es mi vecino." },
+            { "zh": ["他", "住", "在", "伦敦", "。"], "pinyin": "Tā zhù zài Lúndūn.", "es": "Vive en Londres." }
+          ]
+        }
+      ]
+    },
+    "lundun": {
+      "note": "Londres, transcrito por el sonido (Lún-dūn ≈ London). Los nombres de ciudades y países llevan mayúscula en pinyin: Lúndūn. Un londinense es un 伦敦人.",
+      "examples": [
+        {
+          "zh": ["她", "是", "伦敦", "人", "。"],
+          "pinyin": "Tā shì Lúndūnrén.",
+          "es": "Ella es de Londres."
+        },
+        {
+          "zh": ["你", "喜欢", "伦敦", "吗", "？"],
+          "pinyin": "Nǐ xǐhuan Lúndūn ma?",
+          "es": "¿Te gusta Londres?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["中国", "西班牙"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["中国", "我"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "是", "哪", "国", "人", "？"], "pinyin": "Nǐ shì nǎ guó rén?", "es": "¿De qué país eres?" },
+          "answer": { "zh": ["我", "是", "西班牙人", "，", "我", "住", "在", "伦敦", "。"], "pinyin": "Wǒ shì Xībānyárén, wǒ zhù zài Lúndūn.", "es": "Soy español, vivo en Londres." },
+          "wrong": [
+            { "zh": ["我", "叫", "伦敦", "。"], "pinyin": "Wǒ jiào Lúndūn.", "es": "Me llamo Londres." },
+            { "zh": ["我", "二", "十", "岁", "。"], "pinyin": "Wǒ èrshí suì.", "es": "Tengo veinte años." }
+          ]
+        }
+      ]
+    },
+    "xiao": {
+      "note": "«Pequeño». Delante de un sustantivo corto va sin 的: 小猫 (gatito), 小车 (coche pequeño). En preguntas y negaciones va solo, sin 是: 你的房子小吗？, 我的房子不小. En frases afirmativas se suele poner 很 delante (很小); 很 lo verás más adelante. Lo contrario es 大 (grande), el de 多大.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "小", "猫", "。"],
+          "pinyin": "Wǒ xǐhuan xiǎo māo.",
+          "es": "Me gustan los gatitos."
+        },
+        {
+          "zh": ["你", "的", "房子", "小", "吗", "？"],
+          "pinyin": "Nǐ de fángzi xiǎo ma?",
+          "es": "¿Tu casa es pequeña?"
+        },
+        {
+          "zh": ["我们", "的", "教室", "不", "小", "。"],
+          "pinyin": "Wǒmen de jiàoshì bù xiǎo.",
+          "es": "Nuestra aula no es pequeña."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["有名", "有用"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["没有", "是"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["gusta", "perros"]
+        },
+        {
+          "type": "choice",
+          "question": "«Mi casa no es pequeña» se dice…",
+          "options": ["我的房子不小。", "我的房子不是小。", "我的房子小不。"],
+          "answer": "我的房子不小。",
+          "explanation": "Los adjetivos funcionan como verbos: no llevan 是, y 不 va delante (不小)."
+        }
+      ]
+    },
+    "shui": {
+      "note": "«Dormir». Lleva 目 (ojo) a la izquierda: cerrar los ojos. Muy a menudo se dice 睡觉 (shuìjiào), con 觉 = «sueño». El lugar puede ir delante o detrás: 猫睡在椅子上 o 猫在椅子上睡.",
+      "examples": [
+        {
+          "zh": ["猫", "睡", "在", "椅子", "上", "。"],
+          "pinyin": "Māo shuì zài yǐzi shàng.",
+          "es": "El gato duerme encima de la silla."
+        },
+        {
+          "zh": ["你", "在", "这里", "睡", "吗", "？"],
+          "pinyin": "Nǐ zài zhèlǐ shuì ma?",
+          "es": "¿Duermes aquí?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["吃", "开"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["那里", "住"],
+          "accept": ["你睡在这里吗？"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["mesa", "come"]
+        }
+      ]
+    },
+    "yizi": {
+      "note": "Silla. 椅 lleva 木 (madera). La 2.ª sílaba es átona: yǐzi. «Encima de la silla» es 椅子上: 上 va detrás.",
+      "examples": [
+        {
+          "zh": ["教室", "没有", "椅子", "。"],
+          "pinyin": "Jiàoshì méiyǒu yǐzi.",
+          "es": "El aula no tiene sillas."
+        },
+        {
+          "zh": ["这里", "有", "椅子", "吗", "？"],
+          "pinyin": "Zhèlǐ yǒu yǐzi ma?",
+          "es": "¿Hay sillas aquí?"
+        },
+        {
+          "zh": ["我", "的", "椅子", "是", "灰色", "的", "。"],
+          "pinyin": "Wǒ de yǐzi shì huīsè de.",
+          "es": "Mi silla es gris."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["桌子", "厕所"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["不", "有"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["mesa", "negra"]
+        }
+      ]
+    },
+    "shang": {
+      "note": "«Encima, arriba». Para decir «encima de algo», 上 va DETRÁS de la cosa: 桌子上 (encima de la mesa), 椅子上. Con 在: 手机在桌子上. El carácter es una raya sobre la línea del suelo; su contrario es 下 (abajo).",
+      "examples": [
+        {
+          "zh": ["我", "的", "帽子", "在", "桌子", "上", "。"],
+          "pinyin": "Wǒ de màozi zài zhuōzi shàng.",
+          "es": "Mi sombrero está encima de la mesa."
+        },
+        {
+          "zh": ["手机", "在", "椅子", "上", "吗", "？"],
+          "pinyin": "Shǒujī zài yǐzi shàng ma?",
+          "es": "¿El móvil está encima de la silla?"
+        },
+        {
+          "zh": ["猫", "在", "汽车", "上", "。"],
+          "pinyin": "Māo zài qìchē shàng.",
+          "es": "El gato está encima del coche."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["小", "都"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["桌子", "是"]
+        },
+        {
+          "type": "choice",
+          "question": "«El gato está encima de la mesa» se dice…",
+          "options": ["猫在桌子上。", "猫在上桌子。", "猫上在桌子。"],
+          "answer": "猫在桌子上。",
+          "explanation": "上 va detrás del lugar: 桌子上 = encima de la mesa."
+        }
+      ]
+    },
+    "jiaoshi": {
+      "note": "Aula, clase (la sala). 教 = enseñar y 室 = habitación: «la habitación donde se enseña». Aquí 教 se lee jiào (4.º tono).",
+      "examples": [
+        {
+          "zh": ["老师", "在", "教室", "吗", "？"],
+          "pinyin": "Lǎoshī zài jiàoshì ma?",
+          "es": "¿El profesor está en el aula?"
+        },
+        {
+          "zh": ["我们", "的", "教室", "在", "那里", "。"],
+          "pinyin": "Wǒmen de jiàoshì zài nàlǐ.",
+          "es": "Nuestra aula está allí."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["厕所", "乡村"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["alumno", "casa"],
+          "accept": ["¿Está el profesor en el aula?"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["老师", "在", "教室", "吗", "？"], "pinyin": "Lǎoshī zài jiàoshì ma?", "es": "¿El profesor está en el aula?" },
+          "answer": { "zh": ["不", "在", "，", "他", "在", "家", "。"], "pinyin": "Bú zài, tā zài jiā.", "es": "No, está en casa." },
+          "wrong": [
+            { "zh": ["他", "有", "教室", "。"], "pinyin": "Tā yǒu jiàoshì.", "es": "Tiene un aula." },
+            { "zh": ["是", "，", "他", "是", "老师", "。"], "pinyin": "Shì, tā shì lǎoshī.", "es": "Sí, es profesor." }
+          ]
+        }
+      ]
+    },
+    "changchang": {
+      "note": "«A menudo». Como 也 y 都, va detrás del sujeto y delante del verbo (o delante de 在 + lugar): 我常常吃巧克力, 他常常在家工作. Nunca va al final de la frase.",
+      "examples": [
+        {
+          "zh": ["我", "常常", "吃", "巧克力", "。"],
+          "pinyin": "Wǒ chángcháng chī qiǎokèlì.",
+          "es": "Como chocolate a menudo."
+        },
+        {
+          "zh": ["他", "常常", "在", "家", "工作", "。"],
+          "pinyin": "Tā chángcháng zài jiā gōngzuò.",
+          "es": "Él trabaja a menudo en casa."
+        },
+        {
+          "zh": ["我们", "常常", "买", "咖啡", "。"],
+          "pinyin": "Wǒmen chángcháng mǎi kāfēi.",
+          "es": "Compramos café a menudo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["都", "也"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["也", "住"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["compran", "leche"],
+          "accept": ["A menudo compramos café."]
+        },
+        {
+          "type": "choice",
+          "question": "«Como chocolate a menudo» se dice…",
+          "options": ["我常常吃巧克力。", "我吃巧克力常常。", "常常我吃巧克力。"],
+          "answer": "我常常吃巧克力。",
+          "explanation": "常常 va detrás del sujeto y delante del verbo, como 也 y 都."
+        }
+      ]
+    },
+    "ziji": {
+      "note": "«Uno mismo» o «propio». Detrás de una persona la refuerza: 我自己 (yo mismo), 他自己 (él mismo). Con 的 delante de un sustantivo significa «propio»: 自己的房子 (su propia casa).",
+      "examples": [
+        {
+          "zh": ["我", "自己", "修", "车", "。"],
+          "pinyin": "Wǒ zìjǐ xiū chē.",
+          "es": "Arreglo el coche yo mismo."
+        },
+        {
+          "zh": ["她", "有", "自己", "的", "房子", "。"],
+          "pinyin": "Tā yǒu zìjǐ de fángzi.",
+          "es": "Ella tiene su propia casa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["常常", "都"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["他", "开"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["mi", "coche"],
+          "accept": ["Tiene su propia casa."]
+        }
+      ]
+    },
+    "xiu": {
+      "note": "«Reparar, arreglar»: 修车 (arreglar el coche), 修手机 (arreglar el móvil). Lleva 亻 (persona) a la izquierda.",
+      "examples": [
+        {
+          "zh": ["我", "爸爸", "常常", "修", "车", "。"],
+          "pinyin": "Wǒ bàba chángcháng xiū chē.",
+          "es": "Mi padre arregla el coche a menudo."
+        },
+        {
+          "zh": ["你", "修", "手机", "吗", "？"],
+          "pinyin": "Nǐ xiū shǒujī ma?",
+          "es": "¿Arreglas móviles?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["开", "买"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["买", "我"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "自己", "修", "车", "吗", "？"], "pinyin": "Nǐ zìjǐ xiū chē ma?", "es": "¿Arreglas el coche tú mismo?" },
+          "answer": { "zh": ["不", "，", "我", "爸爸", "修", "。"], "pinyin": "Bù, wǒ bàba xiū.", "es": "No, lo arregla mi padre." },
+          "wrong": [
+            { "zh": ["我", "喜欢", "红色", "。"], "pinyin": "Wǒ xǐhuan hóngsè.", "es": "Me gusta el rojo." },
+            { "zh": ["我", "叫", "Pablo", "。"], "pinyin": "Wǒ jiào Pablo.", "es": "Me llamo Pablo." }
+          ]
+        }
+      ]
+    },
+    "qiche": {
+      "note": "Coche, automóvil. 汽 = vapor, gas y 车 = vehículo. Al hablar se dice mucho solo 车 (lección 3): 开车 = conducir. Ojo: 汽车 no es «tren» (eso es 火车).",
+      "examples": [
+        {
+          "zh": ["我", "没有", "汽车", "，", "我", "有", "自行车", "。"],
+          "pinyin": "Wǒ méiyǒu qìchē, wǒ yǒu zìxíngchē.",
+          "es": "No tengo coche, tengo bicicleta."
+        },
+        {
+          "zh": ["我", "的", "汽车", "是", "白色", "的", "。"],
+          "pinyin": "Wǒ de qìchē shì báisè de.",
+          "es": "Mi coche es blanco."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["自行车", "帽子"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["tiene", "bicicletas"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["黑色", "自行车"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál de estas palabras NO significa «coche»?",
+          "options": ["自行车", "汽车", "车"],
+          "answer": "自行车",
+          "explanation": "自行车 es la bicicleta; 汽车 y 车 son el coche."
+        }
+      ]
+    },
+    "zixingche": {
+      "note": "Bicicleta. Literalmente «vehículo (车) que anda (行) por sí mismo (自)». Montar en bici es 骑自行车 (qí zìxíngchē).",
+      "examples": [
+        {
+          "zh": ["你", "有", "自行车", "吗", "？"],
+          "pinyin": "Nǐ yǒu zìxíngchē ma?",
+          "es": "¿Tienes bicicleta?"
+        },
+        {
+          "zh": ["我", "哥哥", "常常", "修", "自己", "的", "自行车", "。"],
+          "pinyin": "Wǒ gēge chángcháng xiū zìjǐ de zìxíngchē.",
+          "es": "Mi hermano mayor arregla a menudo su propia bicicleta."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["汽车", "帽子"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["弟弟", "汽车"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["coche", "tiene"]
+        }
+      ]
+    },
+    "chi": {
+      "note": "«Comer». Lleva 口 (boca) a la izquierda: 吃肉 (comer carne), 吃巧克力 (comer chocolate). Más adelante verás 吃饭 (chīfàn, «comer», literalmente «comer arroz»).",
+      "examples": [
+        {
+          "zh": ["猫", "吃", "肉", "。"],
+          "pinyin": "Māo chī ròu.",
+          "es": "Los gatos comen carne."
+        },
+        {
+          "zh": ["你", "吃", "肉", "吗", "？"],
+          "pinyin": "Nǐ chī ròu ma?",
+          "es": "¿Comes carne?"
+        },
+        {
+          "zh": ["我", "不", "吃", "巧克力", "。"],
+          "pinyin": "Wǒ bù chī qiǎokèlì.",
+          "es": "No como chocolate."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["买", "喜欢"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["是", "喜欢"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["gato", "beben"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "吃", "肉", "吗", "？"], "pinyin": "Nǐ chī ròu ma?", "es": "¿Comes carne?" },
+          "answer": { "zh": ["不", "吃", "，", "我", "不", "喜欢", "肉", "。"], "pinyin": "Bù chī, wǒ bù xǐhuan ròu.", "es": "No, no me gusta la carne." },
+          "wrong": [
+            { "zh": ["我", "不", "是", "肉", "。"], "pinyin": "Wǒ bú shì ròu.", "es": "No soy carne." },
+            { "zh": ["我", "有", "一", "杯", "咖啡", "。"], "pinyin": "Wǒ yǒu yì bēi kāfēi.", "es": "Tengo un café." }
+          ]
+        }
+      ]
+    },
+    "qiaokeli": {
+      "note": "Chocolate, transcrito por el sonido (qiǎo-kè-lì ≈ chocolate). Un trozo o una tableta: 一块巧克力.",
+      "examples": [
+        {
+          "zh": ["孩子", "都", "喜欢", "巧克力", "。"],
+          "pinyin": "Háizi dōu xǐhuan qiǎokèlì.",
+          "es": "A todos los niños les gusta el chocolate."
+        },
+        {
+          "zh": ["我", "买", "一", "块", "巧克力", "。"],
+          "pinyin": "Wǒ mǎi yí kuài qiǎokèlì.",
+          "es": "Compro un trozo de chocolate."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["牛奶", "咖啡"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["也", "肉"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["vaso", "compra"]
+        }
+      ]
+    },
+    "kai": {
+      "note": "«Conducir» con vehículos (开车) y «abrir» con puertas (开门, kāi mén). La idea es «poner en marcha». 不 delante de 开 se lee bù (开 es de 1.er tono).",
+      "examples": [
+        {
+          "zh": ["你", "开", "车", "吗", "？"],
+          "pinyin": "Nǐ kāi chē ma?",
+          "es": "¿Conduces?"
+        },
+        {
+          "zh": ["我", "妈妈", "不", "开", "车", "。"],
+          "pinyin": "Wǒ māma bù kāi chē.",
+          "es": "Mi madre no conduce."
+        },
+        {
+          "zh": ["他", "开", "红色", "的", "汽车", "。"],
+          "pinyin": "Tā kāi hóngsè de qìchē.",
+          "es": "Conduce un coche rojo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["修", "吃"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["修", "我"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["rosa", "conduzco"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué significa 开 en 开车?",
+          "options": ["conducir", "abrir", "comprar"],
+          "answer": "conducir",
+          "explanation": "开 es «conducir» con vehículos (开车) y «abrir» con puertas (开门)."
+        }
+      ]
+    },
+    "gongzuo": {
+      "note": "«Trabajo» y «trabajar» con la misma palabra: 我喜欢我的工作 (me gusta mi trabajo), 我在伦敦工作 (trabajo en Londres). El lugar va delante, con 在: 在家工作.",
+      "examples": [
+        {
+          "zh": ["我", "喜欢", "我", "的", "工作", "。"],
+          "pinyin": "Wǒ xǐhuan wǒ de gōngzuò.",
+          "es": "Me gusta mi trabajo."
+        },
+        {
+          "zh": ["我", "哥哥", "在", "伦敦", "工作", "。"],
+          "pinyin": "Wǒ gēge zài Lúndūn gōngzuò.",
+          "es": "Mi hermano mayor trabaja en Londres."
+        },
+        {
+          "zh": ["他", "没有", "工作", "。"],
+          "pinyin": "Tā méiyǒu gōngzuò.",
+          "es": "No tiene trabajo."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 2,
+          "distractors": ["时间", "钱"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["住", "弟弟"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["tu", "gustan"]
+        },
+        {
+          "type": "choice",
+          "question": "«Trabajo en casa» se dice…",
+          "options": ["我在家工作。", "我工作在家。", "在家我工作。"],
+          "answer": "我在家工作。",
+          "explanation": "El lugar (在 + sitio) va delante del verbo: 在家工作."
+        }
+      ]
+    },
+    "ge": {
+      "note": "El clasificador más usado: para personas y para muchas cosas que no tienen uno propio: 一个人, 三个学生, 一个问题. Va entre el número (o 这, 那, 几) y el sustantivo. 一 delante de 个 se lee yí, porque 个 es de 4.º tono; en 这个 y 那个 suele sonar átono: zhège, nàge.",
+      "examples": [
+        {
+          "zh": ["我", "有", "一", "个", "问题", "。"],
+          "pinyin": "Wǒ yǒu yí gè wèntí.",
+          "es": "Tengo una pregunta."
+        },
+        {
+          "zh": ["我", "家", "有", "五", "个", "人", "。"],
+          "pinyin": "Wǒ jiā yǒu wǔ gè rén.",
+          "es": "En mi familia somos cinco."
+        },
+        {
+          "zh": ["教室", "有", "几", "个", "学生", "？"],
+          "pinyin": "Jiàoshì yǒu jǐ gè xuéshēng?",
+          "es": "¿Cuántos estudiantes hay en el aula?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["顶", "杯"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["顶", "二"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["profesores", "cuántas"]
+        },
+        {
+          "type": "choice",
+          "question": "«Tres estudiantes» se dice…",
+          "options": ["三个学生", "三学生", "个三学生"],
+          "answer": "三个学生",
+          "explanation": "Entre el número y el sustantivo hace falta un clasificador; 个 es el más general."
+        }
+      ]
+    },
+    "liang": {
+      "note": "«Dos» para contar cosas: delante de un clasificador se usa 两, no 二: 两个人, 两本书, 两杯咖啡. 二 es el número en sí: al contar (一、二、三), en las cifras (十二, 二十) y en las fechas (二月, 星期二).",
+      "examples": [
+        {
+          "zh": ["我", "有", "两", "个", "姐姐", "。"],
+          "pinyin": "Wǒ yǒu liǎng gè jiějie.",
+          "es": "Tengo dos hermanas mayores."
+        },
+        {
+          "zh": ["他", "买", "两", "杯", "咖啡", "。"],
+          "pinyin": "Tā mǎi liǎng bēi kāfēi.",
+          "es": "Él compra dos cafés."
+        },
+        {
+          "zh": ["我", "有", "两", "顶", "帽子", "。"],
+          "pinyin": "Wǒ yǒu liǎng dǐng màozi.",
+          "es": "Tengo dos sombreros."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["二", "几"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["二", "个"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["tres", "tiene"]
+        },
+        {
+          "type": "choice",
+          "question": "«Dos libros» se dice…",
+          "options": ["两本书", "二本书", "两书"],
+          "answer": "两本书",
+          "explanation": "Para contar se usa 两 delante del clasificador; 二 es el número (二月, 十二)."
+        }
+      ]
+    },
+    "zhe": {
+      "note": "«Este, esta, esto». Solo, delante de 是: 这是我的猫 (este es mi gato). Delante de un sustantivo necesita su clasificador: 这个人, 这本书, 这顶帽子. 这里 (aquí) es «este lugar».",
+      "examples": [
+        {
+          "zh": ["这", "是", "我", "的", "猫", "。"],
+          "pinyin": "Zhè shì wǒ de māo.",
+          "es": "Este es mi gato."
+        },
+        {
+          "zh": ["这", "本书", "是", "我", "的", "。"],
+          "pinyin": "Zhè běn shū shì wǒ de.",
+          "es": "Este libro es mío."
+        },
+        {
+          "zh": ["这", "个", "学生", "是", "西班牙人", "。"],
+          "pinyin": "Zhège xuéshēng shì Xībānyárén.",
+          "es": "Este estudiante es español."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["哪", "都"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["那", "个"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["esta", "chino"]
+        },
+        {
+          "type": "choice",
+          "question": "«Este sombrero» se dice…",
+          "options": ["这顶帽子", "这帽子顶", "顶这帽子"],
+          "answer": "这顶帽子",
+          "explanation": "这 + clasificador + sustantivo: 这顶帽子, 这本书, 这个人."
+        }
+      ]
+    },
+    "na": {
+      "note": "«Ese, aquel». Funciona igual que 这: 那是我的车 (ese es mi coche), 那个人 (esa persona), 那本书 (ese libro). No lo confundas con 哪 (nǎ, «cuál»): 哪 lleva 口 a la izquierda y es de 3.er tono; 那 es de 4.º. 那里 (allí) es «ese lugar».",
+      "examples": [
+        {
+          "zh": ["那", "是", "我", "的", "自行车", "。"],
+          "pinyin": "Nà shì wǒ de zìxíngchē.",
+          "es": "Esa es mi bicicleta."
+        },
+        {
+          "zh": ["那", "个", "男人", "是", "老师", "吗", "？"],
+          "pinyin": "Nàge nánrén shì lǎoshī ma?",
+          "es": "¿Ese hombre es profesor?"
+        },
+        {
+          "zh": ["我", "喜欢", "那", "顶", "帽子", "。"],
+          "pinyin": "Wǒ xǐhuan nà dǐng màozi.",
+          "es": "Me gusta ese sombrero."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["哪", "几"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["这", "杯"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["este", "mujer"],
+          "accept": ["¿Es profesor ese hombre?"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuál de estas palabras significa «ese»?",
+          "options": ["那", "哪", "这"],
+          "answer": "那",
+          "explanation": "那 (nà) = ese; 哪 (nǎ, con 口) = cuál; 这 (zhè) = este."
+        }
+      ]
+    }
+  }
+}

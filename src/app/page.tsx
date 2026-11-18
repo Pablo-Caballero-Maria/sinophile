@@ -1,7 +1,7 @@
 "use client";
-import { CalendarCheck, Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert, UserRound } from "lucide-react";
+import { Flame, GraduationCap, Infinity as InfinityIcon, Layers, PenLine, RotateCcw, TriangleAlert, UserRound } from "lucide-react";
 import Link from "next/link";
-import { LESSONS, VOCAB, VOCAB_IDS, VOCAB_ISSUES } from "@/lib/data/vocab";
+import { LESSONS, VOCAB_IDS, VOCAB_ISSUES } from "@/lib/data/vocab";
 import { reviewable } from "@/lib/exercises/silent";
 import { dueItems, isSeen, lessonMastery, lessonStars, streakInfo, type Progress } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
@@ -10,6 +10,7 @@ import { useAccount, useReady, type AccountState } from "@/lib/account/client";
 import { dayKey } from "@/lib/text";
 import type { Lesson } from "@/lib/types";
 import { SilentModeCheckbox } from "@/components/silent-mode";
+import { VocabSummary } from "@/components/vocab-summary";
 import { ButtonLink, Card, cn, EmptyState, Ring, SectionTitle, Skeleton, Stars } from "@/components/ui";
 
 function recommendation(p: Progress, due: number): { label: string; href: string } | null {
@@ -150,9 +151,10 @@ export default function HomePage() {
       </div>
       <SilentModeCheckbox className="mt-3" />
 
-      <SectionTitle action={<span className="flex items-center gap-1 text-sm text-muted"><CalendarCheck size={16} />{VOCAB.length} palabras</span>}>
-        Tus lecciones
-      </SectionTitle>
+      <SectionTitle>Tu vocabulario</SectionTitle>
+      <VocabSummary />
+
+      <SectionTitle action={<span className="text-sm text-muted">{LESSONS.length} lecciones</span>}>Tus lecciones</SectionTitle>
       <div className="flex flex-col items-center gap-8 py-4">
         {ready
           ? LESSONS.map((lesson, i) => <LessonNode key={lesson.id} lesson={lesson} progress={progress} index={i} current={lesson === current} />)

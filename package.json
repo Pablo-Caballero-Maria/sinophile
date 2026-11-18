@@ -16,7 +16,8 @@
     "pretest": "npm run prepare-data",
     "test": "vitest run",
     "validate": "node scripts/prepare-data.ts --check",
-    "dictionary": "node scripts/build-dictionary.ts"
+    "dictionary": "node scripts/build-dictionary.ts",
+    "hsk": "node scripts/build-hsk.ts"
   },
   "dependencies": {
     "@vercel/functions": "^3.10.6",

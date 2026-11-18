@@ -241,7 +241,8 @@ export default function SettingsPage() {
       <Card className="text-sm text-muted">
         <p>
           Diccionario: <a className="underline" href="https://cc-cedict.org/" target="_blank" rel="noreferrer">CC-CEDICT</a> (CC BY-SA 4.0). Trazos: Make Me a Hanzi / hanzi-writer-data (Arphic Public License) y{" "}
-          <a className="underline" href="https://hanziwriter.org" target="_blank" rel="noreferrer">Hanzi Writer</a>. Pinyin: pinyin-pro. Traducción automática: Google Translate / MyMemory.
+          <a className="underline" href="https://hanziwriter.org" target="_blank" rel="noreferrer">Hanzi Writer</a>. Pinyin: pinyin-pro. Lista del HSK 1:{" "}
+          <a className="underline" href="https://github.com/drkameleon/complete-hsk-vocabulary" target="_blank" rel="noreferrer">complete-hsk-vocabulary</a> (MIT). Traducción automática: Google Translate / MyMemory.
         </p>
         <p className="mt-2">
           <Badge>sinophile</Badge> · hecho con Next.js

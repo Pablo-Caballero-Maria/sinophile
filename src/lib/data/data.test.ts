@@ -77,6 +77,17 @@ describe("words the learner asked to fix", () => {
     expect(sentences("nianji")).toContain("您多大年纪？");
   });
 
+  it("lesson 5: the class list, with 家/房子, 汽车/车 and 两/二 sharing a meaning", () => {
+    const words = ["家", "住", "在", "乡村", "顶", "帽子", "都", "邻居", "伦敦", "小", "睡", "椅子", "上", "教室", "常常", "自己", "修", "汽车", "自行车", "吃", "巧克力", "开", "工作", "个", "两", "这", "那"];
+    expect(words.map((hanzi) => wordOf(hanzi)?.lesson)).toEqual(words.map(() => "5"));
+    const meanings = (hanzi: string) => splitMeanings(wordOf(hanzi)!.es).map(normalizeLatin);
+    expect(meanings("家")).toEqual(expect.arrayContaining(meanings("房子")));
+    expect(meanings("汽车")).toEqual(expect.arrayContaining(meanings("车")));
+    expect(wordOf("伦敦")).toMatchObject({ pinyin: "Lúndūn", es: "Londres" });
+    expect(meanings("两")).toEqual(expect.arrayContaining(["dos"]));
+    expect(meanings("二")).toEqual(expect.arrayContaining(["dos"]));
+  });
+
   it("lesson 1 has the nationalities, told apart from the languages", () => {
     expect(wordOf("中国人")).toMatchObject({ pinyin: "Zhōngguórén", es: "chino (nacionalidad)", lesson: "1" });
     expect(wordOf("西班牙人")).toMatchObject({ pinyin: "Xībānyárén", es: "español (nacionalidad)", lesson: "1" });

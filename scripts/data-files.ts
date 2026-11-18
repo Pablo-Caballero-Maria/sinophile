@@ -7,6 +7,7 @@
  *       exercises.json       ← curated exercises for those words (Claude, see instructions.txt)
  *     lección 2/ …
  *     cedict.json            ← general dictionary (npm run dictionary)
+ *     hsk1.json              ← HSK 1 word list (npm run hsk)
  *     instructions.txt       ← how Claude writes exercises.json
  *
  * Only JSON *syntax* is checked here (a broken file throws JsonSyntaxError, which
@@ -17,7 +18,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 /** Files at the root of data/ that are not lessons. */
-export const ROOT_FILES = ["cedict.json", "instructions.txt"];
+export const ROOT_FILES = ["cedict.json", "hsk1.json", "instructions.txt"];
 /** Files inside a lesson folder. */
 export const LESSON_FILES = ["vocab.json", "exercises.json"];
 
