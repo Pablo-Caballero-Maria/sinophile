@@ -1,0 +1,21 @@
+[
+  { "id": "zaoshanghao", "hanzi": "早上好", "pinyin": "zǎoshang hǎo", "es": "buenos días" },
+  { "id": "zhigou", "hanzi": "只狗", "pinyin": "zhī gǒu", "es": "perro" },
+  { "id": "zhangzhuozi", "hanzi": "张桌子", "pinyin": "zhāng zhuōzi", "es": "mesa" },
+  { "id": "xiang", "hanzi": "想", "pinyin": "xiǎng", "es": "querer" },
+  { "id": "pingguo", "hanzi": "苹果", "pinyin": "píngguǒ", "es": "manzana" },
+  { "id": "shubao", "hanzi": "书包", "pinyin": "shūbāo", "es": "mochila" },
+  { "id": "shishenmeyansede", "hanzi": "是什么颜色的", "pinyin": "shì shénme yánsè de", "es": "de qué color es (algo)" },
+  { "id": "mise", "hanzi": "米色", "pinyin": "mǐsè", "es": "beige" },
+  { "id": "jinse", "hanzi": "金色", "pinyin": "jīnsè", "es": "dorado" },
+  { "id": "yinse", "hanzi": "银色", "pinyin": "yínsè", "es": "plateado" },
+  { "id": "qingse", "hanzi": "青色", "pinyin": "qīngsè", "es": "turquesa" },
+  { "id": "qianlanse", "hanzi": "浅蓝色", "pinyin": "qiǎnlánsè", "es": "azul claro" },
+  { "id": "shenlanse", "hanzi": "深蓝色", "pinyin": "shēnlánsè", "es": "azul oscuro" },
+  { "id": "qianlvse", "hanzi": "浅绿色", "pinyin": "qiǎnlǜsè", "es": "verde claro" },
+  { "id": "shenlvse", "hanzi": "深绿色", "pinyin": "shēnlǜsè", "es": "verde oscuro" },
+  { "id": "anhongse", "hanzi": "暗红色", "pinyin": "ànhóngsè", "es": "rojo oscuro" },
+  { "id": "zihongse", "hanzi": "紫红色", "pinyin": "zǐhóngsè", "es": "fucsia" },
+  { "id": "naiyouse", "hanzi": "奶油色", "pinyin": "nǎiyóusè", "es": "color crema" },
+  { "id": "caise", "hanzi": "彩色", "pinyin": "cǎisè", "es": "multicolor" }
+]

@@ -1,0 +1,743 @@
+{
+  "version": 1,
+  "words": {
+    "zaoshanghao": {
+      "note": "«Buenos días». Se forma como 你好 y 大家好: algo + 好. 早上 (zǎoshang, con 上 átono) es la mañana temprano, así que se dice por la mañana; el resto del día basta con 你好.",
+      "examples": [
+        {
+          "zh": ["早上好", "，", "老师", "！"],
+          "pinyin": "Zǎoshang hǎo, lǎoshī!",
+          "es": "¡Buenos días, profesor!"
+        },
+        {
+          "zh": ["妈妈", "，", "早上好", "！"],
+          "pinyin": "Māma, zǎoshang hǎo!",
+          "es": "¡Buenos días, mamá!"
+        },
+        {
+          "zh": ["早上好", "！", "我", "是", "你们", "的", "老师", "。"],
+          "pinyin": "Zǎoshang hǎo! Wǒ shì nǐmen de lǎoshī.",
+          "es": "¡Buenos días! Soy vuestro profesor."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["你好", "大家好"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["他们", "也"],
+          "accept": ["早上好！我是你们老师。"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["早上好", "！"], "pinyin": "Zǎoshang hǎo!", "es": "¡Buenos días!" },
+          "answer": { "zh": ["早上好", "，", "老师", "！"], "pinyin": "Zǎoshang hǎo, lǎoshī!", "es": "¡Buenos días, profesor!" },
+          "wrong": [
+            { "zh": ["我", "二", "十", "岁", "。"], "pinyin": "Wǒ èrshí suì.", "es": "Tengo veinte años." },
+            { "zh": ["是", "，", "我", "是", "学生", "。"], "pinyin": "Shì, wǒ shì xuéshēng.", "es": "Sí, soy estudiante." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cuándo se dice 早上好?",
+          "options": ["Por la mañana", "Por la noche, antes de dormir", "Solo al despedirse"],
+          "answer": "Por la mañana",
+          "explanation": "早上 es la mañana temprano. A cualquier hora del día se puede saludar con 你好."
+        }
+      ]
+    },
+    "zhigou": {
+      "note": "«Perro» con su clasificador: 只 (zhī) es el clasificador de casi todos los animales (también 一只猫). Va entre el número (o 这, 那, 几) y 狗: 一只狗, 两只狗, 这只狗. 狗 lleva a la izquierda 犭, el radical de los animales, como 猫.",
+      "examples": [
+        {
+          "zh": ["我", "有", "一", "只狗", "。"],
+          "pinyin": "Wǒ yǒu yì zhī gǒu.",
+          "es": "Tengo un perro."
+        },
+        {
+          "zh": ["我", "的", "邻居", "有", "三", "只狗", "。"],
+          "pinyin": "Wǒ de línjū yǒu sān zhī gǒu.",
+          "es": "Mi vecino tiene tres perros."
+        },
+        {
+          "zh": ["这", "只狗", "是", "黑色", "的", "。"],
+          "pinyin": "Zhè zhī gǒu shì hēisè de.",
+          "es": "Este perro es negro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["本书", "件衣服"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["个", "二"],
+          "accept": ["我邻居有三只狗。"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["gato", "blanco"]
+        },
+        {
+          "type": "choice",
+          "question": "«Dos perros» se dice…",
+          "options": ["两只狗", "二只狗", "两狗"],
+          "answer": "两只狗",
+          "explanation": "Delante de un clasificador, «dos» es 两 (no 二), y entre el número y 狗 va el clasificador 只."
+        }
+      ]
+    },
+    "zhangzhuozi": {
+      "note": "«Mesa» con su clasificador: 张 (zhāng) se usa con cosas planas, de superficie lisa: mesas, camas, papeles, fotos. 一张桌子 = una mesa. Sin número ni 这/那 basta con 桌子 (lección 3): 我的桌子是白色的.",
+      "examples": [
+        {
+          "zh": ["我", "想", "买", "一", "张桌子", "。"],
+          "pinyin": "Wǒ xiǎng mǎi yì zhāng zhuōzi.",
+          "es": "Quiero comprar una mesa."
+        },
+        {
+          "zh": ["我们", "的", "教室", "有", "十", "张桌子", "。"],
+          "pinyin": "Wǒmen de jiàoshì yǒu shí zhāng zhuōzi.",
+          "es": "Nuestra aula tiene diez mesas."
+        },
+        {
+          "zh": ["那", "张桌子", "是", "米色", "的", "。"],
+          "pinyin": "Nà zhāng zhuōzi shì mǐsè de.",
+          "es": "Esa mesa es beige."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["只狗", "栋楼"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["喜欢", "两"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["silla", "blanca"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Con qué cosas se usa el clasificador 张?",
+          "options": ["Con cosas planas: mesas, papeles, fotos", "Con animales", "Con libros"],
+          "answer": "Con cosas planas: mesas, papeles, fotos",
+          "explanation": "张 es para objetos con una superficie plana. Los animales llevan 只 (一只狗) y los libros, 本 (一本书)."
+        }
+      ]
+    },
+    "xiang": {
+      "note": "«Querer» (hacer algo). Va delante de otro verbo: 我想吃巧克力 (quiero comer chocolate), 我想买一只狗. En negativa, 不想. También significa «pensar» y «echar de menos» (我想妈妈 = echo de menos a mamá). Lleva 心 (corazón) abajo.",
+      "examples": [
+        {
+          "zh": ["我", "想", "吃", "巧克力", "。"],
+          "pinyin": "Wǒ xiǎng chī qiǎokèlì.",
+          "es": "Quiero comer chocolate."
+        },
+        {
+          "zh": ["你", "想", "买", "什么", "？"],
+          "pinyin": "Nǐ xiǎng mǎi shénme?",
+          "es": "¿Qué quieres comprar?"
+        },
+        {
+          "zh": ["我", "不", "想", "工作", "。"],
+          "pinyin": "Wǒ bù xiǎng gōngzuò.",
+          "es": "No quiero trabajar."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["是", "有"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["吗", "哪"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["comer", "quieres"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "想", "吃", "什么", "？"], "pinyin": "Nǐ xiǎng chī shénme?", "es": "¿Qué quieres comer?" },
+          "answer": { "zh": ["我", "想", "吃", "肉", "。"], "pinyin": "Wǒ xiǎng chī ròu.", "es": "Quiero comer carne." },
+          "wrong": [
+            { "zh": ["我", "住", "在", "伦敦", "。"], "pinyin": "Wǒ zhù zài Lúndūn.", "es": "Vivo en Londres." },
+            { "zh": ["我", "想", "买", "自行车", "。"], "pinyin": "Wǒ xiǎng mǎi zìxíngchē.", "es": "Quiero comprar una bicicleta." }
+          ]
+        }
+      ]
+    },
+    "pingguo": {
+      "note": "«Manzana». Su clasificador es 个 (lección 5): 一个苹果, 两个苹果, 这个苹果. Sin número ni 这/那 va sola: 我喜欢吃苹果. 苹 lleva arriba 艹, el radical de las plantas, y 果 es «fruto»: un árbol (木) con la fruta encima.",
+      "examples": [
+        {
+          "zh": ["我", "想", "吃", "一", "个", "苹果", "。"],
+          "pinyin": "Wǒ xiǎng chī yí gè píngguǒ.",
+          "es": "Quiero comer una manzana."
+        },
+        {
+          "zh": ["你", "有", "几", "个", "苹果", "？"],
+          "pinyin": "Nǐ yǒu jǐ gè píngguǒ?",
+          "es": "¿Cuántas manzanas tienes?"
+        },
+        {
+          "zh": ["这", "个", "苹果", "是", "绿色", "的", "。"],
+          "pinyin": "Zhège píngguǒ shì lǜsè de.",
+          "es": "Esta manzana es verde."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["书包", "巧克力"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["肉", "两"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["roja", "mesa"]
+        },
+        {
+          "type": "choice",
+          "question": "«Me gusta comer manzanas» se dice…",
+          "options": ["我喜欢吃苹果。", "我喜欢苹果吃。", "我吃喜欢苹果。"],
+          "answer": "我喜欢吃苹果。",
+          "explanation": "El orden es sujeto + 喜欢 + lo que te gusta hacer: 吃苹果 (comer manzanas)."
+        }
+      ]
+    },
+    "shubao": {
+      "note": "«Mochila» (la del colegio): literalmente «bolsa (包) de libros (书)», con el mismo 书 que en 本书. Su clasificador es 个: 一个书包.",
+      "examples": [
+        {
+          "zh": ["我", "的", "书包", "是", "深蓝色", "的", "。"],
+          "pinyin": "Wǒ de shūbāo shì shēnlánsè de.",
+          "es": "Mi mochila es azul oscuro."
+        },
+        {
+          "zh": ["我", "想", "买", "一", "个", "书包", "。"],
+          "pinyin": "Wǒ xiǎng mǎi yí gè shūbāo.",
+          "es": "Quiero comprar una mochila."
+        },
+        {
+          "zh": ["你", "的", "书包", "在", "椅子", "上", "。"],
+          "pinyin": "Nǐ de shūbāo zài yǐzi shàng.",
+          "es": "Tu mochila está encima de la silla."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 2,
+          "distractors": ["帽子", "自行车"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["两", "顶"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "zh-es",
+          "distractors": ["mesa", "mi"]
+        }
+      ]
+    },
+    "shishenmeyansede": {
+      "note": "Para preguntar de qué color es algo: (algo) + 是什么颜色的？ → 你的书包是什么颜色的？ (¿De qué color es tu mochila?). 颜色 (yánsè) significa «color». Se responde poniendo el color en lugar de 什么颜色 y manteniendo 是 y 的: 我的书包是红色的.",
+      "examples": [
+        {
+          "zh": ["你", "的", "书包", "是什么颜色的", "？"],
+          "pinyin": "Nǐ de shūbāo shì shénme yánsè de?",
+          "es": "¿De qué color es tu mochila?"
+        },
+        {
+          "zh": ["那", "只狗", "是什么颜色的", "？"],
+          "pinyin": "Nà zhī gǒu shì shénme yánsè de?",
+          "es": "¿De qué color es ese perro?"
+        },
+        {
+          "zh": ["你", "爸爸", "的", "车", "是什么颜色的", "？"],
+          "pinyin": "Nǐ bàba de chē shì shénme yánsè de?",
+          "es": "¿De qué color es el coche de tu padre?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["是吗", "什么"]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": ["吗", "我"]
+        },
+        {
+          "type": "dialogue",
+          "prompt": { "zh": ["你", "的", "手机", "是什么颜色的", "？"], "pinyin": "Nǐ de shǒujī shì shénme yánsè de?", "es": "¿De qué color es tu móvil?" },
+          "answer": { "zh": ["我", "的", "手机", "是", "银色", "的", "。"], "pinyin": "Wǒ de shǒujī shì yínsè de.", "es": "Mi móvil es plateado." },
+          "wrong": [
+            { "zh": ["我", "有", "两", "个", "手机", "。"], "pinyin": "Wǒ yǒu liǎng gè shǒujī.", "es": "Tengo dos móviles." },
+            { "zh": ["是", "，", "我", "有", "手机", "。"], "pinyin": "Shì, wǒ yǒu shǒujī.", "es": "Sí, tengo móvil." }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "A la pregunta 你的车是什么颜色的？ se responde…",
+          "options": ["我的车是白色的。", "我的车是白色吗。", "我的车白色是的。"],
+          "answer": "我的车是白色的。",
+          "explanation": "Se pone el color en lugar de 什么颜色 y se mantienen 是 y 的."
+        }
+      ]
+    },
+    "mise": {
+      "note": "«Beige». 米 es el arroz (el grano crudo): 米色 es su color, un blanco amarillento.",
+      "examples": [
+        {
+          "zh": ["我", "的", "椅子", "是", "米色", "的", "。"],
+          "pinyin": "Wǒ de yǐzi shì mǐsè de.",
+          "es": "Mi silla es beige."
+        },
+        {
+          "zh": ["我", "想", "买", "一", "顶", "米色", "的", "帽子", "。"],
+          "pinyin": "Wǒ xiǎng mǎi yì dǐng mǐsè de màozi.",
+          "es": "Quiero comprar un sombrero beige."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["金色", "暗红色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["两", "白色"]
+        },
+        {
+          "type": "choice",
+          "question": "¿De dónde viene el nombre de 米色 (beige)?",
+          "options": ["Del arroz", "Del café", "De la leche"],
+          "answer": "Del arroz",
+          "explanation": "米 es el grano de arroz: 米色 es su color."
+        }
+      ]
+    },
+    "jinse": {
+      "note": "«Dorado». 金 es el oro (y el metal en general). A la izquierda de otro carácter se escribe 钅, como en 银 (plata) y 钱 (dinero).",
+      "examples": [
+        {
+          "zh": ["她", "的", "手机", "是", "金色", "的", "。"],
+          "pinyin": "Tā de shǒujī shì jīnsè de.",
+          "es": "Su móvil es dorado."
+        },
+        {
+          "zh": ["我", "不", "喜欢", "金色", "。"],
+          "pinyin": "Wǒ bù xǐhuan jīnsè.",
+          "es": "No me gusta el dorado."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["银色", "米色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["我", "银色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["plateado", "te"]
+        }
+      ]
+    },
+    "yinse": {
+      "note": "«Plateado». 银 (yín) es la plata: lleva a la izquierda 钅, el radical del metal (金), como 钱 (dinero). 金色 y 银色: oro y plata.",
+      "examples": [
+        {
+          "zh": ["我", "爸爸", "的", "汽车", "是", "银色", "的", "。"],
+          "pinyin": "Wǒ bàba de qìchē shì yínsè de.",
+          "es": "El coche de mi padre es plateado."
+        },
+        {
+          "zh": ["你", "的", "自行车", "是", "银色", "的", "吗", "？"],
+          "pinyin": "Nǐ de zìxíngchē shì yínsè de ma?",
+          "es": "¿Tu bicicleta es plateada?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["金色", "灰色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["妈妈", "金色"]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué radical comparten 银 (plata), 钱 (dinero) y 铁 (hierro)?",
+          "options": ["钅, el del metal", "亻, el de la persona", "艹, el de las plantas"],
+          "answer": "钅, el del metal",
+          "explanation": "金 es el metal (y el oro); a la izquierda de otro carácter se escribe 钅."
+        }
+      ]
+    },
+    "qingse": {
+      "note": "«Turquesa», un azul verdoso. 青 es un color entre el azul y el verde (el del cielo despejado o la hierba tierna). Aparece dentro de muchos caracteres, como 请 (por favor) o 清 (claro, limpio).",
+      "examples": [
+        {
+          "zh": ["他", "的", "自行车", "是", "青色", "的", "。"],
+          "pinyin": "Tā de zìxíngchē shì qīngsè de.",
+          "es": "Su bicicleta es turquesa."
+        },
+        {
+          "zh": ["我", "女朋友", "喜欢", "青色", "。"],
+          "pinyin": "Wǒ nǚpéngyou xǐhuan qīngsè.",
+          "es": "A mi novia le gusta el turquesa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["蓝色", "绿色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["coche", "verde"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["男朋友", "不"]
+        }
+      ]
+    },
+    "qianlanse": {
+      "note": "«Azul claro». 浅 (qiǎn) significa «poco profundo» y, con los colores, «claro». Lleva 氵, el radical del agua: el agua poco profunda es clara. Sirve con cualquier color: 浅绿色, 浅灰色…",
+      "examples": [
+        {
+          "zh": ["我", "妹妹", "的", "书包", "是", "浅蓝色", "的", "。"],
+          "pinyin": "Wǒ mèimei de shūbāo shì qiǎnlánsè de.",
+          "es": "La mochila de mi hermana pequeña es azul claro."
+        },
+        {
+          "zh": ["我", "想", "买", "浅蓝色", "的", "自行车", "。"],
+          "pinyin": "Wǒ xiǎng mǎi qiǎnlánsè de zìxíngchē.",
+          "es": "Quiero comprar una bicicleta azul claro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["深蓝色", "浅绿色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["深蓝色", "吃"]
+        },
+        {
+          "type": "choice",
+          "question": "En 浅蓝色, ¿qué significa 浅?",
+          "options": ["claro", "oscuro", "bonito"],
+          "answer": "claro",
+          "explanation": "浅 = poco profundo, claro; 深 = profundo, oscuro: 浅蓝色 (azul claro), 深蓝色 (azul oscuro)."
+        }
+      ]
+    },
+    "shenlanse": {
+      "note": "«Azul oscuro». 深 (shēn) significa «profundo» y, con los colores, «oscuro»: lo contrario de 浅. También lleva 氵 (agua): el agua profunda se ve oscura.",
+      "examples": [
+        {
+          "zh": ["我", "的", "车", "不", "是", "蓝色", "的", "，", "是", "深蓝色", "的", "。"],
+          "pinyin": "Wǒ de chē bú shì lánsè de, shì shēnlánsè de.",
+          "es": "Mi coche no es azul, es azul oscuro."
+        },
+        {
+          "zh": ["老师", "的", "帽子", "是", "深蓝色", "的", "。"],
+          "pinyin": "Lǎoshī de màozi shì shēnlánsè de.",
+          "es": "El sombrero del profesor es azul oscuro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["浅蓝色", "黑色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["claro", "mi"]
+        },
+        {
+          "type": "choice",
+          "question": "«Azul oscuro» se dice…",
+          "options": ["深蓝色", "浅蓝色", "蓝深色"],
+          "answer": "深蓝色",
+          "explanation": "深 (oscuro) y 浅 (claro) van delante del color: 深蓝色, 浅蓝色."
+        }
+      ]
+    },
+    "qianlvse": {
+      "note": "«Verde claro»: 浅 (claro) + 绿色. Recuerda que 绿 se escribe con ü: lǜ.",
+      "examples": [
+        {
+          "zh": ["我", "的", "房子", "是", "浅绿色", "的", "。"],
+          "pinyin": "Wǒ de fángzi shì qiǎnlǜsè de.",
+          "es": "Mi casa es verde claro."
+        },
+        {
+          "zh": ["你", "有", "浅绿色", "的", "椅子", "吗", "？"],
+          "pinyin": "Nǐ yǒu qiǎnlǜsè de yǐzi ma?",
+          "es": "¿Tienes sillas verde claro?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["深绿色", "浅蓝色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["不", "深绿色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": ["oscuro", "tu"]
+        }
+      ]
+    },
+    "shenlvse": {
+      "note": "«Verde oscuro»: 深 (oscuro) + 绿色. Con 浅 y 深 puedes matizar cualquier color: 深灰色, 浅粉色…",
+      "examples": [
+        {
+          "zh": ["那", "顶", "帽子", "是", "深绿色", "的", "。"],
+          "pinyin": "Nà dǐng màozi shì shēnlǜsè de.",
+          "es": "Ese sombrero es verde oscuro."
+        },
+        {
+          "zh": ["我", "哥哥", "喜欢", "深绿色", "。"],
+          "pinyin": "Wǒ gēge xǐhuan shēnlǜsè.",
+          "es": "A mi hermano mayor le gusta el verde oscuro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["浅绿色", "深蓝色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["这", "浅绿色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["claro", "pequeño"]
+        }
+      ]
+    },
+    "anhongse": {
+      "note": "«Rojo oscuro», granate. 暗 (àn) significa «oscuro, con poca luz»: lleva 日 (sol) a la izquierda. También se oye 深红色.",
+      "examples": [
+        {
+          "zh": ["我", "姐姐", "的", "帽子", "是", "暗红色", "的", "。"],
+          "pinyin": "Wǒ jiějie de màozi shì ànhóngsè de.",
+          "es": "El sombrero de mi hermana mayor es rojo oscuro."
+        },
+        {
+          "zh": ["我", "不", "想", "买", "暗红色", "的", "车", "。"],
+          "pinyin": "Wǒ bù xiǎng mǎi ànhóngsè de chē.",
+          "es": "No quiero comprar un coche rojo oscuro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["紫红色", "米色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["妹妹", "红色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["claro", "quieres"]
+        }
+      ]
+    },
+    "zihongse": {
+      "note": "«Fucsia», un rojo morado: 紫 (morado, lección 4) + 红 (rojo) + 色. El primer color matiza al segundo.",
+      "examples": [
+        {
+          "zh": ["她", "有", "一", "顶", "紫红色", "的", "帽子", "。"],
+          "pinyin": "Tā yǒu yì dǐng zǐhóngsè de màozi.",
+          "es": "Tiene un sombrero fucsia."
+        },
+        {
+          "zh": ["我", "女儿", "喜欢", "紫红色", "。"],
+          "pinyin": "Wǒ nǚ'ér xǐhuan zǐhóngsè.",
+          "es": "A mi hija le gusta el fucsia."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["暗红色", "青色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": ["儿子", "紫色"]
+        },
+        {
+          "type": "choice",
+          "question": "紫红色 (fucsia) está formado por…",
+          "options": ["morado + rojo", "rosa + rojo", "rojo + naranja"],
+          "answer": "morado + rojo",
+          "explanation": "紫 es el morado (紫色) y 红, el rojo (红色): un rojo morado."
+        }
+      ]
+    },
+    "naiyouse": {
+      "note": "«Color crema». 奶油 (nǎiyóu) es la nata, la crema: 奶 es la leche, como en 牛奶, y 油, la grasa o el aceite (con 氵, el radical del agua).",
+      "examples": [
+        {
+          "zh": ["我们", "的", "房子", "是", "奶油色", "的", "。"],
+          "pinyin": "Wǒmen de fángzi shì nǎiyóusè de.",
+          "es": "Nuestra casa es de color crema."
+        },
+        {
+          "zh": ["那", "张桌子", "是", "奶油色", "的", "吗", "？"],
+          "pinyin": "Nà zhāng zhuōzi shì nǎiyóusè de ma?",
+          "es": "¿Esa mesa es de color crema?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": ["深绿色", "银色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["你们", "米色"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["silla", "esta"]
+        }
+      ]
+    },
+    "caise": {
+      "note": "«Multicolor», de muchos colores; también «en color», lo contrario de «en blanco y negro». 彩 (cǎi) lleva a la derecha 彡, tres trazos que recuerdan pinceladas.",
+      "examples": [
+        {
+          "zh": ["我", "想", "买", "一", "个", "彩色", "的", "书包", "。"],
+          "pinyin": "Wǒ xiǎng mǎi yí gè cǎisè de shūbāo.",
+          "es": "Quiero comprar una mochila multicolor."
+        },
+        {
+          "zh": ["这", "顶", "帽子", "是", "彩色", "的", "。"],
+          "pinyin": "Zhè dǐng màozi shì cǎisè de.",
+          "es": "Este sombrero es multicolor."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": ["白色", "黑色"]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": ["两", "顶"]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": ["ese", "blanco"]
+        }
+      ]
+    }
+  }
+}

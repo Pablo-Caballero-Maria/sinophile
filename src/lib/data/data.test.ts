@@ -88,6 +88,16 @@ describe("words the learner asked to fix", () => {
     expect(meanings("二")).toEqual(expect.arrayContaining(["dos"]));
   });
 
+  it("lesson 6: the class list, with 张桌子/桌子 sharing «mesa» and the colour question", () => {
+    const words = ["早上好", "只狗", "张桌子", "想", "苹果", "书包", "是什么颜色的", "米色", "金色", "银色", "青色", "浅蓝色", "深蓝色", "浅绿色", "深绿色", "暗红色", "紫红色", "奶油色", "彩色"];
+    expect(words.map((hanzi) => wordOf(hanzi)?.lesson)).toEqual(words.map(() => "6"));
+    const meanings = (hanzi: string) => splitMeanings(wordOf(hanzi)!.es).map(normalizeLatin);
+    expect(meanings("张桌子")).toEqual(expect.arrayContaining(meanings("桌子")));
+    expect(wordOf("早上好")).toMatchObject({ pinyin: "zǎoshang hǎo", es: "buenos días" });
+    const sentences = (id: string) => realExercises.file.words[id].examples.map((s) => s.zh.join(""));
+    expect(sentences("shishenmeyansede")).toContain("你的书包是什么颜色的？");
+  });
+
   it("lesson 1 has the nationalities, told apart from the languages", () => {
     expect(wordOf("中国人")).toMatchObject({ pinyin: "Zhōngguórén", es: "chino (nacionalidad)", lesson: "1" });
     expect(wordOf("西班牙人")).toMatchObject({ pinyin: "Xībānyárén", es: "español (nacionalidad)", lesson: "1" });
