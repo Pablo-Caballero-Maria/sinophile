@@ -11,12 +11,12 @@ import { useCallback, useRef, useState } from "react";
 import { gradeDrawing, type DrawingGrade } from "@/lib/drawing";
 import { loadStrokes, type StrokeData } from "@/lib/strokes";
 import { hanChars } from "@/lib/text";
-import { DrawingCanvas, type DrawingCanvasHandle } from "../drawing-canvas";
-import { CharacterSvg, HanziQuiz, Pinyin, SpeakButton, StrokeOrder, themeColor } from "../hanzi";
-import { Button, cn } from "../ui";
-import { Footer, Instruction, type ExerciseProps } from "./common";
-import { FreeDraw } from "./free-draw";
-import { boxSize, CharDots, type Write } from "./write-shared";
+import { DrawingCanvas, type DrawingCanvasHandle } from "../DrawingCanvas";
+import { CharacterSvg, HanziQuiz, Pinyin, SpeakButton, StrokeOrder, themeColor } from "../Hanzi";
+import { Button, cn } from "../UI";
+import { Footer, Instruction, type ExerciseProps } from "./Common";
+import { FreeDraw } from "./FreeDraw";
+import { boxSize, CharDots, type Write } from "./WriteShared";
 
 function WordHeader({ ex }: { ex: Write }) {
   return (

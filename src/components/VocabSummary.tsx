@@ -12,8 +12,8 @@ import { VOCAB } from "@/lib/data/vocab";
 import { HSK1, hskSummary, percent, type HskSummary } from "@/lib/hsk";
 import { isSeen } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
-import { Hanzi } from "./hanzi";
-import { Card, cn, Ring, Segmented, Skeleton } from "./ui";
+import { Hanzi } from "./Hanzi";
+import { Card, cn, Ring, Segmented, Skeleton } from "./UI";
 
 type Filter = "todas" | "conocidas" | "pendientes";
 

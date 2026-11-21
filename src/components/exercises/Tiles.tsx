@@ -6,9 +6,9 @@ import { checkTiles } from "@/lib/exercises/check";
 import type { Exercise } from "@/lib/exercises/types";
 import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
-import { Hanzi, Pinyin } from "../hanzi";
-import { cn } from "../ui";
-import { CheckFooter, Instruction, PromptView, type ExerciseProps } from "./common";
+import { Hanzi, Pinyin } from "../Hanzi";
+import { cn } from "../UI";
+import { CheckFooter, Instruction, PromptView, type ExerciseProps } from "./Common";
 
 type Tiles = Extract<Exercise, { type: "tiles" }>;
 

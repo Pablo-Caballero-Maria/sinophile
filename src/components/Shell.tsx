@@ -9,7 +9,7 @@ import { streakInfo, totalXp } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { applyTheme, useSettings } from "@/lib/settings/store";
 import { dayKey } from "@/lib/text";
-import { cn, Skeleton } from "./ui";
+import { cn, Skeleton } from "./UI";
 
 const NAV = [
   { href: "/", label: "Inicio", icon: House },

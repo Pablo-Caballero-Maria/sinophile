@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { checkTyping } from "@/lib/exercises/check";
 import type { Exercise } from "@/lib/exercises/types";
 import { prettifyTyped } from "@/lib/pinyin";
-import { CheckFooter, Instruction, PromptView, type ExerciseProps } from "./common";
+import { CheckFooter, Instruction, PromptView, type ExerciseProps } from "./Common";
 
 type Typing = Extract<Exercise, { type: "typing" }>;
 

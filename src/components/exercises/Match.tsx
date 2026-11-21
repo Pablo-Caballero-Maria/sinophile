@@ -5,8 +5,8 @@ import type { Exercise } from "@/lib/exercises/types";
 import { playSound } from "@/lib/sound";
 import { speak } from "@/lib/speech";
 import { shuffle } from "@/lib/text";
-import { cn } from "../ui";
-import { DisplayView, Instruction, optionClass, type ExerciseProps } from "./common";
+import { cn } from "../UI";
+import { DisplayView, Instruction, optionClass, type ExerciseProps } from "./Common";
 
 type Match = Extract<Exercise, { type: "match" }>;
 

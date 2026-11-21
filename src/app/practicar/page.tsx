@@ -13,8 +13,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { SilentModeCheckbox } from "@/components/silent-mode";
-import { Badge, ButtonLink, Card, cn, PageHeader, SectionTitle, Segmented, Toggle } from "@/components/ui";
+import { SilentModeCheckbox } from "@/components/SilentMode";
+import { Badge, ButtonLink, Card, cn, PageHeader, SectionTitle, Segmented, Toggle } from "@/components/UI";
 import { LESSONS, VOCAB_IDS } from "@/lib/data/vocab";
 import { isNoisyMode, reviewable } from "@/lib/exercises/silent";
 import type { SessionMode } from "@/lib/exercises/types";

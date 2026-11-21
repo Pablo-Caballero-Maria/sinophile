@@ -3,7 +3,7 @@ import { ArrowLeftRight, Check, ChevronRight, Copy, Languages, Mic, Search } fro
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useDeferredValue, useMemo, useState } from "react";
-import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/hanzi";
+import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/Hanzi";
 import {
   Badge,
   Button,
@@ -14,7 +14,7 @@ import {
   SectionTitle,
   Segmented,
   Skeleton,
-} from "@/components/ui";
+} from "@/components/UI";
 import { LESSONS, VOCAB } from "@/lib/data/vocab";
 import { indexVocab, search, segmentText } from "@/lib/dictionary";
 import { suggestId, vocabLine } from "@/lib/data/format";

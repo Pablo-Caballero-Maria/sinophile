@@ -1,7 +1,7 @@
 "use client";
 /** Pieces shared by the writing exercises. */
 import type { Exercise } from "@/lib/exercises/types";
-import { cn } from "../ui";
+import { cn } from "../UI";
 
 export type Write = Extract<Exercise, { type: "write" }>;
 

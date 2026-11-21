@@ -3,7 +3,7 @@
 import { CloudCheck, CloudOff, LoaderCircle, LogOut, RefreshCw, Trash2, UserRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
-import { Button, Card, cn, PageHeader, SectionTitle, Segmented, Skeleton, Toggle } from "@/components/ui";
+import { Button, Card, cn, PageHeader, SectionTitle, Segmented, Skeleton, Toggle } from "@/components/UI";
 import {
   deleteAccount,
   reconnect,

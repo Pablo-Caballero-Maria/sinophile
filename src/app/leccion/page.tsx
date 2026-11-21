@@ -13,8 +13,8 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/hanzi";
-import { SilentModeCheckbox } from "@/components/silent-mode";
+import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/Hanzi";
+import { SilentModeCheckbox } from "@/components/SilentMode";
 import {
   ButtonLink,
   Card,
@@ -24,7 +24,7 @@ import {
   SectionTitle,
   Skeleton,
   Stars,
-} from "@/components/ui";
+} from "@/components/UI";
 import { LESSON_BY_ID } from "@/lib/data/vocab";
 import { isNoisyMode } from "@/lib/exercises/silent";
 import type { SessionMode } from "@/lib/exercises/types";

@@ -10,8 +10,8 @@ import { accuracy, examGrade, type SessionState } from "@/lib/exercises/session"
 import type { Exercise, SessionParams } from "@/lib/exercises/types";
 import { playSound } from "@/lib/sound";
 import { dayKey, hasHan } from "@/lib/text";
-import { Hanzi } from "../hanzi";
-import { Button, ButtonLink, Card, cn } from "../ui";
+import { Hanzi } from "../Hanzi";
+import { Button, ButtonLink, Card, cn } from "../UI";
 
 /** Guards against recording a session twice (React StrictMode double-invokes initialisers). */
 const finished = new Map<

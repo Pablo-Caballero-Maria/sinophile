@@ -9,11 +9,11 @@ import { useRef, useState } from "react";
 import type { Point } from "@/lib/drawing";
 import type { VocabEntry } from "@/lib/types";
 import { hanChars } from "@/lib/text";
-import { DrawingCanvas, DrawingPreview, type DrawingCanvasHandle } from "../drawing-canvas";
-import { Hanzi, Pinyin, SpeakButton, StrokeOrder } from "../hanzi";
-import { Button } from "../ui";
-import { Footer, Instruction, PromptView, type ExerciseProps } from "./common";
-import { boxSize, CharDots, type Write } from "./write-shared";
+import { DrawingCanvas, DrawingPreview, type DrawingCanvasHandle } from "../DrawingCanvas";
+import { Hanzi, Pinyin, SpeakButton, StrokeOrder } from "../Hanzi";
+import { Button } from "../UI";
+import { Footer, Instruction, PromptView, type ExerciseProps } from "./Common";
+import { boxSize, CharDots, type Write } from "./WriteShared";
 
 const MAX_PREVIEW = 160;
 

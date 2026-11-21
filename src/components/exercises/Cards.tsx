@@ -5,9 +5,9 @@ import type { Exercise } from "@/lib/exercises/types";
 import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
 import { hanChars } from "@/lib/text";
-import { Hanzi, Pinyin, SentenceView, SpeakButton, StrokeOrder } from "../hanzi";
-import { Badge, Button } from "../ui";
-import { Footer, Instruction, type ExerciseProps } from "./common";
+import { Hanzi, Pinyin, SentenceView, SpeakButton, StrokeOrder } from "../Hanzi";
+import { Badge, Button } from "../UI";
+import { Footer, Instruction, type ExerciseProps } from "./Common";
 
 type Intro = Extract<Exercise, { type: "intro" }>;
 type Flashcard = Extract<Exercise, { type: "flashcard" }>;

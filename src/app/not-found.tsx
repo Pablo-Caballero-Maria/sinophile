@@ -1,4 +1,4 @@
-import { ButtonLink, EmptyState } from "@/components/ui";
+import { ButtonLink, EmptyState } from "@/components/UI";
 
 export default function NotFound() {
   return (

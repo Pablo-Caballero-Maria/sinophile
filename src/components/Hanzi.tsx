@@ -10,7 +10,7 @@ import { speak } from "@/lib/speech";
 import { hanziWriterLoader, loadStrokes, STROKE_TRANSFORM, type StrokeData } from "@/lib/strokes";
 import { hasHan, isPunctuation } from "@/lib/text";
 import type { Sentence } from "@/lib/types";
-import { cn, Skeleton } from "./ui";
+import { cn, Skeleton } from "./UI";
 
 const TONE_CLASS: Record<Tone, string> = {
   1: "text-tone-1",

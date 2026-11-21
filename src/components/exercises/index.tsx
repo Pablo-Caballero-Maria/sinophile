@@ -1,14 +1,14 @@
 "use client";
 /** Picks the component for an exercise type. */
 import type { Exercise } from "@/lib/exercises/types";
-import { FlashcardExercise, IntroCard } from "./cards";
-import { ChoiceExercise } from "./choice";
-import type { ExerciseProps } from "./common";
-import { MatchExercise } from "./match";
-import { SpeakExercise } from "./speak";
-import { TilesExercise } from "./tiles";
-import { TypingExercise } from "./typing";
-import { WriteExercise } from "./write";
+import { FlashcardExercise, IntroCard } from "./Cards";
+import { ChoiceExercise } from "./Choice";
+import type { ExerciseProps } from "./Common";
+import { MatchExercise } from "./Match";
+import { SpeakExercise } from "./Speak";
+import { TilesExercise } from "./Tiles";
+import { TypingExercise } from "./Typing";
+import { WriteExercise } from "./Write";
 
 export function ExerciseView(props: ExerciseProps<Exercise>) {
   const { exercise } = props;

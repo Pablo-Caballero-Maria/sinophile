@@ -13,7 +13,7 @@ import {
   StrokeOrder,
   useStrokeData,
   wordHref,
-} from "@/components/hanzi";
+} from "@/components/Hanzi";
 import {
   Badge,
   Button,
@@ -25,7 +25,7 @@ import {
   ProgressBar,
   SectionTitle,
   Skeleton,
-} from "@/components/ui";
+} from "@/components/UI";
 import { suggestId, vocabLine } from "@/lib/data/format";
 import { useExercises } from "@/lib/data/remote";
 import { LESSON_BY_ID, VOCAB, VOCAB_BY_ID, vocabByHanzi } from "@/lib/data/vocab";

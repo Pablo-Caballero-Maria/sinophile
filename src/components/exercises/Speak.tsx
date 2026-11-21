@@ -8,9 +8,9 @@ import { Mic, Square } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Exercise } from "@/lib/exercises/types";
 import { listen, recognitionSupported, scorePronunciation, type PronunciationScore } from "@/lib/speech";
-import { Hanzi, Pinyin, SpeakButton } from "../hanzi";
-import { Button, cn } from "../ui";
-import { Footer, Instruction, type ExerciseProps } from "./common";
+import { Hanzi, Pinyin, SpeakButton } from "../Hanzi";
+import { Button, cn } from "../UI";
+import { Footer, Instruction, type ExerciseProps } from "./Common";
 
 type Speak = Extract<Exercise, { type: "speak" }>;
 

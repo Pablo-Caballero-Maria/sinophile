@@ -20,6 +20,8 @@ repositorio.
 ### Cambiado
 
 - La web ya no envía la cabecera `X-Powered-By: Next.js` (`poweredByHeader: false`).
+- Los ficheros de los componentes (`src/components/`) se llaman en PascalCase (`UI.tsx`, `Hanzi.tsx`,
+  `session/Player.tsx`…), como en las otras webs; `exercises/index.tsx` sigue siendo la entrada de su carpeta.
 
 ## [1.1.0] - 2026-11-21
 

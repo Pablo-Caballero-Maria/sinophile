@@ -24,9 +24,9 @@ import { playSound } from "@/lib/sound";
 import { recognitionSupported } from "@/lib/speech";
 import type { VocabEntry, WordSet } from "@/lib/types";
 import { ExerciseView } from "../exercises";
-import { Button, ButtonLink, cn, EmptyState, ProgressBar } from "../ui";
-import { FeedbackBar } from "./feedback";
-import { SessionSummary } from "./summary";
+import { Button, ButtonLink, cn, EmptyState, ProgressBar } from "../UI";
+import { FeedbackBar } from "./Feedback";
+import { SessionSummary } from "./Summary";
 
 export const MODE_TITLES: Record<SessionMode, string> = {
   leccion: "Lección",

@@ -12,7 +12,7 @@ import {
   Segmented,
   Skeleton,
   Toggle,
-} from "@/components/ui";
+} from "@/components/UI";
 import { importProgress, resetProgress, useAccount, useReady } from "@/lib/account/client";
 import { useExercises } from "@/lib/data/remote";
 import { LESSONS, VOCAB, VOCAB_ISSUES } from "@/lib/data/vocab";

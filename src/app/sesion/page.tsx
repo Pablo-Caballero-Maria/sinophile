@@ -2,8 +2,8 @@
 /** /sesion?modo=…&l=lessons&id=words&n=count&estilo=…&escritura=1 */
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
-import { SessionRunner } from "@/components/session/player";
-import { Skeleton } from "@/components/ui";
+import { SessionRunner } from "@/components/session/Player";
+import { Skeleton } from "@/components/UI";
 import { useExercises } from "@/lib/data/remote";
 import type { SessionMode, SessionParams } from "@/lib/exercises/types";
 import { useReady } from "@/lib/account/client";

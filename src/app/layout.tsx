@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { AppShell } from "@/components/shell";
-import { VercelTelemetry } from "@/components/vercel-telemetry";
+import { AppShell } from "@/components/Shell";
+import { VercelTelemetry } from "@/components/VercelTelemetry";
 import "./globals.css";
 
 export const metadata: Metadata = {

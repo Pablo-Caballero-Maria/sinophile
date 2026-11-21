@@ -3,8 +3,8 @@
 import { useEffect, type ReactNode } from "react";
 import type { AnswerResult, Display, Prompt } from "@/lib/exercises/types";
 import { useSettings } from "@/lib/settings/store";
-import { Hanzi, Pinyin, SentenceView, SpeakButton } from "../hanzi";
-import { Button, cn } from "../ui";
+import { Hanzi, Pinyin, SentenceView, SpeakButton } from "../Hanzi";
+import { Button, cn } from "../UI";
 
 export interface ExerciseProps<T> {
   exercise: T;

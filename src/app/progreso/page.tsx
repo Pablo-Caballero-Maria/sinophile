@@ -2,7 +2,7 @@
 import { BookCheck, Clock, Flame, Lock, Target, Trophy, Zap } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Card, cn, PageHeader, ProgressBar, SectionTitle, Skeleton, Stars } from "@/components/ui";
+import { Card, cn, PageHeader, ProgressBar, SectionTitle, Skeleton, Stars } from "@/components/UI";
 import { LESSONS, VOCAB } from "@/lib/data/vocab";
 import { ACHIEVEMENTS } from "@/lib/progress/achievements";
 import {

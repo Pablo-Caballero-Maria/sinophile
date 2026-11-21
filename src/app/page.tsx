@@ -25,9 +25,9 @@ import { useSettings } from "@/lib/settings/store";
 import { useAccount, useReady, type AccountState } from "@/lib/account/client";
 import { dayKey } from "@/lib/text";
 import type { Lesson } from "@/lib/types";
-import { SilentModeCheckbox } from "@/components/silent-mode";
-import { VocabSummary } from "@/components/vocab-summary";
-import { ButtonLink, Card, cn, EmptyState, Ring, SectionTitle, Skeleton, Stars } from "@/components/ui";
+import { SilentModeCheckbox } from "@/components/SilentMode";
+import { VocabSummary } from "@/components/VocabSummary";
+import { ButtonLink, Card, cn, EmptyState, Ring, SectionTitle, Skeleton, Stars } from "@/components/UI";
 
 function recommendation(p: Progress, due: number): { label: string; href: string } | null {
   if (LESSONS.length === 0) return null;

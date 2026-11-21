@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { checkChoice } from "@/lib/exercises/check";
 import type { Exercise } from "@/lib/exercises/types";
 import { speak } from "@/lib/speech";
-import { cn } from "../ui";
-import { CheckFooter, DisplayView, Instruction, optionClass, PromptView, type ExerciseProps } from "./common";
+import { cn } from "../UI";
+import { CheckFooter, DisplayView, Instruction, optionClass, PromptView, type ExerciseProps } from "./Common";
 
 type Choice = Extract<Exercise, { type: "choice" }>;
 

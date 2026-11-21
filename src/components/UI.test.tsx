@@ -6,8 +6,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { DEFAULT_SETTINGS } from "@/lib/settings/model";
 import { settingsStore } from "@/lib/settings/store";
 
-import { SilentModeCheckbox } from "./silent-mode";
-import { Segmented, Toggle } from "./ui";
+import { SilentModeCheckbox } from "./SilentMode";
+import { Segmented, Toggle } from "./UI";
 
 afterEach(() => settingsStore.set(DEFAULT_SETTINGS));
 

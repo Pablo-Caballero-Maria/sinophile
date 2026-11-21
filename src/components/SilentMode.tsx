@@ -1,7 +1,7 @@
 "use client";
 /** Checkbox for silent mode, shown wherever a practice mode can be started. */
 import { updateSettings, useSettings } from "@/lib/settings/store";
-import { Checkbox } from "./ui";
+import { Checkbox } from "./UI";
 
 export function SilentModeCheckbox({ className }: { className?: string }) {
   const { silentMode } = useSettings();

@@ -4,8 +4,8 @@ import { Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { AnswerResult } from "@/lib/exercises/types";
 import { hasHan, pick } from "@/lib/text";
-import { Hanzi } from "../hanzi";
-import { Button, cn } from "../ui";
+import { Hanzi } from "../Hanzi";
+import { Button, cn } from "../UI";
 
 const PRAISE = [
   "¡Correcto!",

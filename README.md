@@ -272,7 +272,7 @@ src/
   app/            páginas: inicio, leccion, practicar, sesion, diccionario, palabra, progreso, ajustes, cuenta
   app/api/        rutas de la API (cuentas, progreso, ajustes)
   server/         MongoDB, contraseñas y sesiones, operaciones de cuenta (solo servidor)
-  components/     UI (ui.tsx), hanzi (hanzi.tsx), lienzo, ejercicios/, sesión/
+  components/     componentes de React, en PascalCase: UI (UI.tsx), hanzi (Hanzi.tsx), lienzo, ejercicios/, sesión/
   lib/
     account/      sesión en el navegador (invitado / cuenta), guardado en segundo plano, llamadas a la API
     data/         carga + validación de las lecciones
