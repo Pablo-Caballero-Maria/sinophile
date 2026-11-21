@@ -14,6 +14,10 @@ repositorio.
   el código y la documentación están formateados con él (`data/` no: las lecciones se escriben a mano).
 - `npm run check`: tipos, lint, formato y tests, como en las otras webs.
 
+### Cambiado
+
+- La web ya no envía la cabecera `X-Powered-By: Next.js` (`poweredByHeader: false`).
+
 ## [1.1.0] - 2026-11-21
 
 ### Añadido
