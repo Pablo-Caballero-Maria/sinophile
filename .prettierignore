@@ -1,0 +1,5 @@
+# Además de lo que ya ignora .gitignore (node_modules, .next, coverage, los datos generados…)
+package-lock.json
+next-env.d.ts
+# Las lecciones se escriben a mano, una palabra por línea; cedict.json y hsk1.json son generados
+data/
