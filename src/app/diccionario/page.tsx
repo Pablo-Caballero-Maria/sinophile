@@ -4,7 +4,17 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useDeferredValue, useMemo, useState } from "react";
 import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/hanzi";
-import { Badge, Button, Card, cn, EmptyState, PageHeader, SectionTitle, Segmented, Skeleton } from "@/components/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  cn,
+  EmptyState,
+  PageHeader,
+  SectionTitle,
+  Segmented,
+  Skeleton,
+} from "@/components/ui";
 import { LESSONS, VOCAB } from "@/lib/data/vocab";
 import { indexVocab, search, segmentText } from "@/lib/dictionary";
 import { suggestId, vocabLine } from "@/lib/data/format";
@@ -48,7 +58,10 @@ function SearchTab({ initial }: { initial: string }) {
   const q = useDeferredValue(query.trim());
   const cedict = useCedict(q.length > 0);
   const mine = useMemo(() => search(vocabIndex, q, 30), [q]);
-  const general = useMemo(() => (cedict.items && q ? search(cedict.items, q, 40).filter((e) => !vocabHanzi.has(e.hanzi)) : []), [cedict.items, q]);
+  const general = useMemo(
+    () => (cedict.items && q ? search(cedict.items, q, 40).filter((e) => !vocabHanzi.has(e.hanzi)) : []),
+    [cedict.items, q],
+  );
 
   return (
     <>
@@ -71,12 +84,13 @@ function SearchTab({ initial }: { initial: string }) {
           <SectionTitle>Tu vocabulario</SectionTitle>
           {LESSONS.map((lesson) => (
             <div key={lesson.id} className="mb-4">
-              <p className="mb-2 text-sm font-bold text-muted">
-                Lección {lesson.number}
-              </p>
+              <p className="mb-2 text-sm font-bold text-muted">Lección {lesson.number}</p>
               <ul className="flex flex-col gap-2">
                 {lesson.words.map((w) => (
-                  <ResultRow key={w.id} entry={{ hanzi: w.hanzi, pinyin: w.pinyin, meaning: w.es, source: "vocab", id: w.id }} />
+                  <ResultRow
+                    key={w.id}
+                    entry={{ hanzi: w.hanzi, pinyin: w.pinyin, meaning: w.es, source: "vocab", id: w.id }}
+                  />
                 ))}
               </ul>
             </div>
@@ -115,12 +129,15 @@ function SearchTab({ initial }: { initial: string }) {
 }
 
 /** Suggests a vocab.json line for a translated word, ready to paste in GitHub. */
-const vocabSnippet = (hanzi: string, pinyin: string, es: string): string => vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: es.trim() });
+const vocabSnippet = (hanzi: string, pinyin: string, es: string): string =>
+  vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: es.trim() });
 
 function TranslateTab() {
   const [direction, setDirection] = useState<"es-zh" | "zh-es">("es-zh");
   const [text, setText] = useState("");
-  const [result, setResult] = useState<{ output: string; zh: string; pinyin: string; source: string } | null>(null);
+  const [result, setResult] = useState<{ output: string; zh: string; pinyin: string; source: string } | null>(
+    null,
+  );
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -128,7 +145,10 @@ function TranslateTab() {
   const cedict = useCedict(!!result);
   const [from, to] = direction.split("-") as [Lang, Lang];
 
-  const known = useMemo(() => new Set([...vocabHanzi, ...(cedict.items?.map((i) => i.entry.hanzi) ?? [])]), [cedict.items]);
+  const known = useMemo(
+    () => new Set([...vocabHanzi, ...(cedict.items?.map((i) => i.entry.hanzi) ?? [])]),
+    [cedict.items],
+  );
 
   const run = async () => {
     setBusy(true);
@@ -166,7 +186,12 @@ function TranslateTab() {
       <Card className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
           <span className="flex-1 text-center font-bold">{from === "es" ? "Español" : "Chino"}</span>
-          <button type="button" aria-label="Invertir idiomas" onClick={() => setDirection((d) => (d === "es-zh" ? "zh-es" : "es-zh"))} className="rounded-xl p-2 text-sky hover:bg-surface-2">
+          <button
+            type="button"
+            aria-label="Invertir idiomas"
+            onClick={() => setDirection((d) => (d === "es-zh" ? "zh-es" : "es-zh"))}
+            className="rounded-xl p-2 text-sky hover:bg-surface-2"
+          >
             <ArrowLeftRight size={20} />
           </button>
           <span className="flex-1 text-center font-bold">{to === "es" ? "Español" : "Chino"}</span>
@@ -177,11 +202,19 @@ function TranslateTab() {
           rows={3}
           lang={from === "zh" ? "zh-CN" : "es"}
           placeholder={from === "es" ? "Escribe en español…" : "输入中文…"}
-          className={cn("w-full resize-none rounded-2xl border-2 border-line bg-bg p-3 text-lg outline-none focus:border-sky", from === "zh" && "font-hanzi")}
+          className={cn(
+            "w-full resize-none rounded-2xl border-2 border-line bg-bg p-3 text-lg outline-none focus:border-sky",
+            from === "zh" && "font-hanzi",
+          )}
         />
         <div className="flex gap-2">
           {recognitionSupported() && (
-            <Button variant="secondary" aria-label="Dictar" onClick={() => void dictate()} disabled={listening}>
+            <Button
+              variant="secondary"
+              aria-label="Dictar"
+              onClick={() => void dictate()}
+              disabled={listening}
+            >
               <Mic size={20} className={listening ? "animate-pulse text-bad" : undefined} />
             </Button>
           )}
@@ -214,7 +247,11 @@ function TranslateTab() {
           {tokens.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {tokens.map((t, i) => (
-                <Link key={`${t}-${i}`} href={wordHref(t)} className="flex items-center gap-1 rounded-xl border border-line px-2 py-1 hover:bg-surface-2">
+                <Link
+                  key={`${t}-${i}`}
+                  href={wordHref(t)}
+                  className="flex items-center gap-1 rounded-xl border border-line px-2 py-1 hover:bg-surface-2"
+                >
                   <Hanzi text={t} className="text-lg" />
                   {vocabHanzi.has(t) && <Check size={14} className="text-ok" />}
                 </Link>
@@ -223,14 +260,21 @@ function TranslateTab() {
           )}
           {singleWord && (
             <div className="rounded-2xl bg-surface-2 p-3">
-              <p className="mb-2 text-sm text-muted">¿Quieres añadirla a tu vocabulario? Copia esta línea en el vocab.json de la clase (data/lección N/vocab.json):</p>
-              <code className="block overflow-x-auto whitespace-nowrap text-xs">{vocabSnippet(result.zh, result.pinyin.replace(/ /g, ""), result.source)}</code>
+              <p className="mb-2 text-sm text-muted">
+                ¿Quieres añadirla a tu vocabulario? Copia esta línea en el vocab.json de la clase
+                (data/lección N/vocab.json):
+              </p>
+              <code className="block overflow-x-auto text-xs whitespace-nowrap">
+                {vocabSnippet(result.zh, result.pinyin.replace(/ /g, ""), result.source)}
+              </code>
               <Button
                 size="sm"
                 variant="secondary"
                 className="mt-2"
                 onClick={() => {
-                  void navigator.clipboard.writeText(vocabSnippet(result.zh, result.pinyin.replace(/ /g, ""), result.source) + ",");
+                  void navigator.clipboard.writeText(
+                    vocabSnippet(result.zh, result.pinyin.replace(/ /g, ""), result.source) + ",",
+                  );
                   setCopied(true);
                 }}
               >
@@ -248,10 +292,14 @@ function TranslateTab() {
 function DictionaryView() {
   const sp = useSearchParams();
   const [tab, setTab] = useState<"buscar" | "traducir">(sp.get("tab") === "traducir" ? "traducir" : "buscar");
-  if (VOCAB.length === 0 && tab === "buscar" && !sp.get("q")) return <EmptyState icon="📖" title="Diccionario vacío" />;
+  if (VOCAB.length === 0 && tab === "buscar" && !sp.get("q"))
+    return <EmptyState icon="📖" title="Diccionario vacío" />;
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Diccionario" subtitle="Busca en tu vocabulario y en más de 100.000 palabras, o traduce frases." />
+      <PageHeader
+        title="Diccionario"
+        subtitle="Busca en tu vocabulario y en más de 100.000 palabras, o traduce frases."
+      />
       <Segmented
         className="mb-4"
         value={tab}

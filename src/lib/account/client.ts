@@ -12,7 +12,13 @@
  *   account.
  * Nothing is written to browser storage.
  */
-import { diffProgress, emptyProgress, isEmptyProgress, mergeProgress, type Progress } from "../progress/model";
+import {
+  diffProgress,
+  emptyProgress,
+  isEmptyProgress,
+  mergeProgress,
+  type Progress,
+} from "../progress/model";
 import { progressStore } from "../progress/store";
 import { DEFAULT_SETTINGS, type Settings } from "../settings/model";
 import { settingsStore } from "../settings/store";
@@ -34,7 +40,12 @@ export interface AccountState {
   expired: boolean;
 }
 
-export const accountStore = createStore<AccountState>({ status: "loading", username: null, save: "idle", expired: false });
+export const accountStore = createStore<AccountState>({
+  status: "loading",
+  username: null,
+  save: "idle",
+  expired: false,
+});
 export const useAccount = () => useStore(accountStore);
 /** False during prerender and until the account (or guest mode) is loaded: pages show skeletons meanwhile. */
 export const useReady = () => useAccount().status !== "loading";
@@ -46,12 +57,24 @@ const signedIn = () => accountStore.get().status === "user";
 
 /** Network problems, server errors and conflicts are retried; other answers would fail again. */
 const retryable = (error: unknown) =>
-  !(error instanceof ApiError) || error.status === 0 || error.status >= 500 || error.status === 409 || error.status === 429;
+  !(error instanceof ApiError) ||
+  error.status === 0 ||
+  error.status >= 500 ||
+  error.status === 409 ||
+  error.status === 429;
 
 function onSaveStatus(_status: SaveStatus, error?: unknown) {
   if (error instanceof ApiError && error.status === 401) return sessionEnded();
   const all = [progressSaver.status, settingsSaver.status];
-  update({ save: all.includes("error") ? "error" : all.includes("saving") ? "saving" : all.includes("pending") ? "pending" : "idle" });
+  update({
+    save: all.includes("error")
+      ? "error"
+      : all.includes("saving")
+        ? "saving"
+        : all.includes("pending")
+          ? "pending"
+          : "idle",
+  });
 }
 
 const progressSaver = new Saver<Progress>({
@@ -95,7 +118,6 @@ function enterAccount(payload: AccountPayload) {
   lastFetch = Date.now();
 }
 
-
 /** Leaves the account but keeps what is on screen, so it can be added back after signing in again. */
 function sessionEnded() {
   progressSaver.clear();
@@ -120,7 +142,9 @@ export async function bootAccount(): Promise<void> {
   if (booted || typeof window === "undefined") return;
   booted = true;
   window.addEventListener("pagehide", flushOnExit);
-  document.addEventListener("visibilitychange", () => (document.visibilityState === "hidden" ? flushOnExit() : void refresh()));
+  document.addEventListener("visibilitychange", () =>
+    document.visibilityState === "hidden" ? flushOnExit() : void refresh(),
+  );
 
   try {
     const payload = await api.account();
@@ -179,7 +203,9 @@ export async function signIn(credentials: Credentials, adopt: boolean): Promise<
 
 /** Creates an account with the current settings (and, with `adopt`, the current progress). */
 export async function signUp(credentials: Credentials, adopt: boolean): Promise<void> {
-  enterAccount(await api.register({ ...credentials, settings: settingsStore.get(), progress: guestProgress(adopt) }));
+  enterAccount(
+    await api.register({ ...credentials, settings: settingsStore.get(), progress: guestProgress(adopt) }),
+  );
 }
 
 /** Uploads pending changes, ends the session and goes back to an empty guest mode. */

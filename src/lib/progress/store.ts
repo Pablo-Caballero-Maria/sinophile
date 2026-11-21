@@ -6,7 +6,14 @@
  */
 import { createStore, useStore } from "../store";
 import { newlyUnlocked, type Achievement, type SessionContext } from "./achievements";
-import { emptyProgress, recordAnswer, recordPractice, recordSession, type Progress, type SessionSummaryInput } from "./model";
+import {
+  emptyProgress,
+  recordAnswer,
+  recordPractice,
+  recordSession,
+  type Progress,
+  type SessionSummaryInput,
+} from "./model";
 import type { Skill } from "../types";
 
 export const progressStore = createStore<Progress>(emptyProgress());
@@ -25,7 +32,10 @@ export function finishSession(summary: SessionSummaryInput, context: SessionCont
     unlocked = newlyUnlocked(next, context);
     if (unlocked.length === 0) return next;
     const now = new Date().toISOString();
-    return { ...next, achievements: { ...next.achievements, ...Object.fromEntries(unlocked.map((a) => [a.id, now])) } };
+    return {
+      ...next,
+      achievements: { ...next.achievements, ...Object.fromEntries(unlocked.map((a) => [a.id, now])) },
+    };
   });
   return unlocked;
 }

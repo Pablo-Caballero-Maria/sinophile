@@ -33,9 +33,15 @@ export function checkTyping(ex: Of<"typing">, input: string): AnswerResult {
   const given = input.trim();
   if (ex.mode === "pinyin") {
     const pretty = prettifyTyped(given);
-    if (ex.answers.some((a) => pinyinEquals(given, a))) return { correct: true, given: pretty, solution: ex.solution };
+    if (ex.answers.some((a) => pinyinEquals(given, a)))
+      return { correct: true, given: pretty, solution: ex.solution };
     const almost = ex.answers.some((a) => pinyinEquals(given, a, true));
-    return { correct: false, given: pretty, solution: ex.solution, note: almost ? "Las letras están bien, pero revisa los tonos." : undefined };
+    return {
+      correct: false,
+      given: pretty,
+      solution: ex.solution,
+      note: almost ? "Las letras están bien, pero revisa los tonos." : undefined,
+    };
   }
   const typed = stripArticle(normalizeLatin(given));
   const answers = ex.answers.map((a) => stripArticle(normalizeLatin(a)));
@@ -47,5 +53,10 @@ export function checkTyping(ex: Of<"typing">, input: string): AnswerResult {
 
 export function checkChoice(ex: Of<"choice">, optionId: string): AnswerResult {
   const label = (id: string) => ex.options.find((o) => o.id === id)?.display.text ?? id;
-  return { correct: optionId === ex.answerId, given: label(optionId), solution: label(ex.answerId), note: ex.explanation };
+  return {
+    correct: optionId === ex.answerId,
+    given: label(optionId),
+    solution: label(ex.answerId),
+    note: ex.explanation,
+  };
 }

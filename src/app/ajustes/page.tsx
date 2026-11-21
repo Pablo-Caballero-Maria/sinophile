@@ -2,7 +2,17 @@
 import { ChevronRight, Download, Trash2, Upload, UserRound } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Badge, Button, Card, cn, PageHeader, SectionTitle, Segmented, Skeleton, Toggle } from "@/components/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  cn,
+  PageHeader,
+  SectionTitle,
+  Segmented,
+  Skeleton,
+  Toggle,
+} from "@/components/ui";
 import { importProgress, resetProgress, useAccount, useReady } from "@/lib/account/client";
 import { useExercises } from "@/lib/data/remote";
 import { LESSONS, VOCAB, VOCAB_ISSUES } from "@/lib/data/vocab";
@@ -35,13 +45,30 @@ function VoicePicker() {
           ))}
         </select>
       ) : (
-        <p className="text-sm text-bad">No encuentro voces en chino en este dispositivo. En iPad: Ajustes → Accesibilidad → Contenido leído → Voces → Chino.</p>
+        <p className="text-sm text-bad">
+          No encuentro voces en chino en este dispositivo. En iPad: Ajustes → Accesibilidad → Contenido leído
+          → Voces → Chino.
+        </p>
       )}
       <label className="mt-2 font-medium" htmlFor="rate">
         Velocidad: {settings.ttsRate.toFixed(2)}×
       </label>
-      <input id="rate" type="range" min={0.5} max={1.2} step={0.05} value={settings.ttsRate} onChange={(e) => updateSettings({ ttsRate: Number(e.target.value) })} />
-      <Button variant="secondary" size="sm" className="self-start" disabled={settings.silentMode} onClick={() => void speak("你好，我是你的中文老师。")}>
+      <input
+        id="rate"
+        type="range"
+        min={0.5}
+        max={1.2}
+        step={0.05}
+        value={settings.ttsRate}
+        onChange={(e) => updateSettings({ ttsRate: Number(e.target.value) })}
+      />
+      <Button
+        variant="secondary"
+        size="sm"
+        className="self-start"
+        disabled={settings.silentMode}
+        onClick={() => void speak("你好，我是你的中文老师。")}
+      >
         Probar voz
       </Button>
     </div>
@@ -52,14 +79,24 @@ function AccountSection() {
   const account = useAccount();
   const user = account.status === "user";
   return (
-    <Link href="/cuenta" className="flex items-center gap-3 rounded-3xl border border-line bg-surface p-4 hover:bg-surface-2">
-      <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg font-black uppercase text-white", user ? "bg-sky" : "bg-line")}>
+    <Link
+      href="/cuenta"
+      className="flex items-center gap-3 rounded-3xl border border-line bg-surface p-4 hover:bg-surface-2"
+    >
+      <span
+        className={cn(
+          "grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg font-black text-white uppercase",
+          user ? "bg-sky" : "bg-line",
+        )}
+      >
         {user ? account.username?.[0] : <UserRound size={22} />}
       </span>
       <span className="min-w-0 flex-1">
         <b className="block truncate">{user ? account.username : "Modo invitado"}</b>
         <span className="text-sm text-muted">
-          {user ? "Tu progreso y estos ajustes se guardan en tu cuenta." : "No se guarda nada. Entra o crea una cuenta para conservar tu progreso."}
+          {user
+            ? "Tu progreso y estos ajustes se guardan en tu cuenta."
+            : "No se guarda nada. Entra o crea una cuenta para conservar tu progreso."}
         </span>
       </span>
       <ChevronRight size={18} className="text-muted" />
@@ -101,7 +138,9 @@ function BackupSection() {
   };
   return (
     <Card className="flex flex-col gap-3">
-      <p className="text-sm text-muted">Descarga tu progreso como archivo o combina en él uno descargado antes.</p>
+      <p className="text-sm text-muted">
+        Descarga tu progreso como archivo o combina en él uno descargado antes.
+      </p>
       <div className="flex flex-wrap gap-2">
         <Button variant="secondary" onClick={exportFile}>
           <Download size={18} /> Exportar progress.json
@@ -109,7 +148,13 @@ function BackupSection() {
         <Button variant="secondary" onClick={() => file.current?.click()}>
           <Upload size={18} /> Importar
         </Button>
-        <input ref={file} type="file" accept="application/json,.json" hidden onChange={(e) => e.target.files?.[0] && void importFile(e.target.files[0])} />
+        <input
+          ref={file}
+          type="file"
+          accept="application/json,.json"
+          hidden
+          onChange={(e) => e.target.files?.[0] && void importFile(e.target.files[0])}
+        />
       </div>
       {!confirmReset ? (
         <Button variant="ghost" className="self-start text-bad" onClick={() => setConfirmReset(true)}>
@@ -118,7 +163,9 @@ function BackupSection() {
       ) : (
         <div className="rounded-2xl bg-bad-soft p-3">
           <p className="text-sm font-semibold text-bad">
-            ¿Seguro? Se borrará tu progreso{account.status === "user" ? " de tu cuenta en todos tus dispositivos" : ""}. No se puede deshacer.
+            ¿Seguro? Se borrará tu progreso
+            {account.status === "user" ? " de tu cuenta en todos tus dispositivos" : ""}. No se puede
+            deshacer.
           </p>
           <div className="mt-2 flex gap-2">
             <Button variant="bad" size="sm" onClick={() => void reset()}>
@@ -142,17 +189,25 @@ function DataStatus() {
   return (
     <Card className="flex flex-col gap-3 text-sm">
       <p>
-        <b>{VOCAB.length}</b> palabras en <b>{LESSONS.length}</b> lecciones (una carpeta <code>data/lección N/</code> por clase).
+        <b>{VOCAB.length}</b> palabras en <b>{LESSONS.length}</b> lecciones (una carpeta{" "}
+        <code>data/lección N/</code> por clase).
       </p>
       <ul className="flex flex-col gap-2">
         {LESSONS.map((lesson) => {
           const without = lesson.words.filter((w) => missing.has(w.id)).length;
           return (
-            <li key={lesson.id} className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-surface-2 px-3 py-2">
+            <li
+              key={lesson.id}
+              className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-surface-2 px-3 py-2"
+            >
               <span className="font-bold">Lección {lesson.number}</span>
               <span className="flex-1 text-muted">
                 {lesson.words.length} palabras ·{" "}
-                {exercises.loading ? "…" : without === 0 ? "todas con ejercicios propios" : `${without} sin ejercicios propios`}
+                {exercises.loading
+                  ? "…"
+                  : without === 0
+                    ? "todas con ejercicios propios"
+                    : `${without} sin ejercicios propios`}
               </span>
             </li>
           );
@@ -165,7 +220,16 @@ function DataStatus() {
       ) : (
         <ul className="flex flex-col gap-1">
           {issues.map((issue, i) => (
-            <li key={i} className={cn(issue.level === "error" ? "text-bad" : issue.level === "warning" ? "text-gold-strong" : "text-muted")}>
+            <li
+              key={i}
+              className={cn(
+                issue.level === "error"
+                  ? "text-bad"
+                  : issue.level === "warning"
+                    ? "text-gold-strong"
+                    : "text-muted",
+              )}
+            >
               {issue.level === "error" ? "❌" : issue.level === "warning" ? "⚠️" : "ℹ️"} {issue.message}
             </li>
           ))}
@@ -207,24 +271,60 @@ export default function SettingsPage() {
             { value: "dark", label: "Oscuro" },
           ]}
         />
-        <Toggle checked={settings.toneColors} onChange={(toneColors) => updateSettings({ toneColors })} label="Colorear por tonos" description="1.º azul · 2.º verde · 3.º amarillo · 4.º rojo · neutro gris" />
-        <Toggle checked={settings.showPinyin} onChange={(showPinyin) => updateSettings({ showPinyin })} label="Mostrar pinyin en los ejercicios" />
+        <Toggle
+          checked={settings.toneColors}
+          onChange={(toneColors) => updateSettings({ toneColors })}
+          label="Colorear por tonos"
+          description="1.º azul · 2.º verde · 3.º amarillo · 4.º rojo · neutro gris"
+        />
+        <Toggle
+          checked={settings.showPinyin}
+          onChange={(showPinyin) => updateSettings({ showPinyin })}
+          label="Mostrar pinyin en los ejercicios"
+        />
       </Card>
 
       <SectionTitle>Audio y voz</SectionTitle>
       <Card>
-        <Toggle checked={settings.silentMode} onChange={(silentMode) => updateSettings({ silentMode })} label="Modo silencioso" description="Sin ejercicios de escucha ni de pronunciación, y sin ningún sonido." />
-        <Toggle checked={settings.sound} onChange={(sound) => updateSettings({ sound })} label="Efectos de sonido" />
-        <Toggle checked={settings.autoplayAudio} onChange={(autoplayAudio) => updateSettings({ autoplayAudio })} label="Reproducir audio automáticamente" />
+        <Toggle
+          checked={settings.silentMode}
+          onChange={(silentMode) => updateSettings({ silentMode })}
+          label="Modo silencioso"
+          description="Sin ejercicios de escucha ni de pronunciación, y sin ningún sonido."
+        />
+        <Toggle
+          checked={settings.sound}
+          onChange={(sound) => updateSettings({ sound })}
+          label="Efectos de sonido"
+        />
+        <Toggle
+          checked={settings.autoplayAudio}
+          onChange={(autoplayAudio) => updateSettings({ autoplayAudio })}
+          label="Reproducir audio automáticamente"
+        />
         <VoicePicker />
       </Card>
 
       <SectionTitle>Práctica</SectionTitle>
       <Card>
         <p className="py-2 font-medium">Ejercicios por sesión</p>
-        <Segmented value={settings.sessionLength} onChange={(sessionLength) => updateSettings({ sessionLength })} options={[10, 15, 20, 25].map((n) => ({ value: n, label: `${n}` }))} />
-        <Toggle checked={settings.speakingInLessons} onChange={(speakingInLessons) => updateSettings({ speakingInLessons })} label="Pronunciación en las lecciones" description="Incluye un ejercicio de micrófono en cada lección." />
-        <Toggle checked={settings.penOnly} onChange={(penOnly) => updateSettings({ penOnly })} label="Solo lápiz al dibujar" description="Si usas Apple Pencil, se ignoran los toques con la mano." />
+        <Segmented
+          value={settings.sessionLength}
+          onChange={(sessionLength) => updateSettings({ sessionLength })}
+          options={[10, 15, 20, 25].map((n) => ({ value: n, label: `${n}` }))}
+        />
+        <Toggle
+          checked={settings.speakingInLessons}
+          onChange={(speakingInLessons) => updateSettings({ speakingInLessons })}
+          label="Pronunciación en las lecciones"
+          description="Incluye un ejercicio de micrófono en cada lección."
+        />
+        <Toggle
+          checked={settings.penOnly}
+          onChange={(penOnly) => updateSettings({ penOnly })}
+          label="Solo lápiz al dibujar"
+          description="Si usas Apple Pencil, se ignoran los toques con la mano."
+        />
       </Card>
 
       <SectionTitle>Copia de seguridad</SectionTitle>
@@ -240,9 +340,24 @@ export default function SettingsPage() {
       <SectionTitle>Créditos</SectionTitle>
       <Card className="text-sm text-muted">
         <p>
-          Diccionario: <a className="underline" href="https://cc-cedict.org/" target="_blank" rel="noreferrer">CC-CEDICT</a> (CC BY-SA 4.0). Trazos: Make Me a Hanzi / hanzi-writer-data (Arphic Public License) y{" "}
-          <a className="underline" href="https://hanziwriter.org" target="_blank" rel="noreferrer">Hanzi Writer</a>. Pinyin: pinyin-pro. Lista del HSK 1:{" "}
-          <a className="underline" href="https://github.com/drkameleon/complete-hsk-vocabulary" target="_blank" rel="noreferrer">complete-hsk-vocabulary</a> (MIT). Traducción automática: Google Translate / MyMemory.
+          Diccionario:{" "}
+          <a className="underline" href="https://cc-cedict.org/" target="_blank" rel="noreferrer">
+            CC-CEDICT
+          </a>{" "}
+          (CC BY-SA 4.0). Trazos: Make Me a Hanzi / hanzi-writer-data (Arphic Public License) y{" "}
+          <a className="underline" href="https://hanziwriter.org" target="_blank" rel="noreferrer">
+            Hanzi Writer
+          </a>
+          . Pinyin: pinyin-pro. Lista del HSK 1:{" "}
+          <a
+            className="underline"
+            href="https://github.com/drkameleon/complete-hsk-vocabulary"
+            target="_blank"
+            rel="noreferrer"
+          >
+            complete-hsk-vocabulary
+          </a>{" "}
+          (MIT). Traducción automática: Google Translate / MyMemory.
         </p>
         <p className="mt-2">
           <Badge>sinophile</Badge> · hecho con Next.js

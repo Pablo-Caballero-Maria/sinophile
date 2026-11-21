@@ -29,7 +29,16 @@ export function TilesExercise({ exercise: ex, answered, onAnswer }: ExerciseProp
   const { showPinyin } = useSettings();
   const [chosen, setChosen] = useState<number[]>([]);
   const zh = ex.lang === "zh";
-  const check = useCallback(() => onAnswer(checkTiles(ex, chosen.map((i) => ex.tiles[i]))), [chosen, ex, onAnswer]);
+  const check = useCallback(
+    () =>
+      onAnswer(
+        checkTiles(
+          ex,
+          chosen.map((i) => ex.tiles[i]),
+        ),
+      ),
+    [chosen, ex, onAnswer],
+  );
 
   const add = (i: number) => {
     if (answered) return;
@@ -42,9 +51,20 @@ export function TilesExercise({ exercise: ex, answered, onAnswer }: ExerciseProp
       <Instruction>{ex.instruction}</Instruction>
       <PromptView prompt={ex.prompt} revealed={answered} />
       {/* answer line */}
-      <div className="mt-6 flex min-h-[8rem] flex-wrap content-start gap-2 border-b-2 border-line pb-3" style={{ backgroundImage: "repeating-linear-gradient(transparent 0 3.9rem, var(--line) 3.9rem 4rem)" }}>
+      <div
+        className="mt-6 flex min-h-[8rem] flex-wrap content-start gap-2 border-b-2 border-line pb-3"
+        style={{
+          backgroundImage: "repeating-linear-gradient(transparent 0 3.9rem, var(--line) 3.9rem 4rem)",
+        }}
+      >
         {chosen.map((i, k) => (
-          <button key={`${i}-${k}`} type="button" disabled={answered} onClick={() => setChosen((c) => c.filter((x) => x !== i))} className={cn(tileClass, "animate-pop")}>
+          <button
+            key={`${i}-${k}`}
+            type="button"
+            disabled={answered}
+            onClick={() => setChosen((c) => c.filter((x) => x !== i))}
+            className={cn(tileClass, "animate-pop")}
+          >
             <TileLabel text={ex.tiles[i]} zh={zh} showPinyin={showPinyin} />
           </button>
         ))}
@@ -53,7 +73,11 @@ export function TilesExercise({ exercise: ex, answered, onAnswer }: ExerciseProp
       <div className="mt-6 flex flex-wrap justify-center gap-2">
         {ex.tiles.map((t, i) =>
           chosen.includes(i) ? (
-            <span key={i} className={cn(tileClass, "border-transparent bg-surface-2 text-transparent")} aria-hidden>
+            <span
+              key={i}
+              className={cn(tileClass, "border-transparent bg-surface-2 text-transparent")}
+              aria-hidden
+            >
               <TileLabel text={t} zh={zh} showPinyin={showPinyin} />
             </span>
           ) : (

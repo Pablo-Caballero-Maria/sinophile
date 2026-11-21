@@ -8,7 +8,18 @@ import { useExercises } from "@/lib/data/remote";
 import type { SessionMode, SessionParams } from "@/lib/exercises/types";
 import { useReady } from "@/lib/account/client";
 
-const MODES: SessionMode[] = ["leccion", "repaso", "infinito", "examen", "escritura", "tarjetas", "escucha", "pronunciacion", "tonos", "frases"];
+const MODES: SessionMode[] = [
+  "leccion",
+  "repaso",
+  "infinito",
+  "examen",
+  "escritura",
+  "tarjetas",
+  "escucha",
+  "pronunciacion",
+  "tonos",
+  "frases",
+];
 const list = (v: string | null) => (v ? v.split(",").filter(Boolean) : []);
 
 function parseParams(sp: URLSearchParams): SessionParams {
@@ -49,7 +60,14 @@ function SessionLoader() {
   const exercises = useExercises();
   const [run, setRun] = useState(0);
   if (!ready || exercises.loading) return <SessionSkeleton />;
-  return <SessionRunner key={`${sp.toString()}#${run}`} params={params} sets={exercises.data?.file.words ?? {}} onRestart={() => setRun((r) => r + 1)} />;
+  return (
+    <SessionRunner
+      key={`${sp.toString()}#${run}`}
+      params={params}
+      sets={exercises.data?.file.words ?? {}}
+      onRestart={() => setRun((r) => r + 1)}
+    />
+  );
 }
 
 export default function SessionPage() {

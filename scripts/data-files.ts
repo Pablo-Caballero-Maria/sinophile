@@ -55,7 +55,11 @@ export function parseJson(text: string, file: string): unknown {
     const message = (error as Error).message;
     const pos = Number(message.match(/position (\d+)/)?.[1]);
     const lineMatch = message.match(/line (\d+)/);
-    const line = Number.isFinite(pos) ? text.slice(0, pos).split("\n").length : lineMatch ? Number(lineMatch[1]) : null;
+    const line = Number.isFinite(pos)
+      ? text.slice(0, pos).split("\n").length
+      : lineMatch
+        ? Number(lineMatch[1])
+        : null;
     throw new JsonSyntaxError(file, line, message);
   }
 }
@@ -69,7 +73,9 @@ function readJsonFile(dir: string, relative: string): unknown {
 export function readDataDir(dir: string): RawData {
   const lessons: RawLessonFolder[] = [];
   const ignored: string[] = [];
-  for (const entry of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+  for (const entry of readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
+    a.name.localeCompare(b.name),
+  )) {
     if (entry.name.startsWith(".")) continue;
     if (!entry.isDirectory()) {
       if (!ROOT_FILES.includes(entry.name)) ignored.push(entry.name);

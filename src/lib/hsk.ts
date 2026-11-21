@@ -71,4 +71,5 @@ export function hskSummary(vocab: readonly VocabEntry[], words: readonly HskWord
 }
 
 /** Rounded percentage of `part` in `total` (0 when the total is 0). */
-export const percent = (part: number, total: number): number => (total ? Math.round((part / total) * 100) : 0);
+export const percent = (part: number, total: number): number =>
+  total ? Math.round((part / total) * 100) : 0;

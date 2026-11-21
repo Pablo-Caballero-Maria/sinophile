@@ -1,5 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { canonicalPinyin, charTones, markSyllable, numberedToMarked, pinyinEquals, prettifyTyped, splitSyllables, stripTones, toneOf, toneVariants } from "./pinyin";
+import {
+  canonicalPinyin,
+  charTones,
+  markSyllable,
+  numberedToMarked,
+  pinyinEquals,
+  prettifyTyped,
+  splitSyllables,
+  stripTones,
+  toneOf,
+  toneVariants,
+} from "./pinyin";
 import { seededRandom } from "./text";
 import { VOCAB } from "./data/vocab";
 

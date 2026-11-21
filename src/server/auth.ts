@@ -6,7 +6,13 @@
  * - A session is a random token kept in an HttpOnly cookie (the only thing the
  *   browser stores). The database keeps only its SHA-256.
  */
-import { createHash, randomBytes, scrypt as scryptCallback, timingSafeEqual, type ScryptOptions } from "node:crypto";
+import {
+  createHash,
+  randomBytes,
+  scrypt as scryptCallback,
+  timingSafeEqual,
+  type ScryptOptions,
+} from "node:crypto";
 
 const scrypt = (password: string, salt: Buffer, keylen: number, options: ScryptOptions) =>
   new Promise<Buffer>((resolve, reject) =>
@@ -27,12 +33,17 @@ export async function verifyPassword(password: string, stored: string): Promise<
   const [scheme, n, r, p, salt, hash] = stored.split("$");
   if (scheme !== "scrypt" || !salt || !hash) return false;
   const expected = Buffer.from(hash, "base64");
-  const actual = await scrypt(password.normalize("NFC"), Buffer.from(salt, "base64"), expected.length, { N: Number(n), r: Number(r), p: Number(p) });
+  const actual = await scrypt(password.normalize("NFC"), Buffer.from(salt, "base64"), expected.length, {
+    N: Number(n),
+    r: Number(r),
+    p: Number(p),
+  });
   return actual.length === expected.length && timingSafeEqual(actual, expected);
 }
 
 /** A valid hash of a random password: verifying against it makes "unknown user" as slow as "wrong password". */
-export const DUMMY_HASH = "scrypt$16384$8$1$AAAAAAAAAAAAAAAAAAAAAA==$" + Buffer.alloc(KEY_LENGTH).toString("base64");
+export const DUMMY_HASH =
+  "scrypt$16384$8$1$AAAAAAAAAAAAAAAAAAAAAA==$" + Buffer.alloc(KEY_LENGTH).toString("base64");
 
 /* ───────────── sessions ───────────── */
 

@@ -39,7 +39,8 @@ export function strokePath(stroke: Point[]): string {
 const dist = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /** Reference medians in screen space (y down). */
-export const mediansToScreen = (medians: number[][][]): Point[][] => medians.map((m) => m.map(([x, y]) => ({ x, y: 900 - y })));
+export const mediansToScreen = (medians: number[][][]): Point[][] =>
+  medians.map((m) => m.map(([x, y]) => ({ x, y: 900 - y })));
 
 function length(points: Point[]): number {
   let total = 0;
@@ -114,7 +115,8 @@ export function gradeDrawing(strokesPx: Point[][], size: number, medians: number
   const reference = mediansToScreen(medians);
   const expected = reference.length;
   const drawn = strokesPx.filter((s) => s.length > 1);
-  if (drawn.length === 0) return { strokeOk: reference.map(() => false), expected, drawn: 0, score: 0, passed: false };
+  if (drawn.length === 0)
+    return { strokeOk: reference.map(() => false), expected, drawn: 0, score: 0, passed: false };
   const scaled = drawn.map((s) => s.map((p) => ({ x: (p.x / size) * 1024, y: (p.y / size) * 1024 })));
   const user = normalise(scaled, reference);
   const strokeOk = reference.map((median, i) => !!user[i] && strokeMatches(user[i], median));

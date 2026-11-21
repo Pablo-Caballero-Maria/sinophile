@@ -27,12 +27,12 @@ repositorio.
 
 - Integración continua con GitHub Actions: validación de `data/`, ESLint, TypeScript, tests con
   cobertura (Vitest + `@vitest/coverage-v8`, resumen en cada ejecución e insignia en el README) y build
-  de Next.js en cada *push* y *pull request*.
+  de Next.js en cada _push_ y _pull request_.
 - `npm run test:coverage`.
 - Seguridad: análisis con CodeQL, Dependabot (npm y GitHub Actions), escaneo de secretos con protección
-  al hacer *push* y [política de seguridad](SECURITY.md) con avisos privados.
+  al hacer _push_ y [política de seguridad](SECURITY.md) con avisos privados.
 - Licencia [MIT](LICENSE), [código de conducta](CODE_OF_CONDUCT.md), [CITATION.cff](CITATION.cff),
-  plantillas de *issues* (error, mejora y error en los datos de una lección) y de *pull request*.
+  plantillas de _issues_ (error, mejora y error en los datos de una lección) y de _pull request_.
 - [Wiki](https://github.com/Pablo-Caballero-Maria/sinophile/wiki) con la arquitectura, el formato de
   los datos, el aprendizaje, la API y el desarrollo.
 

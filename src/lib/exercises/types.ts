@@ -44,7 +44,14 @@ export type Exercise =
   | (Base & { type: "intro"; word: VocabEntry; note?: string; example?: Sentence })
   | (Base & { type: "choice"; prompt: Prompt; options: Option[]; answerId: string; explanation?: string })
   | (Base & { type: "match"; pairs: { wordId: string; left: Display; right: Display }[] })
-  | (Base & { type: "tiles"; prompt: Prompt; lang: "zh" | "es"; tiles: string[]; answers: string[]; solution: string })
+  | (Base & {
+      type: "tiles";
+      prompt: Prompt;
+      lang: "zh" | "es";
+      tiles: string[];
+      answers: string[];
+      solution: string;
+    })
   | (Base & { type: "typing"; prompt: Prompt; mode: "pinyin" | "es"; answers: string[]; solution: string })
   | (Base & { type: "write"; word: VocabEntry; style: WriteStyle })
   | (Base & { type: "speak"; hanzi: string; pinyin: string; translation: string })

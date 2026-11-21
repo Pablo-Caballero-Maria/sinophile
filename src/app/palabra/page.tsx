@@ -4,8 +4,28 @@ import { Copy, Languages, Mic, PenLine } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { HanziQuiz, Hanzi, Pinyin, SentenceView, SpeakButton, StrokeOrder, useStrokeData, wordHref } from "@/components/hanzi";
-import { Badge, Button, ButtonLink, Card, cn, EmptyState, PageHeader, ProgressBar, SectionTitle, Skeleton } from "@/components/ui";
+import {
+  HanziQuiz,
+  Hanzi,
+  Pinyin,
+  SentenceView,
+  SpeakButton,
+  StrokeOrder,
+  useStrokeData,
+  wordHref,
+} from "@/components/hanzi";
+import {
+  Badge,
+  Button,
+  ButtonLink,
+  Card,
+  cn,
+  EmptyState,
+  PageHeader,
+  ProgressBar,
+  SectionTitle,
+  Skeleton,
+} from "@/components/ui";
 import { suggestId, vocabLine } from "@/lib/data/format";
 import { useExercises } from "@/lib/data/remote";
 import { LESSON_BY_ID, VOCAB, VOCAB_BY_ID, vocabByHanzi } from "@/lib/data/vocab";
@@ -36,8 +56,12 @@ function CharacterCard({ char, definition }: { char: string; definition?: string
         <Hanzi text={char} className="text-xl" />
       </Link>
       <span className="text-xs text-muted">{data ? `${data.strokes.length} trazos` : "…"}</span>
-      {definition && <span className="line-clamp-2 max-w-[11rem] text-center text-xs text-muted">{definition}</span>}
-      {done !== null && tracing && <span className="text-xs font-bold text-ok">{done === 0 ? "¡Perfecto!" : `${done} error(es)`}</span>}
+      {definition && (
+        <span className="line-clamp-2 max-w-[11rem] text-center text-xs text-muted">{definition}</span>
+      )}
+      {done !== null && tracing && (
+        <span className="text-xs font-bold text-ok">{done === 0 ? "¡Perfecto!" : `${done} error(es)`}</span>
+      )}
       <Button size="sm" variant="secondary" onClick={() => (setTracing((t) => !t), setDone(null))}>
         <PenLine size={16} /> {tracing ? "Ver animación" : "Trazar"}
       </Button>
@@ -63,10 +87,14 @@ function WordView() {
   const set = word ? exercises.data?.file.words[word.id] : undefined;
 
   // Example sentences: the word's own + any other example that contains it.
-  const allExamples = Object.values(exercises.data?.file.words ?? {}).flatMap((s) => s.examples.filter((e) => e.zh.length));
+  const allExamples = Object.values(exercises.data?.file.words ?? {}).flatMap((s) =>
+    s.examples.filter((e) => e.zh.length),
+  );
   const own = (set?.examples ?? []).filter((e) => e.zh.length);
   const seen = new Set(own.map((e) => e.zh.join("")));
-  const others = allExamples.filter((e) => e.zh.includes(hanzi) && !seen.has(e.zh.join("")) && seen.add(e.zh.join("")));
+  const others = allExamples.filter(
+    (e) => e.zh.includes(hanzi) && !seen.has(e.zh.join("")) && seen.add(e.zh.join("")),
+  );
   const examples: Sentence[] = [...own, ...others].slice(0, 8);
 
   const related = VOCAB.filter((w) => w.hanzi !== hanzi && hanChars(w.hanzi).some((c) => chars.includes(c)));
@@ -77,10 +105,17 @@ function WordView() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader back={lesson ? `/leccion?id=${lesson.id}` : "/diccionario"} title={<span className="sr-only">{hanzi}</span>} />
+      <PageHeader
+        back={lesson ? `/leccion?id=${lesson.id}` : "/diccionario"}
+        title={<span className="sr-only">{hanzi}</span>}
+      />
       <Card className="flex flex-col items-center gap-2 text-center">
         <Hanzi text={hanzi} pinyin={pinyin} className="text-7xl sm:text-8xl" />
-        {pinyin ? <Pinyin text={pinyin} className="text-2xl font-semibold" /> : <Skeleton className="h-7 w-32" />}
+        {pinyin ? (
+          <Pinyin text={pinyin} className="text-2xl font-semibold" />
+        ) : (
+          <Skeleton className="h-7 w-32" />
+        )}
         {word ? (
           <p className="text-2xl font-bold">{word.es}</p>
         ) : definitions.length ? (
@@ -95,7 +130,13 @@ function WordView() {
             {spanish ? (
               <p className="text-xl font-bold">{spanish}</p>
             ) : (
-              <Button size="sm" variant="secondary" onClick={() => void translate(hanzi, "zh", "es").then(setSpanish, (e: Error) => setSpanish(e.message))}>
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() =>
+                  void translate(hanzi, "zh", "es").then(setSpanish, (e: Error) => setSpanish(e.message))
+                }
+              >
                 <Languages size={16} /> Traducir al español
               </Button>
             )}
@@ -104,9 +145,7 @@ function WordView() {
         <SpeakButton text={hanzi} className="mt-2" />
         {lesson && (
           <Link href={`/leccion?id=${lesson.id}`}>
-            <Badge className="bg-sky-soft text-sky">
-              Lección {lesson.number}
-            </Badge>
+            <Badge className="bg-sky-soft text-sky">Lección {lesson.number}</Badge>
           </Link>
         )}
       </Card>
@@ -134,7 +173,8 @@ function WordView() {
               setCopied(true);
             }}
           >
-            <Copy size={18} /> {copied ? "¡Copiado! Pégalo en data/lección N/vocab.json" : "Copiar como entrada de vocab.json"}
+            <Copy size={18} />{" "}
+            {copied ? "¡Copiado! Pégalo en data/lección N/vocab.json" : "Copiar como entrada de vocab.json"}
           </Button>
         )
       )}
@@ -144,7 +184,11 @@ function WordView() {
       <SectionTitle>Caracteres y orden de trazos</SectionTitle>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {chars.map((c) => (
-          <CharacterCard key={c} char={c} definition={cedict.items ? lookup(cedict.items, c)[0]?.meaning : undefined} />
+          <CharacterCard
+            key={c}
+            char={c}
+            definition={cedict.items ? lookup(cedict.items, c)[0]?.meaning : undefined}
+          />
         ))}
       </div>
 
@@ -177,7 +221,9 @@ function WordView() {
                     </span>
                     <span className="w-32 text-sm font-semibold">{skill.label}</span>
                     <ProgressBar value={(item?.b ?? 0) / MAX_BOX} className="flex-1" barClassName="bg-gold" />
-                    <span className="w-24 text-right text-xs text-muted">{item ? `repaso ${formatDay(item.d, false)}` : "sin practicar"}</span>
+                    <span className="w-24 text-right text-xs text-muted">
+                      {item ? `repaso ${formatDay(item.d, false)}` : "sin practicar"}
+                    </span>
                   </div>
                 );
               })
@@ -193,8 +239,13 @@ function WordView() {
           <SectionTitle>Palabras relacionadas</SectionTitle>
           <div className="flex flex-wrap gap-2">
             {related.map((w) => (
-              <Link key={w.id} href={wordHref(w.hanzi, w.id)} className="rounded-2xl border border-line bg-surface px-3 py-2 hover:bg-surface-2">
-                <Hanzi text={w.hanzi} pinyin={w.pinyin} className="text-xl" /> <span className="text-sm text-muted">{w.es}</span>
+              <Link
+                key={w.id}
+                href={wordHref(w.hanzi, w.id)}
+                className="rounded-2xl border border-line bg-surface px-3 py-2 hover:bg-surface-2"
+              >
+                <Hanzi text={w.hanzi} pinyin={w.pinyin} className="text-xl" />{" "}
+                <span className="text-sm text-muted">{w.es}</span>
               </Link>
             ))}
           </div>
@@ -207,7 +258,8 @@ function WordView() {
           <ul className="flex flex-col gap-2">
             {definitions.map((d, i) => (
               <li key={i} className="rounded-2xl border border-line bg-surface p-3">
-                <Pinyin text={d.pinyin} className="font-semibold" /> <span className="text-muted">— {d.meaning}</span>
+                <Pinyin text={d.pinyin} className="font-semibold" />{" "}
+                <span className="text-muted">— {d.meaning}</span>
               </li>
             ))}
           </ul>

@@ -19,7 +19,9 @@ export function useCedict(enabled: boolean): CedictState {
     const timer = setTimeout(() => alive && setState((s) => ({ ...s, loading: true })), 0);
     loadCedict().then(
       (items) => alive && setState({ items, loading: false, error: null }),
-      () => alive && setState({ items: null, loading: false, error: "No se pudo cargar el diccionario general." }),
+      () =>
+        alive &&
+        setState({ items: null, loading: false, error: "No se pudo cargar el diccionario general." }),
     );
     return () => {
       alive = false;

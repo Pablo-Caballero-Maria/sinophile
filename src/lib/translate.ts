@@ -18,9 +18,13 @@ async function google(text: string, from: Lang, to: Lang): Promise<string> {
 
 async function myMemory(text: string, from: Lang, to: Lang): Promise<string> {
   const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${CODES[from]}|${CODES[to]}`;
-  const data = (await (await fetch(url)).json()) as { responseStatus: number | string; responseData?: { translatedText?: string } };
+  const data = (await (await fetch(url)).json()) as {
+    responseStatus: number | string;
+    responseData?: { translatedText?: string };
+  };
   const out = data.responseData?.translatedText;
-  if (Number(data.responseStatus) !== 200 || !out || /MYMEMORY WARNING|QUERY LENGTH LIMIT/i.test(out)) throw new Error("mymemory");
+  if (Number(data.responseStatus) !== 200 || !out || /MYMEMORY WARNING|QUERY LENGTH LIMIT/i.test(out))
+    throw new Error("mymemory");
   return out;
 }
 

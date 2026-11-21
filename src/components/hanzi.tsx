@@ -12,10 +12,26 @@ import { hasHan, isPunctuation } from "@/lib/text";
 import type { Sentence } from "@/lib/types";
 import { cn, Skeleton } from "./ui";
 
-const TONE_CLASS: Record<Tone, string> = { 1: "text-tone-1", 2: "text-tone-2", 3: "text-tone-3", 4: "text-tone-4", 5: "text-tone-5" };
+const TONE_CLASS: Record<Tone, string> = {
+  1: "text-tone-1",
+  2: "text-tone-2",
+  3: "text-tone-3",
+  4: "text-tone-4",
+  5: "text-tone-5",
+};
 
 /** Hanzi text, coloured per character by tone when pinyin is given and the setting is on. */
-export function Hanzi({ text, pinyin, colored, className }: { text: string; pinyin?: string; colored?: boolean; className?: string }) {
+export function Hanzi({
+  text,
+  pinyin,
+  colored,
+  className,
+}: {
+  text: string;
+  pinyin?: string;
+  colored?: boolean;
+  className?: string;
+}) {
   const settings = useSettings();
   const tones = pinyin && (colored ?? settings.toneColors) ? charTones(text, pinyin) : null;
   let i = 0;
@@ -33,7 +49,15 @@ export function Hanzi({ text, pinyin, colored, className }: { text: string; piny
 }
 
 /** Pinyin with each syllable coloured by tone. */
-export function Pinyin({ text, colored, className }: { text: string; colored?: boolean; className?: string }) {
+export function Pinyin({
+  text,
+  colored,
+  className,
+}: {
+  text: string;
+  colored?: boolean;
+  className?: string;
+}) {
   const settings = useSettings();
   if (!(colored ?? settings.toneColors)) return <span className={className}>{text}</span>;
   return (
@@ -48,7 +72,19 @@ export function Pinyin({ text, colored, className }: { text: string; colored?: b
 }
 
 /** Speaker button (+ optional slow "turtle" button). Hidden in silent mode. */
-export function SpeakButton({ text, slow = true, size = "md", autoPlay = false, className }: { text: string; slow?: boolean; size?: "sm" | "md" | "lg"; autoPlay?: boolean; className?: string }) {
+export function SpeakButton({
+  text,
+  slow = true,
+  size = "md",
+  autoPlay = false,
+  className,
+}: {
+  text: string;
+  slow?: boolean;
+  size?: "sm" | "md" | "lg";
+  autoPlay?: boolean;
+  className?: string;
+}) {
   const { silentMode } = useSettings();
   const [playing, setPlaying] = useState(false);
   const play = (isSlow = false) => {
@@ -69,7 +105,11 @@ export function SpeakButton({ text, slow = true, size = "md", autoPlay = false, 
         type="button"
         onClick={() => play()}
         aria-label="Escuchar"
-        className={cn("grid place-items-center rounded-2xl border-b-4 border-sky-strong bg-sky text-white active:translate-y-[2px] active:border-b-2", dims, playing && "animate-pulse")}
+        className={cn(
+          "grid place-items-center rounded-2xl border-b-4 border-sky-strong bg-sky text-white active:translate-y-[2px] active:border-b-2",
+          dims,
+          playing && "animate-pulse",
+        )}
       >
         <Volume2 size={icon} />
       </button>
@@ -78,7 +118,10 @@ export function SpeakButton({ text, slow = true, size = "md", autoPlay = false, 
           type="button"
           onClick={() => play(true)}
           aria-label="Escuchar despacio"
-          className={cn("grid place-items-center rounded-2xl border-2 border-b-4 border-line bg-surface text-sky active:translate-y-[2px]", size === "lg" ? "h-14 w-14" : "h-9 w-9")}
+          className={cn(
+            "grid place-items-center rounded-2xl border-2 border-b-4 border-line bg-surface text-sky active:translate-y-[2px]",
+            size === "lg" ? "h-14 w-14" : "h-9 w-9",
+          )}
         >
           <Turtle size={size === "lg" ? 26 : 18} />
         </button>
@@ -90,7 +133,11 @@ export function SpeakButton({ text, slow = true, size = "md", autoPlay = false, 
 /** 米字格: the classic practice grid behind characters. */
 export function RiceGrid({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 100 100" className={cn("pointer-events-none absolute inset-0 h-full w-full", className)} aria-hidden>
+    <svg
+      viewBox="0 0 100 100"
+      className={cn("pointer-events-none absolute inset-0 h-full w-full", className)}
+      aria-hidden
+    >
       <rect x="0.5" y="0.5" width="99" height="99" fill="none" stroke="var(--line)" strokeWidth="1" rx="2" />
       <g stroke="var(--line)" strokeWidth="0.6" strokeDasharray="2 2">
         <line x1="50" y1="0" x2="50" y2="100" />
@@ -103,7 +150,15 @@ export function RiceGrid({ className }: { className?: string }) {
 }
 
 /** Static SVG of a character from stroke data, optionally colouring strokes. */
-export function CharacterSvg({ data, colors, className }: { data: StrokeData; colors?: string[]; className?: string }) {
+export function CharacterSvg({
+  data,
+  colors,
+  className,
+}: {
+  data: StrokeData;
+  colors?: string[];
+  className?: string;
+}) {
   return (
     <svg viewBox="0 0 1024 1024" className={className} aria-hidden>
       <g transform={STROKE_TRANSFORM}>
@@ -116,7 +171,11 @@ export function CharacterSvg({ data, colors, className }: { data: StrokeData; co
 }
 
 export function useStrokeData(char: string) {
-  const [state, setState] = useState<{ char: string; data: StrokeData | null; error: boolean }>({ char, data: null, error: false });
+  const [state, setState] = useState<{ char: string; data: StrokeData | null; error: boolean }>({
+    char,
+    data: null,
+    error: false,
+  });
   useEffect(() => {
     let alive = true;
     loadStrokes(char).then(
@@ -139,7 +198,12 @@ type HanziWriterType = typeof import("hanzi-writer").default;
 type Writer = ReturnType<HanziWriterType["create"]>;
 
 /** Lazily loads Hanzi Writer and creates an instance in `el`. */
-async function createWriter(el: HTMLElement, char: string, size: number, options: Record<string, unknown>): Promise<Writer> {
+async function createWriter(
+  el: HTMLElement,
+  char: string,
+  size: number,
+  options: Record<string, unknown>,
+): Promise<Writer> {
   const HanziWriter = (await import("hanzi-writer")).default;
   el.innerHTML = "";
   return HanziWriter.create(el, char, {
@@ -158,7 +222,15 @@ async function createWriter(el: HTMLElement, char: string, size: number, options
 }
 
 /** Looping stroke-order animation of one character. */
-export function StrokeOrder({ char, size = 140, className }: { char: string; size?: number; className?: string }) {
+export function StrokeOrder({
+  char,
+  size = 140,
+  className,
+}: {
+  char: string;
+  size?: number;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -191,7 +263,11 @@ export function StrokeOrder({ char, size = 140, className }: { char: string; siz
       <RiceGrid />
       {!ready && !failed && <Skeleton className="absolute inset-2" />}
       {failed && (
-        <span lang="zh-CN" className="absolute inset-0 grid place-items-center font-hanzi text-muted" style={{ fontSize: size * 0.7 }}>
+        <span
+          lang="zh-CN"
+          className="absolute inset-0 grid place-items-center font-hanzi text-muted"
+          style={{ fontSize: size * 0.7 }}
+        >
           {char}
         </span>
       )}
@@ -204,7 +280,19 @@ export function StrokeOrder({ char, size = 140, className }: { char: string; siz
  * Hanzi Writer quiz for one character (guided writing with outline).
  * Reports the number of mistakes when done.
  */
-export function HanziQuiz({ char, size, outline = true, onComplete, onStroke }: { char: string; size: number; outline?: boolean; onComplete: (mistakes: number, strokes: number) => void; onStroke?: (ok: boolean) => void }) {
+export function HanziQuiz({
+  char,
+  size,
+  outline = true,
+  onComplete,
+  onStroke,
+}: {
+  char: string;
+  size: number;
+  outline?: boolean;
+  onComplete: (mistakes: number, strokes: number) => void;
+  onStroke?: (ok: boolean) => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const writerRef = useRef<Writer | null>(null);
   const [ready, setReady] = useState(false);
@@ -231,7 +319,9 @@ export function HanziQuiz({ char, size, outline = true, onComplete, onStroke }: 
         onMistake: () => callbacks.current.onStroke?.(false),
         onCorrectStroke: () => callbacks.current.onStroke?.(true),
         onComplete: (summary: { totalMistakes: number }) => {
-          void loadStrokes(char).then((d) => callbacks.current.onComplete(summary.totalMistakes, d.strokes.length));
+          void loadStrokes(char).then((d) =>
+            callbacks.current.onComplete(summary.totalMistakes, d.strokes.length),
+          );
         },
       });
     });
@@ -258,11 +348,18 @@ function Token({ token, highlight }: { token: string; highlight?: boolean }) {
   if (!word) return <span className={highlight ? "text-brand" : undefined}>{token}</span>;
   return (
     <span className="relative inline-block">
-      <button type="button" onClick={() => setOpen((o) => !o)} className={cn("rounded underline decoration-line decoration-dotted underline-offset-[6px]", highlight && "text-brand")}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className={cn(
+          "rounded underline decoration-line decoration-dotted underline-offset-[6px]",
+          highlight && "text-brand",
+        )}
+      >
         <Hanzi text={token} pinyin={word.pinyin} colored={false} />
       </button>
       {open && (
-        <span className="absolute left-1/2 top-full z-20 mt-1 w-max max-w-[12rem] -translate-x-1/2 animate-pop rounded-xl border border-line bg-surface px-3 py-1.5 text-center text-sm font-normal shadow-lg">
+        <span className="absolute top-full left-1/2 z-20 mt-1 w-max max-w-[12rem] -translate-x-1/2 animate-pop rounded-xl border border-line bg-surface px-3 py-1.5 text-center text-sm font-normal shadow-lg">
           <Pinyin text={word.pinyin} className="block font-semibold" />
           <span className="block text-muted">{word.es}</span>
         </span>
@@ -300,7 +397,13 @@ export function SentenceView({
         <p lang="zh-CN" className={cn("font-hanzi leading-relaxed", size)}>
           {sentence.zh.map((token, i) =>
             i === blank ? (
-              <span key={i} className={cn("mx-1 inline-block min-w-[2.5em] border-b-4 text-center", filled ? "border-sky text-sky" : "border-line text-transparent")}>
+              <span
+                key={i}
+                className={cn(
+                  "mx-1 inline-block min-w-[2.5em] border-b-4 text-center",
+                  filled ? "border-sky text-sky" : "border-line text-transparent",
+                )}
+              >
                 {filled ?? "＿"}
               </span>
             ) : isPunctuation(token) ? (
@@ -319,9 +422,20 @@ export function SentenceView({
 }
 
 /** Links a hanzi to its dictionary page. */
-export const wordHref = (hanzi: string, id?: string) => (id ? `/palabra?id=${encodeURIComponent(id)}` : `/palabra?h=${encodeURIComponent(hanzi)}`);
+export const wordHref = (hanzi: string, id?: string) =>
+  id ? `/palabra?id=${encodeURIComponent(id)}` : `/palabra?h=${encodeURIComponent(hanzi)}`;
 
-export function WordLink({ hanzi, id, children, className }: { hanzi: string; id?: string; children: ReactNode; className?: string }) {
+export function WordLink({
+  hanzi,
+  id,
+  children,
+  className,
+}: {
+  hanzi: string;
+  id?: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <Link href={wordHref(hanzi, id)} className={className}>
       {children}

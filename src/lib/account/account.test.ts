@@ -16,7 +16,14 @@ describe("credentials", () => {
 describe("settings", () => {
   it("keeps known, well-typed values and falls back to the defaults", () => {
     expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
-    const s = sanitizeSettings({ dailyGoal: 100, theme: "dark", sound: "yes", ttsRate: 9, sessionLength: 20, sync: { token: "secret" } });
+    const s = sanitizeSettings({
+      dailyGoal: 100,
+      theme: "dark",
+      sound: "yes",
+      ttsRate: 9,
+      sessionLength: 20,
+      sync: { token: "secret" },
+    });
     expect(s).toEqual({ ...DEFAULT_SETTINGS, dailyGoal: 100, theme: "dark", sessionLength: 20 });
     expect(s).not.toHaveProperty("sync");
   });
@@ -32,7 +39,10 @@ describe("Saver (background uploads)", () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
-  const setup = (send: (value: number[], keepalive: boolean) => Promise<unknown>, shouldRetry = () => true) => {
+  const setup = (
+    send: (value: number[], keepalive: boolean) => Promise<unknown>,
+    shouldRetry = () => true,
+  ) => {
     const statuses: SaveStatus[] = [];
     const saver = new Saver<number[]>({
       send,
@@ -83,7 +93,9 @@ describe("Saver (background uploads)", () => {
 
   it("sends everything with keepalive when the page is hidden, including running uploads", async () => {
     let finish: () => void = () => {};
-    const send = vi.fn((_value: number[], keepalive: boolean) => (keepalive ? Promise.resolve() : new Promise<void>((r) => (finish = r))));
+    const send = vi.fn((_value: number[], keepalive: boolean) =>
+      keepalive ? Promise.resolve() : new Promise<void>((r) => (finish = r)),
+    );
     const { saver } = setup(send);
     saver.push([1]);
     void saver.flush(); // slow request in flight

@@ -22,22 +22,45 @@ export function Instruction({ children }: { children: ReactNode }) {
 }
 
 /** Renders the prompt of an exercise. `filled` fills a sentence blank. */
-export function PromptView({ prompt, revealed, filled }: { prompt: Prompt; revealed: boolean; filled?: string }) {
+export function PromptView({
+  prompt,
+  revealed,
+  filled,
+}: {
+  prompt: Prompt;
+  revealed: boolean;
+  filled?: string;
+}) {
   const settings = useSettings();
   switch (prompt.kind) {
     case "word": {
       const show = prompt.showPinyin || revealed;
       return (
         <div className="flex flex-col items-center gap-3 py-4">
-          <Hanzi text={prompt.word.hanzi} pinyin={prompt.word.pinyin} colored={show ? undefined : false} className="text-7xl sm:text-8xl" />
-          {show ? <Pinyin text={prompt.word.pinyin} className="text-xl font-semibold" /> : <span className="h-7" />}
-          <SpeakButton text={prompt.word.hanzi} size="sm" autoPlay={settings.autoplayAudio && prompt.showPinyin} />
+          <Hanzi
+            text={prompt.word.hanzi}
+            pinyin={prompt.word.pinyin}
+            colored={show ? undefined : false}
+            className="text-7xl sm:text-8xl"
+          />
+          {show ? (
+            <Pinyin text={prompt.word.pinyin} className="text-xl font-semibold" />
+          ) : (
+            <span className="h-7" />
+          )}
+          <SpeakButton
+            text={prompt.word.hanzi}
+            size="sm"
+            autoPlay={settings.autoplayAudio && prompt.showPinyin}
+          />
         </div>
       );
     }
     case "text":
       return (
-        <div className="mx-auto mb-2 w-fit max-w-full rounded-3xl border-2 border-line bg-surface px-6 py-4 text-center text-2xl font-bold">{prompt.text}</div>
+        <div className="mx-auto mb-2 w-fit max-w-full rounded-3xl border-2 border-line bg-surface px-6 py-4 text-center text-2xl font-bold">
+          {prompt.text}
+        </div>
       );
     case "audio": {
       const r = prompt.reveal;
@@ -49,7 +72,8 @@ export function PromptView({ prompt, revealed, filled }: { prompt: Prompt; revea
               <SentenceView sentence={r} audio={false} size="text-xl" />
             ) : (
               <p className="text-center">
-                <Hanzi text={r.hanzi} pinyin={r.pinyin} className="text-3xl" /> <Pinyin text={r.pinyin} className="ml-2" /> <span className="text-muted">· {r.es}</span>
+                <Hanzi text={r.hanzi} pinyin={r.pinyin} className="text-3xl" />{" "}
+                <Pinyin text={r.pinyin} className="ml-2" /> <span className="text-muted">· {r.es}</span>
               </p>
             ))}
         </div>
@@ -74,15 +98,29 @@ export function PromptView({ prompt, revealed, filled }: { prompt: Prompt; revea
 }
 
 /** One option / tile content. `revealPinyin` shows pinyin under hanzi (after answering). */
-export function DisplayView({ display, revealPinyin, large }: { display: Display; revealPinyin?: boolean; large?: boolean }) {
+export function DisplayView({
+  display,
+  revealPinyin,
+  large,
+}: {
+  display: Display;
+  revealPinyin?: boolean;
+  large?: boolean;
+}) {
   if (display.kind === "hanzi")
     return (
       <span className="flex flex-col items-center">
-        <Hanzi text={display.text} pinyin={display.pinyin} colored={revealPinyin ? undefined : false} className={large ? "text-4xl" : "text-2xl"} />
+        <Hanzi
+          text={display.text}
+          pinyin={display.pinyin}
+          colored={revealPinyin ? undefined : false}
+          className={large ? "text-4xl" : "text-2xl"}
+        />
         {revealPinyin && display.pinyin && <Pinyin text={display.pinyin} className="text-sm" />}
       </span>
     );
-  if (display.kind === "pinyin") return <Pinyin text={display.text} colored={false} className="text-xl font-semibold" />;
+  if (display.kind === "pinyin")
+    return <Pinyin text={display.text} colored={false} className="text-xl font-semibold" />;
   return <span className="text-lg font-semibold">{display.text}</span>;
 }
 
@@ -97,7 +135,19 @@ export function Footer({ children, hidden }: { children: ReactNode; hidden?: boo
 }
 
 /** Footer with the "Comprobar" button; Enter also checks. */
-export function CheckFooter({ disabled, onCheck, answered, label = "Comprobar", secondary }: { disabled: boolean; onCheck: () => void; answered: boolean; label?: string; secondary?: ReactNode }) {
+export function CheckFooter({
+  disabled,
+  onCheck,
+  answered,
+  label = "Comprobar",
+  secondary,
+}: {
+  disabled: boolean;
+  onCheck: () => void;
+  answered: boolean;
+  label?: string;
+  secondary?: ReactNode;
+}) {
   useEffect(() => {
     if (answered || disabled) return;
     const onKey = (e: KeyboardEvent) => {

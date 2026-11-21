@@ -7,7 +7,16 @@ import { MongoServerError, ObjectId } from "mongodb";
 import { credentialsError, normalizeUsername, type AccountPayload } from "../lib/account/types.ts";
 import { emptyProgress, mergeProgress, reviveProgress, type Progress } from "../lib/progress/model.ts";
 import { sanitizeSettings, type Settings } from "../lib/settings/model.ts";
-import { DUMMY_HASH, hashPassword, LOCK_MINUTES, MAX_FAILED_LOGINS, newSessionToken, SESSION_DAYS, sessionId, verifyPassword } from "./auth.ts";
+import {
+  DUMMY_HASH,
+  hashPassword,
+  LOCK_MINUTES,
+  MAX_FAILED_LOGINS,
+  newSessionToken,
+  SESSION_DAYS,
+  sessionId,
+  verifyPassword,
+} from "./auth.ts";
 import type { Database, UserDoc } from "./db.ts";
 import { HttpError } from "./http.ts";
 
@@ -26,7 +35,12 @@ export interface SignedIn {
 async function createSession(db: Database, userId: ObjectId): Promise<string> {
   const { token, id } = newSessionToken();
   const now = new Date();
-  await db.sessions.insertOne({ _id: id, userId, createdAt: now, expiresAt: new Date(now.getTime() + SESSION_DAYS * 86_400_000) });
+  await db.sessions.insertOne({
+    _id: id,
+    userId,
+    createdAt: now,
+    expiresAt: new Date(now.getTime() + SESSION_DAYS * 86_400_000),
+  });
   return token;
 }
 
@@ -96,27 +110,46 @@ export async function login(db: Database, body: Record<string, unknown>): Promis
     throw new HttpError(429, "Demasiados intentos fallidos. Espera unos minutos y vuelve a probarlo.");
   }
   if (!(await verifyPassword(password, user.passwordHash))) {
-    const after = await db.users.findOneAndUpdate({ _id: user._id }, { $inc: { failedLogins: 1 } }, { returnDocument: "after" });
+    const after = await db.users.findOneAndUpdate(
+      { _id: user._id },
+      { $inc: { failedLogins: 1 } },
+      { returnDocument: "after" },
+    );
     if (after && after.failedLogins >= MAX_FAILED_LOGINS) {
-      await db.users.updateOne({ _id: user._id }, { $set: { failedLogins: 0, lockedUntil: new Date(Date.now() + LOCK_MINUTES * 60_000) } });
+      await db.users.updateOne(
+        { _id: user._id },
+        { $set: { failedLogins: 0, lockedUntil: new Date(Date.now() + LOCK_MINUTES * 60_000) } },
+      );
     }
     throw new HttpError(401, WRONG_CREDENTIALS);
   }
-  if (user.failedLogins || user.lockedUntil) await db.users.updateOne({ _id: user._id }, { $set: { failedLogins: 0, lockedUntil: null } });
+  if (user.failedLogins || user.lockedUntil)
+    await db.users.updateOne({ _id: user._id }, { $set: { failedLogins: 0, lockedUntil: null } });
 
-  const progress = body.progress === undefined ? await loadProgress(db, user._id) : await mergeIntoProgress(db, user._id, reviveProgress(body.progress));
+  const progress =
+    body.progress === undefined
+      ? await loadProgress(db, user._id)
+      : await mergeIntoProgress(db, user._id, reviveProgress(body.progress));
   const token = await createSession(db, user._id);
-  return { token, payload: { user: { username: user.username }, progress, settings: sanitizeSettings(user.settings) } };
+  return {
+    token,
+    payload: { user: { username: user.username }, progress, settings: sanitizeSettings(user.settings) },
+  };
 }
 
 /** Everything the app needs after loading: user, progress and settings. */
 export async function accountPayload(db: Database, user: UserDoc): Promise<AccountPayload> {
-  return { user: { username: user.username }, progress: await loadProgress(db, user._id), settings: sanitizeSettings(user.settings) };
+  return {
+    user: { username: user.username },
+    progress: await loadProgress(db, user._id),
+    settings: sanitizeSettings(user.settings),
+  };
 }
 
 /** Deletes the account and all its data. The password is asked again to avoid accidents. */
 export async function deleteAccount(db: Database, user: UserDoc, password: unknown): Promise<void> {
-  if (!(await verifyPassword(text(password), user.passwordHash))) throw new HttpError(403, "La contraseña no es correcta.");
+  if (!(await verifyPassword(text(password), user.passwordHash)))
+    throw new HttpError(403, "La contraseña no es correcta.");
   await db.progress.deleteOne({ _id: user._id });
   await db.sessions.deleteMany({ userId: user._id });
   await db.users.deleteOne({ _id: user._id });
@@ -148,7 +181,10 @@ export async function mergeIntoProgress(db: Database, userId: ObjectId, patch: P
         throw error;
       }
     }
-    const result = await db.progress.updateOne({ _id: userId, rev: doc.rev }, { $set: { progress: merged, updatedAt }, $inc: { rev: 1 } });
+    const result = await db.progress.updateOne(
+      { _id: userId, rev: doc.rev },
+      { $set: { progress: merged, updatedAt }, $inc: { rev: 1 } },
+    );
     if (result.matchedCount === 1) return merged;
   }
   throw new HttpError(409, "No se pudo guardar el progreso por un conflicto. Se volverá a intentar.");
@@ -157,7 +193,11 @@ export async function mergeIntoProgress(db: Database, userId: ObjectId, patch: P
 /** Replaces the stored progress with an empty one ("Borrar todo mi progreso"). */
 export async function resetProgress(db: Database, userId: ObjectId): Promise<void> {
   const progress = { ...emptyProgress(), updatedAt: new Date().toISOString() };
-  await db.progress.updateOne({ _id: userId }, { $set: { progress, updatedAt: new Date() }, $inc: { rev: 1 } }, { upsert: true });
+  await db.progress.updateOne(
+    { _id: userId },
+    { $set: { progress, updatedAt: new Date() }, $inc: { rev: 1 } },
+    { upsert: true },
+  );
 }
 
 export async function saveSettings(db: Database, userId: ObjectId, raw: unknown): Promise<Settings> {

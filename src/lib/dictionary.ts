@@ -21,7 +21,10 @@ const index = (entry: DictEntry): Indexed => ({
   entry,
   key: canonicalPinyin(entry.pinyin).letters,
   meaning: ` ${normalizeLatin(entry.meaning)} `,
-  glosses: entry.meaning.split(/[;/,]/).map((g) => normalizeLatin(g.replace(/\(.*?\)/g, ""))).filter(Boolean),
+  glosses: entry.meaning
+    .split(/[;/,]/)
+    .map((g) => normalizeLatin(g.replace(/\(.*?\)/g, "")))
+    .filter(Boolean),
 });
 
 export const indexVocab = (vocab: VocabEntry[]): Indexed[] =>
@@ -37,7 +40,9 @@ export function loadCedict(): Promise<DictIndex> {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json() as Promise<{ entries: [string, string, string][] }>;
     })
-    .then((file) => file.entries.map(([hanzi, pinyin, meaning]) => index({ hanzi, pinyin, meaning, source: "cedict" })))
+    .then((file) =>
+      file.entries.map(([hanzi, pinyin, meaning]) => index({ hanzi, pinyin, meaning, source: "cedict" })),
+    )
     .catch((error) => {
       cedict = null;
       throw error;
@@ -46,7 +51,12 @@ export function loadCedict(): Promise<DictIndex> {
 }
 
 /** Relevance score of an entry for a query (0 = no match). */
-function score(item: Indexed, query: string, han: boolean, q: { letters: string; tones: number[]; text: string }): number {
+function score(
+  item: Indexed,
+  query: string,
+  han: boolean,
+  q: { letters: string; tones: number[]; text: string },
+): number {
   const { entry } = item;
   if (han) {
     if (entry.hanzi === query) return 100;
@@ -85,7 +95,10 @@ export function search(items: DictIndex, query: string, limit = 40): DictEntry[]
     const s = score(item, trimmed, han, q);
     if (s > 0) hits.push({ entry: item.entry, score: s });
   }
-  return hits.sort((a, b) => b.score - a.score).slice(0, limit).map((h) => h.entry);
+  return hits
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((h) => h.entry);
 }
 
 /**
@@ -113,4 +126,5 @@ export function segmentText(text: string, known: Set<string>, maxLength = 4): st
 }
 
 /** Exact headword lookups (for the word page and sentence tokens). */
-export const lookup = (items: DictIndex, hanzi: string): DictEntry[] => items.filter((i) => i.entry.hanzi === hanzi).map((i) => i.entry);
+export const lookup = (items: DictIndex, hanzi: string): DictEntry[] =>
+  items.filter((i) => i.entry.hanzi === hanzi).map((i) => i.entry);

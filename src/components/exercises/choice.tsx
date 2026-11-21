@@ -28,14 +28,18 @@ export function ChoiceExercise({ exercise: ex, answered, onAnswer }: ExercisePro
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const n = Number(e.key);
-      if (n >= 1 && n <= ex.options.length && !(e.target instanceof HTMLInputElement)) choose(ex.options[n - 1].id);
+      if (n >= 1 && n <= ex.options.length && !(e.target instanceof HTMLInputElement))
+        choose(ex.options[n - 1].id);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [choose, ex.options]);
 
   const check = useCallback(() => selected && onAnswer(checkChoice(ex, selected)), [ex, onAnswer, selected]);
-  const filled = ex.prompt.kind === "sentence" && selected ? ex.options.find((o) => o.id === selected)?.display.text : undefined;
+  const filled =
+    ex.prompt.kind === "sentence" && selected
+      ? ex.options.find((o) => o.id === selected)?.display.text
+      : undefined;
 
   return (
     <>
@@ -53,8 +57,19 @@ export function ChoiceExercise({ exercise: ex, answered, onAnswer }: ExercisePro
               ? "selected"
               : "idle";
           return (
-            <button key={o.id} type="button" disabled={answered} onClick={() => choose(o.id)} className={cn(optionClass(state), "relative flex min-h-16 items-center justify-center text-center")}>
-              <span className="absolute left-3 top-2 hidden text-xs font-bold text-muted sm:block">{i + 1}</span>
+            <button
+              key={o.id}
+              type="button"
+              disabled={answered}
+              onClick={() => choose(o.id)}
+              className={cn(
+                optionClass(state),
+                "relative flex min-h-16 items-center justify-center text-center",
+              )}
+            >
+              <span className="absolute top-2 left-3 hidden text-xs font-bold text-muted sm:block">
+                {i + 1}
+              </span>
               <DisplayView display={o.display} revealPinyin={answered} large={hanziGrid} />
             </button>
           );

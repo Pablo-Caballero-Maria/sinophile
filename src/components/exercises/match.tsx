@@ -28,7 +28,11 @@ export function MatchExercise({ exercise: ex, answered, onAnswer }: ExerciseProp
       playSound("tap");
       if (next.length === ex.pairs.length) {
         const perWord = Object.fromEntries(ex.pairs.map((p) => [p.wordId, !mistakes.current.has(p.wordId)]));
-        onAnswer({ correct: mistakes.current.size === 0, perWord, note: mistakes.current.size ? `${mistakes.current.size} pareja(s) con fallos.` : undefined });
+        onAnswer({
+          correct: mistakes.current.size === 0,
+          perWord,
+          note: mistakes.current.size ? `${mistakes.current.size} pareja(s) con fallos.` : undefined,
+        });
       }
     } else {
       mistakes.current.add(l).add(r);

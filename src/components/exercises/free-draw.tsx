@@ -18,7 +18,17 @@ import { boxSize, CharDots, type Write } from "./write-shared";
 const MAX_PREVIEW = 160;
 
 /** The word with each drawing next to the real character. */
-function Reveal({ word, chars, drawings, canvasSize }: { word: VocabEntry; chars: string[]; drawings: Point[][][]; canvasSize: number }) {
+function Reveal({
+  word,
+  chars,
+  drawings,
+  canvasSize,
+}: {
+  word: VocabEntry;
+  chars: string[];
+  drawings: Point[][][];
+  canvasSize: number;
+}) {
   const preview = Math.min(MAX_PREVIEW, Math.floor(canvasSize / 2));
   return (
     <div className="animate-fade-in">
@@ -28,11 +38,19 @@ function Reveal({ word, chars, drawings, canvasSize }: { word: VocabEntry; chars
         <span className="text-muted">{word.es}</span>
         <SpeakButton text={word.hanzi} size="sm" slow={false} className="mt-1" />
       </div>
-      <div className="mt-5 grid justify-center gap-3" style={{ gridTemplateColumns: `repeat(2, ${preview}px)` }}>
+      <div
+        className="mt-5 grid justify-center gap-3"
+        style={{ gridTemplateColumns: `repeat(2, ${preview}px)` }}
+      >
         <p className="text-center text-sm font-semibold text-muted">Tu dibujo</p>
         <p className="text-center text-sm font-semibold text-muted">Así se escribe</p>
         {chars.flatMap((char, i) => [
-          <DrawingPreview key={`drawing-${i}`} strokes={drawings[i]} canvasSize={canvasSize} size={preview} />,
+          <DrawingPreview
+            key={`drawing-${i}`}
+            strokes={drawings[i]}
+            canvasSize={canvasSize}
+            size={preview}
+          />,
           <StrokeOrder key={`char-${i}`} char={char} size={preview} />,
         ])}
       </div>
@@ -41,7 +59,17 @@ function Reveal({ word, chars, drawings, canvasSize }: { word: VocabEntry; chars
 }
 
 /** One go at the word, from the blank canvas to the reveal. */
-function Attempt({ exercise: ex, onRepeat, onNext, onSkip }: { exercise: Write; onRepeat: () => void; onNext: () => void; onSkip: () => void }) {
+function Attempt({
+  exercise: ex,
+  onRepeat,
+  onNext,
+  onSkip,
+}: {
+  exercise: Write;
+  onRepeat: () => void;
+  onNext: () => void;
+  onSkip: () => void;
+}) {
   const chars = hanChars(ex.word.hanzi);
   const [drawings, setDrawings] = useState<Point[][][]>([]);
   const canvas = useRef<DrawingCanvasHandle>(null);
@@ -100,5 +128,13 @@ function Attempt({ exercise: ex, onRepeat, onNext, onSkip }: { exercise: Write; 
 
 export function FreeDraw({ exercise, onPractice, onSkip }: ExerciseProps<Write>) {
   const [attempt, setAttempt] = useState(0);
-  return <Attempt key={attempt} exercise={exercise} onRepeat={() => setAttempt((a) => a + 1)} onNext={onPractice} onSkip={onSkip} />;
+  return (
+    <Attempt
+      key={attempt}
+      exercise={exercise}
+      onRepeat={() => setAttempt((a) => a + 1)}
+      onNext={onPractice}
+      onSkip={onSkip}
+    />
+  );
 }

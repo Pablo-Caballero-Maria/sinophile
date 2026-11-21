@@ -91,7 +91,10 @@ export class Saver<T> {
 
   private enqueue(value: T, older = false): void {
     if (this.pending === null) this.pending = value;
-    else this.pending = older ? this.options.combine(value, this.pending) : this.options.combine(this.pending, value);
+    else
+      this.pending = older
+        ? this.options.combine(value, this.pending)
+        : this.options.combine(this.pending, value);
   }
 
   private schedule(ms: number): void {

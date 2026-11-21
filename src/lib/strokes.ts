@@ -32,7 +32,11 @@ export function loadStrokes(char: string): Promise<StrokeData> {
 }
 
 /** Adapter for HanziWriter's `charDataLoader` option. */
-export const hanziWriterLoader = (char: string, onLoad: (data: StrokeData) => void, onError: (e: unknown) => void) => {
+export const hanziWriterLoader = (
+  char: string,
+  onLoad: (data: StrokeData) => void,
+  onError: (e: unknown) => void,
+) => {
   loadStrokes(char).then(onLoad, onError);
 };
 

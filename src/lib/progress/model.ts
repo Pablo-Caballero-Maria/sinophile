@@ -67,7 +67,8 @@ export const emptyProgress = (): Progress => ({
 
 /* ───────────── parsing untrusted JSON (API bodies, stored documents, imported files) ───────────── */
 
-const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+const isObj = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 /** Keys are stored as MongoDB field names: no ".", no "$". */
 const SAFE_KEY_RE = /^[A-Za-z0-9_-]{1,100}$/;
@@ -87,7 +88,15 @@ function reviveMap<T>(raw: unknown, keyRe: RegExp, revive: (value: unknown) => T
 }
 
 const reviveDay = (v: unknown): DayStats | null =>
-  isObj(v) ? { xp: count(v.xp), answered: count(v.answered), correct: count(v.correct), sessions: count(v.sessions), ms: count(v.ms) } : null;
+  isObj(v)
+    ? {
+        xp: count(v.xp),
+        answered: count(v.answered),
+        correct: count(v.correct),
+        sessions: count(v.sessions),
+        ms: count(v.ms),
+      }
+    : null;
 
 const reviveItem = (v: unknown): ItemState | null =>
   isObj(v) && typeof v.d === "string" && DAY_RE.test(v.d)
@@ -95,12 +104,22 @@ const reviveItem = (v: unknown): ItemState | null =>
     : null;
 
 const reviveLesson = (v: unknown): LessonStats | null =>
-  isObj(v) && typeof v.last === "string" && DAY_RE.test(v.last) ? { sessions: count(v.sessions), best: clamp(v.best, 0, 100), last: v.last } : null;
+  isObj(v) && typeof v.last === "string" && DAY_RE.test(v.last)
+    ? { sessions: count(v.sessions), best: clamp(v.best, 0, 100), last: v.last }
+    : null;
 
 function reviveExam(v: unknown): ExamRecord | null {
   if (!isObj(v) || !shortText(v.id) || !shortText(v.date)) return null;
   const lessons = Array.isArray(v.lessons) ? v.lessons.filter(shortText) : [];
-  return { id: v.id, date: v.date, lessons, total: count(v.total), correct: count(v.correct), grade: clamp(v.grade, 0, 10), ms: count(v.ms) };
+  return {
+    id: v.id,
+    date: v.date,
+    lessons,
+    total: count(v.total),
+    correct: count(v.correct),
+    grade: clamp(v.grade, 0, 10),
+    ms: count(v.ms),
+  };
 }
 
 /**
@@ -110,7 +129,9 @@ function reviveExam(v: unknown): ExamRecord | null {
 export function reviveProgress(raw: unknown): Progress {
   const base = emptyProgress();
   if (!isObj(raw)) return base;
-  const exams = Array.isArray(raw.exams) ? raw.exams.map(reviveExam).filter((e): e is ExamRecord => e !== null) : [];
+  const exams = Array.isArray(raw.exams)
+    ? raw.exams.map(reviveExam).filter((e): e is ExamRecord => e !== null)
+    : [];
   const records = isObj(raw.records) ? raw.records : {};
   return {
     version: 1,
@@ -138,7 +159,8 @@ export const isEmptyProgress = (p: Progress): boolean =>
  * which is how the app saves progress without uploading the whole document.
  */
 export function diffProgress(prev: Progress, next: Progress): Progress {
-  const changed = <V>(a: Record<string, V>, b: Record<string, V>) => Object.fromEntries(Object.entries(b).filter(([k, v]) => a[k] !== v));
+  const changed = <V>(a: Record<string, V>, b: Record<string, V>) =>
+    Object.fromEntries(Object.entries(b).filter(([k, v]) => a[k] !== v));
   const known = new Set(prev.exams.map((e) => e.id));
   return {
     version: 1,
@@ -171,19 +193,25 @@ export function mergeProgress(a: Progress, b: Progress): Progress {
       : s;
   }
   const items: Progress["items"] = { ...a.items };
-  for (const [key, item] of Object.entries(b.items)) items[key] = maxBy(items[key], item, (x, y) => x.t >= y.t)!;
+  for (const [key, item] of Object.entries(b.items))
+    items[key] = maxBy(items[key], item, (x, y) => x.t >= y.t)!;
   const lessons: Progress["lessons"] = { ...a.lessons };
   for (const [id, l] of Object.entries(b.lessons)) {
     const o = lessons[id];
     lessons[id] = o
-      ? { sessions: Math.max(o.sessions, l.sessions), best: Math.max(o.best, l.best), last: o.last > l.last ? o.last : l.last }
+      ? {
+          sessions: Math.max(o.sessions, l.sessions),
+          best: Math.max(o.best, l.best),
+          last: o.last > l.last ? o.last : l.last,
+        }
       : l;
   }
   const exams = [...a.exams, ...b.exams.filter((e) => !a.exams.some((x) => x.id === e.id))].sort((x, y) =>
     x.date.localeCompare(y.date),
   );
   const achievements: Progress["achievements"] = { ...b.achievements, ...a.achievements };
-  for (const [id, date] of Object.entries(b.achievements)) if (date < achievements[id]) achievements[id] = date;
+  for (const [id, date] of Object.entries(b.achievements))
+    if (date < achievements[id]) achievements[id] = date;
   return {
     version: 1,
     updatedAt: a.updatedAt > b.updatedAt ? a.updatedAt : b.updatedAt,
@@ -191,7 +219,10 @@ export function mergeProgress(a: Progress, b: Progress): Progress {
     items,
     lessons,
     exams,
-    records: { infinite: Math.max(a.records.infinite, b.records.infinite), combo: Math.max(a.records.combo, b.records.combo) },
+    records: {
+      infinite: Math.max(a.records.infinite, b.records.infinite),
+      combo: Math.max(a.records.combo, b.records.combo),
+    },
     achievements,
   };
 }
@@ -202,13 +233,28 @@ const itemKey = (wordId: string, skill: Skill) => `${wordId}:${skill}`;
 const emptyDay = (): DayStats => ({ xp: 0, answered: 0, correct: 0, sessions: 0, ms: 0 });
 const touch = (p: Progress): Progress => ({ ...p, updatedAt: new Date().toISOString() });
 
-export function recordAnswer(p: Progress, wordId: string, skill: Skill, correct: boolean, xp: number, today = dayKey()): Progress {
+export function recordAnswer(
+  p: Progress,
+  wordId: string,
+  skill: Skill,
+  correct: boolean,
+  xp: number,
+  today = dayKey(),
+): Progress {
   const key = itemKey(wordId, skill);
   const day = p.days[today] ?? emptyDay();
   return touch({
     ...p,
     items: { ...p.items, [key]: review(p.items[key], correct, today) },
-    days: { ...p.days, [today]: { ...day, xp: day.xp + xp, answered: day.answered + 1, correct: day.correct + (correct ? 1 : 0) } },
+    days: {
+      ...p.days,
+      [today]: {
+        ...day,
+        xp: day.xp + xp,
+        answered: day.answered + 1,
+        correct: day.correct + (correct ? 1 : 0),
+      },
+    },
   });
 }
 
@@ -233,11 +279,18 @@ export function recordSession(p: Progress, s: SessionSummaryInput, today = dayKe
   const lessons = { ...p.lessons };
   if (s.lessonId) {
     const prev = lessons[s.lessonId];
-    lessons[s.lessonId] = { sessions: (prev?.sessions ?? 0) + 1, best: Math.max(prev?.best ?? 0, Math.round(s.accuracy)), last: today };
+    lessons[s.lessonId] = {
+      sessions: (prev?.sessions ?? 0) + 1,
+      best: Math.max(prev?.best ?? 0, Math.round(s.accuracy)),
+      last: today,
+    };
   }
   return touch({
     ...p,
-    days: { ...p.days, [today]: { ...day, xp: day.xp + s.xpBonus, sessions: day.sessions + 1, ms: day.ms + s.ms } },
+    days: {
+      ...p.days,
+      [today]: { ...day, xp: day.xp + s.xpBonus, sessions: day.sessions + 1, ms: day.ms + s.ms },
+    },
     lessons,
     exams: s.exam ? [...p.exams, s.exam] : p.exams,
     records: {
@@ -251,7 +304,10 @@ export function recordSession(p: Progress, s: SessionSummaryInput, today = dayKe
 
 export const totalXp = (p: Progress): number => Object.values(p.days).reduce((sum, d) => sum + d.xp, 0);
 
-export function streakInfo(p: Progress, today = dayKey()): { current: number; best: number; practicedToday: boolean } {
+export function streakInfo(
+  p: Progress,
+  today = dayKey(),
+): { current: number; best: number; practicedToday: boolean } {
   const active = (d: string) => (p.days[d]?.xp ?? 0) > 0;
   const practicedToday = active(today);
   let current = 0;
@@ -278,7 +334,8 @@ export function levelInfo(xp: number): { level: number; into: number; span: numb
   return { level, into, span, ratio: into / span };
 }
 
-export const itemOf = (p: Progress, wordId: string, skill: Skill): ItemState | undefined => p.items[itemKey(wordId, skill)];
+export const itemOf = (p: Progress, wordId: string, skill: Skill): ItemState | undefined =>
+  p.items[itemKey(wordId, skill)];
 
 /** 0..1 average strength over the core skills. */
 export const wordMastery = (p: Progress, wordId: string): number =>
@@ -286,10 +343,12 @@ export const wordMastery = (p: Progress, wordId: string): number =>
 
 const ALL_SKILLS: Skill[] = ["meaning", "listening", "pinyin", "writing", "speaking", "sentences"];
 
-export const isSeen = (p: Progress, wordId: string): boolean => ALL_SKILLS.some((s) => p.items[itemKey(wordId, s)]);
+export const isSeen = (p: Progress, wordId: string): boolean =>
+  ALL_SKILLS.some((s) => p.items[itemKey(wordId, s)]);
 
 /** A word counts as learned once its meaning reached box 2 (answered right on two separate occasions). */
-export const isLearned = (p: Progress, wordId: string): boolean => (itemOf(p, wordId, "meaning")?.b ?? 0) >= 2;
+export const isLearned = (p: Progress, wordId: string): boolean =>
+  (itemOf(p, wordId, "meaning")?.b ?? 0) >= 2;
 
 export function skillMastery(p: Progress, words: VocabEntry[], skill: Skill): number {
   if (words.length === 0) return 0;
@@ -327,7 +386,10 @@ export function dueItems(p: Progress, vocabIds: Set<string>, today = dayKey()): 
 
 /** Correct answers per skill (all time). */
 export function correctBySkill(p: Progress): Record<Skill, number> {
-  const out = { meaning: 0, listening: 0, pinyin: 0, writing: 0, speaking: 0, sentences: 0 } as Record<Skill, number>;
+  const out = { meaning: 0, listening: 0, pinyin: 0, writing: 0, speaking: 0, sentences: 0 } as Record<
+    Skill,
+    number
+  >;
   for (const [key, item] of Object.entries(p.items)) {
     const skill = key.slice(key.lastIndexOf(":") + 1) as Skill;
     if (skill in out) out[skill] += item.c;

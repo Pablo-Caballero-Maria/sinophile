@@ -7,9 +7,25 @@ import { hasHan, pick } from "@/lib/text";
 import { Hanzi } from "../hanzi";
 import { Button, cn } from "../ui";
 
-const PRAISE = ["¡Correcto!", "¡Muy bien!", "¡Genial!", "¡Perfecto!", "¡Excelente!", "¡Así se hace!", "¡太好了!"];
+const PRAISE = [
+  "¡Correcto!",
+  "¡Muy bien!",
+  "¡Genial!",
+  "¡Perfecto!",
+  "¡Excelente!",
+  "¡Así se hace!",
+  "¡太好了!",
+];
 
-export function FeedbackBar({ result, xp, onContinue }: { result: AnswerResult; xp: number; onContinue: () => void }) {
+export function FeedbackBar({
+  result,
+  xp,
+  onContinue,
+}: {
+  result: AnswerResult;
+  xp: number;
+  onContinue: () => void;
+}) {
   const [praise] = useState(() => pick(PRAISE));
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -28,10 +44,21 @@ export function FeedbackBar({ result, xp, onContinue }: { result: AnswerResult; 
 
   const ok = result.correct;
   return (
-    <div className={cn("pb-safe fixed inset-x-0 bottom-0 z-40 animate-slide-up border-t-2", ok ? "border-ok/30 bg-ok-soft" : "border-bad/30 bg-bad-soft")} role="status">
+    <div
+      className={cn(
+        "pb-safe fixed inset-x-0 bottom-0 z-40 animate-slide-up border-t-2",
+        ok ? "border-ok/30 bg-ok-soft" : "border-bad/30 bg-bad-soft",
+      )}
+      role="status"
+    >
       <div className="mx-auto flex max-w-2xl flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-center">
         <div className="flex min-w-0 flex-1 gap-3">
-          <span className={cn("grid h-12 w-12 shrink-0 place-items-center rounded-full text-white", ok ? "bg-ok" : "bg-bad")}>
+          <span
+            className={cn(
+              "grid h-12 w-12 shrink-0 place-items-center rounded-full text-white",
+              ok ? "bg-ok" : "bg-bad",
+            )}
+          >
             {ok ? <Check size={28} strokeWidth={3} /> : <X size={28} strokeWidth={3} />}
           </span>
           <div className={cn("min-w-0", ok ? "text-ok" : "text-bad")}>
@@ -39,8 +66,16 @@ export function FeedbackBar({ result, xp, onContinue }: { result: AnswerResult; 
               {ok ? praise : result.solution ? "Respuesta correcta:" : "¡Casi!"}
               {xp > 0 && <span className="ml-2 align-middle text-sm font-bold text-gold">+{xp} XP</span>}
             </p>
-            {!ok && result.solution && (hasHan(result.solution) ? <Hanzi text={result.solution} className="text-2xl" /> : <p className="text-lg font-semibold">{result.solution}</p>)}
-            {!ok && result.given && <p className="truncate text-sm opacity-80">Tu respuesta: {result.given}</p>}
+            {!ok &&
+              result.solution &&
+              (hasHan(result.solution) ? (
+                <Hanzi text={result.solution} className="text-2xl" />
+              ) : (
+                <p className="text-lg font-semibold">{result.solution}</p>
+              ))}
+            {!ok && result.given && (
+              <p className="truncate text-sm opacity-80">Tu respuesta: {result.given}</p>
+            )}
             {result.note && <p className="text-sm font-medium opacity-90">{result.note}</p>}
           </div>
         </div>

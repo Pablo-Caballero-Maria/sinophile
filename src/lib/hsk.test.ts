@@ -6,7 +6,10 @@ import { HSK1, hskPieces, hskSummary, percent } from "./hsk";
 import type { VocabEntry } from "./types";
 
 const raw = readDataDir(fileURLToPath(new URL("../../data", import.meta.url)));
-const vocab = sanitizeLessons({ lessons: raw.lessons.map(({ folder, vocab }) => ({ folder, vocab })), ignored: raw.ignored }).entries;
+const vocab = sanitizeLessons({
+  lessons: raw.lessons.map(({ folder, vocab }) => ({ folder, vocab })),
+  ignored: raw.ignored,
+}).entries;
 
 describe("HSK 1 list (data/hsk1.json)", () => {
   it("has the 150 words of HSK 1, once each, with pinyin", () => {
@@ -32,7 +35,16 @@ describe("HSK coverage", () => {
   it("counts your HSK words and the HSK words you know, preferring the word itself", () => {
     const word = (id: string, hanzi: string): VocabEntry => ({ id, hanzi, pinyin: "", es: "", lesson: "1" });
     const list = [...hsk].map((hanzi) => ({ hanzi, pinyin: "" }));
-    const summary = hskSummary([word("benshu", "本书"), word("jian", "件衣服"), word("yiyue", "一月"), word("yi", "一"), word("mao", "猫")], list);
+    const summary = hskSummary(
+      [
+        word("benshu", "本书"),
+        word("jian", "件衣服"),
+        word("yiyue", "一月"),
+        word("yi", "一"),
+        word("mao", "猫"),
+      ],
+      list,
+    );
     expect(summary.hskWords.map((w) => w.id)).toEqual(["benshu", "yiyue", "yi"]);
     expect([...summary.known.keys()].sort()).toEqual(["一", "书", "月", "本", "衣服"].sort());
     expect(summary.known.get("一")?.id).toBe("yi");
@@ -43,7 +55,8 @@ describe("HSK coverage", () => {
 
   it("matches the real vocabulary sensibly", () => {
     const { hskWords, known } = hskSummary(vocab);
-    for (const hanzi of ["书", "本", "月", "衣服", "杯子", "星期", "朋友", "家", "椅子", "工作"]) expect(known.has(hanzi), hanzi).toBe(true);
+    for (const hanzi of ["书", "本", "月", "衣服", "杯子", "星期", "朋友", "家", "椅子", "工作"])
+      expect(known.has(hanzi), hanzi).toBe(true);
     for (const hanzi of ["睡觉", "很", "出租车"]) expect(known.has(hanzi), hanzi).toBe(false);
     const ids = hskWords.map((w) => w.id);
     expect(ids).toEqual(expect.arrayContaining(["benshu", "xingqiyi", "yiyue", "bei", "pengyou"]));

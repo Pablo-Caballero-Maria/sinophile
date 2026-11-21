@@ -2,22 +2,22 @@
 
 ## Versiones con soporte
 
-| Versión | Soporte |
-| --- | :---: |
-| 1.0.x (la última, `main`) | ✅ |
-| < 1.0.0 | ❌ |
+| Versión                   | Soporte |
+| ------------------------- | :-----: |
+| 1.0.x (la última, `main`) |   ✅    |
+| < 1.0.0                   |   ❌    |
 
 Solo la última versión de `main` recibe correcciones.
 
 ## Cómo informar de una vulnerabilidad
 
 > [!IMPORTANT]
-> **No abras un *issue* público** para un problema de seguridad.
+> **No abras un _issue_ público** para un problema de seguridad.
 
-Infórmame en privado a través de GitHub: **[Report a vulnerability](https://github.com/Pablo-Caballero-Maria/sinophile/security/advisories/new)** (pestaña *Security* →
-*Advisories* → *Report a vulnerability*). Incluye:
+Infórmame en privado a través de GitHub: **[Report a vulnerability](https://github.com/Pablo-Caballero-Maria/sinophile/security/advisories/new)** (pestaña _Security_ →
+_Advisories_ → _Report a vulnerability_). Incluye:
 
-1. qué está afectado (fichero, ruta de la API, función…) y la versión o el *commit*;
+1. qué está afectado (fichero, ruta de la API, función…) y la versión o el _commit_;
 2. cómo reproducirlo, paso a paso;
 3. el impacto que esperas (qué podría leer, cambiar o romper alguien);
 4. una corrección o mitigación, si se te ocurre.
@@ -37,8 +37,8 @@ Fuera de alcance: Los errores de contenido de las lecciones (usa la plantilla «
 
 ## Qué hace ya el repositorio
 
-- **Escaneo de secretos** con protección al hacer *push*: se bloquea un *commit* que contenga un token
+- **Escaneo de secretos** con protección al hacer _push_: se bloquea un _commit_ que contenga un token
   conocido.
 - **Dependabot**: alertas y actualizaciones de seguridad de las dependencias y de las GitHub Actions,
   y actualizaciones semanales de versión.
-- **CodeQL**: análisis del código y de los *workflows* en cada *push*, *pull request* y cada semana.
+- **CodeQL**: análisis del código y de los _workflows_ en cada _push_, _pull request_ y cada semana.

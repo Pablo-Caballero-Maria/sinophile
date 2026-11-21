@@ -1,7 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { review } from "./srs";
 import { addDays, daysBetween, normalizeLatin, normalizeZh, splitMeanings, spanishWords } from "./text";
-import { emptyProgress, levelInfo, mergeProgress, recordAnswer, recordSession, streakInfo, totalXp, lessonStars, dueItems } from "./progress/model";
+import {
+  emptyProgress,
+  levelInfo,
+  mergeProgress,
+  recordAnswer,
+  recordSession,
+  streakInfo,
+  totalXp,
+  lessonStars,
+  dueItems,
+} from "./progress/model";
 import { LESSONS, VOCAB } from "./data/vocab";
 
 describe("text helpers", () => {
@@ -42,7 +52,11 @@ describe("progress model", () => {
     p = recordAnswer(p, "ni", "meaning", true, 10, "2026-11-01");
     p = recordAnswer(p, "ni", "meaning", true, 10, "2026-11-02");
     p = recordAnswer(p, "wo", "meaning", false, 0, "2026-11-03");
-    p = recordSession(p, { accuracy: 50, ms: 1000, xpBonus: 90, maxCombo: 2, lessonId: "2026-11-03" }, "2026-11-03");
+    p = recordSession(
+      p,
+      { accuracy: 50, ms: 1000, xpBonus: 90, maxCombo: 2, lessonId: "2026-11-03" },
+      "2026-11-03",
+    );
     expect(totalXp(p)).toBe(110);
     expect(levelInfo(110).level).toBe(2);
     expect(streakInfo(p, "2026-11-03")).toEqual({ current: 3, best: 3, practicedToday: true });
@@ -54,7 +68,10 @@ describe("progress model", () => {
   it("merges two devices without losing work", () => {
     const base = recordAnswer(emptyProgress(), "ni", "meaning", true, 10, "2026-11-01");
     const a = recordAnswer(base, "wo", "meaning", true, 10, "2026-11-02");
-    const b = { ...recordAnswer(base, "ta-m", "pinyin", true, 10, "2026-11-02"), achievements: { "first-session": "2026-11-01T00:00:00Z" } };
+    const b = {
+      ...recordAnswer(base, "ta-m", "pinyin", true, 10, "2026-11-02"),
+      achievements: { "first-session": "2026-11-01T00:00:00Z" },
+    };
     const merged = mergeProgress(a, b);
     expect(Object.keys(merged.items).sort()).toEqual(["ni:meaning", "ta-m:pinyin", "wo:meaning"]);
     expect(merged.days["2026-11-02"].xp).toBe(10);

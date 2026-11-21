@@ -142,13 +142,34 @@ export function DrawingCanvas({
 }
 
 /** Read-only copy of a finished drawing at any size. `canvasSize` is the size it was drawn at. */
-export function DrawingPreview({ strokes, canvasSize, size }: { strokes: Point[][]; canvasSize: number; size: number }) {
+export function DrawingPreview({
+  strokes,
+  canvasSize,
+  size,
+}: {
+  strokes: Point[][];
+  canvasSize: number;
+  size: number;
+}) {
   return (
     <div className="relative shrink-0 rounded-2xl bg-surface" style={{ width: size, height: size }}>
       <RiceGrid />
-      <svg viewBox={`0 0 ${canvasSize} ${canvasSize}`} className="relative h-full w-full" role="img" aria-label="Tu dibujo">
+      <svg
+        viewBox={`0 0 ${canvasSize} ${canvasSize}`}
+        className="relative h-full w-full"
+        role="img"
+        aria-label="Tu dibujo"
+      >
         {strokes.map((stroke, i) => (
-          <path key={i} d={strokePath(stroke)} fill="none" stroke="currentColor" strokeWidth={lineWidth(canvasSize)} strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            key={i}
+            d={strokePath(stroke)}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={lineWidth(canvasSize)}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         ))}
       </svg>
     </div>

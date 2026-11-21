@@ -27,7 +27,12 @@ export const MAX_BOX = 6;
 const INTERVALS = [0, 1, 2, 4, 8, 16, 32];
 const LEARNING_BOXES = 2;
 
-export function review(state: ItemState | undefined, correct: boolean, today: string, now = Date.now()): ItemState {
+export function review(
+  state: ItemState | undefined,
+  correct: boolean,
+  today: string,
+  now = Date.now(),
+): ItemState {
   const prev = state ?? { b: 0, d: today, s: 0, c: 0, t: 0 };
   const due = prev.d <= today;
   let box = prev.b;

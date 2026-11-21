@@ -1,11 +1,30 @@
 "use client";
-import { ChevronRight, GraduationCap, Headphones, Layers, Mic, MessageSquareText, Music, PenLine, type LucideIcon } from "lucide-react";
+import {
+  ChevronRight,
+  GraduationCap,
+  Headphones,
+  Layers,
+  Mic,
+  MessageSquareText,
+  Music,
+  PenLine,
+  type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/hanzi";
 import { SilentModeCheckbox } from "@/components/silent-mode";
-import { ButtonLink, Card, EmptyState, PageHeader, ProgressBar, SectionTitle, Skeleton, Stars } from "@/components/ui";
+import {
+  ButtonLink,
+  Card,
+  EmptyState,
+  PageHeader,
+  ProgressBar,
+  SectionTitle,
+  Skeleton,
+  Stars,
+} from "@/components/ui";
 import { LESSON_BY_ID } from "@/lib/data/vocab";
 import { isNoisyMode } from "@/lib/exercises/silent";
 import type { SessionMode } from "@/lib/exercises/types";
@@ -30,7 +49,14 @@ function LessonView() {
   const progress = useProgress();
   const { silentMode } = useSettings();
 
-  if (!lesson) return <EmptyState icon="🔍" title="Lección no encontrada"><Link href="/" className="text-sky underline">Volver al inicio</Link></EmptyState>;
+  if (!lesson)
+    return (
+      <EmptyState icon="🔍" title="Lección no encontrada">
+        <Link href="/" className="text-sky underline">
+          Volver al inicio
+        </Link>
+      </EmptyState>
+    );
 
   const mastery = lessonMastery(progress, lesson);
   return (
@@ -51,12 +77,18 @@ function LessonView() {
           Practicar lección
         </ButtonLink>
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {MODES.filter(({ modo }) => !silentMode || !isNoisyMode(modo)).map(({ modo, label, icon: Icon, color }) => (
-            <Link key={modo} href={`/sesion?modo=${modo}&l=${lesson.id}`} className="flex flex-col items-center gap-1 rounded-2xl border border-line py-3 text-xs font-bold hover:bg-surface-2">
-              <Icon size={22} className={color} />
-              {label}
-            </Link>
-          ))}
+          {MODES.filter(({ modo }) => !silentMode || !isNoisyMode(modo)).map(
+            ({ modo, label, icon: Icon, color }) => (
+              <Link
+                key={modo}
+                href={`/sesion?modo=${modo}&l=${lesson.id}`}
+                className="flex flex-col items-center gap-1 rounded-2xl border border-line py-3 text-xs font-bold hover:bg-surface-2"
+              >
+                <Icon size={22} className={color} />
+                {label}
+              </Link>
+            ),
+          )}
         </div>
         <ButtonLink href={`/sesion?modo=examen&l=${lesson.id}&n=20`} variant="secondary" full>
           <GraduationCap size={20} className="text-gold" /> Examen de la lección
@@ -74,7 +106,13 @@ function LessonView() {
                 <Pinyin text={w.pinyin} className="block text-sm font-semibold" />
                 <span className="block truncate text-sm text-muted">{w.es}</span>
               </span>
-              {ready && <ProgressBar value={wordMastery(progress, w.id)} className="h-2 w-14" barClassName="bg-gold" />}
+              {ready && (
+                <ProgressBar
+                  value={wordMastery(progress, w.id)}
+                  className="h-2 w-14"
+                  barClassName="bg-gold"
+                />
+              )}
               <ChevronRight size={18} className="text-muted" />
             </Link>
           </li>

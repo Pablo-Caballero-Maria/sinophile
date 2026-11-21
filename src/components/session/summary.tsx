@@ -14,7 +14,10 @@ import { Hanzi } from "../hanzi";
 import { Button, ButtonLink, Card, cn } from "../ui";
 
 /** Guards against recording a session twice (React StrictMode double-invokes initialisers). */
-const finished = new Map<number, { unlocked: Achievement[]; previousRecord: number; bonus: number; ms: number }>();
+const finished = new Map<
+  number,
+  { unlocked: Achievement[]; previousRecord: number; bonus: number; ms: number }
+>();
 
 function gradeLabel(grade: number) {
   if (grade >= 10) return { label: "Matrícula de honor", color: "text-gold" };
@@ -46,10 +49,20 @@ function promptLabel(ex: Exercise): string {
   }
 }
 
-function Tile({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
+function Tile({
+  icon,
+  label,
+  value,
+  color,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  color: string;
+}) {
   return (
     <div className={cn("flex flex-col items-center rounded-2xl border-2 p-3", color)}>
-      <span className="text-xs font-bold uppercase tracking-wide">{label}</span>
+      <span className="text-xs font-bold tracking-wide uppercase">{label}</span>
       <span className="mt-1 flex items-center gap-1 text-2xl font-black">
         {icon}
         {value}
@@ -58,7 +71,17 @@ function Tile({ icon, label, value, color }: { icon: React.ReactNode; label: str
   );
 }
 
-export function SessionSummary({ state, params, exitHref, onRestart }: { state: SessionState; params: SessionParams; exitHref: string; onRestart: () => void }) {
+export function SessionSummary({
+  state,
+  params,
+  exitHref,
+  onRestart,
+}: {
+  state: SessionState;
+  params: SessionParams;
+  exitHref: string;
+  onRestart: () => void;
+}) {
   const account = useAccount();
   const acc = accuracy(state);
   const grade = examGrade(state);
@@ -72,23 +95,39 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
       const ms = Date.now() - state.startedAt;
       const previousRecord = progressStore.get().records.infinite;
       const perfect = !isExam && state.answered >= 8 && state.correct === state.answered;
-      const bonus = state.answered === 0 ? 0 : isExam ? (grade >= 10 ? 50 : grade >= 5 ? 20 : 0) : perfect ? 20 : 0;
+      const bonus =
+        state.answered === 0 ? 0 : isExam ? (grade >= 10 ? 50 : grade >= 5 ? 20 : 0) : perfect ? 20 : 0;
       const unlocked =
         activity === 0
           ? []
           : finishSession(
               {
-                lessonId: params.mode === "leccion" && params.lessons.length === 1 ? params.lessons[0] : undefined,
+                lessonId:
+                  params.mode === "leccion" && params.lessons.length === 1 ? params.lessons[0] : undefined,
                 accuracy: acc,
                 ms,
                 xpBonus: bonus,
                 maxCombo: state.maxCombo,
                 infiniteScore: isInfinite ? state.correct : undefined,
                 exam: isExam
-                  ? { id: `exam-${state.startedAt}`, date: new Date().toISOString(), lessons: params.lessons, total: state.answered, correct: state.correct, grade, ms }
+                  ? {
+                      id: `exam-${state.startedAt}`,
+                      date: new Date().toISOString(),
+                      lessons: params.lessons,
+                      total: state.answered,
+                      correct: state.correct,
+                      grade,
+                      ms,
+                    }
                   : undefined,
               },
-              { mode: params.mode, total: state.answered, mistakes: state.answered - state.correct, finishedAt: new Date(), examGrade: isExam ? grade : undefined },
+              {
+                mode: params.mode,
+                total: state.answered,
+                mistakes: state.answered - state.correct,
+                finishedAt: new Date(),
+                examGrade: isExam ? grade : undefined,
+              },
             );
       finished.set(state.startedAt, { unlocked, previousRecord, bonus, ms });
     }
@@ -102,7 +141,12 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
     if (!celebrate) return;
     playSound("complete");
     void import("canvas-confetti").then(({ default: confetti }) =>
-      confetti({ particleCount: 140, spread: 80, origin: { y: 0.35 }, colors: ["#d93a3f", "#e6a116", "#2f9e5b", "#2f7fe0"] }),
+      confetti({
+        particleCount: 140,
+        spread: 80,
+        origin: { y: 0.35 },
+        colors: ["#d93a3f", "#e6a116", "#2f9e5b", "#2f7fe0"],
+      }),
     );
   }, [celebrate]);
 
@@ -122,7 +166,7 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
   const minutes = Math.max(1, Math.round(ms / 60000));
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-2xl animate-fade-in flex-col px-4 pb-32 pt-10">
+    <div className="mx-auto flex min-h-dvh max-w-2xl animate-fade-in flex-col px-4 pt-10 pb-32">
       <h1 className="text-center text-3xl font-black">{title}</h1>
       <p className="mt-1 text-center text-muted">{dayKey()}</p>
 
@@ -137,23 +181,52 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
       )}
       {isInfinite && (
         <p className="mt-6 text-center text-lg">
-          Has conseguido <b>{state.correct}</b> aciertos. Récord: <b>{Math.max(previousRecord, state.correct)}</b>
+          Has conseguido <b>{state.correct}</b> aciertos. Récord:{" "}
+          <b>{Math.max(previousRecord, state.correct)}</b>
         </p>
       )}
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Tile icon={<Zap size={20} />} label="XP" value={`${state.xp + bonus}`} color="border-gold text-gold" />
-        <Tile icon={<Target size={20} />} label="Precisión" value={state.answered > 0 ? `${acc}%` : "—"} color="border-ok text-ok" />
-        <Tile icon={<Clock size={20} />} label="Tiempo" value={`${minutes} min`} color="border-sky text-sky" />
-        <Tile icon={<Flame size={20} />} label="Combo" value={`${state.maxCombo}`} color="border-brand text-brand" />
+        <Tile
+          icon={<Zap size={20} />}
+          label="XP"
+          value={`${state.xp + bonus}`}
+          color="border-gold text-gold"
+        />
+        <Tile
+          icon={<Target size={20} />}
+          label="Precisión"
+          value={state.answered > 0 ? `${acc}%` : "—"}
+          color="border-ok text-ok"
+        />
+        <Tile
+          icon={<Clock size={20} />}
+          label="Tiempo"
+          value={`${minutes} min`}
+          color="border-sky text-sky"
+        />
+        <Tile
+          icon={<Flame size={20} />}
+          label="Combo"
+          value={`${state.maxCombo}`}
+          color="border-brand text-brand"
+        />
       </div>
-      {bonus > 0 && <p className="mt-3 text-center text-sm font-semibold text-gold">Incluye +{bonus} XP de bonificación</p>}
+      {bonus > 0 && (
+        <p className="mt-3 text-center text-sm font-semibold text-gold">
+          Incluye +{bonus} XP de bonificación
+        </p>
+      )}
 
       {account.status !== "user" && activity > 0 && (
-        <Link href="/cuenta" className="mt-6 flex items-center gap-3 rounded-2xl border-2 border-sky/40 bg-sky-soft p-3 text-sm">
+        <Link
+          href="/cuenta"
+          className="mt-6 flex items-center gap-3 rounded-2xl border-2 border-sky/40 bg-sky-soft p-3 text-sm"
+        >
           <UserRound size={22} className="shrink-0 text-sky" />
           <span>
-            <b>Modo invitado:</b> este progreso se perderá al cerrar la app. Entra o crea una cuenta para guardarlo.
+            <b>Modo invitado:</b> este progreso se perderá al cerrar la app. Entra o crea una cuenta para
+            guardarlo.
           </span>
         </Link>
       )}
@@ -179,7 +252,13 @@ export function SessionSummary({ state, params, exitHref, onRestart }: { state: 
             {mistakes.map(({ exercise, result }, i) => (
               <li key={i} className="rounded-2xl border border-line bg-surface p-3 text-sm">
                 <p className="text-muted">{exercise.instruction}</p>
-                <p className="font-semibold">{hasHan(promptLabel(exercise)) ? <Hanzi text={promptLabel(exercise)} className="text-lg" /> : promptLabel(exercise)}</p>
+                <p className="font-semibold">
+                  {hasHan(promptLabel(exercise)) ? (
+                    <Hanzi text={promptLabel(exercise)} className="text-lg" />
+                  ) : (
+                    promptLabel(exercise)
+                  )}
+                </p>
                 {result.given && <p className="text-bad">✗ {result.given}</p>}
                 {result.solution && <p className="text-ok">✓ {result.solution}</p>}
               </li>

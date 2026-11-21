@@ -39,7 +39,9 @@ test("crear una cuenta, cerrar sesión y volver a entrar", async ({ page }) => {
 test("los ajustes se guardan en la cuenta", async ({ page }) => {
   await crearCuenta(page, usuarioNuevo());
   await page.goto("/ajustes");
-  const saved = page.waitForResponse((r) => r.url().endsWith("/api/settings") && r.request().method() === "PUT");
+  const saved = page.waitForResponse(
+    (r) => r.url().endsWith("/api/settings") && r.request().method() === "PUT",
+  );
   await page.getByRole("radio", { name: "Seria · 100" }).click();
   expect((await saved).ok()).toBe(true);
 

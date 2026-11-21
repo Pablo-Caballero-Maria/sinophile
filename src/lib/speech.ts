@@ -12,7 +12,8 @@ export const ttsSupported = () => typeof window !== "undefined" && "speechSynthe
 export function chineseVoices(): SpeechSynthesisVoice[] {
   if (!ttsSupported()) return [];
   const rank = (v: SpeechSynthesisVoice) =>
-    (/zh[-_]CN/i.test(v.lang) ? 0 : /cmn/i.test(v.lang) ? 1 : /zh[-_]TW/i.test(v.lang) ? 3 : 2) - (/google|premium|enhanced|tingting/i.test(v.name) ? 0.5 : 0);
+    (/zh[-_]CN/i.test(v.lang) ? 0 : /cmn/i.test(v.lang) ? 1 : /zh[-_]TW/i.test(v.lang) ? 3 : 2) -
+    (/google|premium|enhanced|tingting/i.test(v.name) ? 0.5 : 0);
   return speechSynthesis
     .getVoices()
     .filter((v) => /^(zh|cmn)/i.test(v.lang) && !/HK|yue/i.test(v.lang))
@@ -65,7 +66,10 @@ type RecognitionCtor = new () => RecognitionLike;
 
 const recognitionCtor = (): RecognitionCtor | null => {
   if (typeof window === "undefined") return null;
-  const w = window as unknown as { SpeechRecognition?: RecognitionCtor; webkitSpeechRecognition?: RecognitionCtor };
+  const w = window as unknown as {
+    SpeechRecognition?: RecognitionCtor;
+    webkitSpeechRecognition?: RecognitionCtor;
+  };
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
 };
 
@@ -79,7 +83,11 @@ export interface Listening {
 
 export function listen(lang = "zh-CN", timeoutMs = 7000): Listening {
   const Ctor = recognitionCtor();
-  if (!Ctor) return { result: Promise.reject(new Error("Tu navegador no permite reconocimiento de voz.")), stop: () => {} };
+  if (!Ctor)
+    return {
+      result: Promise.reject(new Error("Tu navegador no permite reconocimiento de voz.")),
+      stop: () => {},
+    };
   const recognition = new Ctor();
   recognition.lang = lang;
   recognition.interimResults = false;
@@ -96,7 +104,9 @@ export function listen(lang = "zh-CN", timeoutMs = 7000): Listening {
     };
     recognition.onresult = (e) => {
       const first = e.results[0];
-      const alternatives = Array.from({ length: first.length }, (_, i) => first[i].transcript.trim()).filter(Boolean);
+      const alternatives = Array.from({ length: first.length }, (_, i) => first[i].transcript.trim()).filter(
+        Boolean,
+      );
       finish(() => resolve(alternatives));
     };
     recognition.onerror = (e) =>
@@ -122,7 +132,8 @@ export function listen(lang = "zh-CN", timeoutMs = 7000): Listening {
 function lcs(a: string[], b: string[]): number {
   const dp = Array.from({ length: a.length + 1 }, () => new Array<number>(b.length + 1).fill(0));
   for (let i = 1; i <= a.length; i++)
-    for (let j = 1; j <= b.length; j++) dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
   return dp[a.length][b.length];
 }
 
@@ -137,14 +148,20 @@ export interface PronunciationScore {
  * Compares what the recogniser heard with the expected text: exact hanzi
  * match = 1, otherwise syllable overlap of the (toneless) pinyin of both.
  */
-export async function scorePronunciation(expected: string, alternatives: string[]): Promise<PronunciationScore> {
+export async function scorePronunciation(
+  expected: string,
+  alternatives: string[],
+): Promise<PronunciationScore> {
   const { pinyin } = await import("pinyin-pro");
   const clean = (s: string) => s.replace(/[\p{P}\p{S}\s]/gu, "");
   const syllables = (s: string) => pinyin(clean(s), { toneType: "none", type: "array", v: true }) as string[];
   const target = syllables(expected);
   let best: PronunciationScore = { score: 0, heard: alternatives[0] ?? "", heardPinyin: "" };
   for (const alt of alternatives) {
-    const score = clean(alt) === clean(expected) ? 1 : (2 * lcs(target, syllables(alt))) / (target.length + syllables(alt).length || 1);
+    const score =
+      clean(alt) === clean(expected)
+        ? 1
+        : (2 * lcs(target, syllables(alt))) / (target.length + syllables(alt).length || 1);
     if (score > best.score || !best.heardPinyin) {
       best = { score, heard: alt, heardPinyin: pinyin(clean(alt), { toneType: "symbol" }) };
     }

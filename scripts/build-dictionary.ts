@@ -21,7 +21,8 @@ const LINE_RE = /^(\S+) (\S+) \[([^\]]*)\] \/(.*)\/\s*$/;
 const MAX_CHARS = 4;
 const MAX_PROPER_CHARS = 3;
 const MAX_DEFS = 3;
-const NOISE_RE = /^(old |archaic |ancient |Japanese |Korean )?variant of |^surname |^see [^/]+$|^\(old\) variant/i;
+const NOISE_RE =
+  /^(old |archaic |ancient |Japanese |Korean )?variant of |^surname |^see [^/]+$|^\(old\) variant/i;
 
 const response = await fetch(SOURCE_URL);
 if (!response.ok) throw new Error(`Download failed: ${response.status}`);

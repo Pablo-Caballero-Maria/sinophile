@@ -29,14 +29,16 @@ export async function readJson(request: NextRequest, maxBytes = 100_000): Promis
     throw new HttpError(415, "La petición debe ser JSON.");
   }
   const text = await request.text();
-  if (new TextEncoder().encode(text).length > maxBytes) throw new HttpError(413, "Los datos enviados son demasiado grandes.");
+  if (new TextEncoder().encode(text).length > maxBytes)
+    throw new HttpError(413, "Los datos enviados son demasiado grandes.");
   let body: unknown;
   try {
     body = JSON.parse(text || "{}");
   } catch {
     throw new HttpError(400, "JSON no válido.");
   }
-  if (typeof body !== "object" || body === null || Array.isArray(body)) throw new HttpError(400, "Se esperaba un objeto JSON.");
+  if (typeof body !== "object" || body === null || Array.isArray(body))
+    throw new HttpError(400, "Se esperaba un objeto JSON.");
   return body as Record<string, unknown>;
 }
 

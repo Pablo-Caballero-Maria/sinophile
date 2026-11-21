@@ -33,16 +33,16 @@ y Trainchinese.
 
 </div>
 
-Next.js desplegada en Vercel en cada *push* a `main`: las páginas son estáticas y una pequeña API guarda
+Next.js desplegada en Vercel en cada _push_ a `main`: las páginas son estáticas y una pequeña API guarda
 las cuentas y el progreso en MongoDB Atlas.
 
 > [!TIP]
 > No hace falta cuenta para probarla: el **modo invitado** permite usarlo todo, aunque al cerrar la app
 > no se guarda nada.
 
-| 📚 Lecciones | 🈶 Palabras | ✍️ Tipos de ejercicio | 📖 Diccionario | ⏱️ De la clase a la web |
-| :---: | :---: | :---: | :---: | :---: |
-| 6 | 182 | más de 12 | CC-CEDICT (108 563 entradas) | 1-2 min |
+| 📚 Lecciones | 🈶 Palabras | ✍️ Tipos de ejercicio |        📖 Diccionario        | ⏱️ De la clase a la web |
+| :----------: | :---------: | :-------------------: | :--------------------------: | :---------------------: |
+|      6       |     182     |       más de 12       | CC-CEDICT (108 563 entradas) |         1-2 min         |
 
 ## Índice
 
@@ -81,6 +81,7 @@ flowchart LR
    Cada carpeta es una lección; el número del nombre marca el orden. Los `id` no se pueden repetir entre
    clases (solo letras sin tildes, números, `-` y `_`). Las palabras ya se pueden practicar con los
    ejercicios automáticos.
+
 2. Le paso a Claude `instructions.txt`, el `vocab.json` de la clase nueva y los de las anteriores, y le
    pido el `exercises.json` de esa clase.
 3. Lo guardo en **`data/lección N/exercises.json`**. En 1-2 minutos la web está actualizada.
@@ -117,10 +118,10 @@ flowchart LR
   destreza.
 - **Colores por tono**, voz china (TTS del navegador), modo oscuro automático y diseño para móvil e iPad.
 
-| Tono | 1.º | 2.º | 3.º | 4.º | neutro |
-| --- | :---: | :---: | :---: | :---: | :---: |
-| Color | 🔵 azul | 🟢 verde | 🟡 amarillo | 🔴 rojo | ⚪ gris |
-| Ejemplo | mā | má | mǎ | mà | ma |
+| Tono    |   1.º   |   2.º    |     3.º     |   4.º   | neutro  |
+| ------- | :-----: | :------: | :---------: | :-----: | :-----: |
+| Color   | 🔵 azul | 🟢 verde | 🟡 amarillo | 🔴 rojo | ⚪ gris |
+| Ejemplo |   mā    |    má    |     mǎ      |   mà    |   ma    |
 
 <p align="center">
   <img src="docs/img/palabra.webp" alt="Ficha de la palabra 北京 (Běijīng) con los colores por tono, audio y el orden de los trazos" width="49%">
@@ -146,7 +147,7 @@ flowchart LR
     S -.-> API
 ```
 
-La lógica vive en módulos de TypeScript sin React (repetición espaciada, pinyin con *erhua*, corrección
+La lógica vive en módulos de TypeScript sin React (repetición espaciada, pinyin con _erhua_, corrección
 tolerante, puntuación de la escritura, voz, búsqueda en el diccionario, comparación con el HSK 1) y los
 componentes solo la presentan. En producción, **Vercel Web Analytics** (visitas, sin cookies) y **Speed
 Insights** (Core Web Vitals de visitas reales) miden el uso y el rendimiento; solo se incluyen en el build que
@@ -155,13 +156,13 @@ hace Vercel. Más detalle en la wiki:
 
 ## Datos (`data/`)
 
-| Ruta | Quién lo escribe | Contenido |
-| --- | --- | --- |
-| `lección N/vocab.json` | yo, a mano | palabras de esa clase |
+| Ruta                       | Quién lo escribe                | Contenido                                                                        |
+| -------------------------- | ------------------------------- | -------------------------------------------------------------------------------- |
+| `lección N/vocab.json`     | yo, a mano                      | palabras de esa clase                                                            |
 | `lección N/exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
-| `cedict.json` | `npm run dictionary` | diccionario CC-CEDICT compacto (CC BY-SA 4.0) |
-| `hsk1.json` | `npm run hsk` | las 150 palabras del HSK 1 (HSK 2.0), para el resumen de vocabulario del inicio |
-| `instructions.txt` | — | instrucciones para que Claude escriba el `exercises.json` de una clase |
+| `cedict.json`              | `npm run dictionary`            | diccionario CC-CEDICT compacto (CC BY-SA 4.0)                                    |
+| `hsk1.json`                | `npm run hsk`                   | las 150 palabras del HSK 1 (HSK 2.0), para el resumen de vocabulario del inicio  |
+| `instructions.txt`         | —                               | instrucciones para que Claude escriba el `exercises.json` de una clase           |
 
 El formato completo de cada fichero está en la wiki: [Datos y lecciones](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Datos-y-lecciones).
 
@@ -176,33 +177,33 @@ El formato completo de cada fichero está en la wiki: [Datos y lecciones](https:
 
 ### Base de datos
 
-Variables de entorno (en local, en `.env.local`; en Vercel, en *Settings → Environment Variables*; ver
+Variables de entorno (en local, en `.env.local`; en Vercel, en _Settings → Environment Variables_; ver
 `.env.example`):
 
-| Variable | |
-| --- | --- |
-| `MONGODB_URI` | cadena de conexión del clúster de Atlas (**secreta**) |
-| `MONGODB_DB` | nombre de la base de datos (por defecto `sinophile`; en local uso `sinophile_dev`) |
+| Variable      |                                                                                    |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `MONGODB_URI` | cadena de conexión del clúster de Atlas (**secreta**)                              |
+| `MONGODB_DB`  | nombre de la base de datos (por defecto `sinophile`; en local uso `sinophile_dev`) |
 
 Colecciones: `users` (credenciales con hash scrypt + ajustes), `sessions` (sesiones; solo se guarda el
 SHA-256 del token de la cookie, caducan a los 180 días) y `progress` (un documento por cuenta). Los
 cambios de progreso se envían en segundo plano y solo con lo que ha cambiado; el servidor los combina con
 lo guardado (nunca se pierde lo hecho en otro dispositivo). Tras 10 contraseñas incorrectas seguidas la
 cuenta se bloquea 15 minutos. Las funciones de Vercel corren en París (`vercel.json`), junto al clúster
-(GCP europe-west1). En Atlas, *Network Access* debe permitir conexiones desde Vercel (IP dinámica:
+(GCP europe-west1). En Atlas, _Network Access_ debe permitir conexiones desde Vercel (IP dinámica:
 `0.0.0.0/0`).
 
 <details>
 <summary><b>API</b> (<code>src/app/api/</code>)</summary>
 
-| Método | Ruta | Para qué |
-| --- | --- | --- |
-| `GET` · `DELETE` | `/api/account` | la cuenta de la sesión; borrarla |
-| `POST` | `/api/auth/register` | crear una cuenta |
-| `POST` | `/api/auth/login` | iniciar sesión |
-| `POST` | `/api/auth/logout` | cerrar la sesión |
-| `POST` · `DELETE` | `/api/progress` | enviar cambios del progreso; borrarlo |
-| `PUT` | `/api/settings` | guardar los ajustes |
+| Método            | Ruta                 | Para qué                              |
+| ----------------- | -------------------- | ------------------------------------- |
+| `GET` · `DELETE`  | `/api/account`       | la cuenta de la sesión; borrarla      |
+| `POST`            | `/api/auth/register` | crear una cuenta                      |
+| `POST`            | `/api/auth/login`    | iniciar sesión                        |
+| `POST`            | `/api/auth/logout`   | cerrar la sesión                      |
+| `POST` · `DELETE` | `/api/progress`      | enviar cambios del progreso; borrarlo |
+| `PUT`             | `/api/settings`      | guardar los ajustes                   |
 
 Todas las peticiones que cambian algo deben ser JSON (defensa CSRF). Más en la wiki:
 [API y cuentas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/API-y-cuentas).
@@ -221,15 +222,15 @@ npm run validate             # valida todas las carpetas de data/
 npm run build && npm start
 ```
 
-| Orden | Qué hace |
-| --- | --- |
-| `npm run dev` | servidor de desarrollo |
-| `npm test` | tests (Vitest): datos, lógica y la API contra un MongoDB en memoria |
-| `npm run test:coverage` | los mismos tests, con cobertura (`coverage/`) |
-| `npm run test:e2e` | tests de extremo a extremo con Playwright contra el build (`npm run build` antes; las cuentas usan un MongoDB local) |
-| `npm run lint` · `npm run typecheck` | ESLint · TypeScript |
-| `npm run validate` | valida todas las carpetas de `data/` |
-| `npm run dictionary` · `npm run hsk` | regeneran `data/cedict.json` · `data/hsk1.json` |
+| Orden                                | Qué hace                                                                                                             |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`                        | servidor de desarrollo                                                                                               |
+| `npm test`                           | tests (Vitest): datos, lógica y la API contra un MongoDB en memoria                                                  |
+| `npm run test:coverage`              | los mismos tests, con cobertura (`coverage/`)                                                                        |
+| `npm run test:e2e`                   | tests de extremo a extremo con Playwright contra el build (`npm run build` antes; las cuentas usan un MongoDB local) |
+| `npm run lint` · `npm run typecheck` | ESLint · TypeScript                                                                                                  |
+| `npm run validate`                   | valida todas las carpetas de `data/`                                                                                 |
+| `npm run dictionary` · `npm run hsk` | regeneran `data/cedict.json` · `data/hsk1.json`                                                                      |
 
 `scripts/prepare-data.ts` se ejecuta antes de `dev`, `build`, `test` y `typecheck`: valida los datos y
 genera `src/generated/lessons.json` (todo el vocabulario, que va dentro del JavaScript),
@@ -239,7 +240,7 @@ descargan un `mongod` la primera vez.
 
 ## Calidad e integración continua
 
-Cada *push* y *pull request* pasa por [GitHub Actions](https://github.com/Pablo-Caballero-Maria/sinophile/actions):
+Cada _push_ y _pull request_ pasa por [GitHub Actions](https://github.com/Pablo-Caballero-Maria/sinophile/actions):
 
 ```mermaid
 flowchart LR
@@ -250,16 +251,16 @@ flowchart LR
     Q & T & B --> I["Insignia de cobertura<br/>(solo en main)"]
 ```
 
-| Comprobación | Herramienta | Dónde |
-| --- | --- | --- |
-| Datos de las lecciones | `scripts/prepare-data.ts --check` | [ci.yml](.github/workflows/ci.yml) |
-| Lint y tipos | ESLint (Next.js) y TypeScript estricto | [ci.yml](.github/workflows/ci.yml) |
-| Tests unitarios y de integración (API + MongoDB en memoria) | Vitest, cobertura v8 | [ci.yml](.github/workflows/ci.yml) |
-| Build de producción | Next.js | [ci.yml](.github/workflows/ci.yml) |
-| Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas y ajustes) | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml) |
-| Análisis de seguridad | CodeQL | [codeql.yml](.github/workflows/codeql.yml) |
-| Dependencias | Dependabot (npm y Actions) | [dependabot.yml](.github/dependabot.yml) |
-| Secretos | escaneo de secretos con protección al hacer *push* | ajustes del repositorio |
+| Comprobación                                                                                | Herramienta                                         | Dónde                                      |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------ |
+| Datos de las lecciones                                                                      | `scripts/prepare-data.ts --check`                   | [ci.yml](.github/workflows/ci.yml)         |
+| Lint y tipos                                                                                | ESLint (Next.js) y TypeScript estricto              | [ci.yml](.github/workflows/ci.yml)         |
+| Tests unitarios y de integración (API + MongoDB en memoria)                                 | Vitest, cobertura v8                                | [ci.yml](.github/workflows/ci.yml)         |
+| Build de producción                                                                         | Next.js                                             | [ci.yml](.github/workflows/ci.yml)         |
+| Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas y ajustes) | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml)         |
+| Análisis de seguridad                                                                       | CodeQL                                              | [codeql.yml](.github/workflows/codeql.yml) |
+| Dependencias                                                                                | Dependabot (npm y Actions)                          | [dependabot.yml](.github/dependabot.yml)   |
+| Secretos                                                                                    | escaneo de secretos con protección al hacer _push_  | ajustes del repositorio                    |
 
 ## Estructura
 
@@ -289,30 +290,30 @@ docs/img/         capturas del README
 
 La [wiki](https://github.com/Pablo-Caballero-Maria/sinophile/wiki) explica el proyecto con más detalle:
 
-| Página | Contenido |
-| --- | --- |
-| [Arquitectura](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Arquitectura) | páginas estáticas, API, datos generados y despliegue |
-| [Datos y lecciones](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Datos-y-lecciones) | formato de `vocab.json` y `exercises.json`, validación y cómo añadir una clase |
-| [Aprendizaje y ejercicios](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Aprendizaje-y-ejercicios) | repetición espaciada, sesiones, corrección, escritura y voz |
-| [API y cuentas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/API-y-cuentas) | rutas, sesiones, contraseñas, sincronización del progreso |
-| [Desarrollo y pruebas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Desarrollo-y-pruebas) | entorno local, tests, cobertura, CI y publicación de versiones |
-| [Preguntas frecuentes](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Preguntas-frecuentes) | dudas habituales |
+| Página                                                                                                       | Contenido                                                                      |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| [Arquitectura](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Arquitectura)                         | páginas estáticas, API, datos generados y despliegue                           |
+| [Datos y lecciones](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Datos-y-lecciones)               | formato de `vocab.json` y `exercises.json`, validación y cómo añadir una clase |
+| [Aprendizaje y ejercicios](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Aprendizaje-y-ejercicios) | repetición espaciada, sesiones, corrección, escritura y voz                    |
+| [API y cuentas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/API-y-cuentas)                       | rutas, sesiones, contraseñas, sincronización del progreso                      |
+| [Desarrollo y pruebas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Desarrollo-y-pruebas)         | entorno local, tests, cobertura, CI y publicación de versiones                 |
+| [Preguntas frecuentes](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Preguntas-frecuentes)         | dudas habituales                                                               |
 
 ## Contribuir
 
 Las propuestas y correcciones son bienvenidas:
 
-- Abre un *issue* con la plantilla adecuada: [error](https://github.com/Pablo-Caballero-Maria/sinophile/issues/new?template=bug_report.yml),
+- Abre un _issue_ con la plantilla adecuada: [error](https://github.com/Pablo-Caballero-Maria/sinophile/issues/new?template=bug_report.yml),
   [mejora](https://github.com/Pablo-Caballero-Maria/sinophile/issues/new?template=feature_request.yml) o
   [error en el vocabulario o en un ejercicio](https://github.com/Pablo-Caballero-Maria/sinophile/issues/new?template=error_en_datos.yml).
-- Los *pull requests* siguen la [plantilla](.github/pull_request_template.md) y tienen que pasar la CI.
+- Los _pull requests_ siguen la [plantilla](.github/pull_request_template.md) y tienen que pasar la CI.
 - Toda la participación se rige por el [código de conducta](CODE_OF_CONDUCT.md).
 - Los problemas de seguridad se informan en privado, como explica [SECURITY.md](SECURITY.md).
 
 ## Cómo citar
 
 Si usas sinophile en un trabajo, cítalo con los metadatos de [CITATION.cff](CITATION.cff) (GitHub ofrece
-*Cite this repository* en la barra lateral).
+_Cite this repository_ en la barra lateral).
 
 <details>
 <summary>BibTeX</summary>

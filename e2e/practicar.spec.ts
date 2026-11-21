@@ -8,7 +8,9 @@ const lecciones = readdirSync(join(process.cwd(), "data"))
   .flatMap((carpeta) => {
     const numero = /^lección (\d+)$/.exec(carpeta)?.[1];
     if (!numero) return [];
-    const vocab = JSON.parse(readFileSync(join(process.cwd(), "data", carpeta, "vocab.json"), "utf8")) as unknown[];
+    const vocab = JSON.parse(
+      readFileSync(join(process.cwd(), "data", carpeta, "vocab.json"), "utf8"),
+    ) as unknown[];
     return [{ numero: Number(numero), palabras: vocab.length }];
   })
   .sort((a, b) => a.numero - b.numero);

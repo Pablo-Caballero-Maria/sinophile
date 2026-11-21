@@ -38,7 +38,10 @@ export function splitMeanings(es: string): string[] {
 
 /** Spanish words of a sentence, without punctuation: "¡Hola, Ana!" -> ["Hola", "Ana"]. */
 export const spanishWords = (sentence: string): string[] =>
-  sentence.replace(/[¡!¿?.,;:"«»()]/g, " ").split(/\s+/).filter(Boolean);
+  sentence
+    .replace(/[¡!¿?.,;:"«»()]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
 
 /** Seedable PRNG (mulberry32) so sessions can be reproduced in tests. */
 export function seededRandom(seed: number): () => number {

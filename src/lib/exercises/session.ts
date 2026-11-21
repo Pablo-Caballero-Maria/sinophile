@@ -86,7 +86,12 @@ export function sessionReducer(s: SessionState, action: SessionAction): SessionS
       const { correct } = action.result;
       const gained = xpFor(s, exercise, correct);
       const combo = correct ? s.combo + 1 : 0;
-      const requeue = !correct && REQUEUE_MODES.includes(s.mode) && !s.retried.includes(exercise.key) && exercise.type !== "write" && exercise.type !== "speak";
+      const requeue =
+        !correct &&
+        REQUEUE_MODES.includes(s.mode) &&
+        !s.retried.includes(exercise.key) &&
+        exercise.type !== "write" &&
+        exercise.type !== "speak";
       const lives = s.lives === null ? null : correct ? s.lives : s.lives - 1;
       const next: SessionState = {
         ...s,
@@ -126,7 +131,9 @@ function advance(s: SessionState): SessionState {
 }
 
 /** Accuracy 0-100 over graded answers. */
-export const accuracy = (s: SessionState): number => (s.answered ? Math.round((s.correct / s.answered) * 100) : 100);
+export const accuracy = (s: SessionState): number =>
+  s.answered ? Math.round((s.correct / s.answered) * 100) : 100;
 
 /** Spanish 0-10 grade for exams, one decimal. */
-export const examGrade = (s: SessionState): number => (s.answered ? Math.round((s.correct / s.answered) * 100) / 10 : 0);
+export const examGrade = (s: SessionState): number =>
+  s.answered ? Math.round((s.correct / s.answered) * 100) / 10 : 0;

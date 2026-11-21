@@ -46,7 +46,10 @@ function GuidedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
         return;
       }
       const { mistakes: m, strokes: s } = totals.current;
-      onAnswer({ correct: m <= Math.max(2, Math.round(s * 0.2)), note: m === 0 ? "¡Sin un solo error de trazo!" : `${m} trazo(s) mal colocados.` });
+      onAnswer({
+        correct: m <= Math.max(2, Math.round(s * 0.2)),
+        note: m === 0 ? "¡Sin un solo error de trazo!" : `${m} trazo(s) mal colocados.`,
+      });
     },
     [chars.length, index, onAnswer],
   );
@@ -57,7 +60,11 @@ function GuidedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
       <WordHeader ex={ex} />
       <CharDots total={chars.length} index={answered ? chars.length : index} />
       <div className="flex justify-center">
-        {demo ? <StrokeOrder key={`demo-${index}`} char={chars[index]} size={size} /> : <HanziQuiz key={index} char={chars[index]} size={size} onComplete={done} />}
+        {demo ? (
+          <StrokeOrder key={`demo-${index}`} char={chars[index]} size={size} />
+        ) : (
+          <HanziQuiz key={index} char={chars[index]} size={size} onComplete={done} />
+        )}
       </div>
       <Footer hidden={answered}>
         <Button variant="ghost" onClick={onSkip}>
@@ -75,7 +82,9 @@ function GradedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
   const chars = hanChars(ex.word.hanzi);
   const [index, setIndex] = useState(0);
   const [strokeCount, setStrokeCount] = useState(0);
-  const [result, setResult] = useState<{ grade: DrawingGrade; data: StrokeData; colors: string[] } | null>(null);
+  const [result, setResult] = useState<{ grade: DrawingGrade; data: StrokeData; colors: string[] } | null>(
+    null,
+  );
   const passed = useRef<boolean[]>([]);
   const canvas = useRef<DrawingCanvasHandle>(null);
   const [size] = useState(boxSize);
@@ -92,7 +101,10 @@ function GradedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
 
   const finish = () => {
     const ok = passed.current.filter(Boolean).length;
-    onAnswer({ correct: ok === chars.length, note: chars.length > 1 ? `${ok}/${chars.length} caracteres bien escritos.` : undefined });
+    onAnswer({
+      correct: ok === chars.length,
+      note: chars.length > 1 ? `${ok}/${chars.length} caracteres bien escritos.` : undefined,
+    });
   };
 
   const accept = () => {
@@ -113,13 +125,30 @@ function GradedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
       <CharDots total={chars.length} index={index} />
       <div className="flex flex-wrap items-start justify-center gap-4">
         <div className="relative">
-          <DrawingCanvas key={index} ref={canvas} size={size} disabled={!!result} strokeColors={result?.colors} onChange={setStrokeCount} />
-          {result && <CharacterSvg data={result.data} className="pointer-events-none absolute inset-0 animate-fade-in text-fg opacity-20" />}
+          <DrawingCanvas
+            key={index}
+            ref={canvas}
+            size={size}
+            disabled={!!result}
+            strokeColors={result?.colors}
+            onChange={setStrokeCount}
+          />
+          {result && (
+            <CharacterSvg
+              data={result.data}
+              className="pointer-events-none absolute inset-0 animate-fade-in text-fg opacity-20"
+            />
+          )}
         </div>
         {result && (
           <div className="flex animate-fade-in flex-col items-center gap-2">
             <StrokeOrder char={chars[index]} size={Math.min(160, size / 2)} />
-            <p className={cn("max-w-[12rem] text-center text-sm font-semibold", result.grade.passed ? "text-ok" : "text-bad")}>
+            <p
+              className={cn(
+                "max-w-[12rem] text-center text-sm font-semibold",
+                result.grade.passed ? "text-ok" : "text-bad",
+              )}
+            >
               {result.grade.strokeOk.filter(Boolean).length}/{result.grade.expected} trazos correctos
               {result.grade.drawn !== result.grade.expected && ` (dibujaste ${result.grade.drawn})`}
             </p>
@@ -143,12 +172,23 @@ function GradedWrite({ exercise: ex, answered, onAnswer, onSkip }: ExerciseProps
             <Button variant="secondary" aria-label="Borrar" onClick={() => canvas.current?.clear()}>
               <Eraser size={20} />
             </Button>
-            <Button variant="ok" size="lg" className="flex-1" disabled={strokeCount === 0} onClick={() => void check()}>
+            <Button
+              variant="ok"
+              size="lg"
+              className="flex-1"
+              disabled={strokeCount === 0}
+              onClick={() => void check()}
+            >
               Comprobar
             </Button>
           </>
         ) : (
-          <Button variant={result.grade.passed ? "ok" : "bad"} size="lg" full onClick={isLast ? finish : next}>
+          <Button
+            variant={result.grade.passed ? "ok" : "bad"}
+            size="lg"
+            full
+            onClick={isLast ? finish : next}
+          >
             {isLast ? "Continuar" : "Siguiente carácter"}
           </Button>
         )}

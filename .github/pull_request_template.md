@@ -21,7 +21,7 @@
 - [ ] `npm run typecheck`
 - [ ] `npm run test:coverage`
 - [ ] `npm run build` y `npm run test:e2e`
-- [ ] El README, la wiki y [CHANGELOG.md](../blob/main/CHANGELOG.md) (en *Sin publicar*) están al día si hace falta
+- [ ] El README, la wiki y [CHANGELOG.md](../blob/main/CHANGELOG.md) (en _Sin publicar_) están al día si hace falta
 - [ ] No hay secretos en el diff (`.env`, claves, tokens)
 
 ## Capturas

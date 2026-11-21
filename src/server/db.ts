@@ -59,7 +59,12 @@ export interface Database {
 async function connect(): Promise<Database> {
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("Falta la variable de entorno MONGODB_URI.");
-  const client = new MongoClient(uri, { appName: "sinophile", serverSelectionTimeoutMS: 10_000, maxPoolSize: 10, maxIdleTimeMS: 60_000 });
+  const client = new MongoClient(uri, {
+    appName: "sinophile",
+    serverSelectionTimeoutMS: 10_000,
+    maxPoolSize: 10,
+    maxIdleTimeMS: 60_000,
+  });
   // On Vercel, keeps the function alive just long enough to close idle connections (no-op elsewhere).
   attachDatabasePool(client);
   await client.connect();

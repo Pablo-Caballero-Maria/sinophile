@@ -82,10 +82,13 @@ export function markSyllable(syllable: string, tone: number): string {
  * (adding an apostrophe before a/e/o): "Xi1 an1" -> "Xī'ān".
  */
 export function numberedToMarked(text: string, join = false): string {
-  const syllables = text.trim().split(/\s+/).map((token) => {
-    const m = token.match(/^([A-Za-züÜ:]+)([1-5])$/);
-    return m ? markSyllable(m[1], Number(m[2])) : token.replace(/u:/g, "ü");
-  });
+  const syllables = text
+    .trim()
+    .split(/\s+/)
+    .map((token) => {
+      const m = token.match(/^([A-Za-züÜ:]+)([1-5])$/);
+      return m ? markSyllable(m[1], Number(m[2])) : token.replace(/u:/g, "ü");
+    });
   if (!join) return syllables.join(" ");
   return syllables.reduce((acc, syl, i) => {
     const needsApostrophe = i > 0 && /^[aeoāáǎàēéěèōóǒò]/i.test(syl);
@@ -158,14 +161,16 @@ export function segmentPinyin(text: string): { text: string; tone: Tone | null }
  */
 export function charTones(hanzi: string, pinyin: string): Tone[] | null {
   const chars = [...hanzi].filter((c) => /\p{Script=Han}/u.test(c));
-  for (const name of hanzi.match(/[A-Za-z]+/g) ?? []) pinyin = pinyin.replace(new RegExp(`(?<!\\p{L})${name}(?!\\p{L})`, "u"), " ");
+  for (const name of hanzi.match(/[A-Za-z]+/g) ?? [])
+    pinyin = pinyin.replace(new RegExp(`(?<!\\p{L})${name}(?!\\p{L})`, "u"), " ");
   const syllables = splitSyllables(pinyin);
   if (chars.length === syllables.length) return syllables.map((s) => s.tone);
   const tones: Tone[] = [];
   let next = 0;
   for (const char of chars) {
     const previous = syllables[next - 1];
-    const erhua = char === "儿" && previous && /r$/i.test(previous.text) && !/^[eēéěè]r$/i.test(previous.text);
+    const erhua =
+      char === "儿" && previous && /r$/i.test(previous.text) && !/^[eēéěè]r$/i.test(previous.text);
     if (erhua) tones.push(previous.tone);
     else if (next < syllables.length) tones.push(syllables[next++].tone);
     else return null;

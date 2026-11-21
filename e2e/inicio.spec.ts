@@ -4,9 +4,15 @@ test.describe("inicio como invitado", () => {
   test("presenta la app, el modo invitado y las lecciones", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/sinophile/);
-    await expect(page.getByRole("link", { name: /Estás en modo invitado/ })).toHaveAttribute("href", "/cuenta");
+    await expect(page.getByRole("link", { name: /Estás en modo invitado/ })).toHaveAttribute(
+      "href",
+      "/cuenta",
+    );
     await expect(page.getByText("6 lecciones")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Lección 6", exact: true })).toHaveAttribute("href", "/leccion?id=6");
+    await expect(page.getByRole("link", { name: "Lección 6", exact: true })).toHaveAttribute(
+      "href",
+      "/leccion?id=6",
+    );
     for (const modo of ["Repaso", "Infinito", "Examen", "Escritura", "Tarjetas"]) {
       await expect(page.getByRole("main").getByRole("link", { name: modo, exact: true })).toBeVisible();
     }

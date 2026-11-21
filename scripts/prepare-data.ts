@@ -17,7 +17,12 @@
  */
 import { copyFileSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { sanitizeAllExercises, sanitizeLessons, type Issue, type LessonBundle } from "../src/lib/data/validate.ts";
+import {
+  sanitizeAllExercises,
+  sanitizeLessons,
+  type Issue,
+  type LessonBundle,
+} from "../src/lib/data/validate.ts";
 import { hanChars } from "../src/lib/text.ts";
 import { JsonSyntaxError, readDataDir, type RawData } from "./data-files.ts";
 
@@ -34,13 +39,19 @@ try {
   process.exit(1);
 }
 
-const bundle: LessonBundle = { lessons: raw.lessons.map(({ folder, vocab }) => ({ folder, vocab })), ignored: raw.ignored };
-const exercisesByLesson = Object.fromEntries(raw.lessons.filter((l) => l.exercises !== null).map((l) => [l.folder, l.exercises]));
+const bundle: LessonBundle = {
+  lessons: raw.lessons.map(({ folder, vocab }) => ({ folder, vocab })),
+  ignored: raw.ignored,
+};
+const exercisesByLesson = Object.fromEntries(
+  raw.lessons.filter((l) => l.exercises !== null).map((l) => [l.folder, l.exercises]),
+);
 const vocab = sanitizeLessons(bundle);
 const exercises = sanitizeAllExercises(exercisesByLesson, vocab.lessons);
 
 const icon = { error: "❌", warning: "⚠️ ", info: "ℹ️ " } as const;
-const report = (issues: Issue[]) => issues.forEach((issue) => console.log(`${icon[issue.level]} ${issue.message}`));
+const report = (issues: Issue[]) =>
+  issues.forEach((issue) => console.log(`${icon[issue.level]} ${issue.message}`));
 report([...vocab.issues, ...exercises.issues]);
 console.log(
   `✔ ${vocab.lessons.length} lecciones · ${vocab.entries.length} palabras · ` +
@@ -59,7 +70,8 @@ writeJson("src/generated/lessons.json", bundle);
 rmSync(path("public/data"), { recursive: true, force: true });
 mkdirSync(path("public/data"), { recursive: true });
 writeJson("public/data/exercises.json", exercisesByLesson);
-if (existsSync(path("data/cedict.json"))) copyFileSync(path("data/cedict.json"), path("public/data/cedict.json"));
+if (existsSync(path("data/cedict.json")))
+  copyFileSync(path("data/cedict.json"), path("public/data/cedict.json"));
 
 // Stroke data for every character in vocab + example sentences.
 const chars = new Set<string>();

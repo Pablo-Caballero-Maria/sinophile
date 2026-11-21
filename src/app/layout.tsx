@@ -5,7 +5,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "sinophile · aprende chino", template: "%s · sinophile" },
-  description: "Practica tu vocabulario de chino mandarín: lecciones, escritura de hanzi, pronunciación, exámenes y diccionario.",
+  description:
+    "Practica tu vocabulario de chino mandarín: lecciones, escritura de hanzi, pronunciación, exámenes y diccionario.",
   applicationName: "sinophile",
   appleWebApp: { capable: true, title: "sinophile", statusBarStyle: "default" },
   icons: { icon: "/icon.svg", apple: "/apple-icon.png" },

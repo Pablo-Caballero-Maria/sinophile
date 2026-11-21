@@ -1,5 +1,16 @@
 "use client";
-import { GraduationCap, Headphones, Infinity as InfinityIcon, Layers, MessageSquareText, Mic, Music, PenLine, RotateCcw, type LucideIcon } from "lucide-react";
+import {
+  GraduationCap,
+  Headphones,
+  Infinity as InfinityIcon,
+  Layers,
+  MessageSquareText,
+  Mic,
+  Music,
+  PenLine,
+  RotateCcw,
+  type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { SilentModeCheckbox } from "@/components/silent-mode";
@@ -21,18 +32,57 @@ interface Mode {
 }
 
 const MODES: Mode[] = [
-  { modo: "infinito", title: "Modo infinito", description: "Ejercicios sin fin hasta perder 3 vidas.", icon: InfinityIcon, color: "bg-brand" },
-  { modo: "tarjetas", title: "Tarjetas", description: "Flashcards rápidas: ¿te la sabes o no?", icon: Layers, color: "bg-accent-orange" },
-  { modo: "escucha", title: "Escucha", description: "Reconoce palabras y frases de oído.", icon: Headphones, color: "bg-sky" },
-  { modo: "pronunciacion", title: "Pronunciación", description: "Habla y comprueba si se te entiende.", icon: Mic, color: "bg-brand" },
-  { modo: "tonos", title: "Pinyin y tonos", description: "Distingue y escribe los tonos.", icon: Music, color: "bg-accent-blue" },
-  { modo: "frases", title: "Frases", description: "Huecos, traducciones y diálogos.", icon: MessageSquareText, color: "bg-gold" },
+  {
+    modo: "infinito",
+    title: "Modo infinito",
+    description: "Ejercicios sin fin hasta perder 3 vidas.",
+    icon: InfinityIcon,
+    color: "bg-brand",
+  },
+  {
+    modo: "tarjetas",
+    title: "Tarjetas",
+    description: "Flashcards rápidas: ¿te la sabes o no?",
+    icon: Layers,
+    color: "bg-accent-orange",
+  },
+  {
+    modo: "escucha",
+    title: "Escucha",
+    description: "Reconoce palabras y frases de oído.",
+    icon: Headphones,
+    color: "bg-sky",
+  },
+  {
+    modo: "pronunciacion",
+    title: "Pronunciación",
+    description: "Habla y comprueba si se te entiende.",
+    icon: Mic,
+    color: "bg-brand",
+  },
+  {
+    modo: "tonos",
+    title: "Pinyin y tonos",
+    description: "Distingue y escribe los tonos.",
+    icon: Music,
+    color: "bg-accent-blue",
+  },
+  {
+    modo: "frases",
+    title: "Frases",
+    description: "Huecos, traducciones y diálogos.",
+    icon: MessageSquareText,
+    color: "bg-gold",
+  },
 ];
 
 function ModeCard({ mode, href, badge }: { mode: Mode; href: string; badge?: string }) {
   const Icon = mode.icon;
   return (
-    <Link href={href} className="flex items-center gap-3 rounded-3xl border border-line bg-surface p-4 transition-colors hover:bg-surface-2">
+    <Link
+      href={href}
+      className="flex items-center gap-3 rounded-3xl border border-line bg-surface p-4 transition-colors hover:bg-surface-2"
+    >
       <span className={cn("grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-white", mode.color)}>
         <Icon size={24} />
       </span>
@@ -65,7 +115,14 @@ export default function PracticePage() {
       <PageHeader title="Practicar" subtitle="Elige qué lecciones y cómo quieres practicar." />
 
       <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2">
-        <button type="button" onClick={() => setScope([])} className={cn("shrink-0 rounded-full border-2 px-4 py-1.5 text-sm font-bold", scope.length === 0 ? "border-sky bg-sky-soft text-sky" : "border-line")}>
+        <button
+          type="button"
+          onClick={() => setScope([])}
+          className={cn(
+            "shrink-0 rounded-full border-2 px-4 py-1.5 text-sm font-bold",
+            scope.length === 0 ? "border-sky bg-sky-soft text-sky" : "border-line",
+          )}
+        >
           Todas
         </button>
         {LESSONS.map((lesson) => (
@@ -73,7 +130,10 @@ export default function PracticePage() {
             key={lesson.id}
             type="button"
             onClick={() => toggle(lesson.id)}
-            className={cn("shrink-0 rounded-full border-2 px-4 py-1.5 text-sm font-bold", scope.includes(lesson.id) ? "border-sky bg-sky-soft text-sky" : "border-line")}
+            className={cn(
+              "shrink-0 rounded-full border-2 px-4 py-1.5 text-sm font-bold",
+              scope.includes(lesson.id) ? "border-sky bg-sky-soft text-sky" : "border-line",
+            )}
           >
             Lección {lesson.number}
           </button>
@@ -86,7 +146,11 @@ export default function PracticePage() {
         <RotateCcw size={36} className="shrink-0 text-sky" />
         <div className="min-w-0 flex-1">
           <p className="font-extrabold">Repaso inteligente</p>
-          <p className="text-sm text-muted">{due ? `${due} ejercicios pendientes según tu curva de olvido.` : "Nada pendiente: repasa tus palabras más débiles."}</p>
+          <p className="text-sm text-muted">
+            {due
+              ? `${due} ejercicios pendientes según tu curva de olvido.`
+              : "Nada pendiente: repasa tus palabras más débiles."}
+          </p>
         </div>
         <ButtonLink href={`/sesion?modo=repaso${l}`} variant="sky">
           Repasar
@@ -96,7 +160,16 @@ export default function PracticePage() {
       <SectionTitle>Modos de práctica</SectionTitle>
       <div className="grid gap-3 sm:grid-cols-2">
         {MODES.filter((mode) => !silentMode || !isNoisyMode(mode.modo)).map((mode) => (
-          <ModeCard key={mode.modo} mode={mode} href={`/sesion?modo=${mode.modo}${l}`} badge={mode.modo === "infinito" && ready && progress.records.infinite ? `Récord ${progress.records.infinite}` : undefined} />
+          <ModeCard
+            key={mode.modo}
+            mode={mode}
+            href={`/sesion?modo=${mode.modo}${l}`}
+            badge={
+              mode.modo === "infinito" && ready && progress.records.infinite
+                ? `Récord ${progress.records.infinite}`
+                : undefined
+            }
+          />
         ))}
       </div>
 
@@ -107,7 +180,9 @@ export default function PracticePage() {
             <PenLine size={24} />
           </span>
           <p className="text-sm text-muted">
-            <b className="text-fg">Guiada</b>: trazas sobre la plantilla y se corrige el orden de trazos. <b className="text-fg">Libre</b>: ves la palabra en español, la dibujas de memoria y se te revela el hanzi, sin corrección.
+            <b className="text-fg">Guiada</b>: trazas sobre la plantilla y se corrige el orden de trazos.{" "}
+            <b className="text-fg">Libre</b>: ves la palabra en español, la dibujas de memoria y se te revela
+            el hanzi, sin corrección.
           </p>
         </div>
         <Segmented
@@ -134,7 +209,9 @@ export default function PracticePage() {
           <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold text-white">
             <GraduationCap size={24} />
           </span>
-          <p className="text-sm text-muted">Preguntas variadas sin pistas ni correcciones hasta el final. Nota del 0 al 10.</p>
+          <p className="text-sm text-muted">
+            Preguntas variadas sin pistas ni correcciones hasta el final. Nota del 0 al 10.
+          </p>
         </div>
         <Segmented
           value={examSize}
@@ -142,12 +219,20 @@ export default function PracticePage() {
           options={[10, 20, 30].map((n) => ({ value: n, label: `${n} preguntas` }))}
         />
         <Toggle checked={examWriting} onChange={setExamWriting} label="Incluir escritura de memoria" />
-        <ButtonLink href={`/sesion?modo=examen&n=${examSize}${examWriting ? "&escritura=1" : ""}${l}`} variant="gold" full>
+        <ButtonLink
+          href={`/sesion?modo=examen&n=${examSize}${examWriting ? "&escritura=1" : ""}${l}`}
+          variant="gold"
+          full
+        >
           Empezar examen
         </ButtonLink>
         {ready && lastExam && (
           <p className="text-center text-sm text-muted">
-            Último examen: <b className="text-fg">{lastExam.grade.toLocaleString("es-ES")}</b> ({lastExam.correct}/{lastExam.total}) · <Link href="/progreso#examenes" className="underline">ver historial</Link>
+            Último examen: <b className="text-fg">{lastExam.grade.toLocaleString("es-ES")}</b> (
+            {lastExam.correct}/{lastExam.total}) ·{" "}
+            <Link href="/progreso#examenes" className="underline">
+              ver historial
+            </Link>
           </p>
         )}
       </Card>

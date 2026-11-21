@@ -11,7 +11,11 @@ afterEach(() => {
 });
 
 describe("speech", () => {
-  const synth = { cancel: vi.fn(), getVoices: () => [], speak: vi.fn((u: { onend: () => void }) => u.onend()) };
+  const synth = {
+    cancel: vi.fn(),
+    getVoices: () => [],
+    speak: vi.fn((u: { onend: () => void }) => u.onend()),
+  };
 
   beforeEach(() => {
     vi.clearAllMocks();

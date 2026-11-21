@@ -27,7 +27,7 @@ Ejemplos de comportamiento que contribuyen a crear un ambiente positivo para nue
 Ejemplos de comportamiento inaceptable:
 
 - El uso de lenguaje o imágenes sexualizadas, y aproximaciones o atenciones sexuales de cualquier tipo.
-- Comentarios despectivos (*trolling*), insultantes o derogatorios, y ataques personales o políticos.
+- Comentarios despectivos (_trolling_), insultantes o derogatorios, y ataques personales o políticos.
 - El acoso en público o privado.
 - Publicar información privada de otras personas, como direcciones físicas o de correo electrónico, sin
   su permiso explícito.
@@ -40,14 +40,14 @@ comportamiento aceptable, y tomarán acciones apropiadas y correctivas de forma 
 cualquier comportamiento que consideren inapropiado, amenazante, ofensivo o dañino.
 
 Los administradores de la comunidad tendrán el derecho y la responsabilidad de eliminar, editar o
-rechazar comentarios, *commits*, código, ediciones de páginas de la wiki, *issues* y otras
+rechazar comentarios, _commits_, código, ediciones de páginas de la wiki, _issues_ y otras
 contribuciones que no se alineen con este código de conducta, y comunicarán las razones de sus
 decisiones de moderación cuando sea apropiado.
 
 ## Alcance
 
-Este código de conducta se aplica tanto en los espacios del proyecto (el repositorio, sus *issues*,
-*pull requests*, discusiones y wiki) como cuando una persona representa oficialmente a la comunidad en
+Este código de conducta se aplica tanto en los espacios del proyecto (el repositorio, sus _issues_,
+_pull requests_, discusiones y wiki) como cuando una persona representa oficialmente a la comunidad en
 espacios públicos.
 
 ## Aplicación
@@ -61,12 +61,12 @@ respetará la privacidad y la seguridad de quien informe del incidente.
 Los administradores de la comunidad seguirán estas guías de impacto en la comunidad para determinar
 las consecuencias de cualquier acción que juzguen como un incumplimiento de este código de conducta:
 
-| Nivel | Impacto en la comunidad | Consecuencia |
-| --- | --- | --- |
-| 1. Corrección | Uso de lenguaje inapropiado u otro comportamiento considerado poco profesional o no acogedor. | Aviso escrito y privado con una explicación del incumplimiento; puede pedirse una disculpa pública. |
-| 2. Advertencia | Incumplimiento mediante un incidente aislado o una serie de acciones. | Advertencia con consecuencias si el comportamiento continúa; no se interactúa con las personas involucradas durante un tiempo. |
-| 3. Expulsión temporal | Incumplimiento grave de los estándares, incluido un comportamiento inapropiado sostenido. | Expulsión temporal de cualquier interacción o comunicación pública con la comunidad. |
-| 4. Expulsión permanente | Patrón de incumplimiento de las normas, acoso continuado o agresión o menosprecio hacia grupos de personas. | Expulsión permanente de cualquier interacción pública dentro de la comunidad. |
+| Nivel                   | Impacto en la comunidad                                                                                     | Consecuencia                                                                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| 1. Corrección           | Uso de lenguaje inapropiado u otro comportamiento considerado poco profesional o no acogedor.               | Aviso escrito y privado con una explicación del incumplimiento; puede pedirse una disculpa pública.                            |
+| 2. Advertencia          | Incumplimiento mediante un incidente aislado o una serie de acciones.                                       | Advertencia con consecuencias si el comportamiento continúa; no se interactúa con las personas involucradas durante un tiempo. |
+| 3. Expulsión temporal   | Incumplimiento grave de los estándares, incluido un comportamiento inapropiado sostenido.                   | Expulsión temporal de cualquier interacción o comunicación pública con la comunidad.                                           |
+| 4. Expulsión permanente | Patrón de incumplimiento de las normas, acoso continuado o agresión o menosprecio hacia grupos de personas. | Expulsión permanente de cualquier interacción pública dentro de la comunidad.                                                  |
 
 ## Atribución
 

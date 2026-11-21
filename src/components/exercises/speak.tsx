@@ -17,7 +17,15 @@ type Speak = Extract<Exercise, { type: "speak" }>;
 const PASS = 0.75;
 const MAX_ATTEMPTS = 3;
 
-function Recognizer({ ex, answered, onAnswer }: { ex: Speak; answered: boolean; onAnswer: ExerciseProps<Speak>["onAnswer"] }) {
+function Recognizer({
+  ex,
+  answered,
+  onAnswer,
+}: {
+  ex: Speak;
+  answered: boolean;
+  onAnswer: ExerciseProps<Speak>["onAnswer"];
+}) {
   const [status, setStatus] = useState<"idle" | "listening" | "scoring">("idle");
   const [score, setScore] = useState<PronunciationScore | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -57,19 +65,39 @@ function Recognizer({ ex, answered, onAnswer }: { ex: Speak; answered: boolean; 
         <Mic size={40} />
       </button>
       <p className="text-sm font-semibold text-muted">
-        {status === "listening" ? "Te escucho… habla ahora" : status === "scoring" ? "Evaluando…" : "Pulsa el micrófono y lee en voz alta"}
+        {status === "listening"
+          ? "Te escucho… habla ahora"
+          : status === "scoring"
+            ? "Evaluando…"
+            : "Pulsa el micrófono y lee en voz alta"}
       </p>
       {error && <p className="text-sm font-semibold text-bad">{error}</p>}
       {score && (
-        <div className={cn("w-full rounded-2xl p-4 text-center", score.score >= PASS ? "bg-ok-soft" : "bg-gold-soft")}>
+        <div
+          className={cn(
+            "w-full rounded-2xl p-4 text-center",
+            score.score >= PASS ? "bg-ok-soft" : "bg-gold-soft",
+          )}
+        >
           <p className="text-sm text-muted">He entendido:</p>
-          <p lang="zh-CN" className="font-hanzi text-2xl">{score.heard || "—"}</p>
+          <p lang="zh-CN" className="font-hanzi text-2xl">
+            {score.heard || "—"}
+          </p>
           {score.heardPinyin && <p className="text-sm text-muted">{score.heardPinyin}</p>}
           <p className="mt-1 font-bold">{Math.round(score.score * 100)}% de coincidencia</p>
         </div>
       )}
       {exhausted && !answered && (
-        <Button variant="secondary" onClick={() => onAnswer({ correct: false, given: score?.heard, note: "Sigue practicando: escucha el modelo despacio 🐢" })}>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            onAnswer({
+              correct: false,
+              given: score?.heard,
+              note: "Sigue practicando: escucha el modelo despacio 🐢",
+            })
+          }
+        >
           Continuar
         </Button>
       )}
@@ -113,12 +141,17 @@ function Recorder({ answered, onAnswer }: { answered: boolean; onAnswer: Exercis
         type="button"
         disabled={answered}
         onClick={() => void (recording ? stop() : start())}
-        className={cn("grid h-24 w-24 place-items-center rounded-full border-b-[6px] text-white", recording ? "animate-pulse border-bad-strong bg-bad" : "border-brand-strong bg-brand")}
+        className={cn(
+          "grid h-24 w-24 place-items-center rounded-full border-b-[6px] text-white",
+          recording ? "animate-pulse border-bad-strong bg-bad" : "border-brand-strong bg-brand",
+        )}
         aria-label={recording ? "Parar" : "Grabar"}
       >
         {recording ? <Square size={36} /> : <Mic size={40} />}
       </button>
-      <p className="text-sm font-semibold text-muted">{recording ? "Grabando… pulsa para parar" : "Graba tu voz y compárala con el modelo"}</p>
+      <p className="text-sm font-semibold text-muted">
+        {recording ? "Grabando… pulsa para parar" : "Graba tu voz y compárala con el modelo"}
+      </p>
       {error && <p className="text-sm font-semibold text-bad">{error}</p>}
       {url && (
         <>
@@ -150,7 +183,11 @@ export function SpeakExercise({ exercise: ex, answered, onAnswer, onSkip }: Exer
         <p className="text-muted">{ex.translation}</p>
         <SpeakButton text={ex.hanzi} className="mt-2" />
       </div>
-      {canRecognize ? <Recognizer ex={ex} answered={answered} onAnswer={onAnswer} /> : <Recorder answered={answered} onAnswer={onAnswer} />}
+      {canRecognize ? (
+        <Recognizer ex={ex} answered={answered} onAnswer={onAnswer} />
+      ) : (
+        <Recorder answered={answered} onAnswer={onAnswer} />
+      )}
       <Footer hidden={answered}>
         <Button variant="ghost" full onClick={onSkip}>
           Ahora no puedo hablar

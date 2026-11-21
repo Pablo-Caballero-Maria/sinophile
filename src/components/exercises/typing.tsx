@@ -55,7 +55,9 @@ export function TypingExercise({ exercise: ex, answered, onAnswer }: ExercisePro
               {mark}
             </button>
           ))}
-          <span className="ml-2 text-lg font-semibold text-sky">{/\d/.test(value) ? prettifyTyped(value) : ""}</span>
+          <span className="ml-2 text-lg font-semibold text-sky">
+            {/\d/.test(value) ? prettifyTyped(value) : ""}
+          </span>
         </div>
       )}
       <CheckFooter answered={answered} disabled={!value.trim()} onCheck={check} />

@@ -73,7 +73,9 @@ export function FlashcardExercise({ exercise: ex, answered, onAnswer }: Exercise
             <span className="text-xl font-bold">{word.es}</span>
           </span>
         )}
-        {!flipped && <span className="mt-4 text-sm font-semibold text-muted">Toca para ver la respuesta</span>}
+        {!flipped && (
+          <span className="mt-4 text-sm font-semibold text-muted">Toca para ver la respuesta</span>
+        )}
       </button>
       {flipped && (
         <div className="mt-3 flex justify-center">

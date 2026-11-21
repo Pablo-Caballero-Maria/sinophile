@@ -11,7 +11,19 @@
 import { pinyinEquals, toneVariants } from "../pinyin";
 import { isSeen, itemOf, wordMastery, dueItems, type Progress } from "../progress/model";
 import { strength } from "../srs";
-import { dayKey, hasHan, isPunctuation, normalizeLatin, normalizeZh, pick, sample, shuffle, spanishWords, splitMeanings, uniqueBy } from "../text";
+import {
+  dayKey,
+  hasHan,
+  isPunctuation,
+  normalizeLatin,
+  normalizeZh,
+  pick,
+  sample,
+  shuffle,
+  spanishWords,
+  splitMeanings,
+  uniqueBy,
+} from "../text";
 import type { CuratedExercise, Sentence, Skill, VocabEntry, WordSet } from "../types";
 import { isNoisyExercise, isNoisyMode, reviewable } from "./silent";
 import type { Display, Exercise, Option, Prompt, SessionParams, WriteStyle } from "./types";
@@ -37,12 +49,20 @@ const nextKey = (type: string) => `${type}-${++counter}`;
 /* ───────────── helpers ───────────── */
 
 /** Other words usable as wrong options, preferring the same lesson and similar length. */
-function distractorWords(word: VocabEntry, ctx: GenContext, count: number, isConflict: (w: VocabEntry) => boolean): VocabEntry[] {
+function distractorWords(
+  word: VocabEntry,
+  ctx: GenContext,
+  count: number,
+  isConflict: (w: VocabEntry) => boolean,
+): VocabEntry[] {
   const candidates = uniqueBy(
-    shuffle(ctx.vocab, ctx.random).filter((w) => w.id !== word.id && w.hanzi !== word.hanzi && !isConflict(w)),
+    shuffle(ctx.vocab, ctx.random).filter(
+      (w) => w.id !== word.id && w.hanzi !== word.hanzi && !isConflict(w),
+    ),
     (w) => w.hanzi,
   );
-  const score = (w: VocabEntry) => (w.lesson === word.lesson ? 0 : 1) + Math.abs(w.hanzi.length - word.hanzi.length) * 0.5;
+  const score = (w: VocabEntry) =>
+    (w.lesson === word.lesson ? 0 : 1) + Math.abs(w.hanzi.length - word.hanzi.length) * 0.5;
   return candidates.sort((a, b) => score(a) - score(b)).slice(0, count);
 }
 
@@ -52,9 +72,16 @@ const sameMeaning = (a: VocabEntry, b: VocabEntry) => {
   return splitMeanings(b.es).some((m) => meanings.has(normalizeLatin(m)));
 };
 const sameSound = (a: VocabEntry, b: VocabEntry) => pinyinEquals(a.pinyin, b.pinyin, true);
-const hanziOption = (w: VocabEntry): Option => ({ id: w.id, display: { kind: "hanzi", text: w.hanzi, pinyin: w.pinyin } });
+const hanziOption = (w: VocabEntry): Option => ({
+  id: w.id,
+  display: { kind: "hanzi", text: w.hanzi, pinyin: w.pinyin },
+});
 const textDisplay = (text: string): Display =>
-  hasHan(text) ? { kind: "hanzi", text } : /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(text) ? { kind: "pinyin", text } : { kind: "text", text };
+  hasHan(text)
+    ? { kind: "hanzi", text }
+    : /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(text)
+      ? { kind: "pinyin", text }
+      : { kind: "text", text };
 
 const base = (type: string, skill: Skill, word: VocabEntry, instruction: string) => ({
   key: nextKey(type),
@@ -110,7 +137,10 @@ export function listenChoice(word: VocabEntry, ctx: GenContext): Exercise {
 }
 
 export function listenMeaning(word: VocabEntry, ctx: GenContext): Exercise {
-  const options = shuffle([word, ...distractorWords(word, ctx, 3, (w) => sameMeaning(w, word) || sameSound(w, word))], ctx.random);
+  const options = shuffle(
+    [word, ...distractorWords(word, ctx, 3, (w) => sameMeaning(w, word) || sameSound(w, word))],
+    ctx.random,
+  );
   return {
     ...base("listen-meaning", "listening", word, "Escucha y elige el significado"),
     type: "choice",
@@ -127,7 +157,10 @@ export function pinyinChoice(word: VocabEntry, ctx: GenContext): Exercise {
     wrong = [...wrong, ...fill].slice(0, 3);
   }
   const options: Option[] = shuffle(
-    [{ id: "ok", display: { kind: "pinyin", text: word.pinyin } }, ...wrong.map((p, i) => ({ id: `v${i}`, display: { kind: "pinyin", text: p } as Display }))],
+    [
+      { id: "ok", display: { kind: "pinyin", text: word.pinyin } },
+      ...wrong.map((p, i) => ({ id: `v${i}`, display: { kind: "pinyin", text: p } as Display })),
+    ],
     ctx.random,
   );
   return {
@@ -158,15 +191,23 @@ export const typeMeaning = (word: VocabEntry, ctx: GenContext): Exercise => ({
 });
 
 /** Matching game with up to 5 pairs (hanzi ↔ Spanish, or hanzi ↔ pinyin). */
-export function matchPairs(words: VocabEntry[], ctx: GenContext, variant: "es" | "pinyin" = pick(["es", "es", "pinyin"], ctx.random) as "es" | "pinyin"): Exercise | null {
+export function matchPairs(
+  words: VocabEntry[],
+  ctx: GenContext,
+  variant: "es" | "pinyin" = pick(["es", "es", "pinyin"], ctx.random) as "es" | "pinyin",
+): Exercise | null {
   const right = (w: VocabEntry) => (variant === "es" ? normalizeLatin(w.es) : normalizeLatin(w.pinyin));
-  const chosen = uniqueBy(uniqueBy(words, (w) => w.hanzi), right).slice(0, 5);
+  const chosen = uniqueBy(
+    uniqueBy(words, (w) => w.hanzi),
+    right,
+  ).slice(0, 5);
   if (chosen.length < 3) return null;
   return {
     key: nextKey("match"),
     skill: variant === "es" ? "meaning" : "pinyin",
     wordIds: chosen.map((w) => w.id),
-    instruction: variant === "es" ? "Empareja cada palabra con su significado" : "Empareja cada palabra con su pinyin",
+    instruction:
+      variant === "es" ? "Empareja cada palabra con su significado" : "Empareja cada palabra con su pinyin",
     type: "match",
     pairs: chosen.map((w) => ({
       wordId: w.id,
@@ -240,7 +281,10 @@ function curated(word: VocabEntry, set: WordSet, ex: CuratedExercise, ctx: GenCo
       const wrong = ex.distractors?.length
         ? ex.distractors
         : distractorWords(word, ctx, 3, (w) => w.hanzi === blankToken).map((w) => w.hanzi);
-      const options = shuffle(uniqueBy([blankToken, ...wrong.filter((d) => d !== blankToken)].slice(0, 4), (t) => t), ctx.random);
+      const options = shuffle(
+        uniqueBy([blankToken, ...wrong.filter((d) => d !== blankToken)].slice(0, 4), (t) => t),
+        ctx.random,
+      );
       return {
         ...base("fill", "sentences", word, "Completa la frase"),
         type: "choice",
@@ -258,7 +302,14 @@ function curated(word: VocabEntry, set: WordSet, ex: CuratedExercise, ctx: GenCo
         const wordsNorm = new Set(words.map(normalizeLatin));
         const extra = ex.distractors?.length
           ? ex.distractors
-          : sample(uniqueBy(pool.filter((w) => !wordsNorm.has(normalizeLatin(w))), normalizeLatin), 3, ctx.random);
+          : sample(
+              uniqueBy(
+                pool.filter((w) => !wordsNorm.has(normalizeLatin(w))),
+                normalizeLatin,
+              ),
+              3,
+              ctx.random,
+            );
         return {
           ...base("translate", "sentences", word, "Traduce al español"),
           type: "tiles",
@@ -286,7 +337,10 @@ function curated(word: VocabEntry, set: WordSet, ex: CuratedExercise, ctx: GenCo
     }
     case "dialogue": {
       const options = shuffle(
-        [ex.answer, ...ex.wrong].map((s, i) => ({ id: i === 0 ? "answer" : `w${i}`, display: { kind: "hanzi", text: s.zh.join(""), pinyin: s.pinyin } as Display })),
+        [ex.answer, ...ex.wrong].map((s, i) => ({
+          id: i === 0 ? "answer" : `w${i}`,
+          display: { kind: "hanzi", text: s.zh.join(""), pinyin: s.pinyin } as Display,
+        })),
         ctx.random,
       );
       return {
@@ -299,7 +353,10 @@ function curated(word: VocabEntry, set: WordSet, ex: CuratedExercise, ctx: GenCo
       };
     }
     case "choice": {
-      const options = shuffle(ex.options.map((o) => ({ id: o, display: textDisplay(o) })), ctx.random);
+      const options = shuffle(
+        ex.options.map((o) => ({ id: o, display: textDisplay(o) })),
+        ctx.random,
+      );
       return {
         ...base("question", "sentences", word, "Elige la respuesta correcta"),
         type: "choice",
@@ -319,7 +376,8 @@ export function curatedFor(word: VocabEntry, ctx: GenContext): Exercise[] {
   return set.exercises.map((ex) => curated(word, set, ex, ctx)).filter((e): e is Exercise => e !== null);
 }
 
-const examplesOf = (word: VocabEntry, ctx: GenContext) => (ctx.sets[word.id]?.examples ?? []).filter((s) => s.zh.length > 0);
+const examplesOf = (word: VocabEntry, ctx: GenContext) =>
+  (ctx.sets[word.id]?.examples ?? []).filter((s) => s.zh.length > 0);
 
 /* ───────────── per-skill drill choice ───────────── */
 
@@ -328,7 +386,10 @@ export function drillFor(word: VocabEntry, skill: Skill, ctx: GenContext): Exerc
   const r = ctx.random;
   switch (skill) {
     case "meaning":
-      return pick([box >= 3 ? typeMeaning(word, ctx) : meaningChoice(word, ctx), reverseChoice(word, ctx)], r);
+      return pick(
+        [box >= 3 ? typeMeaning(word, ctx) : meaningChoice(word, ctx), reverseChoice(word, ctx)],
+        r,
+      );
     case "listening": {
       const examples = examplesOf(word, ctx);
       const options = [listenChoice(word, ctx), listenMeaning(word, ctx)];
@@ -368,22 +429,33 @@ const weakestFirst = (words: VocabEntry[], ctx: GenContext, skill?: Skill) =>
 function lessonSession(words: VocabEntry[], ctx: GenContext): Exercise[] {
   const r = ctx.random;
   const unseen = words.filter((w) => !isSeen(ctx.progress, w.id));
-  const seen = weakestFirst(words.filter((w) => isSeen(ctx.progress, w.id)), ctx);
+  const seen = weakestFirst(
+    words.filter((w) => isSeen(ctx.progress, w.id)),
+    ctx,
+  );
   const focus = [...unseen.slice(0, 4), ...seen].slice(0, unseen.length ? 4 : 5);
 
   // Phase 1: introduce new words (each followed by an easy check), quick recall for known ones.
   const opening = focus.flatMap((w) =>
-    isSeen(ctx.progress, w.id) ? [pick([meaningChoice(w, ctx), reverseChoice(w, ctx)], r)] : [intro(w, ctx), meaningChoice(w, ctx)],
+    isSeen(ctx.progress, w.id)
+      ? [pick([meaningChoice(w, ctx), reverseChoice(w, ctx)], r)]
+      : [intro(w, ctx), meaningChoice(w, ctx)],
   );
 
   // Phase 2: candidates in priority order, trimmed to the session length.
-  const others = shuffle(words.filter((w) => !focus.includes(w)), r);
+  const others = shuffle(
+    words.filter((w) => !focus.includes(w)),
+    r,
+  );
   const match = matchPairs([...focus, ...others], ctx, "es");
   const writingWord = weakestFirst(focus, ctx, "writing")[0];
   const candidates = [
     ...(match ? [match] : []),
     ...focus.map((w) => pick([listenChoice(w, ctx), pinyinChoice(w, ctx), listenMeaning(w, ctx)], r)),
-    ...shuffle(focus.flatMap((w) => sample(curatedFor(w, ctx), 1, r)), r),
+    ...shuffle(
+      focus.flatMap((w) => sample(curatedFor(w, ctx), 1, r)),
+      r,
+    ),
     ...focus.map((w) => pick([reverseChoice(w, ctx), pinyinChoice(w, ctx)], r)),
   ];
   const room = Math.max(4, ctx.sessionLength - opening.length - 1 - (ctx.speaking ? 1 : 0));
@@ -400,10 +472,19 @@ function reviewSession(words: VocabEntry[], ctx: GenContext): Exercise[] {
   const due = reviewable(dueItems(ctx.progress, new Set(byId.keys()), ctx.today ?? dayKey()), ctx.silent)
     .filter((d) => d.skill !== "speaking" || ctx.speaking)
     .slice(0, ctx.sessionLength);
-  if (due.length > 0) return shuffle(due.map((d) => drillFor(byId.get(d.wordId)!, d.skill, ctx)), ctx.random);
+  if (due.length > 0)
+    return shuffle(
+      due.map((d) => drillFor(byId.get(d.wordId)!, d.skill, ctx)),
+      ctx.random,
+    );
   // Nothing due: practise the weakest words already seen.
-  const seen = weakestFirst(words.filter((w) => isSeen(ctx.progress, w.id)), ctx).slice(0, ctx.sessionLength);
-  return seen.map((w) => drillFor(w, pick(["meaning", "listening", "pinyin", "sentences"] as Skill[], ctx.random), ctx));
+  const seen = weakestFirst(
+    words.filter((w) => isSeen(ctx.progress, w.id)),
+    ctx,
+  ).slice(0, ctx.sessionLength);
+  return seen.map((w) =>
+    drillFor(w, pick(["meaning", "listening", "pinyin", "sentences"] as Skill[], ctx.random), ctx),
+  );
 }
 
 function examSession(words: VocabEntry[], ctx: GenContext, count: number, withWriting: boolean): Exercise[] {
@@ -447,12 +528,22 @@ function assembleSession(params: SessionParams, words: VocabEntry[], ctx: GenCon
       // Free drawing isn't graded, so it never changes a word's strength: without shuffling, every session would repeat the same words.
       const pool = style === "libre" ? shuffle(words, r) : weakestFirst(words, ctx, "writing");
       const chosen = pool.slice(0, style === "mixto" ? Math.ceil(length / 2) : length);
-      return chosen.flatMap((w) => (style === "guiado" ? [write(w, "guided")] : style === "libre" ? [write(w, "free")] : [write(w, "guided"), write(w, "free")]));
+      return chosen.flatMap((w) =>
+        style === "guiado"
+          ? [write(w, "guided")]
+          : style === "libre"
+            ? [write(w, "free")]
+            : [write(w, "guided"), write(w, "free")],
+      );
     }
     case "tarjetas":
-      return weakestFirst(words, ctx).slice(0, params.count ?? 20).map((w) => flashcard(w, r() < 0.3));
+      return weakestFirst(words, ctx)
+        .slice(0, params.count ?? 20)
+        .map((w) => flashcard(w, r() < 0.3));
     case "escucha":
-      return weakestFirst(words, ctx, "listening").slice(0, length).map((w) => drillFor(w, "listening", ctx));
+      return weakestFirst(words, ctx, "listening")
+        .slice(0, length)
+        .map((w) => drillFor(w, "listening", ctx));
     case "pronunciacion":
       return shuffle(words, r)
         .slice(0, length)
@@ -461,13 +552,24 @@ function assembleSession(params: SessionParams, words: VocabEntry[], ctx: GenCon
           return examples.length && r() < 0.35 ? speakSentence(w, pick(examples, r)) : speakWord(w);
         });
     case "tonos": {
-      const drills = weakestFirst(words, ctx, "pinyin").slice(0, length).map((w, i) => (i % 3 === 2 ? typePinyin(w) : pinyinChoice(w, ctx)));
+      const drills = weakestFirst(words, ctx, "pinyin")
+        .slice(0, length)
+        .map((w, i) => (i % 3 === 2 ? typePinyin(w) : pinyinChoice(w, ctx)));
       const match = matchPairs(shuffle(words, r), ctx, "pinyin");
       return match ? [match, ...drills] : drills;
     }
     case "frases": {
-      const list = shuffle(words.flatMap((w) => curatedFor(w, ctx)), r).slice(0, length);
-      const dict = ctx.silent ? [] : words.flatMap((w) => examplesOf(w, ctx).slice(0, 1).map((s) => dictation(w, s, ctx)));
+      const list = shuffle(
+        words.flatMap((w) => curatedFor(w, ctx)),
+        r,
+      ).slice(0, length);
+      const dict = ctx.silent
+        ? []
+        : words.flatMap((w) =>
+            examplesOf(w, ctx)
+              .slice(0, 1)
+              .map((s) => dictation(w, s, ctx)),
+          );
       return shuffle([...list, ...sample(dict, Math.max(2, Math.floor(length / 4)), r)], r).slice(0, length);
     }
     case "infinito":
@@ -494,7 +596,10 @@ export function nextInfinite(words: VocabEntry[], ctx: GenContext): Exercise {
   }
   const skill = pick<Skill>(["meaning", "meaning", "listening", "pinyin", "sentences"], r);
   const exercise = drillFor(word, skill, ctx);
-  return silenced(exercise.type === "write" || exercise.type === "speak" ? meaningChoice(word, ctx) : exercise, ctx);
+  return silenced(
+    exercise.type === "write" || exercise.type === "speak" ? meaningChoice(word, ctx) : exercise,
+    ctx,
+  );
 }
 
 /** Prompt helper for components: the Chinese text a prompt can read aloud. */

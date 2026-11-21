@@ -31,7 +31,8 @@ export function credentialsError(username: string, password: string): string | n
   const name = normalizeUsername(username);
   if (name.length < USERNAME_MIN || name.length > USERNAME_MAX)
     return `El nombre de usuario debe tener entre ${USERNAME_MIN} y ${USERNAME_MAX} caracteres.`;
-  if (!USERNAME_RE.test(name)) return "El nombre de usuario solo puede tener letras sin tildes, números, «.», «-» y «_».";
+  if (!USERNAME_RE.test(name))
+    return "El nombre de usuario solo puede tener letras sin tildes, números, «.», «-» y «_».";
   if (password.length < PASSWORD_MIN) return `La contraseña debe tener al menos ${PASSWORD_MIN} caracteres.`;
   if (password.length > PASSWORD_MAX) return "La contraseña es demasiado larga.";
   return null;

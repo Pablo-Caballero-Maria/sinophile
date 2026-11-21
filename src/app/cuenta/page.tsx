@@ -4,7 +4,15 @@ import { CloudCheck, CloudOff, LoaderCircle, LogOut, RefreshCw, Trash2, UserRoun
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Button, Card, cn, PageHeader, SectionTitle, Segmented, Skeleton, Toggle } from "@/components/ui";
-import { deleteAccount, reconnect, signIn, signOut, signUp, useAccount, type AccountState } from "@/lib/account/client";
+import {
+  deleteAccount,
+  reconnect,
+  signIn,
+  signOut,
+  signUp,
+  useAccount,
+  type AccountState,
+} from "@/lib/account/client";
 import { credentialsError, PASSWORD_MIN } from "@/lib/account/types";
 import { isEmptyProgress, totalXp } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
@@ -20,7 +28,8 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-const errorText = (error: unknown) => (error instanceof Error ? error.message : "Algo ha fallado. Inténtalo de nuevo.");
+const errorText = (error: unknown) =>
+  error instanceof Error ? error.message : "Algo ha fallado. Inténtalo de nuevo.";
 
 function AuthForm({ account }: { account: AccountState }) {
   const router = useRouter();
@@ -37,7 +46,10 @@ function AuthForm({ account }: { account: AccountState }) {
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    const problem = register ? (credentialsError(username, password) ?? (password !== repeat ? "Las contraseñas no coinciden." : null)) : null;
+    const problem = register
+      ? (credentialsError(username, password) ??
+        (password !== repeat ? "Las contraseñas no coinciden." : null))
+      : null;
     if (problem) return setError(problem);
     setBusy(true);
     setError(null);
@@ -85,7 +97,14 @@ function AuthForm({ account }: { account: AccountState }) {
         </Field>
         {register && (
           <Field label="Repite la contraseña">
-            <input className={INPUT} type="password" value={repeat} onChange={(e) => setRepeat(e.target.value)} autoComplete="new-password" required />
+            <input
+              className={INPUT}
+              type="password"
+              value={repeat}
+              onChange={(e) => setRepeat(e.target.value)}
+              autoComplete="new-password"
+              required
+            />
           </Field>
         )}
         {hasLocal && (
@@ -154,7 +173,9 @@ function AccountPanel({ account }: { account: AccountState }) {
     <>
       <Card className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-sky text-2xl font-black uppercase text-white">{account.username?.[0]}</span>
+          <span className="grid h-14 w-14 place-items-center rounded-full bg-sky text-2xl font-black text-white uppercase">
+            {account.username?.[0]}
+          </span>
           <div className="min-w-0">
             <p className="text-sm text-muted">Sesión iniciada como</p>
             <p className="truncate text-xl font-black">{account.username}</p>
@@ -180,8 +201,18 @@ function AccountPanel({ account }: { account: AccountState }) {
               void run(() => deleteAccount(password));
             }}
           >
-            <p className="text-sm font-semibold text-bad">Se borrarán tu cuenta, tu progreso y tus ajustes. No se puede deshacer. Escribe tu contraseña para confirmarlo.</p>
-            <input className={INPUT} type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" required />
+            <p className="text-sm font-semibold text-bad">
+              Se borrarán tu cuenta, tu progreso y tus ajustes. No se puede deshacer. Escribe tu contraseña
+              para confirmarlo.
+            </p>
+            <input
+              className={INPUT}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+            />
             <div className="flex gap-2">
               <Button type="submit" variant="bad" size="sm" disabled={busy || !password}>
                 Sí, borrar mi cuenta
@@ -204,18 +235,34 @@ export default function AccountPage() {
   if (account.status === "loading") return <Skeleton className="h-96 rounded-3xl" />;
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Tu cuenta" subtitle={account.status === "user" ? undefined : "Entra para guardar tu progreso y usarlo en todos tus dispositivos."} />
+      <PageHeader
+        title="Tu cuenta"
+        subtitle={
+          account.status === "user"
+            ? undefined
+            : "Entra para guardar tu progreso y usarlo en todos tus dispositivos."
+        }
+      />
       {account.status === "offline" && (
         <Card tone="gold" className="mb-4 flex flex-col gap-2">
-          <p className="font-semibold">No se puede conectar con el servidor. Puedes practicar como invitado, pero no se guardará nada.</p>
-          <Button variant="secondary" size="sm" className="self-start" disabled={retrying} onClick={() => (setRetrying(true), void reconnect().finally(() => setRetrying(false)))}>
+          <p className="font-semibold">
+            No se puede conectar con el servidor. Puedes practicar como invitado, pero no se guardará nada.
+          </p>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="self-start"
+            disabled={retrying}
+            onClick={() => (setRetrying(true), void reconnect().finally(() => setRetrying(false)))}
+          >
             <RefreshCw size={16} className={retrying ? "animate-spin" : undefined} /> Reintentar
           </Button>
         </Card>
       )}
       {account.expired && account.status !== "user" && (
         <Card tone="gold" className="mb-4 flex items-center gap-2 font-semibold">
-          <UserRound size={20} className="shrink-0" /> Tu sesión ha terminado. Vuelve a entrar para seguir guardando tu progreso.
+          <UserRound size={20} className="shrink-0" /> Tu sesión ha terminado. Vuelve a entrar para seguir
+          guardando tu progreso.
         </Card>
       )}
       {account.status === "user" ? <AccountPanel account={account} /> : <AuthForm account={account} />}
