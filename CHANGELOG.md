@@ -7,6 +7,20 @@ repositorio.
 
 ## [Sin publicar]
 
+## [1.1.0] - 2026-11-21
+
+### Añadido
+
+- **Tests de extremo a extremo con Playwright** (`e2e/`, `npm run test:e2e`): 14 tests en Chromium contra el
+  build de producción, con la API real y MongoDB: el inicio como invitado, que cada lección de `data/` tenga
+  su página con todas sus palabras, el principio de una lección, el modo silencioso, la configuración del
+  examen, el diccionario (español, pinyin sin tonos y CC-CEDICT), la ficha de palabra, el traductor, crear
+  una cuenta, cerrar sesión y volver a entrar, una contraseña incorrecta y que los ajustes se guarden en la
+  cuenta. Cualquier error en la consola del navegador hace fallar el test.
+- La CI ejecuta los tests de extremo a extremo con un servicio `mongo:8`.
+- **Vercel Web Analytics** (visitas, sin cookies) y **Speed Insights** (Core Web Vitals de visitas reales),
+  solo en el build que hace Vercel.
+
 ## [1.0.0] - 2026-11-21
 
 ### Añadido
@@ -87,7 +101,8 @@ repositorio.
   (`progress.json`).
 - Node.js 24.x fijado para los builds de Vercel.
 
-[Sin publicar]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.0.0...HEAD
+[Sin publicar]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v0.4.0...v0.5.0

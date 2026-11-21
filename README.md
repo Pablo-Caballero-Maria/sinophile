@@ -21,6 +21,8 @@ y Trainchinese.
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-desplegada-000000?logo=vercel)
 ![Vitest](https://img.shields.io/badge/Vitest-115_tests-6E9F18?logo=vitest&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-14_tests_e2e-2EAD33?logo=playwright&logoColor=white)
+![Vercel Analytics](https://img.shields.io/badge/Vercel-Analytics_·_Speed_Insights-000000?logo=vercel)
 
 [**Abrir la app**](https://sinophile.vercel.app) ·
 [Wiki](https://github.com/Pablo-Caballero-Maria/sinophile/wiki) ·
@@ -146,7 +148,9 @@ flowchart LR
 
 La lógica vive en módulos de TypeScript sin React (repetición espaciada, pinyin con *erhua*, corrección
 tolerante, puntuación de la escritura, voz, búsqueda en el diccionario, comparación con el HSK 1) y los
-componentes solo la presentan. Más detalle en la wiki:
+componentes solo la presentan. En producción, **Vercel Web Analytics** (visitas, sin cookies) y **Speed
+Insights** (Core Web Vitals de visitas reales) miden el uso y el rendimiento; solo se incluyen en el build que
+hace Vercel. Más detalle en la wiki:
 [Arquitectura](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Arquitectura).
 
 ## Datos (`data/`)
@@ -222,6 +226,7 @@ npm run build && npm start
 | `npm run dev` | servidor de desarrollo |
 | `npm test` | tests (Vitest): datos, lógica y la API contra un MongoDB en memoria |
 | `npm run test:coverage` | los mismos tests, con cobertura (`coverage/`) |
+| `npm run test:e2e` | tests de extremo a extremo con Playwright contra el build (`npm run build` antes; las cuentas usan un MongoDB local) |
 | `npm run lint` · `npm run typecheck` | ESLint · TypeScript |
 | `npm run validate` | valida todas las carpetas de `data/` |
 | `npm run dictionary` · `npm run hsk` | regeneran `data/cedict.json` · `data/hsk1.json` |
@@ -240,7 +245,7 @@ Cada *push* y *pull request* pasa por [GitHub Actions](https://github.com/Pablo-
 flowchart LR
     P(["push / PR"]) --> Q["Datos, lint y tipos<br/>validate · ESLint · tsc"]
     P --> T["Tests y cobertura<br/>Vitest + v8"]
-    P --> B["Build<br/>next build"]
+    P --> B["Build y extremo a extremo<br/>next build · Playwright<br/>(MongoDB 8)"]
     P --> C["CodeQL<br/>JS/TS y workflows"]
     Q & T & B --> I["Insignia de cobertura<br/>(solo en main)"]
 ```
@@ -251,6 +256,7 @@ flowchart LR
 | Lint y tipos | ESLint (Next.js) y TypeScript estricto | [ci.yml](.github/workflows/ci.yml) |
 | Tests unitarios y de integración (API + MongoDB en memoria) | Vitest, cobertura v8 | [ci.yml](.github/workflows/ci.yml) |
 | Build de producción | Next.js | [ci.yml](.github/workflows/ci.yml) |
+| Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas y ajustes) | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml) |
 | Análisis de seguridad | CodeQL | [codeql.yml](.github/workflows/codeql.yml) |
 | Dependencias | Dependabot (npm y Actions) | [dependabot.yml](.github/dependabot.yml) |
 | Secretos | escaneo de secretos con protección al hacer *push* | ajustes del repositorio |
@@ -316,7 +322,7 @@ Si usas sinophile en un trabajo, cítalo con los metadatos de [CITATION.cff](CIT
   author  = {Caballero María, Pablo},
   title   = {sinophile: app web para estudiar vocabulario de chino mandarín},
   year    = {2026},
-  version = {1.0.0},
+  version = {1.1.0},
   url     = {https://github.com/Pablo-Caballero-Maria/sinophile},
   license = {MIT}
 }

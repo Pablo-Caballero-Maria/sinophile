@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { AppShell } from "@/components/shell";
+import { VercelTelemetry } from "@/components/vercel-telemetry";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body className="min-h-dvh">
         <AppShell>{children}</AppShell>
+        <VercelTelemetry />
       </body>
     </html>
   );

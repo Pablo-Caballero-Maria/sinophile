@@ -45,3 +45,7 @@ next-env.d.ts
 /public/data/
 /public/strokes/
 /src/generated/
+
+# Playwright
+/test-results/
+/playwright-report/
