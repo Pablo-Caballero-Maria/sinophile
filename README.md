@@ -20,7 +20,7 @@ y Trainchinese.
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-desplegada-000000?logo=vercel)
-![Vitest](https://img.shields.io/badge/Vitest-115_tests-6E9F18?logo=vitest&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-118_tests-6E9F18?logo=vitest&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Playwright-14_tests_e2e-2EAD33?logo=playwright&logoColor=white)
 ![Vercel Analytics](https://img.shields.io/badge/Vercel-Analytics_·_Speed_Insights-000000?logo=vercel)
 
@@ -226,7 +226,7 @@ npm run build && npm start
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | `npm run dev`                        | servidor de desarrollo                                                                                               |
 | `npm run check`                      | lo que comprueba la CI salvo el build: tipos, lint, formato y tests                                                  |
-| `npm test`                           | tests (Vitest): datos, lógica y la API contra un MongoDB en memoria                                                  |
+| `npm test`                           | tests (Vitest): datos, lógica, la API contra un MongoDB en memoria y componentes (Testing Library)                   |
 | `npm run test:coverage`              | los mismos tests, con cobertura (`coverage/`)                                                                        |
 | `npm run test:e2e`                   | tests de extremo a extremo con Playwright contra el build (`npm run build` antes; las cuentas usan un MongoDB local) |
 | `npm run lint` · `npm run typecheck` | ESLint · TypeScript                                                                                                  |
@@ -257,7 +257,7 @@ flowchart LR
 | ------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------ |
 | Datos de las lecciones                                                                      | `scripts/prepare-data.ts --check`                   | [ci.yml](.github/workflows/ci.yml)         |
 | Lint, formato y tipos                                                                       | ESLint (Next.js), Prettier y TypeScript estricto    | [ci.yml](.github/workflows/ci.yml)         |
-| Tests unitarios y de integración (API + MongoDB en memoria)                                 | Vitest, cobertura v8                                | [ci.yml](.github/workflows/ci.yml)         |
+| Tests unitarios, de integración (API + MongoDB en memoria) y de componentes                 | Vitest, Testing Library, cobertura v8               | [ci.yml](.github/workflows/ci.yml)         |
 | Build de producción                                                                         | Next.js                                             | [ci.yml](.github/workflows/ci.yml)         |
 | Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas y ajustes) | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml)         |
 | Análisis de seguridad                                                                       | CodeQL                                              | [codeql.yml](.github/workflows/codeql.yml) |

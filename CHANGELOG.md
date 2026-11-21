@@ -13,6 +13,9 @@ repositorio.
   `eslint-config-prettier`: `npm run format` y `npm run format:check`, que la CI también comprueba. Todo
   el código y la documentación están formateados con él (`data/` no: las lecciones se escriben a mano).
 - `npm run check`: tipos, lint, formato y tests, como en las otras webs.
+- Tests de componentes con **Testing Library** (`@testing-library/react`, `jest-dom` y `user-event`) en
+  jsdom, como en las otras webs: el control segmentado, el interruptor y la casilla del modo silencioso
+  (118 tests en total).
 
 ### Cambiado
 
