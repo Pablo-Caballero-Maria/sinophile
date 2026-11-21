@@ -225,10 +225,12 @@ npm run build && npm start
 | Orden                                | Qué hace                                                                                                             |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | `npm run dev`                        | servidor de desarrollo                                                                                               |
+| `npm run check`                      | lo que comprueba la CI salvo el build: tipos, lint, formato y tests                                                  |
 | `npm test`                           | tests (Vitest): datos, lógica y la API contra un MongoDB en memoria                                                  |
 | `npm run test:coverage`              | los mismos tests, con cobertura (`coverage/`)                                                                        |
 | `npm run test:e2e`                   | tests de extremo a extremo con Playwright contra el build (`npm run build` antes; las cuentas usan un MongoDB local) |
 | `npm run lint` · `npm run typecheck` | ESLint · TypeScript                                                                                                  |
+| `npm run format`                     | Prettier (`format:check` solo comprueba)                                                                             |
 | `npm run validate`                   | valida todas las carpetas de `data/`                                                                                 |
 | `npm run dictionary` · `npm run hsk` | regeneran `data/cedict.json` · `data/hsk1.json`                                                                      |
 
@@ -244,7 +246,7 @@ Cada _push_ y _pull request_ pasa por [GitHub Actions](https://github.com/Pablo-
 
 ```mermaid
 flowchart LR
-    P(["push / PR"]) --> Q["Datos, lint y tipos<br/>validate · ESLint · tsc"]
+    P(["push / PR"]) --> Q["Datos, lint, formato y tipos<br/>validate · ESLint · Prettier · tsc"]
     P --> T["Tests y cobertura<br/>Vitest + v8"]
     P --> B["Build y extremo a extremo<br/>next build · Playwright<br/>(MongoDB 8)"]
     P --> C["CodeQL<br/>JS/TS y workflows"]
@@ -254,7 +256,7 @@ flowchart LR
 | Comprobación                                                                                | Herramienta                                         | Dónde                                      |
 | ------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------ |
 | Datos de las lecciones                                                                      | `scripts/prepare-data.ts --check`                   | [ci.yml](.github/workflows/ci.yml)         |
-| Lint y tipos                                                                                | ESLint (Next.js) y TypeScript estricto              | [ci.yml](.github/workflows/ci.yml)         |
+| Lint, formato y tipos                                                                       | ESLint (Next.js), Prettier y TypeScript estricto    | [ci.yml](.github/workflows/ci.yml)         |
 | Tests unitarios y de integración (API + MongoDB en memoria)                                 | Vitest, cobertura v8                                | [ci.yml](.github/workflows/ci.yml)         |
 | Build de producción                                                                         | Next.js                                             | [ci.yml](.github/workflows/ci.yml)         |
 | Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas y ajustes) | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml)         |

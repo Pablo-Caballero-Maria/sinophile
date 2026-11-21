@@ -7,6 +7,13 @@ repositorio.
 
 ## [Sin publicar]
 
+### Añadido
+
+- **Prettier** (110 columnas, con `prettier-plugin-tailwindcss` para el orden de las clases) y
+  `eslint-config-prettier`: `npm run format` y `npm run format:check`, que la CI también comprueba. Todo
+  el código y la documentación están formateados con él (`data/` no: las lecciones se escriben a mano).
+- `npm run check`: tipos, lint, formato y tests, como en las otras webs.
+
 ## [1.1.0] - 2026-11-21
 
 ### Añadido

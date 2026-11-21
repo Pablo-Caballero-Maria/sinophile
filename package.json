@@ -19,6 +19,7 @@
     "test": "vitest run",
     "test:coverage": "npm test -- --coverage",
     "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
     "validate": "node scripts/prepare-data.ts --check",
     "dictionary": "node scripts/build-dictionary.ts",
     "hsk": "node scripts/build-hsk.ts"

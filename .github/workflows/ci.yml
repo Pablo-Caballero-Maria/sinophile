@@ -1,4 +1,4 @@
-# Integración continua: datos, lint, tipos, tests con cobertura, build y tests de extremo a extremo
+# Integración continua: datos, lint, formato, tipos, tests con cobertura, build y tests de extremo a extremo
 # en cada push y pull request.
 name: CI
 
@@ -20,7 +20,7 @@ env:
 
 jobs:
   calidad:
-    name: Datos, lint y tipos
+    name: Datos, lint, formato y tipos
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -33,6 +33,8 @@ jobs:
         run: npm run validate
       - name: ESLint
         run: npm run lint
+      - name: Prettier
+        run: npm run format:check
       - name: TypeScript
         run: npm run typecheck
 
