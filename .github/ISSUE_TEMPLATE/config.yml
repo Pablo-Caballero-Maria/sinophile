@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Vulnerabilidad de seguridad"
+    url: https://github.com/Pablo-Caballero-Maria/sinophile/security/advisories/new
+    about: "Infórmala en privado, nunca en un issue público."
+  - name: "Documentación (wiki)"
+    url: https://github.com/Pablo-Caballero-Maria/sinophile/wiki
+    about: "Cómo funciona, puesta en marcha y preguntas frecuentes."
+  - name: "Web desplegada"
+    url: https://sinophile.vercel.app
+    about: "Pruébala antes de informar."
+  - name: "Resumen del proyecto"
+    url: https://pablo-portfolio-woad.vercel.app/projects/sinophile
+    about: "En el portfolio del autor."

@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "Si usas este software, cítalo con estos metadatos."
+type: software
+title: "sinophile: app web para estudiar vocabulario de chino mandarín"
+abstract: "Aplicación web (Next.js en Vercel) para estudiar el vocabulario de chino mandarín de cada clase: lecciones, repetición espaciada por palabra y destreza, ejercicios de escritura de hanzi, pronunciación y escucha, diccionario CC-CEDICT y cuentas con el progreso en MongoDB Atlas."
+authors:
+  - family-names: "Caballero María"
+    given-names: "Pablo"
+version: 1.0.0
+date-released: 2026-11-21
+license: MIT
+repository-code: "https://github.com/Pablo-Caballero-Maria/sinophile"
+url: "https://sinophile.vercel.app"
+keywords:
+  - "chino mandarín"
+  - "aprendizaje de idiomas"
+  - "repetición espaciada"
+  - "hanzi"
+  - "pinyin"
+  - "Next.js"
+  - "TypeScript"
+  - "MongoDB"
+  - "Vercel"

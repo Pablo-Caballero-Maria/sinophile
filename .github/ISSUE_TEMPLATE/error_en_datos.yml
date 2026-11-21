@@ -1,0 +1,26 @@
+name: "Error en el vocabulario o en un ejercicio"
+description: "Un hanzi, pinyin, traducción o ejercicio de una lección que está mal."
+title: "[Datos] "
+labels: ["documentation"]
+body:
+  - type: input
+    id: leccion
+    attributes:
+      label: "Lección"
+      placeholder: "p. ej. lección 4"
+    validations:
+      required: true
+  - type: input
+    id: palabra
+    attributes:
+      label: "Palabra o ejercicio"
+      placeholder: "p. ej. 早上好 (zǎoshang hǎo) o el diálogo 2"
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: "Qué está mal y cuál sería lo correcto"
+      placeholder: "El pinyin dice … y debería ser …"
+    validations:
+      required: true

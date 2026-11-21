@@ -1,6 +1,6 @@
 {
   "name": "sinophile",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit",
     "pretest": "npm run prepare-data",
     "test": "vitest run",
+    "test:coverage": "npm test -- --coverage",
     "validate": "node scripts/prepare-data.ts --check",
     "dictionary": "node scripts/build-dictionary.ts",
     "hsk": "node scripts/build-hsk.ts"
@@ -36,6 +37,7 @@
     "@types/node": "^24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^5.1.1",
     "eslint": "^10.15.0",
     "eslint-config-next": "16.4.6",
     "hanzi-writer-data": "^2.0.1",

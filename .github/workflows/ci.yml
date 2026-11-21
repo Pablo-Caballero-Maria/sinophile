@@ -1,0 +1,107 @@
+# Integración continua: datos, lint, tipos, tests con cobertura y build en cada push y pull request.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 24
+
+jobs:
+  calidad:
+    name: Datos, lint y tipos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Valida las lecciones (data/)
+        run: npm run validate
+      - name: ESLint
+        run: npm run lint
+      - name: TypeScript
+        run: npm run typecheck
+
+  tests:
+    name: Tests y cobertura
+    runs-on: ubuntu-latest
+    outputs:
+      cobertura: ${{ steps.cobertura.outputs.porcentaje }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      # Los tests de la API usan un mongod en memoria (mongodb-memory-server), que se descarga una vez.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongodb-binaries-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - name: Vitest con cobertura
+        run: npm run test:coverage
+      - name: Resumen de la cobertura
+        id: cobertura
+        run: |
+          node -e '
+            const t = require("./coverage/coverage-summary.json").total;
+            const fila = (n, m) => `| ${n} | ${m.pct} % | ${m.covered} / ${m.total} |`;
+            console.log(["### Cobertura de los tests", "", "| Métrica | % | Cubierto |", "| --- | ---: | ---: |",
+              fila("Sentencias", t.statements), fila("Ramas", t.branches), fila("Funciones", t.functions), fila("Líneas", t.lines)].join("\n"));
+          ' >> "$GITHUB_STEP_SUMMARY"
+          echo "porcentaje=$(node -p 'Math.round(require("./coverage/coverage-summary.json").total.statements.pct)')" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: cobertura
+          path: coverage/
+          retention-days: 14
+
+  build:
+    name: Build de Next.js
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  insignia:
+    name: Insignia de cobertura
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [calidad, tests, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Publica coverage.json en la rama badges
+        env:
+          PORCENTAJE: ${{ needs.tests.outputs.cobertura }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          color=$(awk -v p="$PORCENTAJE" 'BEGIN { print (p >= 90) ? "brightgreen" : (p >= 75) ? "green" : (p >= 60) ? "yellowgreen" : "orange" }')
+          mkdir insignias && cd insignias
+          printf '{"schemaVersion":1,"label":"coverage","message":"%s%%","color":"%s"}\n' "$PORCENTAJE" "$color" > coverage.json
+          # La rama solo guarda la insignia: Vercel no debe desplegarla.
+          printf '{"git":{"deploymentEnabled":false}}\n' > vercel.json
+          git init -q -b badges
+          git add .
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "Cobertura: ${PORCENTAJE} %"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" badges
