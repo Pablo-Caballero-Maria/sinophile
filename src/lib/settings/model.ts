@@ -6,7 +6,8 @@
 export interface Settings {
   /** Daily XP goal */
   dailyGoal: number;
-  theme: "auto" | "light" | "dark";
+  /** Light unless the learner picks dark (accounts from before 1.2 may say "auto": read as light). */
+  theme: "light" | "dark";
   sound: boolean;
   /** Speech rate for Chinese TTS (0.5 - 1.2) */
   ttsRate: number;
@@ -28,7 +29,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
   dailyGoal: 50,
-  theme: "auto",
+  theme: "light",
   sound: true,
   ttsRate: 0.85,
   voiceURI: null,
@@ -53,7 +54,7 @@ export function sanitizeSettings(raw: unknown): Settings {
   if (!isObj(raw)) return { ...d };
   return {
     dailyGoal: inRange(raw.dailyGoal, 1, 1000) ? Math.round(raw.dailyGoal) : d.dailyGoal,
-    theme: raw.theme === "light" || raw.theme === "dark" || raw.theme === "auto" ? raw.theme : d.theme,
+    theme: raw.theme === "dark" ? "dark" : d.theme,
     sound: bool(raw.sound, d.sound),
     ttsRate: inRange(raw.ttsRate, 0.5, 1.2) ? raw.ttsRate : d.ttsRate,
     voiceURI: typeof raw.voiceURI === "string" && raw.voiceURI.length <= 300 ? raw.voiceURI : null,

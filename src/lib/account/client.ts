@@ -3,8 +3,8 @@
  * Account state in the browser: guest mode vs. signed-in user.
  *
  * - On start (bootAccount) the app asks the server who is signed in (the
- *   session lives in an HttpOnly cookie) and loads that account's progress and
- *   settings into the in-memory stores.
+ *   session is Better Auth's HttpOnly cookie) and loads that account's progress
+ *   and settings into the in-memory stores.
  * - Signed in: every local change to progress/settings is uploaded in the
  *   background (only the changed part of the progress, see diffProgress).
  * - Guest: everything stays in memory and is lost when the page is closed.
@@ -23,9 +23,10 @@ import { progressStore } from "../progress/store";
 import { DEFAULT_SETTINGS, type Settings } from "../settings/model";
 import { settingsStore } from "../settings/store";
 import { createStore, useStore } from "../store";
-import { api, ApiError, type Credentials } from "./api";
+import { api, ApiError } from "./api";
+import { auth } from "./auth-client";
 import { Saver, type SaveStatus } from "./saver";
-import type { AccountPayload } from "./types";
+import type { AccountPayload, Credentials } from "./types";
 
 export interface AccountState {
   /**
@@ -196,27 +197,41 @@ const guestProgress = (adopt: boolean): Progress | undefined => {
   return adopt && !isEmptyProgress(local) ? local : undefined;
 };
 
+/**
+ * Enters the account that was just signed in to. What the guest practised (`progress`) and, for a
+ * new account, their settings are then changes like any other: uploaded in the background.
+ */
+async function enterSignedIn(progress: Progress | undefined, settings?: Settings): Promise<void> {
+  enterAccount(await api.account());
+  if (settings) settingsStore.set(settings);
+  if (progress) progressStore.set((p) => mergeProgress(p, progress));
+}
+
 /** Signs in. With `adopt`, what was practised as a guest is added to the account. */
 export async function signIn(credentials: Credentials, adopt: boolean): Promise<void> {
-  enterAccount(await api.login({ ...credentials, progress: guestProgress(adopt) }));
+  const progress = guestProgress(adopt);
+  await auth.signIn(credentials);
+  await enterSignedIn(progress);
 }
 
 /** Creates an account with the current settings (and, with `adopt`, the current progress). */
 export async function signUp(credentials: Credentials, adopt: boolean): Promise<void> {
-  enterAccount(
-    await api.register({ ...credentials, settings: settingsStore.get(), progress: guestProgress(adopt) }),
-  );
+  const progress = guestProgress(adopt);
+  const settings = settingsStore.get();
+  await auth.signUp(credentials);
+  await enterSignedIn(progress, settings);
 }
 
 /** Uploads pending changes, ends the session and goes back to an empty guest mode. */
 export async function signOut(): Promise<void> {
   await Promise.all([progressSaver.flush(), settingsSaver.flush()]);
-  await api.logout();
+  await auth.signOut();
   resetToGuest();
 }
 
+/** Deletes the account and its progress (the password is asked again to avoid accidents). */
 export async function deleteAccount(password: string): Promise<void> {
-  await api.deleteAccount(password);
+  await auth.deleteAccount(password);
   resetToGuest();
 }
 

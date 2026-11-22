@@ -1,7 +1,7 @@
 /**
- * Typed calls to the app's API (src/app/api/**). Every request is JSON
- * (the server requires it: CSRF defence) and errors carry the server's
- * Spanish message.
+ * Typed calls to the app's own API (src/app/api/**: the account's data). Every request is JSON
+ * (the server requires it: CSRF defence) and errors carry the server's Spanish message. Signing
+ * up, in and out goes through Better Auth instead (auth-client.ts).
  */
 import type { Progress } from "../progress/model";
 import type { Settings } from "../settings/model";
@@ -35,19 +35,8 @@ async function request<T>(method: string, path: string, body: unknown = {}, keep
   return data as T;
 }
 
-export interface Credentials {
-  username: string;
-  password: string;
-}
-
 export const api = {
   account: () => request<AccountPayload>("GET", "/api/account"),
-  register: (body: Credentials & { progress?: Progress; settings?: Settings }) =>
-    request<AccountPayload>("POST", "/api/auth/register", body),
-  login: (body: Credentials & { progress?: Progress }) =>
-    request<AccountPayload>("POST", "/api/auth/login", body),
-  logout: () => request<{ ok: true }>("POST", "/api/auth/logout"),
-  deleteAccount: (password: string) => request<{ ok: true }>("DELETE", "/api/account", { password }),
   saveProgress: (patch: Progress, keepalive = false) =>
     request<{ ok: true }>("POST", "/api/progress", { patch }, keepalive),
   resetProgress: () => request<{ ok: true }>("DELETE", "/api/progress"),

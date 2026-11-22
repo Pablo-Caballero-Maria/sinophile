@@ -1,75 +1,135 @@
 /**
- * Passwords and sign-in sessions (server only).
+ * Accounts and sign-in sessions with Better Auth (server only), mounted at /api/auth/* by
+ * src/app/api/auth/[...all]/route.ts.
  *
- * - Passwords are hashed with scrypt (node:crypto, memory-hard) and a random
- *   salt; the parameters are stored with the hash so they can be raised later.
- * - A session is a random token kept in an HttpOnly cookie (the only thing the
- *   browser stores). The database keeps only its SHA-256.
+ * - Username + password (the username plugin): sinophile accounts have no e-mail address, so the
+ *   one Better Auth requires is derived from the username (accountEmail) and signing in by e-mail
+ *   is switched off.
+ * - Data in MongoDB through Better Auth's adapter (collections user, account, session, rateLimit;
+ *   see db.ts). Sessions last SESSION_DAYS and live in an HttpOnly cookie, the only thing the
+ *   browser stores.
+ * - Hooks around Better Auth's endpoints: accounts from before Better Auth are moved over on first
+ *   use (legacy.ts) and an account is locked after too many wrong passwords (lockout.ts).
+ * - Deleting the account (with its password) also deletes its progress.
+ *
+ * Environment: BETTER_AUTH_SECRET (signs the cookies; required in production), AUTH_RATE_LIMIT=off
+ * turns Better Auth's per-IP rate limit off (the end-to-end tests sign in many times from one IP).
  */
+import { betterAuth } from "better-auth";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { createAuthMiddleware, isAPIError } from "better-auth/api";
+import { username } from "better-auth/plugins";
+import { ObjectId } from "mongodb";
 import {
-  createHash,
-  randomBytes,
-  scrypt as scryptCallback,
-  timingSafeEqual,
-  type ScryptOptions,
-} from "node:crypto";
+  accountEmail,
+  normalizeUsername,
+  PASSWORD_MAX,
+  PASSWORD_MIN,
+  USERNAME_MAX,
+  USERNAME_MIN,
+  usernameError,
+} from "../lib/account/types.ts";
+import { getDatabase, type Database } from "./db.ts";
+import { migrateLegacyUser } from "./legacy.ts";
+import { isLocked, recordSignIn } from "./lockout.ts";
+import { passwordHasher } from "./passwords.ts";
 
-const scrypt = (password: string, salt: Buffer, keylen: number, options: ScryptOptions) =>
-  new Promise<Buffer>((resolve, reject) =>
-    scryptCallback(password, salt, keylen, options, (error, key) => (error ? reject(error) : resolve(key))),
-  );
-
-const PARAMS = { N: 16384, r: 8, p: 1 };
-const KEY_LENGTH = 32;
-
-/** "scrypt$N$r$p$<salt base64>$<hash base64>" */
-export async function hashPassword(password: string): Promise<string> {
-  const salt = randomBytes(16);
-  const hash = await scrypt(password.normalize("NFC"), salt, KEY_LENGTH, PARAMS);
-  return ["scrypt", PARAMS.N, PARAMS.r, PARAMS.p, salt.toString("base64"), hash.toString("base64")].join("$");
-}
-
-export async function verifyPassword(password: string, stored: string): Promise<boolean> {
-  const [scheme, n, r, p, salt, hash] = stored.split("$");
-  if (scheme !== "scrypt" || !salt || !hash) return false;
-  const expected = Buffer.from(hash, "base64");
-  const actual = await scrypt(password.normalize("NFC"), Buffer.from(salt, "base64"), expected.length, {
-    N: Number(n),
-    r: Number(r),
-    p: Number(p),
-  });
-  return actual.length === expected.length && timingSafeEqual(actual, expected);
-}
-
-/** A valid hash of a random password: verifying against it makes "unknown user" as slow as "wrong password". */
-export const DUMMY_HASH =
-  "scrypt$16384$8$1$AAAAAAAAAAAAAAAAAAAAAA==$" + Buffer.alloc(KEY_LENGTH).toString("base64");
-
-/* ───────────── sessions ───────────── */
-
-export const SESSION_COOKIE = "sinophile_session";
+export const AUTH_COOKIE_PREFIX = "sinophile";
 export const SESSION_DAYS = 180;
 
-/** New random session token and the id under which it is stored. */
-export function newSessionToken(): { token: string; id: string } {
-  const token = randomBytes(32).toString("base64url");
-  return { token, id: sessionId(token) };
+/** Better Auth's error code (and HTTP 429) for a locked account. */
+export const ACCOUNT_LOCKED = "ACCOUNT_LOCKED";
+
+const USERNAME_PATHS = new Set(["/sign-up/email", "/sign-in/username", "/is-username-available"]);
+
+const usernameIn = (body: unknown): string => {
+  const raw = (body as { username?: unknown } | undefined)?.username;
+  return typeof raw === "string" ? normalizeUsername(raw) : "";
+};
+
+export function createAuth(database: Database) {
+  return betterAuth({
+    appName: "sinophile",
+    // The production domain, its preview deployments and local servers (dev and end-to-end tests).
+    baseURL: {
+      allowedHosts: ["sinophile.vercel.app", "sinophile-*.vercel.app", "localhost:*", "127.0.0.1:*"],
+      fallback: "https://sinophile.vercel.app",
+    },
+    database: mongodbAdapter(database.db, { client: database.client, transaction: database.transactions }),
+    emailAndPassword: {
+      enabled: true,
+      minPasswordLength: PASSWORD_MIN,
+      maxPasswordLength: PASSWORD_MAX,
+      autoSignIn: true,
+      password: passwordHasher,
+    },
+    plugins: [
+      username({
+        minUsernameLength: USERNAME_MIN,
+        maxUsernameLength: USERNAME_MAX,
+        usernameNormalization: normalizeUsername,
+        usernameValidator: (name) => usernameError(name) === null,
+        validationOrder: { username: "post-normalization" },
+      }),
+    ],
+    session: { expiresIn: SESSION_DAYS * 86_400, updateAge: 86_400 },
+    user: {
+      deleteUser: {
+        enabled: true,
+        beforeDelete: async (user) => {
+          await database.progress.deleteOne({ _id: new ObjectId(user.id) });
+        },
+      },
+    },
+    // Only what the app uses: no e-mail sign-in, no profile or e-mail changes, no e-mails at all.
+    disabledPaths: [
+      "/sign-in/email",
+      "/update-user",
+      "/change-email",
+      "/request-password-reset",
+      "/reset-password",
+      "/send-verification-email",
+      "/verify-email",
+    ],
+    rateLimit: {
+      storage: "database",
+      ...(process.env.AUTH_RATE_LIMIT === "off" && { enabled: false }),
+    },
+    advanced: { cookiePrefix: AUTH_COOKIE_PREFIX },
+    telemetry: { enabled: false },
+    hooks: {
+      before: createAuthMiddleware(async (ctx) => {
+        if (!USERNAME_PATHS.has(ctx.path)) return;
+        const name = usernameIn(ctx.body);
+        if (!name) return;
+        await migrateLegacyUser(database, name);
+        if (ctx.path === "/sign-up/email") Object.assign(ctx.body, { name, email: accountEmail(name) });
+        if (ctx.path === "/sign-in/username" && (await isLocked(database, name)))
+          throw ctx.error("TOO_MANY_REQUESTS", {
+            code: ACCOUNT_LOCKED,
+            message: "Too many failed sign-ins: the account is locked for a while",
+          });
+      }),
+      after: createAuthMiddleware(async (ctx) => {
+        if (ctx.path !== "/sign-in/username") return;
+        const name = usernameIn(ctx.body);
+        const returned = ctx.context.returned;
+        const failed = isAPIError(returned);
+        if (name && (!failed || returned.statusCode === 401)) await recordSignIn(database, name, !failed);
+      }),
+    },
+  });
 }
 
-export const sessionId = (token: string): string => createHash("sha256").update(token).digest("hex");
+export type Auth = ReturnType<typeof createAuth>;
 
-/** Cookie attributes for the session (pass maxAge 0 to delete it). */
-export const sessionCookie = (value: string, maxAgeSeconds = SESSION_DAYS * 86_400) => ({
-  name: SESSION_COOKIE,
-  value,
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
-  path: "/",
-  maxAge: maxAgeSeconds,
-});
+// One Better Auth instance per database connection (tests reconnect to a fresh database).
+const instances = new WeakMap<Database, Auth>();
 
-/* ───────────── brute-force protection ───────────── */
-
-export const MAX_FAILED_LOGINS = 10;
-export const LOCK_MINUTES = 15;
+/** The Better Auth instance, on the connected database. */
+export async function getAuth(): Promise<Auth> {
+  const database = await getDatabase();
+  let auth = instances.get(database);
+  if (!auth) instances.set(database, (auth = createAuth(database)));
+  return auth;
+}

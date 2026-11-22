@@ -3,7 +3,8 @@
  * servido con `next start` y manejado en un Chromium real.
  *
  * Las cuentas necesitan un MongoDB: por defecto `mongodb://127.0.0.1:27017` y la base de datos
- * `sinophile_e2e` (MONGODB_URI y MONGODB_DB lo cambian). El navegador es el Chromium de Playwright
+ * `sinophile_e2e` (MONGODB_URI y MONGODB_DB lo cambian). Better Auth recibe un secreto de prueba y
+ * sin su límite de peticiones por IP (los tests crean cuentas en paralelo desde la misma IP). El navegador es el Chromium de Playwright
  * (`npx playwright install chromium`); PW_CHANNEL (p. ej. `chrome`) o PW_EXECUTABLE_PATH usan otro.
  */
 import { defineConfig } from "@playwright/test";
@@ -32,6 +33,8 @@ export default defineConfig({
     env: {
       MONGODB_URI: process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017",
       MONGODB_DB: process.env.MONGODB_DB ?? "sinophile_e2e",
+      BETTER_AUTH_SECRET: "e2e-secret-only-for-the-end-to-end-tests-0123456789",
+      AUTH_RATE_LIMIT: "off",
     },
   },
 });

@@ -16,15 +16,15 @@ describe("Segmented", () => {
     const onChange = vi.fn();
     render(
       <Segmented
-        value="auto"
+        value="light"
         onChange={onChange}
         options={[
-          { value: "auto", label: "Automático" },
+          { value: "light", label: "Claro" },
           { value: "dark", label: "Oscuro" },
         ]}
       />,
     );
-    expect(screen.getByRole("radio", { name: "Automático" })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("radio", { name: "Claro" })).toHaveAttribute("aria-checked", "true");
     expect(screen.getByRole("radio", { name: "Oscuro" })).toHaveAttribute("aria-checked", "false");
     await userEvent.click(screen.getByRole("radio", { name: "Oscuro" }));
     expect(onChange).toHaveBeenCalledWith("dark");
