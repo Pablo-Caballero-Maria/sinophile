@@ -266,7 +266,6 @@ export default function SettingsPage() {
           value={settings.theme}
           onChange={(theme) => updateSettings({ theme })}
           options={[
-            { value: "auto", label: "Automático" },
             { value: "light", label: "Claro" },
             { value: "dark", label: "Oscuro" },
           ]}

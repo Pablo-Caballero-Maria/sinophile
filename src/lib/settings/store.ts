@@ -15,9 +15,4 @@ export const useSettings = () => useStore(settingsStore);
 
 export const updateSettings = (patch: Partial<Settings>) => settingsStore.set((s) => ({ ...s, ...patch }));
 
-/** Applies the theme attribute (read by globals.css). */
-export function applyTheme(theme: Settings["theme"]) {
-  const root = document.documentElement;
-  if (theme === "auto") root.removeAttribute("data-theme");
-  else root.setAttribute("data-theme", theme);
-}
+export { applyTheme } from "./theme";

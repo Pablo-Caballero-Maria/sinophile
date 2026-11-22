@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
+import { ServiceWorker } from "@/components/ServiceWorker";
 import { AppShell } from "@/components/Shell";
 import { VercelTelemetry } from "@/components/VercelTelemetry";
+import { THEME_COLORS } from "@/lib/settings/theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,17 +18,17 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f4ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#121315" },
-  ],
+  // The light theme's; applyTheme (lib/settings/theme.ts) switches it with the theme.
+  themeColor: THEME_COLORS.light,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" data-theme="light" suppressHydrationWarning>
       <body className="min-h-dvh">
-        <AppShell>{children}</AppShell>
+        <ServiceWorker>
+          <AppShell>{children}</AppShell>
+        </ServiceWorker>
         <VercelTelemetry />
       </body>
     </html>

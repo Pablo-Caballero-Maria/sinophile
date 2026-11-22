@@ -17,8 +17,15 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       // La cobertura mide la lógica y la API, no las páginas ni los componentes de React.
-      include: ["src/lib/**/*.ts", "src/server/**/*.ts", "src/app/api/**/*.ts", "scripts/**/*.ts"],
-      exclude: ["**/*.test.ts", "src/generated/**"],
+      include: [
+        "src/lib/**/*.ts",
+        "src/server/**/*.ts",
+        "src/app/api/**/*.ts",
+        "src/sw/**/*.ts",
+        "scripts/**/*.ts",
+      ],
+      // The service worker's entry (src/sw/worker.ts) only runs in a browser: e2e/offline.spec.ts.
+      exclude: ["**/*.test.ts", "src/generated/**", "src/sw/worker.ts"],
       reporter: ["text-summary", "json-summary", "lcov", "html"],
     },
   },

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const css = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
-/** One palette per block: light, forced dark, automatic dark. */
+/** One palette per block: light, dark. */
 const palettes = [
   ...css.matchAll(
     /--tone-1: (#\w+);\s+--tone-2: (#\w+);\s+--tone-3: (#\w+);\s+--tone-4: (#\w+);\s+--tone-5: (#\w+);/g,
@@ -37,9 +37,8 @@ function contrast(a: string, b: string) {
 }
 
 describe("tone colours", () => {
-  it("are defined for the light theme and both dark ones, which match", () => {
-    expect(palettes).toHaveLength(3);
-    expect(palettes[2]).toEqual(palettes[1]);
+  it("are defined for the light theme and the dark one", () => {
+    expect(palettes).toHaveLength(2);
   });
 
   it.each(["light", "dark"].map((theme, i) => [theme, i] as const))(

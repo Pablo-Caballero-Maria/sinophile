@@ -14,7 +14,9 @@ test("busca por español y por pinyin sin tonos", async ({ page }) => {
 test("encuentra palabras de CC-CEDICT que no están en las lecciones", async ({ page }) => {
   await page.goto("/diccionario");
   await page.getByRole("searchbox").fill("电脑");
-  await expect(page.getByText(/computer/i).first()).toBeVisible();
+  // CC-CEDICT (7 MB) se descarga y se indexa al buscar; en la primera visita compite con la
+  // instalación del service worker.
+  await expect(page.getByText(/computer/i).first()).toBeVisible({ timeout: 15_000 });
 });
 
 test("la ficha de una palabra muestra trazos y ejemplos", async ({ page }) => {

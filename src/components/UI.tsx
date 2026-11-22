@@ -72,8 +72,17 @@ export function Card({
   return <div className={cn("rounded-3xl border p-4", CARD_TONES[tone], className)} {...props} />;
 }
 
+/** Placeholder with the shape of what is loading (skeleton loader). */
 export function Skeleton({ className }: { className?: string }) {
-  return <div aria-hidden className={cn("skeleton rounded-xl", className)} />;
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "animate-shimmer rounded-xl bg-[linear-gradient(90deg,var(--surface-2)_25%,var(--line)_50%,var(--surface-2)_75%)] bg-size-[200%_100%]",
+        className,
+      )}
+    />
+  );
 }
 
 export function ProgressBar({

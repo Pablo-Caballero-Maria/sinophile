@@ -9,6 +9,7 @@ import { streakInfo, totalXp } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { applyTheme, useSettings } from "@/lib/settings/store";
 import { dayKey } from "@/lib/text";
+import { ThemeToggle } from "./ThemeToggle";
 import { cn, Skeleton } from "./UI";
 
 const NAV = [
@@ -145,6 +146,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
             <div className="flex items-center gap-1">
               <Stats />
+              <ThemeToggle />
               <Link
                 href="/ajustes"
                 aria-label="Ajustes"
