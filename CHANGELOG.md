@@ -7,8 +7,28 @@ repositorio.
 
 ## [Sin publicar]
 
+## [1.2.0] - 2026-11-22
+
 ### Añadido
 
+- **Cuentas con [Better Auth](https://www.better-auth.com)** (usuario y contraseña, con su plugin
+  `username`) en `/api/auth/*`, sobre su adaptador oficial de MongoDB (colecciones `user`, `account`,
+  `session` y `rateLimit`). Siguen el bloqueo de 15 minutos tras 10 contraseñas incorrectas seguidas (ahora
+  un _hook_ de Better Auth), las sesiones de 180 días en una cookie HttpOnly y borrar la cuenta pidiendo la
+  contraseña; Better Auth añade su límite de intentos por IP y la comprobación del origen. Requiere
+  `BETTER_AUTH_SECRET`.
+- **Migración de las cuentas de antes** (colecciones `users` y `sessions`): cada una pasa sola a Better Auth
+  la primera vez que entra o que alguien intenta registrar su nombre, con el mismo id (su progreso sigue
+  enlazado), la misma contraseña (su hash scrypt se sigue comprobando) y sus ajustes; o todas a la vez con
+  `npm run migrate:auth`. Sus sesiones abiertas no se pueden pasar: hay que volver a entrar una vez.
+- **Funciona sin conexión**: un _service worker_ (Serwist, `src/sw/`) precachea el build, las lecciones, los
+  ejercicios y los trazos, y descarga todas las páginas al instalarse; las páginas van primero a la red y
+  sin conexión salen de la caché, la API nunca se cachea y CC-CEDICT se guarda tras su primer uso. Página
+  `/~offline` para lo que no esté guardado.
+- Botón de tema (claro/oscuro) en la barra superior y esqueleto de carga de cada página (`loading.tsx`).
+- Tests: los flujos de Better Auth contra MongoDB en memoria (registro, entrada, salida, bloqueo, borrar
+  la cuenta, migración de cuentas antiguas), las contraseñas antiguas, el enrutado del _service worker_ y el
+  tema (132 tests de Vitest); en Playwright, abrir páginas no visitadas sin conexión y el tema (16 e2e).
 - **Prettier** (110 columnas, con `prettier-plugin-tailwindcss` para el orden de las clases) y
   `eslint-config-prettier`: `npm run format` y `npm run format:check`, que la CI también comprueba. Todo
   el código y la documentación están formateados con él (`data/` no: las lecciones se escriben a mano).
@@ -19,9 +39,20 @@ repositorio.
 
 ### Cambiado
 
+- **El tema es claro por defecto** y ya no sigue al del sistema: claro u oscuro, a elegir (la opción
+  «Automático» desaparece; las cuentas que la tenían pasan a claro).
+- **Consultas tipadas**: cada colección de MongoDB es un `Collection<…>` con el tipo de su documento,
+  también las de Better Auth que se tocan (`user` y `account`), y las heredadas (`users`, `sessions`).
+- Los esqueletos de carga son utilidades de Tailwind (animación `animate-shimmer`) en lugar de la clase
+  CSS `.skeleton`.
 - La web ya no envía la cabecera `X-Powered-By: Next.js` (`poweredByHeader: false`).
 - Los ficheros de los componentes (`src/components/`) se llaman en PascalCase (`UI.tsx`, `Hanzi.tsx`,
   `session/Player.tsx`…), como en las otras webs; `exercises/index.tsx` sigue siendo la entrada de su carpeta.
+
+### Eliminado
+
+- `POST /api/auth/register`, `/api/auth/login` y `/api/auth/logout` y `DELETE /api/account`: los
+  sustituyen las rutas de Better Auth.
 
 ## [1.1.0] - 2026-11-21
 
@@ -117,7 +148,8 @@ repositorio.
   (`progress.json`).
 - Node.js 24.x fijado para los builds de Vercel.
 
-[Sin publicar]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.1.0...HEAD
+[Sin publicar]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v0.5.0...v0.6.0

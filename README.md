@@ -20,8 +20,10 @@ y Trainchinese.
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-desplegada-000000?logo=vercel)
-![Vitest](https://img.shields.io/badge/Vitest-118_tests-6E9F18?logo=vitest&logoColor=white)
-![Playwright](https://img.shields.io/badge/Playwright-14_tests_e2e-2EAD33?logo=playwright&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-132_tests-6E9F18?logo=vitest&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-16_tests_e2e-2EAD33?logo=playwright&logoColor=white)
+![Better Auth](https://img.shields.io/badge/Better_Auth-cuentas-000000)
+![PWA](https://img.shields.io/badge/PWA-funciona_sin_conexi%C3%B3n-5A0FC8?logo=pwa&logoColor=white)
 ![Vercel Analytics](https://img.shields.io/badge/Vercel-Analytics_·_Speed_Insights-000000?logo=vercel)
 
 [**Abrir la app**](https://sinophile.vercel.app) ·
@@ -33,8 +35,9 @@ y Trainchinese.
 
 </div>
 
-Next.js desplegada en Vercel en cada _push_ a `main`: las páginas son estáticas y una pequeña API guarda
-las cuentas y el progreso en MongoDB Atlas.
+Next.js desplegada en Vercel en cada _push_ a `main`: las páginas son estáticas, funcionan sin conexión
+(_service worker_) y una pequeña API con [Better Auth](https://www.better-auth.com) guarda las cuentas y
+el progreso en MongoDB Atlas.
 
 > [!TIP]
 > No hace falta cuenta para probarla: el **modo invitado** permite usarlo todo, aunque al cerrar la app
@@ -116,7 +119,11 @@ flowchart LR
 - **Diccionario** (tu vocabulario + CC-CEDICT) con búsqueda por hanzi, pinyin con o sin tonos, español o
   inglés; traductor español ⇄ chino; ficha de palabra con trazos animados, ejemplos y dominio por
   destreza.
-- **Colores por tono**, voz china (TTS del navegador), modo oscuro automático y diseño para móvil e iPad.
+- **Colores por tono**, voz china (TTS del navegador), tema claro (por defecto) u oscuro (el botón de la
+  barra superior o Ajustes → Apariencia) y diseño para móvil e iPad.
+- **Funciona sin conexión**: tras la primera visita, un _service worker_ guarda la app entera (páginas,
+  lecciones, ejercicios y trazos) y se puede practicar sin internet; el diccionario general se guarda la
+  primera vez que se usa. Mientras algo carga se ve su esqueleto (_skeleton loader_), no un hueco.
 
 | Tono    |   1.º   |   2.º    |     3.º     |   4.º   | neutro  |
 | ------- | :-----: | :------: | :---------: | :-----: | :-----: |
@@ -134,14 +141,15 @@ flowchart LR
 flowchart LR
     subgraph Navegador
         UI["Páginas estáticas<br/>React 19"]
-        S["Sesión: invitado o cuenta<br/>(cookie HttpOnly)"]
+        S["Sesión: invitado o cuenta<br/>(cookie HttpOnly de Better Auth)"]
+        SW["Service worker<br/>(la app sin conexión)"]
     end
     subgraph Vercel
         CDN["CDN<br/>HTML, JS, ejercicios y trazos"]
-        API["API · src/app/api<br/>(funciones en París, cdg1)"]
+        API["API · src/app/api<br/>Better Auth + progreso<br/>(funciones en París, cdg1)"]
     end
-    DB[("MongoDB Atlas<br/>users · sessions · progress<br/>GCP europe-west1")]
-    UI --> CDN
+    DB[("MongoDB Atlas<br/>user · account · session · progress<br/>GCP europe-west1")]
+    UI --> SW --> CDN
     UI -- "JSON (solo cambios)" --> API
     API --> DB
     S -.-> API
@@ -172,7 +180,8 @@ El formato completo de cada fichero está en la wiki: [Datos y lecciones](https:
 - **Con cuenta** (`/cuenta`): el progreso (XP, rachas, repetición espaciada, exámenes, logros) y los
   ajustes se guardan en MongoDB y se comparten entre dispositivos. Al entrar o crear la cuenta se puede
   añadir lo practicado como invitado.
-- El navegador no guarda datos de la app: solo la cookie de sesión (HttpOnly).
+- Las cuentas son de [Better Auth](https://www.better-auth.com) (usuario y contraseña): la sesión es su
+  cookie HttpOnly, lo único que guarda el navegador además de la caché del _service worker_.
 - **Ajustes → Copia de seguridad** permite exportar/importar `progress.json` y borrar el progreso.
 
 ### Base de datos
@@ -180,32 +189,38 @@ El formato completo de cada fichero está en la wiki: [Datos y lecciones](https:
 Variables de entorno (en local, en `.env.local`; en Vercel, en _Settings → Environment Variables_; ver
 `.env.example`):
 
-| Variable      |                                                                                    |
-| ------------- | ---------------------------------------------------------------------------------- |
-| `MONGODB_URI` | cadena de conexión del clúster de Atlas (**secreta**)                              |
-| `MONGODB_DB`  | nombre de la base de datos (por defecto `sinophile`; en local uso `sinophile_dev`) |
+| Variable             |                                                                                     |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| `MONGODB_URI`        | cadena de conexión del clúster de Atlas (**secreta**)                               |
+| `MONGODB_DB`         | nombre de la base de datos (por defecto `sinophile`; en local uso `sinophile_dev`)  |
+| `BETTER_AUTH_SECRET` | firma las cookies de sesión de Better Auth (**secreta**; obligatoria en producción) |
 
-Colecciones: `users` (credenciales con hash scrypt + ajustes), `sessions` (sesiones; solo se guarda el
-SHA-256 del token de la cookie, caducan a los 180 días) y `progress` (un documento por cuenta). Los
-cambios de progreso se envían en segundo plano y solo con lo que ha cambiado; el servidor los combina con
-lo guardado (nunca se pierde lo hecho en otro dispositivo). Tras 10 contraseñas incorrectas seguidas la
-cuenta se bloquea 15 minutos. Las funciones de Vercel corren en París (`vercel.json`), junto al clúster
+Colecciones, todas con su tipo en `src/server/db.ts` (`Collection<…>` con el documento de cada una):
+las de Better Auth, `user` (la cuenta, con sus ajustes), `account` (el hash de la contraseña, scrypt),
+`session` (sesiones de 180 días) y `rateLimit`, y `progress` (un documento por cuenta). Los cambios de
+progreso se envían en segundo plano y solo con lo que ha cambiado; el servidor los combina con lo
+guardado (nunca se pierde lo hecho en otro dispositivo). Tras 10 contraseñas incorrectas seguidas la
+cuenta se bloquea 15 minutos, y Better Auth limita además los intentos por IP. Las cuentas de antes de
+Better Auth (colecciones `users` y `sessions`) se pasan solas la primera vez que entran, con el mismo
+id, contraseña y progreso (o todas a la vez con `npm run migrate:auth`). Las funciones de Vercel corren en París (`vercel.json`), junto al clúster
 (GCP europe-west1). En Atlas, _Network Access_ debe permitir conexiones desde Vercel (IP dinámica:
 `0.0.0.0/0`).
 
 <details>
 <summary><b>API</b> (<code>src/app/api/</code>)</summary>
 
-| Método            | Ruta                 | Para qué                              |
-| ----------------- | -------------------- | ------------------------------------- |
-| `GET` · `DELETE`  | `/api/account`       | la cuenta de la sesión; borrarla      |
-| `POST`            | `/api/auth/register` | crear una cuenta                      |
-| `POST`            | `/api/auth/login`    | iniciar sesión                        |
-| `POST`            | `/api/auth/logout`   | cerrar la sesión                      |
-| `POST` · `DELETE` | `/api/progress`      | enviar cambios del progreso; borrarlo |
-| `PUT`             | `/api/settings`      | guardar los ajustes                   |
+| Método            | Ruta                         | Para qué                                                        |
+| ----------------- | ---------------------------- | --------------------------------------------------------------- |
+| `GET`             | `/api/account`               | la cuenta de la sesión con su progreso y ajustes                |
+| `POST`            | `/api/auth/sign-up/email`    | crear una cuenta (Better Auth)                                  |
+| `POST`            | `/api/auth/sign-in/username` | iniciar sesión (Better Auth)                                    |
+| `POST`            | `/api/auth/sign-out`         | cerrar la sesión (Better Auth)                                  |
+| `POST`            | `/api/auth/delete-user`      | borrar la cuenta y su progreso, con la contraseña (Better Auth) |
+| `POST` · `DELETE` | `/api/progress`              | enviar cambios del progreso; borrarlo                           |
+| `PUT`             | `/api/settings`              | guardar los ajustes                                             |
 
-Todas las peticiones que cambian algo deben ser JSON (defensa CSRF). Más en la wiki:
+Todas las peticiones que cambian algo deben ser JSON (defensa CSRF; Better Auth comprueba además el
+origen). Más en la wiki:
 [API y cuentas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/API-y-cuentas).
 
 </details>
@@ -233,6 +248,7 @@ npm run build && npm start
 | `npm run format`                     | Prettier (`format:check` solo comprueba)                                                                             |
 | `npm run validate`                   | valida todas las carpetas de `data/`                                                                                 |
 | `npm run dictionary` · `npm run hsk` | regeneran `data/cedict.json` · `data/hsk1.json`                                                                      |
+| `npm run migrate:auth`               | pasa a Better Auth las cuentas de antes que queden (opcional: cada una se pasa sola al entrar)                       |
 
 `scripts/prepare-data.ts` se ejecuta antes de `dev`, `build`, `test` y `typecheck`: valida los datos y
 genera `src/generated/lessons.json` (todo el vocabulario, que va dentro del JavaScript),
@@ -271,14 +287,18 @@ scripts/          prepare-data (genera los datos), data-files (lee data/), dicci
 src/
   app/            páginas: inicio, leccion, practicar, sesion, diccionario, palabra, progreso, ajustes, cuenta
   app/api/        rutas de la API (cuentas, progreso, ajustes)
-  server/         MongoDB, contraseñas y sesiones, operaciones de cuenta (solo servidor)
+  app/~offline/   lo que se ve sin conexión en una página aún no guardada
+  app/serwist/    el service worker (/serwist/sw.js), construido con Serwist
+  server/         solo servidor: MongoDB con colecciones tipadas, Better Auth (auth.ts), contraseñas,
+                  bloqueo por intentos, migración de las cuentas antiguas, progreso y ajustes
+  sw/             el service worker (worker.ts) y qué se cachea y cómo
   components/     componentes de React, en PascalCase: UI (UI.tsx), hanzi (Hanzi.tsx), lienzo, ejercicios/, sesión/
   lib/
-    account/      sesión en el navegador (invitado / cuenta), guardado en segundo plano, llamadas a la API
+    account/      sesión en el navegador (invitado / cuenta), cliente de Better Auth, guardado en segundo plano
     data/         carga + validación de las lecciones
     exercises/    tipos, generador de sesiones, corrección, máquina de estados de la sesión, modo silencioso
     progress/     modelo de progreso (XP, rachas, dominio, combinación), logros, store en memoria
-    settings/     ajustes (modelo + store en memoria)
+    settings/     ajustes (modelo + store en memoria) y tema claro/oscuro
     pinyin.ts     tonos, comparación tolerante, división en sílabas (con erhua)
     srs.ts        repetición espaciada
     drawing.ts    dibujo a mano: corrección (exámenes) y conversión de trazos a SVG
@@ -297,7 +317,7 @@ La [wiki](https://github.com/Pablo-Caballero-Maria/sinophile/wiki) explica el pr
 | [Arquitectura](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Arquitectura)                         | páginas estáticas, API, datos generados y despliegue                           |
 | [Datos y lecciones](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Datos-y-lecciones)               | formato de `vocab.json` y `exercises.json`, validación y cómo añadir una clase |
 | [Aprendizaje y ejercicios](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Aprendizaje-y-ejercicios) | repetición espaciada, sesiones, corrección, escritura y voz                    |
-| [API y cuentas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/API-y-cuentas)                       | rutas, sesiones, contraseñas, sincronización del progreso                      |
+| [API y cuentas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/API-y-cuentas)                       | Better Auth, rutas, sesiones, contraseñas, sincronización del progreso         |
 | [Desarrollo y pruebas](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Desarrollo-y-pruebas)         | entorno local, tests, cobertura, CI y publicación de versiones                 |
 | [Preguntas frecuentes](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Preguntas-frecuentes)         | dudas habituales                                                               |
 

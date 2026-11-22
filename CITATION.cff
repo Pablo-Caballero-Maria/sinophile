@@ -6,8 +6,8 @@ abstract: "Aplicación web (Next.js en Vercel) para estudiar el vocabulario de c
 authors:
   - family-names: "Caballero María"
     given-names: "Pablo"
-version: 1.1.0
-date-released: 2026-11-21
+version: 1.2.0
+date-released: 2026-11-22
 license: MIT
 repository-code: "https://github.com/Pablo-Caballero-Maria/sinophile"
 url: "https://sinophile.vercel.app"
