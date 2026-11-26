@@ -55,7 +55,7 @@ export type Exercise =
   | (Base & { type: "typing"; prompt: Prompt; mode: "pinyin" | "es"; answers: string[]; solution: string })
   | (Base & { type: "write"; word: VocabEntry; style: WriteStyle })
   | (Base & { type: "speak"; hanzi: string; pinyin: string; translation: string })
-  | (Base & { type: "flashcard"; word: VocabEntry; reverse: boolean });
+  | (Base & { type: "flashcard"; word: VocabEntry; front: CardFront });
 
 export type ExerciseType = Exercise["type"];
 
@@ -84,6 +84,14 @@ export type SessionMode =
   | "tonos"
   | "frases";
 
+/**
+ * What the front of a flashcard shows; the back shows the rest (hanzi, pinyin, Spanish and the
+ * pronunciation button). "audio" plays the word, so it's left out in silent mode.
+ */
+export type CardFront = "es" | "hanzi" | "pinyin" | "audio";
+
+export const CARD_FRONTS: readonly CardFront[] = ["es", "hanzi", "pinyin", "audio"];
+
 export interface SessionParams {
   mode: SessionMode;
   /** Lesson ids (empty = all). */
@@ -96,4 +104,6 @@ export interface SessionParams {
   style?: "guiado" | "libre" | "mixto";
   /** Exam includes free writing. */
   withWriting?: boolean;
+  /** Flashcards: the face to show first; without it, a mix of every available face. */
+  front?: CardFront;
 }

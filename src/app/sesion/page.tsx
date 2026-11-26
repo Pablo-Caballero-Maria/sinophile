@@ -1,11 +1,11 @@
 "use client";
-/** /sesion?modo=…&l=lessons&id=words&n=count&estilo=…&escritura=1 */
+/** /sesion?modo=…&l=lessons&id=words&n=count&estilo=…&escritura=1&cara=… */
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { SessionRunner } from "@/components/session/Player";
 import { Skeleton } from "@/components/UI";
 import { useExercises } from "@/lib/data/remote";
-import type { SessionMode, SessionParams } from "@/lib/exercises/types";
+import { CARD_FRONTS, type SessionMode, type SessionParams } from "@/lib/exercises/types";
 import { useReady } from "@/lib/account/client";
 
 const MODES: SessionMode[] = [
@@ -25,6 +25,7 @@ const list = (v: string | null) => (v ? v.split(",").filter(Boolean) : []);
 function parseParams(sp: URLSearchParams): SessionParams {
   const mode = sp.get("modo") as SessionMode;
   const style = sp.get("estilo");
+  const front = sp.get("cara");
   return {
     mode: MODES.includes(mode) ? mode : "leccion",
     lessons: list(sp.get("l")),
@@ -32,6 +33,7 @@ function parseParams(sp: URLSearchParams): SessionParams {
     count: Number(sp.get("n")) || undefined,
     style: style === "guiado" || style === "libre" || style === "mixto" ? style : undefined,
     withWriting: sp.get("escritura") === "1",
+    front: CARD_FRONTS.find((f) => f === front),
   };
 }
 

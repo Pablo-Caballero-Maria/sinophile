@@ -8,20 +8,23 @@ test.describe("inicio como invitado", () => {
       "href",
       "/cuenta",
     );
-    await expect(page.getByText("6 lecciones")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Lección 6", exact: true })).toHaveAttribute(
+    await expect(page.getByText("7 lecciones")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Lección 7", exact: true })).toHaveAttribute(
       "href",
-      "/leccion?id=6",
+      "/leccion?id=7",
     );
     for (const modo of ["Repaso", "Infinito", "Examen", "Escritura", "Tarjetas"]) {
       await expect(page.getByRole("main").getByRole("link", { name: modo, exact: true })).toBeVisible();
     }
   });
 
-  test("resume el vocabulario frente al HSK 1", async ({ page }) => {
+  test("resume el vocabulario frente al HSK 2 (HSK 3.0, 500 palabras)", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Tu vocabulario" })).toBeVisible();
-    await expect(page.getByText("0/150")).toBeVisible();
+    await expect(page.getByText("0/500")).toBeVisible();
+    await page.getByText("Ver las palabras del HSK 2").click();
+    await expect(page.getByRole("region", { name: "Nivel 1" }).getByRole("listitem")).toHaveCount(300);
+    await expect(page.getByRole("region", { name: "Nivel 2" }).getByRole("listitem")).toHaveCount(200);
   });
 
   test("la navegación lleva a cada sección", async ({ page }) => {

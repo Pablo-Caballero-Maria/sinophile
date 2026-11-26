@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { readDataDir } from "../../scripts/data-files";
 import { sanitizeLessons } from "./data/validate";
-import { HSK1, hskPieces, hskSummary, percent } from "./hsk";
+import { HOMOGRAPHS, HSK, hskPieces, hskSummary, percent, posLabel } from "./hsk";
 import type { VocabEntry } from "./types";
 
 const raw = readDataDir(fileURLToPath(new URL("../../data", import.meta.url)));
@@ -11,13 +11,23 @@ const vocab = sanitizeLessons({
   ignored: raw.ignored,
 }).entries;
 
-describe("HSK 1 list (data/hsk1.json)", () => {
-  it("has the 150 words of HSK 1, once each, with pinyin", () => {
-    expect(HSK1).toHaveLength(150);
-    expect(new Set(HSK1.map((w) => w.hanzi)).size).toBe(150);
-    for (const w of HSK1) expect(w.pinyin, w.hanzi).toMatch(/^[a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü']+$/i);
-    expect(HSK1.find((w) => w.hanzi === "都")?.pinyin).toBe("dōu");
-    expect(HSK1.find((w) => w.hanzi === "钱")?.pinyin).toBe("qián");
+describe("HSK 2 list of HSK 3.0 (data/hsk2.json)", () => {
+  it("has the 500 words of the 2025 syllabus: 300 of level 1 and 200 of level 2", () => {
+    expect(HSK).toHaveLength(500);
+    expect(HSK.filter((w) => w.level === 1)).toHaveLength(300);
+    expect(HSK.filter((w) => w.level === 2)).toHaveLength(200);
+    for (const w of HSK) expect(w.pinyin, w.hanzi).toMatch(/^[a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü' /]+$/i);
+    expect(HSK.find((w) => w.hanzi === "谁")?.pinyin).toBe("shéi/shuí"); // both readings, as in the syllabus
+    expect(HSK.find((w) => w.hanzi === "都")?.pinyin).toBe("dōu");
+    expect(HSK.find((w) => w.hanzi === "爸爸")).toMatchObject({ pinyin: "bàba", level: 1, pos: "名" });
+  });
+
+  it("tells apart the words written alike by their part of speech", () => {
+    expect([...HOMOGRAPHS].sort()).toEqual(["点", "花", "过"].sort());
+    const flower = HSK.filter((w) => w.hanzi === "花").map((w) => posLabel(w.pos));
+    expect(flower.sort()).toEqual(["sustantivo", "verbo"]);
+    expect(posLabel("量、（名）")).toBe("clasificador");
+    expect(posLabel("后缀、（动、名、量）")).toBe("sufijo");
   });
 });
 
@@ -34,7 +44,7 @@ describe("HSK coverage", () => {
 
   it("counts your HSK words and the HSK words you know, preferring the word itself", () => {
     const word = (id: string, hanzi: string): VocabEntry => ({ id, hanzi, pinyin: "", es: "", lesson: "1" });
-    const list = [...hsk].map((hanzi) => ({ hanzi, pinyin: "" }));
+    const list = [...hsk].map((hanzi) => ({ hanzi }));
     const summary = hskSummary(
       [
         word("benshu", "本书"),
@@ -57,11 +67,13 @@ describe("HSK coverage", () => {
     const { hskWords, known } = hskSummary(vocab);
     for (const hanzi of ["书", "本", "月", "衣服", "杯子", "星期", "朋友", "家", "椅子", "工作"])
       expect(known.has(hanzi), hanzi).toBe(true);
-    for (const hanzi of ["睡觉", "很", "出租车"]) expect(known.has(hanzi), hanzi).toBe(false);
+    for (const hanzi of ["出租车", "医生"]) expect(known.has(hanzi), hanzi).toBe(false);
     const ids = hskWords.map((w) => w.id);
-    expect(ids).toEqual(expect.arrayContaining(["benshu", "xingqiyi", "yiyue", "bei", "pengyou"]));
-    expect(ids).not.toContain("nanpengyou");
-    expect(ids).not.toContain("jianyifu");
+    expect(ids).toEqual(
+      expect.arrayContaining(["benshu", "xingqiyi", "yiyue", "bei", "pengyou", "nanpengyou", "jianyifu"]),
+    );
+    // 西班牙, the shades of colour and 栋 aren't in the list.
+    for (const id of ["xibanya", "qianlanse", "donglou"]) expect(ids).not.toContain(id);
     expect(known.get("朋友")?.id).toBe("pengyou");
   });
 });

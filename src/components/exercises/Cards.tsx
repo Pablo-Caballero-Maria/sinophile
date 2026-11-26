@@ -1,6 +1,10 @@
 "use client";
-/** Word introduction card and self-graded flashcards. */
-import { useState } from "react";
+/**
+ * Word introduction card and self-graded flashcards. A flashcard starts on one face of the word
+ * (the Spanish, the hanzi, the pinyin or its sound) and its back shows the rest.
+ */
+import { Volume2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import type { Exercise } from "@/lib/exercises/types";
 import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
@@ -44,12 +48,39 @@ export function IntroCard({ exercise: ex, onSkip }: ExerciseProps<Intro>) {
   );
 }
 
+/** The front of a flashcard: one face of the word (lib/exercises/types.ts, CardFront). */
+function CardFace({ card }: { card: Flashcard }) {
+  const { word } = card;
+  switch (card.front) {
+    case "es":
+      return <span className="text-3xl font-bold">{word.es}</span>;
+    case "hanzi":
+      return <Hanzi text={word.hanzi} className="text-8xl" colored={false} />;
+    case "pinyin":
+      return <Pinyin text={word.pinyin} className="text-4xl font-semibold" />;
+    case "audio":
+      return (
+        <span className="flex flex-col items-center gap-3 text-sky">
+          <Volume2 size={72} aria-hidden />
+          <span className="text-lg font-bold text-fg">Escucha la palabra</span>
+        </span>
+      );
+  }
+}
+
 export function FlashcardExercise({ exercise: ex, answered, onAnswer }: ExerciseProps<Flashcard>) {
   const [flipped, setFlipped] = useState(false);
   const { word } = ex;
+  const listening = ex.front === "audio";
+  // The audio face plays the word as it appears (it's the question); the others say it on flipping.
+  useEffect(() => {
+    if (!listening) return;
+    const timer = setTimeout(() => void speak(word.hanzi), 250);
+    return () => clearTimeout(timer);
+  }, [listening, word.hanzi]);
   const flip = () => {
     setFlipped(true);
-    void speak(word.hanzi);
+    if (!listening) void speak(word.hanzi);
   };
   return (
     <>
@@ -58,28 +89,26 @@ export function FlashcardExercise({ exercise: ex, answered, onAnswer }: Exercise
         type="button"
         onClick={flip}
         disabled={flipped}
+        aria-label={flipped ? undefined : "Dar la vuelta a la tarjeta"}
         className="flex min-h-80 w-full flex-col items-center justify-center gap-3 rounded-3xl border-2 border-b-[6px] border-line bg-surface p-6 text-center"
       >
         {!flipped ? (
-          ex.reverse ? (
-            <span className="text-3xl font-bold">{word.es}</span>
-          ) : (
-            <Hanzi text={word.hanzi} className="text-8xl" colored={false} />
-          )
+          <CardFace card={ex} />
         ) : (
+          // The back: the hanzi, its pinyin and (unless the question was the Spanish) what it means.
           <span className="flex animate-pop flex-col items-center gap-2">
             <Hanzi text={word.hanzi} pinyin={word.pinyin} className="text-7xl" />
             <Pinyin text={word.pinyin} className="text-2xl font-semibold" />
-            <span className="text-xl font-bold">{word.es}</span>
+            {ex.front !== "es" && <span className="text-xl font-bold">{word.es}</span>}
           </span>
         )}
         {!flipped && (
           <span className="mt-4 text-sm font-semibold text-muted">Toca para ver la respuesta</span>
         )}
       </button>
-      {flipped && (
+      {(flipped || listening) && (
         <div className="mt-3 flex justify-center">
-          <SpeakButton text={word.hanzi} size="sm" />
+          <SpeakButton text={word.hanzi} size={listening && !flipped ? "lg" : "sm"} />
         </div>
       )}
       <Footer hidden={answered}>

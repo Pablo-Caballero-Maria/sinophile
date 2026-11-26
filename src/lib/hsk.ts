@@ -1,24 +1,58 @@
 /**
- * The HSK 1 word list (the 150 words of HSK 2.0 level 1, data/hsk1.json, made by
- * `npm run hsk`) compared with the learner's vocabulary, for the home page.
+ * The HSK 2 word list of HSK 3.0 (the 500 words of levels 1 and 2 of the 2025 syllabus,
+ * data/hsk2.json, made by `npm run hsk`) compared with the learner's vocabulary, for the home
+ * page.
  *
- * Each vocabulary word is split into HSK 1 words, covering as many characters as
- * possible:
- *  - an HSK 1 word inside a word you know counts as known: 本书 → 本 + 书,
- *    一月 → 一 + 月, and 件衣服 still teaches 衣服 although 件 isn't HSK 1;
- *  - a word that is an HSK 1 word, or is made only of HSK 1 words (星期一,
- *    本书), counts as one of your HSK 1 words;
- *  - a noun without its 子 suffix counts for the HSK 1 word with it (杯 → 杯子).
+ * Each vocabulary word is split into HSK words, covering as many characters as possible:
+ *  - an HSK word inside a word you know counts as known: 本书 → 本 + 书,
+ *    一月 → 一 + 月, and 件衣服 still teaches 衣服 although 件 isn't in the list;
+ *  - a word that is an HSK word, or is made only of HSK words (星期一, 本书), counts
+ *    as one of your HSK words;
+ *  - a noun without its 子 suffix counts for the HSK word with it (杯 → 杯子).
+ * Words written alike (点 the classifier and 点 the verb) are known together.
  */
-import list from "@data/hsk1.json";
+import list from "@data/hsk2.json";
 import type { VocabEntry } from "./types.ts";
 
 export interface HskWord {
   hanzi: string;
   pinyin: string;
+  /** 1 or 2: the level that introduces it (HSK 2 includes the 300 words of HSK 1). */
+  level: number;
+  /** Part of speech as the syllabus writes it ("名", "动、（名）"…). */
+  pos: string;
 }
 
-export const HSK1: HskWord[] = (list.words as string[][]).map(([hanzi, pinyin]) => ({ hanzi, pinyin }));
+export const HSK: HskWord[] = (list.words as [string, string, number, string][]).map(
+  ([hanzi, pinyin, level, pos]) => ({ hanzi, pinyin, level, pos }),
+);
+
+const POS_LABELS: Record<string, string> = {
+  名: "sustantivo",
+  动: "verbo",
+  形: "adjetivo",
+  副: "adverbio",
+  量: "clasificador",
+  数: "número",
+  代: "pronombre",
+  介: "preposición",
+  连: "conjunción",
+  助: "partícula",
+  叹: "interjección",
+  后缀: "sufijo",
+  前缀: "prefijo",
+};
+
+/** The main part of speech of a word, in Spanish ("量、（名）" → "clasificador"). */
+export function posLabel(pos: string): string {
+  const main = pos.split(/[、（]/)[0]!.trim();
+  return POS_LABELS[main] ?? main;
+}
+
+/** Characters that are more than one word of the list (点, 花, 过): those show their part of speech. */
+export const HOMOGRAPHS: ReadonlySet<string> = new Set(
+  HSK.filter((w, i) => HSK.findIndex((other) => other.hanzi === w.hanzi) !== i).map((w) => w.hanzi),
+);
 
 /**
  * Splits `hanzi` into words of `hsk`, covering as many characters as possible (then
@@ -52,7 +86,10 @@ export interface HskSummary {
   known: Map<string, VocabEntry>;
 }
 
-export function hskSummary(vocab: readonly VocabEntry[], words: readonly HskWord[] = HSK1): HskSummary {
+export function hskSummary(
+  vocab: readonly VocabEntry[],
+  words: readonly Pick<HskWord, "hanzi">[] = HSK,
+): HskSummary {
   const hsk = new Set(words.map((w) => w.hanzi));
   const hskWords: VocabEntry[] = [];
   const known = new Map<string, VocabEntry>();

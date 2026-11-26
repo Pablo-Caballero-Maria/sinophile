@@ -11,11 +11,12 @@ import {
   nextInfinite,
   reverseChoice,
   type GenContext,
+  cardFronts,
 } from "./generate";
 import { checkChoice, checkTiles, checkTyping } from "./check";
 import { accuracy, initialSession, PRACTICE_XP, sessionReducer, examGrade } from "./session";
 import { reviewable } from "./silent";
-import type { Exercise, SessionMode } from "./types";
+import { CARD_FRONTS, type CardFront, type Exercise, type SessionMode } from "./types";
 
 const raw = readDataDir(fileURLToPath(new URL("../../../data", import.meta.url)));
 const vocab = sanitizeLessons({
@@ -154,6 +155,7 @@ describe("silent mode", () => {
 
   const needsSound = (ex: Exercise) =>
     ex.type === "speak" ||
+    (ex.type === "flashcard" && ex.front === "audio") ||
     ((ex.type === "choice" || ex.type === "tiles" || ex.type === "typing") && ex.prompt.kind === "audio");
 
   it("the check above does detect sound exercises in normal sessions", () => {
@@ -169,6 +171,16 @@ describe("silent mode", () => {
       list.forEach(assertValid);
       expect(list.filter(needsSound), mode).toEqual([]);
     }
+  });
+
+  it("flashcards asked to start with the sound start with any other face", () => {
+    const list = buildSession(
+      { mode: "tarjetas", lessons: [], words: [], front: "audio" },
+      vocab.entries,
+      silentCtx(3),
+    );
+    expect(list.length).toBeGreaterThan(0);
+    expect(list.some((ex) => ex.type === "flashcard" && ex.front === "audio")).toBe(false);
   });
 
   it("has nothing to offer in the modes made of sound", () => {
@@ -363,5 +375,31 @@ describe("session state machine", () => {
       s = sessionReducer(s, { type: "answer", result: { correct: ok } });
     expect(s.phase).toBe("done");
     expect(examGrade(s)).toBe(7.5);
+  });
+});
+
+describe("flashcards", () => {
+  const cards = (front?: CardFront, seed = 1) =>
+    buildSession({ mode: "tarjetas", lessons: [], words: [], front }, vocab.entries, ctx(seed)).filter(
+      (ex) => ex.type === "flashcard",
+    );
+
+  it.each(["es", "hanzi", "pinyin", "audio"] as const)("can all start with the %s face", (front) => {
+    const list = cards(front);
+    expect(list.length).toBeGreaterThan(0);
+    expect(list.every((ex) => ex.front === front)).toBe(true);
+  });
+
+  it("train the skill of their face: hearing is listening, pinyin is pinyin", () => {
+    expect(cards("audio")[0]!.skill).toBe("listening");
+    expect(cards("pinyin")[0]!.skill).toBe("pinyin");
+    expect(cards("es")[0]!.skill).toBe("meaning");
+    expect(cards("hanzi")[0]!.instruction).toBe("¿Cómo se lee y qué significa?");
+  });
+
+  it("mix every face when none is chosen", () => {
+    const fronts = new Set([1, 2, 3, 4, 5].flatMap((seed) => cards(undefined, seed).map((ex) => ex.front)));
+    expect(fronts).toEqual(new Set(CARD_FRONTS));
+    expect(cardFronts(true)).toEqual(["es", "hanzi", "pinyin"]);
   });
 });

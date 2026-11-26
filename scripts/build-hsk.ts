@@ -1,67 +1,79 @@
 /**
- * Downloads the HSK 1 word list (HSK 2.0, the 150-word level) and writes it to
- * data/hsk1.json:
- *   { source, license, generated, fields: ["hanzi","pinyin"], words: [[...], ...] }
+ * Downloads the HSK 2 word list of HSK 3.0 (the 500 words of levels 1 and 2 of the 2025
+ * syllabus, 《HSK 考试大纲》: 300 of level 1 and 200 more of level 2) and writes it to
+ * data/hsk2.json:
+ *   { source, license, generated, fields: ["hanzi","pinyin","level","pos"], words: [[...], ...] }
  *
- * Source: github.com/drkameleon/complete-hsk-vocabulary (MIT). Each word may list
- * several readings (都 dōu/Dū, 读 dú/dòu…); the lowercase one that pinyin-pro
- * gives for the word is kept (surname readings like Qián are skipped), and
- * syllables are joined the way vocab.json writes them (bàba, nǚ'ér). The home
- * page compares the list with the learner's vocabulary.
+ * Source: github.com/ofou/hsk (MIT), a mirror of the official query system of chinesetest.cn,
+ * checked row by row against it; pinned to one commit so the list only changes on purpose. The
+ * syllabus numbers words that are written alike but are different words (点1 the classifier,
+ * 点2 the verb): the number is dropped and the part of speech (词性) tells them apart. The pinyin
+ * is the syllabus's own. The home page compares the list with the learner's vocabulary.
  *
  * Run manually when you want to refresh the list:  npm run hsk
  */
 import { writeFileSync } from "node:fs";
-import { pinyin as toPinyin } from "pinyin-pro";
 
-const SOURCE_URL =
-  "https://raw.githubusercontent.com/drkameleon/complete-hsk-vocabulary/main/wordlists/exclusive/old/1.json";
-const OUT = new URL("../data/hsk1.json", import.meta.url);
-const EXPECTED = 150;
+const COMMIT = "14d4612ed99766f1385bd49730aabf8a96dc145f";
+const SOURCE_URL = `https://raw.githubusercontent.com/ofou/hsk/${COMMIT}/${encodeURIComponent("词汇")}.csv`;
+const OUT = new URL("../data/hsk2.json", import.meta.url);
+/** Words per level, as the syllabus publishes them. */
+const EXPECTED: Record<number, number> = { 1: 300, 2: 200 };
+const LEVELS: Record<string, number> = { 一级: 1, 二级: 2 };
 
-interface SourceWord {
-  simplified: string;
-  forms: { transcriptions: { pinyin: string } }[];
+/** One CSV line into fields (quoted fields may hold commas). */
+function fields(line: string): string[] {
+  const out: string[] = [];
+  let field = "";
+  let quoted = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (quoted && c === '"' && line[i + 1] === '"') {
+      field += '"';
+      i++;
+    } else if (c === '"') {
+      quoted = !quoted;
+    } else if (c === "," && !quoted) {
+      out.push(field);
+      field = "";
+    } else {
+      field += c;
+    }
+  }
+  out.push(field);
+  return out;
 }
 
 const response = await fetch(SOURCE_URL);
 if (!response.ok) throw new Error(`Download failed: ${response.status}`);
-const source = (await response.json()) as SourceWord[];
-if (source.length !== EXPECTED) throw new Error(`Expected ${EXPECTED} words, got ${source.length}`);
+const [header, ...lines] = (await response.text()).trim().split(/\r?\n/);
+const column = Object.fromEntries(fields(header!).map((name, i) => [name, i]));
+for (const name of ["级别", "词语", "拼音", "词性"])
+  if (!(name in column)) throw new Error(`The CSV has no column ${name}`);
 
-/** Words whose usual reading pinyin-pro gets wrong when they stand alone. */
-const READINGS: Record<string, string> = { 了: "le", 东西: "dōng xi" };
-
-const squash = (p: string) => p.replace(/\s+/g, "").toLowerCase();
-const isLower = (p: string) => /^[a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/.test(p);
-/** "bà ba" -> "bàba", "nǚ ér" -> "nǚ'ér", "Běi jīng" -> "Běijīng". */
-const join = (p: string) =>
-  p
-    .trim()
-    .split(/\s+/)
-    .reduce((out, syl, i) => (i && /^[aeoāáǎàēéěèōóǒò]/i.test(syl) ? `${out}'${syl}` : out + syl), "");
-
-const words = source.map(({ simplified, forms }) => {
-  const readings = forms.map((f) => f.transcriptions.pinyin);
-  const expected = squash(toPinyin(simplified));
-  const lower = readings.filter(isLower);
-  const reading =
-    READINGS[simplified] ??
-    lower.find((r) => squash(r) === expected) ??
-    readings.find((r) => squash(r) === expected) ??
-    lower[0] ??
-    readings[0];
-  return [simplified, join(reading)];
+const words = lines.flatMap((line) => {
+  const row = fields(line);
+  // "一级（四级）": a level-1 word that comes back at level 4 with another sense.
+  const level = LEVELS[row[column["级别"]!]!.replace(/（.*）$/, "")];
+  if (!level) return [];
+  const hanzi = row[column["词语"]!]!.replace(/\d+$/, "");
+  // Pinyin with a plain apostrophe, as vocab.json writes it (nǚ'ér, not nǚ’ér).
+  const pinyin = row[column["拼音"]!]!.trim().replaceAll("’", "'");
+  return [[hanzi, pinyin, level, row[column["词性"]!]!.trim()] as const];
 });
 
+for (const [level, count] of Object.entries(EXPECTED)) {
+  const got = words.filter((w) => w[2] === Number(level)).length;
+  if (got !== count) throw new Error(`Expected ${count} words of level ${level}, got ${got}`);
+}
+
 const meta = {
-  source:
-    "HSK 2.0 nivel 1 — github.com/drkameleon/complete-hsk-vocabulary — generated by scripts/build-hsk.ts",
+  source: `HSK 3.0 (《HSK 考试大纲》, 2025), niveles 1 y 2 — github.com/ofou/hsk@${COMMIT.slice(0, 7)} — generated by scripts/build-hsk.ts`,
   license: "MIT",
   generated: new Date().toISOString().slice(0, 10),
-  fields: ["hanzi", "pinyin"],
+  fields: ["hanzi", "pinyin", "level", "pos"],
 };
 // One word per line keeps diffs readable.
 const body = words.map((w) => JSON.stringify(w)).join(",\n");
 writeFileSync(OUT, JSON.stringify(meta, null, 2).replace(/\n}$/, `,\n  "words": [\n${body}\n]\n}\n`));
-console.log(`hsk1.json: ${words.length} words`);
+console.log(`hsk2.json: ${words.length} words`);

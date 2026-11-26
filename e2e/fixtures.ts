@@ -13,7 +13,11 @@ export const test = base.extend<{ erroresPermitidos: RegExp[] }>({
     page.on("console", (message) => {
       if (message.type() !== "error") return;
       if (erroresPermitidos.some((patron) => patron.test(message.text()))) return;
-      problems.push(`consola: ${message.text()}`);
+      // A failed request says which resource it was.
+      const where = message.text().startsWith("Failed to load resource")
+        ? ` (${message.location().url})`
+        : "";
+      problems.push(`consola: ${message.text()}${where}`);
     });
     // Lo que bloquea el CSP no siempre llega a la consola: cada violación pasa a ser un error.
     await page.addInitScript(() =>

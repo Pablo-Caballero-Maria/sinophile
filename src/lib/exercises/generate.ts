@@ -26,7 +26,16 @@ import {
 } from "../text";
 import type { CuratedExercise, Sentence, Skill, VocabEntry, WordSet } from "../types";
 import { isNoisyExercise, isNoisyMode, reviewable } from "./silent";
-import type { Display, Exercise, Option, Prompt, SessionParams, WriteStyle } from "./types";
+import {
+  CARD_FRONTS,
+  type CardFront,
+  type Display,
+  type Exercise,
+  type Option,
+  type Prompt,
+  type SessionParams,
+  type WriteStyle,
+} from "./types";
 
 export interface GenContext {
   /** Whole vocabulary (distractor pool). */
@@ -246,12 +255,24 @@ export const speakSentence = (word: VocabEntry, sentence: Sentence): Exercise =>
   translation: sentence.es,
 });
 
-export const flashcard = (word: VocabEntry, reverse: boolean): Exercise => ({
-  ...base("card", "meaning", word, reverse ? "¿Cómo se dice en chino?" : "¿Recuerdas qué significa?"),
+/** What each flashcard face asks, and the skill it trains (hearing the word is listening). */
+const CARD_PROMPTS: Record<CardFront, { instruction: string; skill: Skill }> = {
+  es: { instruction: "¿Cómo se dice en chino?", skill: "meaning" },
+  hanzi: { instruction: "¿Cómo se lee y qué significa?", skill: "meaning" },
+  pinyin: { instruction: "¿Qué palabra es?", skill: "pinyin" },
+  audio: { instruction: "¿Qué palabra has oído?", skill: "listening" },
+};
+
+export const flashcard = (word: VocabEntry, front: CardFront): Exercise => ({
+  ...base("card", CARD_PROMPTS[front].skill, word, CARD_PROMPTS[front].instruction),
   type: "flashcard",
   word,
-  reverse,
+  front,
 });
+
+/** The faces flashcards can start with now: all but the audio one in silent mode. */
+export const cardFronts = (silent: boolean): CardFront[] =>
+  CARD_FRONTS.filter((front) => !silent || front !== "audio");
 
 /** Listen to an example sentence and rebuild it with tiles. */
 export function dictation(word: VocabEntry, sentence: Sentence, ctx: GenContext): Exercise {
@@ -536,10 +557,14 @@ function assembleSession(params: SessionParams, words: VocabEntry[], ctx: GenCon
             : [write(w, "guided"), write(w, "free")],
       );
     }
-    case "tarjetas":
+    case "tarjetas": {
+      const fronts = cardFronts(ctx.silent);
+      // A face that can't be used now (audio in silent mode) becomes the mix.
+      const fixed = params.front && fronts.includes(params.front) ? params.front : undefined;
       return weakestFirst(words, ctx)
         .slice(0, params.count ?? 20)
-        .map((w) => flashcard(w, r() < 0.3));
+        .map((w) => flashcard(w, fixed ?? pick(fronts, r)));
+    }
     case "escucha":
       return weakestFirst(words, ctx, "listening")
         .slice(0, length)

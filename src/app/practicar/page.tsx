@@ -17,7 +17,7 @@ import { SilentModeCheckbox } from "@/components/SilentMode";
 import { Badge, ButtonLink, Card, cn, PageHeader, SectionTitle, Segmented, Toggle } from "@/components/UI";
 import { LESSONS, VOCAB_IDS } from "@/lib/data/vocab";
 import { isNoisyMode, reviewable } from "@/lib/exercises/silent";
-import type { SessionMode } from "@/lib/exercises/types";
+import type { CardFront, SessionMode } from "@/lib/exercises/types";
 import { dueItems } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/store";
 import { useSettings } from "@/lib/settings/store";
@@ -31,6 +31,15 @@ interface Mode {
   color: string;
 }
 
+/** What each flashcard option shows first (and what the back then reveals). */
+const CARD_FRONT_HELP: Record<CardFront | "mezcla", string> = {
+  es: "Ves la palabra en español; detrás, el hanzi, el pinyin y su pronunciación.",
+  hanzi: "Ves el hanzi; detrás, el pinyin, el significado y su pronunciación.",
+  pinyin: "Ves el pinyin; detrás, el hanzi, el significado y su pronunciación.",
+  audio: "Oyes la palabra; detrás, el hanzi, el pinyin y el significado.",
+  mezcla: "Cada tarjeta empieza por una cara distinta (sin audio en modo silencioso).",
+};
+
 const MODES: Mode[] = [
   {
     modo: "infinito",
@@ -38,13 +47,6 @@ const MODES: Mode[] = [
     description: "Ejercicios sin fin hasta perder 3 vidas.",
     icon: InfinityIcon,
     color: "bg-brand",
-  },
-  {
-    modo: "tarjetas",
-    title: "Tarjetas",
-    description: "Flashcards rápidas: ¿te la sabes o no?",
-    icon: Layers,
-    color: "bg-accent-orange",
   },
   {
     modo: "escucha",
@@ -102,6 +104,9 @@ export default function PracticePage() {
   const silentMode = useSettings((s) => s.silentMode);
   const [scope, setScope] = useState<string[]>([]);
   const [writingStyle, setWritingStyle] = useState<"guiado" | "libre" | "mixto">("mixto");
+  const [cardFront, setCardFront] = useState<CardFront | "mezcla">("mezcla");
+  // The audio face needs sound: in silent mode it's the mix (which then leaves audio out).
+  const front = silentMode && cardFront === "audio" ? "mezcla" : cardFront;
   const [examSize, setExamSize] = useState(20);
   const [examWriting, setExamWriting] = useState(false);
 
@@ -172,6 +177,38 @@ export default function PracticePage() {
           />
         ))}
       </div>
+
+      <SectionTitle>Tarjetas</SectionTitle>
+      <Card className="flex flex-col gap-3">
+        <div className="flex items-center gap-3">
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent-orange text-white">
+            <Layers size={24} />
+          </span>
+          <p className="text-sm text-muted">
+            Flashcards rápidas: ves una cara de la palabra, la recuerdas y das la vuelta a la tarjeta para ver
+            el resto. Tú decides si te la sabías.
+          </p>
+        </div>
+        <Segmented
+          value={front}
+          onChange={setCardFront}
+          options={[
+            { value: "es", label: "Español" },
+            { value: "hanzi", label: "Hanzi" },
+            { value: "pinyin", label: "Pinyin" },
+            ...(silentMode ? [] : [{ value: "audio" as const, label: "Audio" }]),
+            { value: "mezcla", label: "Mezcla" },
+          ]}
+        />
+        <p className="text-sm text-muted">{CARD_FRONT_HELP[front]}</p>
+        <ButtonLink
+          href={`/sesion?modo=tarjetas${front === "mezcla" ? "" : `&cara=${front}`}${l}`}
+          variant="gold"
+          full
+        >
+          Repasar con tarjetas
+        </ButtonLink>
+      </Card>
 
       <SectionTitle>Escritura de hanzi</SectionTitle>
       <Card className="flex flex-col gap-3">

@@ -62,3 +62,24 @@ test("el examen se configura antes de empezar", async ({ page }) => {
   await expect(page.getByRole("radio", { name: "10 preguntas" })).toBeChecked();
   await expect(page.getByRole("link", { name: "Empezar examen" })).toBeVisible();
 });
+
+test("las tarjetas empiezan por la cara elegida (sin audio en modo silencioso)", async ({ page }) => {
+  await page.goto("/practicar");
+  const main = page.getByRole("main");
+  await main.getByRole("radio", { name: "Pinyin" }).click();
+  await expect(main.getByRole("link", { name: "Repasar con tarjetas" })).toHaveAttribute(
+    "href",
+    "/sesion?modo=tarjetas&cara=pinyin",
+  );
+  await expect(main.getByRole("radio", { name: "Audio" })).toBeVisible();
+  await main.getByRole("checkbox", { name: /Modo silencioso/ }).check();
+  await expect(main.getByRole("radio", { name: "Audio" })).toHaveCount(0);
+  await main.getByRole("checkbox", { name: /Modo silencioso/ }).uncheck();
+
+  await main.getByRole("radio", { name: "Español" }).click();
+  await main.getByRole("link", { name: "Repasar con tarjetas" }).click();
+  await expect(page.getByText("¿Cómo se dice en chino?")).toBeVisible();
+  await page.getByRole("button", { name: "Mostrar respuesta" }).click();
+  await expect(page.getByRole("button", { name: "Me la sabía", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Escuchar", exact: true })).toBeVisible();
+});

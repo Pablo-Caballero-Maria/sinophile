@@ -1,0 +1,1618 @@
+{
+  "version": 1,
+  "words": {
+    "shei": {
+      "note": "«Quién». La pregunta no cambia el orden de la frase: 谁 va donde iría la respuesta (他是谁？ → 他是我哥哥。). 谁的 es «de quién». También se oye shuí.",
+      "examples": [
+        {
+          "zh": [
+            "他",
+            "是",
+            "谁",
+            "？"
+          ],
+          "pinyin": "Tā shì shéi?",
+          "es": "¿Quién es él?"
+        },
+        {
+          "zh": [
+            "这",
+            "是",
+            "谁",
+            "的",
+            "手机",
+            "？"
+          ],
+          "pinyin": "Zhè shì shéi de shǒujī?",
+          "es": "¿De quién es este móvil?"
+        },
+        {
+          "zh": [
+            "谁",
+            "是",
+            "你",
+            "的",
+            "老师",
+            "？"
+          ],
+          "pinyin": "Shéi shì nǐ de lǎoshī?",
+          "es": "¿Quién es tu profesor?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "什么",
+            "哪"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 2,
+          "direction": "es-zh",
+          "distractors": [
+            "吗",
+            "什么"
+          ],
+          "accept": [
+            "你的老师是谁？"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "她",
+              "是",
+              "谁",
+              "？"
+            ],
+            "pinyin": "Tā shì shéi?",
+            "es": "¿Quién es ella?"
+          },
+          "answer": {
+            "zh": [
+              "她",
+              "是",
+              "我",
+              "妹妹",
+              "。"
+            ],
+            "pinyin": "Tā shì wǒ mèimei.",
+            "es": "Es mi hermana pequeña."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "她",
+                "二",
+                "十",
+                "岁",
+                "。"
+              ],
+              "pinyin": "Tā èrshí suì.",
+              "es": "Tiene veinte años."
+            },
+            {
+              "zh": [
+                "她",
+                "是",
+                "西班牙人",
+                "。"
+              ],
+              "pinyin": "Tā shì Xībānyárén.",
+              "es": "Es española."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«¿De quién es este libro?» se dice…",
+          "options": [
+            "这本书是谁的？",
+            "这本书是谁吗？",
+            "谁这本书是的？"
+          ],
+          "answer": "这本书是谁的？",
+          "explanation": "谁的 = «de quién». No lleva 吗: la pregunta ya está en 谁."
+        }
+      ]
+    },
+    "ni-ne": {
+      "note": "«¿Y tú?». 呢 al final devuelve la pregunta sin repetirla: 我是学生，你呢？ Vale con cualquier persona: 他呢？, 你们呢？",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "是",
+            "学生",
+            "，",
+            "你呢",
+            "？"
+          ],
+          "pinyin": "Wǒ shì xuéshēng, nǐ ne?",
+          "es": "Yo soy estudiante, ¿y tú?"
+        },
+        {
+          "zh": [
+            "我",
+            "喜欢",
+            "咖啡",
+            "，",
+            "你呢",
+            "？"
+          ],
+          "pinyin": "Wǒ xǐhuan kāfēi, nǐ ne?",
+          "es": "Me gusta el café, ¿y a ti?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "吗",
+            "你们"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": [
+            "té",
+            "él"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "我",
+              "二",
+              "十",
+              "岁",
+              "，",
+              "你呢",
+              "？"
+            ],
+            "pinyin": "Wǒ èrshí suì, nǐ ne?",
+            "es": "Tengo veinte años, ¿y tú?"
+          },
+          "answer": {
+            "zh": [
+              "我",
+              "十",
+              "九",
+              "岁",
+              "。"
+            ],
+            "pinyin": "Wǒ shíjiǔ suì.",
+            "es": "Tengo diecinueve."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "我",
+                "是",
+                "中国人",
+                "。"
+              ],
+              "pinyin": "Wǒ shì Zhōngguórén.",
+              "es": "Soy chino."
+            },
+            {
+              "zh": [
+                "我",
+                "叫",
+                "Ana",
+                "。"
+              ],
+              "pinyin": "Wǒ jiào Ana.",
+              "es": "Me llamo Ana."
+            }
+          ]
+        }
+      ]
+    },
+    "yingyu": {
+      "note": "«Inglés» (el idioma). Como 西班牙语: país (英国, Inglaterra) + 语 «lengua». Los idiomas van con mayúscula en pinyin.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "星期一",
+            "有",
+            "英语",
+            "考试",
+            "。"
+          ],
+          "pinyin": "Wǒ xīngqīyī yǒu Yīngyǔ kǎoshì.",
+          "es": "El lunes tengo examen de inglés."
+        },
+        {
+          "zh": [
+            "你",
+            "喜欢",
+            "英语",
+            "吗",
+            "？"
+          ],
+          "pinyin": "Nǐ xǐhuan Yīngyǔ ma?",
+          "es": "¿Te gusta el inglés?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "中文",
+            "西班牙语"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": [
+            "中文",
+            "没有"
+          ],
+          "accept": [
+            "星期一我有英语考试。"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué tienen en común 英语 y 西班牙语?",
+          "options": [
+            "语 significa «lengua»",
+            "Los dos son países",
+            "Los dos llevan 人"
+          ],
+          "answer": "语 significa «lengua»",
+          "explanation": "英语 «inglés», 西班牙语 «español»: el idioma lleva 语. La nacionalidad lleva 人 (西班牙人)."
+        }
+      ]
+    },
+    "hen": {
+      "note": "«Muy». Va delante del adjetivo, sin 是: 我的房子很小 («mi casa es muy pequeña»), nunca 是很小. Muchas veces solo une sujeto y adjetivo y apenas significa «muy».",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "的",
+            "房子",
+            "很",
+            "小",
+            "。"
+          ],
+          "pinyin": "Wǒ de fángzi hěn xiǎo.",
+          "es": "Mi casa es muy pequeña."
+        },
+        {
+          "zh": [
+            "这",
+            "本书",
+            "很",
+            "有意思",
+            "。"
+          ],
+          "pinyin": "Zhè běn shū hěn yǒu yìsi.",
+          "es": "Este libro es muy interesante."
+        },
+        {
+          "zh": [
+            "他",
+            "爸爸",
+            "很",
+            "有名",
+            "。"
+          ],
+          "pinyin": "Tā bàba hěn yǒumíng.",
+          "es": "Su padre es muy famoso."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "是",
+            "也"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "是",
+            "不"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«Mi casa es muy pequeña» se dice…",
+          "options": [
+            "我的房子很小。",
+            "我的房子是很小。",
+            "我的很小房子。"
+          ],
+          "answer": "我的房子很小。",
+          "explanation": "Con adjetivos no se usa 是: sujeto + 很 + adjetivo."
+        }
+      ]
+    },
+    "bai-100": {
+      "note": "«Cien». Se cuenta igual que con 十: 一百 (yìbǎi) 100, 两百 o 二百 200, 三百 300. Delante de 百 se suele decir 两, no 二.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "家",
+            "有",
+            "一",
+            "百",
+            "本书",
+            "。"
+          ],
+          "pinyin": "Wǒ jiā yǒu yìbǎi běn shū.",
+          "es": "En mi casa hay cien libros."
+        },
+        {
+          "zh": [
+            "这",
+            "栋楼",
+            "有",
+            "两",
+            "百",
+            "个",
+            "人",
+            "。"
+          ],
+          "pinyin": "Zhè dòng lóu yǒu liǎngbǎi ge rén.",
+          "es": "En este edificio hay doscientas personas."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "blank": "百",
+          "distractors": [
+            "千",
+            "十"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "千",
+            "口"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Cómo se dice 300?",
+          "options": [
+            "三百",
+            "三十",
+            "三千"
+          ],
+          "answer": "三百",
+          "explanation": "百 = 100: 三百 es 3 × 100. 三十 es 30 y 三千, 3000."
+        }
+      ]
+    },
+    "qian-1000": {
+      "note": "«Mil». Como 百: 一千 (yìqiān) 1000, 两千 2000. No confundas 千 (qiān, mil) con 钱 (qián, dinero): mismo sonido, otro tono y otro carácter.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "有",
+            "一",
+            "千",
+            "本书",
+            "。"
+          ],
+          "pinyin": "Wǒ yǒu yìqiān běn shū.",
+          "es": "Tengo mil libros."
+        },
+        {
+          "zh": [
+            "这",
+            "栋楼",
+            "有",
+            "两",
+            "千",
+            "个",
+            "人",
+            "。"
+          ],
+          "pinyin": "Zhè dòng lóu yǒu liǎngqiān ge rén.",
+          "es": "En este edificio hay dos mil personas."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "blank": "千",
+          "distractors": [
+            "百",
+            "十"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": [
+            "cien",
+            "casas"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "千 y 钱 suenan casi igual. ¿Qué significa 千?",
+          "options": [
+            "mil",
+            "dinero",
+            "cien"
+          ],
+          "answer": "mil",
+          "explanation": "千 qiān (1.er tono) es «mil»; 钱 qián (2.º tono) es «dinero»."
+        }
+      ]
+    },
+    "diannao": {
+      "note": "«Ordenador», literalmente «cerebro eléctrico» (电 electricidad + 脑 cerebro). 电 aparece en muchas palabras de aparatos.",
+      "examples": [
+        {
+          "zh": [
+            "这",
+            "是",
+            "谁",
+            "的",
+            "电脑",
+            "？"
+          ],
+          "pinyin": "Zhè shì shéi de diànnǎo?",
+          "es": "¿De quién es este ordenador?"
+        },
+        {
+          "zh": [
+            "我",
+            "爸爸",
+            "在",
+            "办公室",
+            "修",
+            "电脑",
+            "。"
+          ],
+          "pinyin": "Wǒ bàba zài bàngōngshì xiū diànnǎo.",
+          "es": "Mi padre arregla ordenadores en la oficina."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "手机",
+            "铅笔"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "开",
+            "教室"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "你",
+              "想",
+              "买",
+              "什么",
+              "？"
+            ],
+            "pinyin": "Nǐ xiǎng mǎi shénme?",
+            "es": "¿Qué quieres comprar?"
+          },
+          "answer": {
+            "zh": [
+              "我",
+              "想",
+              "买",
+              "电脑",
+              "。"
+            ],
+            "pinyin": "Wǒ xiǎng mǎi diànnǎo.",
+            "es": "Quiero comprar un ordenador."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "我",
+                "在",
+                "办公室",
+                "。"
+              ],
+              "pinyin": "Wǒ zài bàngōngshì.",
+              "es": "Estoy en la oficina."
+            },
+            {
+              "zh": [
+                "他",
+                "是",
+                "我",
+                "哥哥",
+                "。"
+              ],
+              "pinyin": "Tā shì wǒ gēge.",
+              "es": "Es mi hermano mayor."
+            }
+          ]
+        }
+      ]
+    },
+    "yuanzibi": {
+      "note": "«Bolígrafo». 原子笔 es la palabra de Taiwán; en China continental se dice 圆珠笔 (yuánzhūbǐ). 笔 es «instrumento para escribir»: 铅笔, 原子笔.",
+      "examples": [
+        {
+          "zh": [
+            "你",
+            "有",
+            "原子笔",
+            "吗",
+            "？"
+          ],
+          "pinyin": "Nǐ yǒu yuánzǐbǐ ma?",
+          "es": "¿Tienes un bolígrafo?"
+        },
+        {
+          "zh": [
+            "我",
+            "的",
+            "原子笔",
+            "是",
+            "蓝色",
+            "的",
+            "。"
+          ],
+          "pinyin": "Wǒ de yuánzǐbǐ shì lánsè de.",
+          "es": "Mi bolígrafo es azul."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "橡皮擦",
+            "电脑"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "红色",
+            "铅笔"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué tienen en común 原子笔 y 铅笔?",
+          "options": [
+            "笔: sirven para escribir",
+            "Los dos son de colores",
+            "Los dos son de papel"
+          ],
+          "answer": "笔: sirven para escribir",
+          "explanation": "笔 es «utensilio de escritura»: 原子笔 bolígrafo, 铅笔 lápiz."
+        }
+      ]
+    },
+    "qianbi": {
+      "note": "«Lápiz»: 铅 (plomo) + 笔 (utensilio de escritura), como el «lápiz de plomo». En el estuche (铅笔盒) va el resto.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "没有",
+            "铅笔",
+            "。"
+          ],
+          "pinyin": "Wǒ méiyǒu qiānbǐ.",
+          "es": "No tengo lápiz."
+        },
+        {
+          "zh": [
+            "学生",
+            "都",
+            "有",
+            "铅笔",
+            "。"
+          ],
+          "pinyin": "Xuéshēng dōu yǒu qiānbǐ.",
+          "es": "Todos los estudiantes tienen lápiz."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "原子笔",
+            "钱包"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": [
+            "bolígrafo",
+            "tienes"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "你",
+              "有",
+              "铅笔",
+              "吗",
+              "？"
+            ],
+            "pinyin": "Nǐ yǒu qiānbǐ ma?",
+            "es": "¿Tienes un lápiz?"
+          },
+          "answer": {
+            "zh": [
+              "没有",
+              "，",
+              "我",
+              "有",
+              "原子笔",
+              "。"
+            ],
+            "pinyin": "Méiyǒu, wǒ yǒu yuánzǐbǐ.",
+            "es": "No, tengo un bolígrafo."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "我",
+                "叫",
+                "Ana",
+                "。"
+              ],
+              "pinyin": "Wǒ jiào Ana.",
+              "es": "Me llamo Ana."
+            },
+            {
+              "zh": [
+                "他",
+                "在",
+                "教室",
+                "。"
+              ],
+              "pinyin": "Tā zài jiàoshì.",
+              "es": "Está en clase."
+            }
+          ]
+        }
+      ]
+    },
+    "xiangpica": {
+      "note": "«Goma de borrar»: 橡皮 (goma) + 擦 (frotar, borrar). Es la palabra de Taiwán; en China continental basta con 橡皮 (xiàngpí).",
+      "examples": [
+        {
+          "zh": [
+            "你",
+            "有",
+            "橡皮擦",
+            "吗",
+            "？"
+          ],
+          "pinyin": "Nǐ yǒu xiàngpícā ma?",
+          "es": "¿Tienes goma de borrar?"
+        },
+        {
+          "zh": [
+            "橡皮擦",
+            "在",
+            "桌子",
+            "上",
+            "。"
+          ],
+          "pinyin": "Xiàngpícā zài zhuōzi shàng.",
+          "es": "La goma está encima de la mesa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "铅笔盒",
+            "门"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "椅子",
+            "门"
+          ]
+        }
+      ]
+    },
+    "bangongshi": {
+      "note": "«Oficina» o «despacho»: 办公 (trabajar en asuntos de oficina) + 室 (sala), como 教室 «aula».",
+      "examples": [
+        {
+          "zh": [
+            "老师",
+            "在",
+            "办公室",
+            "。"
+          ],
+          "pinyin": "Lǎoshī zài bàngōngshì.",
+          "es": "El profesor está en el despacho."
+        },
+        {
+          "zh": [
+            "我",
+            "爸爸",
+            "的",
+            "办公室",
+            "很",
+            "小",
+            "。"
+          ],
+          "pinyin": "Wǒ bàba de bàngōngshì hěn xiǎo.",
+          "es": "El despacho de mi padre es muy pequeño."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "教室",
+            "厕所"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "是",
+            "教室"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué tienen en común 办公室 y 教室?",
+          "options": [
+            "室: una sala",
+            "Los dos son casas",
+            "Los dos son para comer"
+          ],
+          "answer": "室: una sala",
+          "explanation": "室 es «sala, habitación»: 教室 aula, 办公室 oficina."
+        }
+      ]
+    },
+    "men": {
+      "note": "«Puerta». Abrir la puerta es 开门 (kāi mén), con el mismo 开 de conducir. El carácter dibuja una puerta de dos hojas.",
+      "examples": [
+        {
+          "zh": [
+            "妈妈",
+            "开",
+            "门",
+            "。"
+          ],
+          "pinyin": "Māma kāi mén.",
+          "es": "Mamá abre la puerta."
+        },
+        {
+          "zh": [
+            "教室",
+            "的",
+            "门",
+            "是",
+            "白色",
+            "的",
+            "。"
+          ],
+          "pinyin": "Jiàoshì de mén shì báisè de.",
+          "es": "La puerta del aula es blanca."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "窗户",
+            "灯"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": [
+            "ventana",
+            "negra"
+          ]
+        }
+      ]
+    },
+    "chuanghu": {
+      "note": "«Ventana». 户 va átono (chuānghu). Abrir la ventana: 开窗户.",
+      "examples": [
+        {
+          "zh": [
+            "教室",
+            "有",
+            "两",
+            "个",
+            "窗户",
+            "。"
+          ],
+          "pinyin": "Jiàoshì yǒu liǎng ge chuānghu.",
+          "es": "El aula tiene dos ventanas."
+        },
+        {
+          "zh": [
+            "他",
+            "开",
+            "窗户",
+            "。"
+          ],
+          "pinyin": "Tā kāi chuānghu.",
+          "es": "Él abre la ventana."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "门",
+            "柜子"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": [
+            "三",
+            "门"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«El aula tiene dos ventanas» se dice…",
+          "options": [
+            "教室有两个窗户。",
+            "教室有二个窗户。",
+            "教室两个有窗户。"
+          ],
+          "answer": "教室有两个窗户。",
+          "explanation": "Delante de un clasificador (个) el dos es 两, no 二."
+        }
+      ]
+    },
+    "qianbihe": {
+      "note": "«Estuche»: 铅笔 (lápiz) + 盒 (caja), la caja de los lápices.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "的",
+            "铅笔盒",
+            "是",
+            "红色",
+            "的",
+            "。"
+          ],
+          "pinyin": "Wǒ de qiānbǐhé shì hóngsè de.",
+          "es": "Mi estuche es rojo."
+        },
+        {
+          "zh": [
+            "你",
+            "的",
+            "铅笔盒",
+            "是什么颜色的",
+            "？"
+          ],
+          "pinyin": "Nǐ de qiānbǐhé shì shénme yánsè de?",
+          "es": "¿De qué color es tu estuche?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "铅笔",
+            "背包"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": [
+            "绿色",
+            "铅笔"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "你",
+              "的",
+              "铅笔盒",
+              "是什么颜色的",
+              "？"
+            ],
+            "pinyin": "Nǐ de qiānbǐhé shì shénme yánsè de?",
+            "es": "¿De qué color es tu estuche?"
+          },
+          "answer": {
+            "zh": [
+              "我",
+              "的",
+              "铅笔盒",
+              "是",
+              "黄色",
+              "的",
+              "。"
+            ],
+            "pinyin": "Wǒ de qiānbǐhé shì huángsè de.",
+            "es": "Mi estuche es amarillo."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "铅笔盒",
+                "在",
+                "桌子",
+                "上",
+                "。"
+              ],
+              "pinyin": "Qiānbǐhé zài zhuōzi shàng.",
+              "es": "El estuche está encima de la mesa."
+            },
+            {
+              "zh": [
+                "我",
+                "有",
+                "两",
+                "个",
+                "铅笔盒",
+                "。"
+              ],
+              "pinyin": "Wǒ yǒu liǎng ge qiānbǐhé.",
+              "es": "Tengo dos estuches."
+            }
+          ]
+        }
+      ]
+    },
+    "chouti": {
+      "note": "«Cajón». 屉 va átono (chōuti). 抽 es «tirar de», lo que se hace para abrirlo.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "的",
+            "桌子",
+            "有",
+            "两",
+            "个",
+            "抽屉",
+            "。"
+          ],
+          "pinyin": "Wǒ de zhuōzi yǒu liǎng ge chōuti.",
+          "es": "Mi mesa tiene dos cajones."
+        },
+        {
+          "zh": [
+            "这",
+            "个",
+            "桌子",
+            "没有",
+            "抽屉",
+            "。"
+          ],
+          "pinyin": "Zhège zhuōzi méiyǒu chōuti.",
+          "es": "Esta mesa no tiene cajones."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "窗户",
+            "灯"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "zh-es",
+          "distractors": [
+            "silla",
+            "tres"
+          ]
+        }
+      ]
+    },
+    "guizi": {
+      "note": "«Armario» en general (para libros, platos, ropa…), con el 子 átono de 桌子 y 椅子. El de la ropa es 衣柜.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "家",
+            "有",
+            "一",
+            "个",
+            "白色",
+            "的",
+            "柜子",
+            "。"
+          ],
+          "pinyin": "Wǒ jiā yǒu yí ge báisè de guìzi.",
+          "es": "En mi casa hay un armario blanco."
+        },
+        {
+          "zh": [
+            "教室",
+            "有",
+            "两",
+            "个",
+            "柜子",
+            "。"
+          ],
+          "pinyin": "Jiàoshì yǒu liǎng ge guìzi.",
+          "es": "En el aula hay dos armarios."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "抽屉",
+            "门"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": [
+            "黑色",
+            "桌子"
+          ]
+        }
+      ]
+    },
+    "yigui": {
+      "note": "«Armario ropero»: 衣 (ropa, como en 衣服) + 柜 (armario, como en 柜子).",
+      "examples": [
+        {
+          "zh": [
+            "这",
+            "是",
+            "我",
+            "妹妹",
+            "的",
+            "衣柜",
+            "。"
+          ],
+          "pinyin": "Zhè shì wǒ mèimei de yīguì.",
+          "es": "Este es el armario de mi hermana pequeña."
+        },
+        {
+          "zh": [
+            "我",
+            "的",
+            "衣柜",
+            "很",
+            "小",
+            "。"
+          ],
+          "pinyin": "Wǒ de yīguì hěn xiǎo.",
+          "es": "Mi armario es muy pequeño."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "抽屉",
+            "窗户"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "是",
+            "抽屉"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué guardas en un 衣柜?",
+          "options": [
+            "Ropa",
+            "Lápices",
+            "Dinero"
+          ],
+          "answer": "Ropa",
+          "explanation": "衣 es la ropa (衣服): 衣柜 es el armario de la ropa."
+        }
+      ]
+    },
+    "deng": {
+      "note": "«Luz» o «lámpara». Encender la luz: 开灯 (kāi dēng), con el mismo 开 de abrir la puerta.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "开",
+            "灯",
+            "。"
+          ],
+          "pinyin": "Wǒ kāi dēng.",
+          "es": "Enciendo la luz."
+        },
+        {
+          "zh": [
+            "这",
+            "个",
+            "灯",
+            "很",
+            "小",
+            "。"
+          ],
+          "pinyin": "Zhège dēng hěn xiǎo.",
+          "es": "Esta lámpara es muy pequeña."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "门",
+            "电脑"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": [
+            "grande",
+            "puerta"
+          ]
+        }
+      ]
+    },
+    "beibao": {
+      "note": "«Mochila» que se lleva a la espalda (背, la espalda). 书包 es la mochila del colegio, para los libros; 背包 sirve para todo.",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "的",
+            "背包",
+            "是",
+            "黑色",
+            "的",
+            "。"
+          ],
+          "pinyin": "Wǒ de bēibāo shì hēisè de.",
+          "es": "Mi mochila es negra."
+        },
+        {
+          "zh": [
+            "你",
+            "有",
+            "背包",
+            "吗",
+            "？"
+          ],
+          "pinyin": "Nǐ yǒu bēibāo ma?",
+          "es": "¿Tienes mochila?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "钱包",
+            "电脑"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 0,
+          "direction": "es-zh",
+          "distractors": [
+            "白色",
+            "钱包"
+          ]
+        }
+      ]
+    },
+    "qianbao": {
+      "note": "«Cartera»: 钱 (dinero) + 包 (bolsa). 包 aparece en 书包, 背包 y 包裹: algo en lo que se mete otra cosa.",
+      "examples": [
+        {
+          "zh": [
+            "这",
+            "是",
+            "谁",
+            "的",
+            "钱包",
+            "？"
+          ],
+          "pinyin": "Zhè shì shéi de qiánbāo?",
+          "es": "¿De quién es esta cartera?"
+        },
+        {
+          "zh": [
+            "我",
+            "的",
+            "钱包",
+            "没有",
+            "钱",
+            "。"
+          ],
+          "pinyin": "Wǒ de qiánbāo méiyǒu qián.",
+          "es": "Mi cartera no tiene dinero."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "背包",
+            "包裹"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": [
+            "mochila",
+            "casa"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Qué tienen en común 钱包, 书包 y 背包?",
+          "options": [
+            "包: una bolsa",
+            "钱: el dinero",
+            "Los tres son ropa"
+          ],
+          "answer": "包: una bolsa",
+          "explanation": "包 es «bolsa»: 钱包 la del dinero, 书包 la de los libros, 背包 la de la espalda."
+        }
+      ]
+    },
+    "baoguo": {
+      "note": "«Paquete», lo que llega por correo. 包 (envolver) + 裹 (envolver también).",
+      "examples": [
+        {
+          "zh": [
+            "我",
+            "有",
+            "一",
+            "个",
+            "包裹",
+            "。"
+          ],
+          "pinyin": "Wǒ yǒu yí ge bāoguǒ.",
+          "es": "Tengo un paquete."
+        },
+        {
+          "zh": [
+            "这",
+            "个",
+            "包裹",
+            "是",
+            "谁",
+            "的",
+            "？"
+          ],
+          "pinyin": "Zhège bāoguǒ shì shéi de?",
+          "es": "¿De quién es este paquete?"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 0,
+          "distractors": [
+            "钱包",
+            "背包"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "什么",
+            "钱包"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "这",
+              "个",
+              "包裹",
+              "是",
+              "谁",
+              "的",
+              "？"
+            ],
+            "pinyin": "Zhège bāoguǒ shì shéi de?",
+            "es": "¿De quién es este paquete?"
+          },
+          "answer": {
+            "zh": [
+              "是",
+              "我",
+              "的",
+              "。"
+            ],
+            "pinyin": "Shì wǒ de.",
+            "es": "Es mío."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "包裹",
+                "很",
+                "小",
+                "。"
+              ],
+              "pinyin": "Bāoguǒ hěn xiǎo.",
+              "es": "El paquete es muy pequeño."
+            },
+            {
+              "zh": [
+                "我",
+                "没有",
+                "钱",
+                "。"
+              ],
+              "pinyin": "Wǒ méiyǒu qián.",
+              "es": "No tengo dinero."
+            }
+          ]
+        }
+      ]
+    },
+    "meiguo": {
+      "note": "«Estados Unidos» (en el uso de la clase, «América»). Como 中国: 美国人 es «estadounidense». Los países van con mayúscula en pinyin.",
+      "examples": [
+        {
+          "zh": [
+            "他",
+            "是",
+            "美国",
+            "人",
+            "。"
+          ],
+          "pinyin": "Tā shì Měiguórén.",
+          "es": "Él es estadounidense."
+        },
+        {
+          "zh": [
+            "我",
+            "的",
+            "朋友",
+            "住",
+            "在",
+            "美国",
+            "。"
+          ],
+          "pinyin": "Wǒ de péngyou zhù zài Měiguó.",
+          "es": "Mi amigo vive en Estados Unidos."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "英语",
+            "伦敦"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "zh-es",
+          "distractors": [
+            "China",
+            "trabaja"
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "«Ella es estadounidense» se dice…",
+          "options": [
+            "她是美国人。",
+            "她是美国语。",
+            "她美国是人。"
+          ],
+          "answer": "她是美国人。",
+          "explanation": "País + 人 es la nacionalidad (美国人); país + 语, el idioma."
+        }
+      ]
+    },
+    "kou": {
+      "note": "Clasificador para contar a los miembros de una familia: 我家有四口人. 口 es «boca»: en casa se cuentan las bocas que alimentar. Para preguntar, 几: 你家有几口人？",
+      "examples": [
+        {
+          "zh": [
+            "你",
+            "家",
+            "有",
+            "几",
+            "口",
+            "人",
+            "？"
+          ],
+          "pinyin": "Nǐ jiā yǒu jǐ kǒu rén?",
+          "es": "¿Cuántos sois en tu familia?"
+        },
+        {
+          "zh": [
+            "我",
+            "家",
+            "有",
+            "四",
+            "口",
+            "人",
+            "。"
+          ],
+          "pinyin": "Wǒ jiā yǒu sì kǒu rén.",
+          "es": "En mi familia somos cuatro."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "fill",
+          "example": 1,
+          "distractors": [
+            "顶",
+            "岁"
+          ]
+        },
+        {
+          "type": "translate",
+          "example": 1,
+          "direction": "es-zh",
+          "distractors": [
+            "五",
+            "顶"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "prompt": {
+            "zh": [
+              "你",
+              "家",
+              "有",
+              "几",
+              "口",
+              "人",
+              "？"
+            ],
+            "pinyin": "Nǐ jiā yǒu jǐ kǒu rén?",
+            "es": "¿Cuántos sois en tu familia?"
+          },
+          "answer": {
+            "zh": [
+              "我",
+              "家",
+              "有",
+              "三",
+              "口",
+              "人",
+              "。"
+            ],
+            "pinyin": "Wǒ jiā yǒu sān kǒu rén.",
+            "es": "En mi familia somos tres."
+          },
+          "wrong": [
+            {
+              "zh": [
+                "我",
+                "家",
+                "在",
+                "伦敦",
+                "。"
+              ],
+              "pinyin": "Wǒ jiā zài Lúndūn.",
+              "es": "Mi casa está en Londres."
+            },
+            {
+              "zh": [
+                "我",
+                "有",
+                "两",
+                "个",
+                "哥哥",
+                "。"
+              ],
+              "pinyin": "Wǒ yǒu liǎng ge gēge.",
+              "es": "Tengo dos hermanos mayores."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "question": "¿Con qué se cuentan los miembros de una familia en 我家有四__人?",
+          "options": [
+            "口",
+            "只",
+            "顶"
+          ],
+          "answer": "口",
+          "explanation": "口 («boca») es el clasificador de los miembros de la familia; 只 es el de los animales (只狗) y 顶 el de los sombreros."
+        }
+      ]
+    }
+  }
+}

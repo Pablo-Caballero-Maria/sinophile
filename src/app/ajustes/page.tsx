@@ -347,14 +347,9 @@ export default function SettingsPage() {
           <a className="underline" href="https://hanziwriter.org" target="_blank" rel="noreferrer">
             Hanzi Writer
           </a>
-          . Pinyin: pinyin-pro. Lista del HSK 1:{" "}
-          <a
-            className="underline"
-            href="https://github.com/drkameleon/complete-hsk-vocabulary"
-            target="_blank"
-            rel="noreferrer"
-          >
-            complete-hsk-vocabulary
+          . Pinyin: pinyin-pro. Lista del HSK 2 (HSK 3.0, temario de 2025):{" "}
+          <a className="underline" href="https://github.com/ofou/hsk" target="_blank" rel="noreferrer">
+            ofou/hsk
           </a>{" "}
           (MIT). Traducción automática: Google Translate / MyMemory.
         </p>
