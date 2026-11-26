@@ -3,3 +3,5 @@ package-lock.json
 next-env.d.ts
 # Las lecciones se escriben a mano, una palabra por línea; cedict.json y hsk1.json son generados
 data/
+# Google Search Console's verification file: its content must stay exactly as Google gave it
+public/google*.html
