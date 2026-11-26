@@ -26,7 +26,9 @@
     "migrate:auth": "node --env-file-if-exists=.env.local scripts/migrate-auth.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "7.0.9",
     "@serwist/turbopack": "^9.5.15",
+    "@tanstack/react-query": "5.108.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/functions": "^3.10.6",
     "@vercel/speed-insights": "^2.1.0",
@@ -35,11 +37,15 @@
     "hanzi-writer": "^3.7.3",
     "lucide-react": "^1.67.0",
     "mongodb": "^7.8.0",
+    "motion": "14.14.0",
     "next": "16.4.6",
     "pinyin-pro": "^3.29.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "serwist": "^9.5.15"
+    "react-hook-form": "7.92.0",
+    "serwist": "^9.5.15",
+    "zod": "4.6.7",
+    "zustand": "5.1.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",

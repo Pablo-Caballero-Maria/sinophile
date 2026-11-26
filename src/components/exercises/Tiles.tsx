@@ -26,7 +26,7 @@ function TileLabel({ text, zh, showPinyin }: { text: string; zh: boolean; showPi
 const tileClass = "rounded-2xl border-2 border-b-4 border-line bg-surface px-3 py-2 active:translate-y-[2px]";
 
 export function TilesExercise({ exercise: ex, answered, onAnswer }: ExerciseProps<Tiles>) {
-  const { showPinyin } = useSettings();
+  const showPinyin = useSettings((s) => s.showPinyin);
   const [chosen, setChosen] = useState<number[]>([]);
   const zh = ex.lang === "zh";
   const check = useCallback(

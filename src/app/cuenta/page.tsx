@@ -1,8 +1,17 @@
 "use client";
-/** /cuenta — sign in / sign up (guests) or account management (signed-in users). */
+/**
+ * /cuenta — sign in / sign up (guests) or account management (signed-in users). The forms are
+ * react-hook-form with the zod schemas of lib/account/types.ts; the calls are TanStack Query
+ * mutations (their pending and error states drive the buttons and messages).
+ */
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { CloudCheck, CloudOff, LoaderCircle, LogOut, RefreshCw, Trash2, UserRound } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { useForm } from "react-hook-form";
 import { Button, Card, cn, PageHeader, SectionTitle, Segmented, Skeleton, Toggle } from "@/components/UI";
 import {
   deleteAccount,
@@ -13,97 +22,122 @@ import {
   useAccount,
   type AccountState,
 } from "@/lib/account/client";
-import { credentialsError, PASSWORD_MIN } from "@/lib/account/types";
+import {
+  deleteAccountSchema,
+  PASSWORD_MIN,
+  signInFormSchema,
+  signUpFormSchema,
+  type AuthFormInput,
+  type Credentials,
+} from "@/lib/account/types";
 import { isEmptyProgress, totalXp } from "@/lib/progress/model";
+import { rise } from "@/lib/motion";
 import { useProgress } from "@/lib/progress/store";
+import type { z } from "@/lib/zod";
 
 const INPUT = "h-12 rounded-xl border-2 border-line bg-bg px-3 font-normal outline-none focus:border-sky";
 
-function Field({ label, children }: { label: string; children: ReactNode }) {
+/** A field's error, announced when it appears. */
+function FieldError({ message }: { message: string | undefined }) {
   return (
-    <label className="flex flex-col gap-1 text-sm font-semibold">
-      {label}
-      {children}
-    </label>
+    <AnimatePresence initial={false}>
+      {message && (
+        <m.p key="error" {...rise} role="alert" className="text-sm font-semibold text-bad">
+          {message}
+        </m.p>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/** A labelled field, with its error (if any) under it, announced when it appears. */
+function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <label className="flex flex-col gap-1 text-sm font-semibold">
+        {label}
+        {children}
+      </label>
+      <FieldError message={error} />
+    </div>
   );
 }
 
 const errorText = (error: unknown) =>
   error instanceof Error ? error.message : "Algo ha fallado. Inténtalo de nuevo.";
 
+const EMPTY_FORM: AuthFormInput = { username: "", password: "", repeat: "" };
+
 function AuthForm({ account }: { account: AccountState }) {
   const router = useRouter();
   const progress = useProgress();
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeat, setRepeat] = useState("");
   const [adopt, setAdopt] = useState(true);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const hasLocal = !isEmptyProgress(progress);
   const register = mode === "register";
-
-  const submit = async (event: FormEvent) => {
-    event.preventDefault();
-    const problem = register
-      ? (credentialsError(username, password) ??
-        (password !== repeat ? "Las contraseñas no coinciden." : null))
-      : null;
-    if (problem) return setError(problem);
-    setBusy(true);
-    setError(null);
-    try {
-      await (register ? signUp : signIn)({ username, password }, adopt);
-      router.push("/");
-    } catch (e) {
-      setError(errorText(e));
-      setBusy(false);
-    }
-  };
+  // react-hook-form keeps the fields; zod checks them (a new account's rules, or just "not empty").
+  const {
+    register: field,
+    handleSubmit,
+    clearErrors,
+    formState: { errors },
+  } = useForm<AuthFormInput, unknown, Credentials>({
+    resolver: zodResolver(register ? signUpFormSchema : signInFormSchema),
+    defaultValues: EMPTY_FORM,
+  });
+  const auth = useMutation({
+    mutationFn: (credentials: Credentials) => (register ? signUp : signIn)(credentials, adopt),
+    onSuccess: () => router.push("/"),
+  });
+  // Still disabled after success, while the home page loads.
+  const busy = auth.isPending || auth.isSuccess;
 
   return (
     <Card className="flex flex-col gap-4">
       <Segmented
         value={mode}
-        onChange={(m) => (setMode(m), setError(null))}
+        onChange={(m) => (setMode(m), auth.reset(), clearErrors())}
         options={[
           { value: "login", label: "Iniciar sesión" },
           { value: "register", label: "Crear cuenta" },
         ]}
       />
-      <form onSubmit={(e) => void submit(e)} className="flex flex-col gap-3">
-        <Field label="Nombre de usuario">
+      <form
+        noValidate
+        onSubmit={handleSubmit((credentials) => auth.mutate(credentials))}
+        className="flex flex-col gap-3"
+      >
+        <Field label="Nombre de usuario" error={errors.username?.message}>
           <input
             className={INPUT}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            {...field("username")}
+            aria-invalid={errors.username ? true : undefined}
             autoComplete="username"
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
-            required
           />
         </Field>
-        <Field label={register ? `Contraseña (mínimo ${PASSWORD_MIN} caracteres)` : "Contraseña"}>
+        <Field
+          label={register ? `Contraseña (mínimo ${PASSWORD_MIN} caracteres)` : "Contraseña"}
+          error={errors.password?.message}
+        >
           <input
             className={INPUT}
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...field("password")}
+            aria-invalid={errors.password ? true : undefined}
             autoComplete={register ? "new-password" : "current-password"}
-            required
           />
         </Field>
         {register && (
-          <Field label="Repite la contraseña">
+          <Field label="Repite la contraseña" error={errors.repeat?.message}>
             <input
               className={INPUT}
               type="password"
-              value={repeat}
-              onChange={(e) => setRepeat(e.target.value)}
+              {...field("repeat")}
+              aria-invalid={errors.repeat ? true : undefined}
               autoComplete="new-password"
-              required
             />
           </Field>
         )}
@@ -115,7 +149,7 @@ function AuthForm({ account }: { account: AccountState }) {
             description={`${totalXp(progress)} XP conseguidos en esta visita${account.expired ? " (antes de que caducara la sesión)" : " como invitado"}.`}
           />
         )}
-        {error && <p className="text-sm font-semibold text-bad">{error}</p>}
+        {auth.error && <p className="text-sm font-semibold text-bad">{errorText(auth.error)}</p>}
         <Button type="submit" size="lg" variant="sky" full disabled={busy}>
           {busy && <LoaderCircle size={20} className="animate-spin" />}
           {register ? "Crear cuenta" : "Entrar"}
@@ -153,21 +187,19 @@ function SaveStatusLine({ save }: { save: AccountState["save"] }) {
 function AccountPanel({ account }: { account: AccountState }) {
   const router = useRouter();
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [password, setPassword] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const run = async (action: () => Promise<void>) => {
-    setBusy(true);
-    setError(null);
-    try {
-      await action();
-      router.push("/");
-    } catch (e) {
-      setError(errorText(e));
-      setBusy(false);
-    }
-  };
+  const leave = { onSuccess: () => router.push("/") };
+  const exit = useMutation({ mutationFn: signOut, ...leave });
+  const remove = useMutation({ mutationFn: deleteAccount, ...leave });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.input<typeof deleteAccountSchema>, unknown, z.output<typeof deleteAccountSchema>>({
+    resolver: zodResolver(deleteAccountSchema),
+    defaultValues: { password: "" },
+  });
+  const busy = exit.isPending || exit.isSuccess || remove.isPending || remove.isSuccess;
+  const error = exit.error ?? remove.error;
 
   return (
     <>
@@ -182,7 +214,7 @@ function AccountPanel({ account }: { account: AccountState }) {
           </div>
         </div>
         <SaveStatusLine save={account.save} />
-        <Button variant="secondary" onClick={() => void run(signOut)} disabled={busy} className="self-start">
+        <Button variant="secondary" onClick={() => exit.mutate()} disabled={busy} className="self-start">
           <LogOut size={18} /> Cerrar sesión
         </Button>
       </Card>
@@ -195,11 +227,9 @@ function AccountPanel({ account }: { account: AccountState }) {
           </Button>
         ) : (
           <form
+            noValidate
             className="flex flex-col gap-3 rounded-2xl bg-bad-soft p-3"
-            onSubmit={(e) => {
-              e.preventDefault();
-              void run(() => deleteAccount(password));
-            }}
+            onSubmit={handleSubmit(({ password }) => remove.mutate(password))}
           >
             <p className="text-sm font-semibold text-bad">
               Se borrarán tu cuenta, tu progreso y tus ajustes. No se puede deshacer. Escribe tu contraseña
@@ -208,13 +238,14 @@ function AccountPanel({ account }: { account: AccountState }) {
             <input
               className={INPUT}
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              aria-label="Tu contraseña"
+              {...register("password")}
+              aria-invalid={errors.password ? true : undefined}
               autoComplete="current-password"
-              required
             />
+            <FieldError message={errors.password?.message} />
             <div className="flex gap-2">
-              <Button type="submit" variant="bad" size="sm" disabled={busy || !password}>
+              <Button type="submit" variant="bad" size="sm" disabled={busy}>
                 Sí, borrar mi cuenta
               </Button>
               <Button variant="secondary" size="sm" onClick={() => setConfirmDelete(false)}>
@@ -224,7 +255,7 @@ function AccountPanel({ account }: { account: AccountState }) {
           </form>
         )}
       </Card>
-      {error && <p className={cn("mt-3 text-sm font-semibold text-bad")}>{error}</p>}
+      {error && <p className={cn("mt-3 text-sm font-semibold text-bad")}>{errorText(error)}</p>}
     </>
   );
 }

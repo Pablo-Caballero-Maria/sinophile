@@ -33,6 +33,7 @@ import { getDatabase, type Database } from "./db.ts";
 import { migrateLegacyUser } from "./legacy.ts";
 import { isLocked, recordSignIn } from "./lockout.ts";
 import { passwordHasher } from "./passwords.ts";
+import { serverEnv } from "./env.ts";
 
 export const AUTH_COOKIE_PREFIX = "sinophile";
 export const SESSION_DAYS = 180;
@@ -93,7 +94,7 @@ export function createAuth(database: Database) {
     ],
     rateLimit: {
       storage: "database",
-      ...(process.env.AUTH_RATE_LIMIT === "off" && { enabled: false }),
+      ...(serverEnv().AUTH_RATE_LIMIT === "off" && { enabled: false }),
     },
     advanced: { cookiePrefix: AUTH_COOKIE_PREFIX },
     telemetry: { enabled: false },

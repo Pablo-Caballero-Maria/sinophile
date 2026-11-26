@@ -1,7 +1,8 @@
 /**
- * User preferences: shape, defaults and validation. Pure (shared by the browser
+ * User preferences: shape, defaults and validation (zod). Pure (shared by the browser
  * and the API, which stores them with the account).
  */
+import { z } from "../zod.ts";
 
 export interface Settings {
   /** Daily XP goal */
@@ -42,28 +43,24 @@ export const DEFAULT_SETTINGS: Settings = {
   silentMode: false,
 };
 
-const isObj = (v: unknown): v is Record<string, unknown> =>
-  typeof v === "object" && v !== null && !Array.isArray(v);
-const inRange = (v: unknown, min: number, max: number): v is number =>
-  typeof v === "number" && Number.isFinite(v) && v >= min && v <= max;
-const bool = (v: unknown, fallback: boolean) => (typeof v === "boolean" ? v : fallback);
+/** Each setting checked on its own: a wrong or missing value falls back to its default. */
+const settingsSchema = z
+  .object({
+    dailyGoal: z.number().min(1).max(1000).transform(Math.round).catch(DEFAULT_SETTINGS.dailyGoal),
+    // Anything but "dark" (e.g. "auto", from before 1.2) is the default, light.
+    theme: z.enum(["light", "dark"]).catch(DEFAULT_SETTINGS.theme),
+    sound: z.boolean().catch(DEFAULT_SETTINGS.sound),
+    ttsRate: z.number().min(0.5).max(1.2).catch(DEFAULT_SETTINGS.ttsRate),
+    voiceURI: z.string().max(300).nullable().catch(null),
+    showPinyin: z.boolean().catch(DEFAULT_SETTINGS.showPinyin),
+    toneColors: z.boolean().catch(DEFAULT_SETTINGS.toneColors),
+    penOnly: z.boolean().catch(DEFAULT_SETTINGS.penOnly),
+    autoplayAudio: z.boolean().catch(DEFAULT_SETTINGS.autoplayAudio),
+    sessionLength: z.number().min(5).max(50).transform(Math.round).catch(DEFAULT_SETTINGS.sessionLength),
+    speakingInLessons: z.boolean().catch(DEFAULT_SETTINGS.speakingInLessons),
+    silentMode: z.boolean().catch(DEFAULT_SETTINGS.silentMode),
+  })
+  .catch(() => ({ ...DEFAULT_SETTINGS })) satisfies z.ZodType<Settings>;
 
 /** Keeps only known, well-typed values; anything else falls back to the default. */
-export function sanitizeSettings(raw: unknown): Settings {
-  const d = DEFAULT_SETTINGS;
-  if (!isObj(raw)) return { ...d };
-  return {
-    dailyGoal: inRange(raw.dailyGoal, 1, 1000) ? Math.round(raw.dailyGoal) : d.dailyGoal,
-    theme: raw.theme === "dark" ? "dark" : d.theme,
-    sound: bool(raw.sound, d.sound),
-    ttsRate: inRange(raw.ttsRate, 0.5, 1.2) ? raw.ttsRate : d.ttsRate,
-    voiceURI: typeof raw.voiceURI === "string" && raw.voiceURI.length <= 300 ? raw.voiceURI : null,
-    showPinyin: bool(raw.showPinyin, d.showPinyin),
-    toneColors: bool(raw.toneColors, d.toneColors),
-    penOnly: bool(raw.penOnly, d.penOnly),
-    autoplayAudio: bool(raw.autoplayAudio, d.autoplayAudio),
-    sessionLength: inRange(raw.sessionLength, 5, 50) ? Math.round(raw.sessionLength) : d.sessionLength,
-    speakingInLessons: bool(raw.speakingInLessons, d.speakingInLessons),
-    silentMode: bool(raw.silentMode, d.silentMode),
-  };
-}
+export const sanitizeSettings = (raw: unknown): Settings => settingsSchema.parse(raw);

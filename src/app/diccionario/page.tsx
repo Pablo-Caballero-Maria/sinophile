@@ -1,8 +1,11 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { ArrowLeftRight, Check, ChevronRight, Copy, Languages, Mic, Search } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useDeferredValue, useMemo, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { Hanzi, Pinyin, SpeakButton, wordHref } from "@/components/Hanzi";
 import {
   Badge,
@@ -20,9 +23,10 @@ import { indexVocab, search, segmentText } from "@/lib/dictionary";
 import { suggestId, vocabLine } from "@/lib/data/format";
 import { listen, recognitionSupported } from "@/lib/speech";
 import { hasHan } from "@/lib/text";
-import { translate, type Lang } from "@/lib/translate";
+import { translateMutation, type Lang } from "@/lib/translate";
 import type { DictEntry } from "@/lib/types";
 import { useCedict } from "@/lib/use-cedict";
+import { z } from "@/lib/zod";
 
 const vocabIndex = indexVocab(VOCAB);
 const vocabHanzi = new Set(VOCAB.map((w) => w.hanzi));
@@ -132,45 +136,58 @@ function SearchTab({ initial }: { initial: string }) {
 const vocabSnippet = (hanzi: string, pinyin: string, es: string): string =>
   vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: es.trim() });
 
+/** The translator's form: the text to translate, checked before anything is sent. */
+const translationForm = z.object({
+  text: z.string().trim().min(1, "Escribe algo que traducir.").max(500, "Como mucho 500 caracteres."),
+});
+
 function TranslateTab() {
   const [direction, setDirection] = useState<"es-zh" | "zh-es">("es-zh");
-  const [text, setText] = useState("");
   const [result, setResult] = useState<{ output: string; zh: string; pinyin: string; source: string } | null>(
     null,
   );
-  const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [listening, setListening] = useState(false);
   const cedict = useCedict(!!result);
   const [from, to] = direction.split("-") as [Lang, Lang];
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm<z.input<typeof translationForm>, unknown, z.output<typeof translationForm>>({
+    resolver: zodResolver(translationForm),
+    defaultValues: { text: "" },
+  });
+  const text = useWatch({ control, name: "text" });
+  const translation = useMutation(translateMutation);
+  const busy = translation.isPending;
 
   const known = useMemo(
     () => new Set([...vocabHanzi, ...(cedict.items?.map((i) => i.entry.hanzi) ?? [])]),
     [cedict.items],
   );
 
-  const run = async () => {
-    setBusy(true);
+  const run = handleSubmit(async ({ text }) => {
     setError(null);
     setCopied(false);
     try {
-      const output = await translate(text, from, to);
-      const zh = to === "zh" ? output : text.trim();
+      const output = await translation.mutateAsync({ text, from, to });
+      const zh = to === "zh" ? output : text;
       const { pinyin } = await import("pinyin-pro");
-      setResult({ output, zh, pinyin: pinyin(zh, { toneType: "symbol" }), source: text.trim() });
+      setResult({ output, zh, pinyin: pinyin(zh, { toneType: "symbol" }), source: text });
     } catch (e) {
       setError((e as Error).message);
-    } finally {
-      setBusy(false);
     }
-  };
+  });
 
   const dictate = async () => {
     setListening(true);
     try {
       const [best] = await listen(from === "zh" ? "zh-CN" : "es-ES").result;
-      if (best) setText(best);
+      if (best) setValue("text", best, { shouldValidate: true });
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -197,8 +214,9 @@ function TranslateTab() {
           <span className="flex-1 text-center font-bold">{to === "es" ? "Español" : "Chino"}</span>
         </div>
         <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          {...register("text")}
+          aria-label={from === "es" ? "Texto en español" : "Texto en chino"}
+          aria-invalid={errors.text ? true : undefined}
           rows={3}
           lang={from === "zh" ? "zh-CN" : "es"}
           placeholder={from === "es" ? "Escribe en español…" : "输入中文…"}
@@ -222,7 +240,9 @@ function TranslateTab() {
             <Languages size={20} /> {busy ? "Traduciendo…" : "Traducir"}
           </Button>
         </div>
-        {error && <p className="text-sm font-semibold text-bad">{error}</p>}
+        {(errors.text?.message ?? error) && (
+          <p className="text-sm font-semibold text-bad">{errors.text?.message ?? error}</p>
+        )}
       </Card>
 
       {busy && <Skeleton className="mt-4 h-32 rounded-3xl" />}

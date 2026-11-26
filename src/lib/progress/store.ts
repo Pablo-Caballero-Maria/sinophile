@@ -17,7 +17,12 @@ import {
 import type { Skill } from "../types";
 
 export const progressStore = createStore<Progress>(emptyProgress());
-export const useProgress = () => useStore(progressStore);
+/** The progress in a component; with a selector, only that part. */
+export function useProgress(): Progress;
+export function useProgress<S>(select: (progress: Progress) => S): S;
+export function useProgress<S>(select?: (progress: Progress) => S): Progress | S {
+  return useStore<Progress, Progress | S>(progressStore, select ?? ((progress) => progress));
+}
 
 export const answer = (wordId: string, skill: Skill, correct: boolean, xp: number) =>
   progressStore.set((p) => recordAnswer(p, wordId, skill, correct, xp));

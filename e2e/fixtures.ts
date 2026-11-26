@@ -15,6 +15,12 @@ export const test = base.extend<{ erroresPermitidos: RegExp[] }>({
       if (erroresPermitidos.some((patron) => patron.test(message.text()))) return;
       problems.push(`consola: ${message.text()}`);
     });
+    // Lo que bloquea el CSP no siempre llega a la consola: cada violación pasa a ser un error.
+    await page.addInitScript(() =>
+      document.addEventListener("securitypolicyviolation", (event) =>
+        console.error(`CSP violation: ${event.violatedDirective} blocked ${event.blockedURI}`),
+      ),
+    );
     page.on("pageerror", (error) => problems.push(`error de la página: ${error.message}`));
     await runTest(page);
     expect(problems, "la página registró errores").toEqual([]);

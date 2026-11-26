@@ -70,3 +70,21 @@ test.describe("con una contraseña incorrecta", () => {
     await expect(page.getByRole("link", { name: `Cuenta de ${usuario}` })).toHaveCount(0);
   });
 });
+
+test("el formulario explica qué falta antes de enviar nada", async ({ page }) => {
+  const peticiones: string[] = [];
+  page.on("request", (request) => request.url().includes("/api/auth/") && peticiones.push(request.url()));
+  await page.goto("/cuenta");
+  await page.getByRole("radio", { name: "Crear cuenta" }).click();
+  await page.getByRole("textbox", { name: "Nombre de usuario" }).fill("pa");
+  await page.getByRole("textbox", { name: /^Contraseña/ }).fill("12345678");
+  await page.getByRole("textbox", { name: "Repite la contraseña" }).fill("87654321");
+  await page.getByRole("button", { name: "Crear cuenta" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "entre 3 y 30 caracteres" })).toBeVisible();
+  await expect(page.getByRole("alert").filter({ hasText: "Las contraseñas no coinciden." })).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "Nombre de usuario" })).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  expect(peticiones).toEqual([]);
+});

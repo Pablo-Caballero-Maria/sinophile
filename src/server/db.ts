@@ -21,6 +21,7 @@ import { MongoClient, type Collection, type Db, type ObjectId } from "mongodb";
 import { attachDatabasePool } from "@vercel/functions";
 import type { Progress } from "../lib/progress/model.ts";
 import type { Settings } from "../lib/settings/model.ts";
+import { serverEnv } from "./env.ts";
 
 /** Better Auth's `user` collection: its own fields plus the ones declared in auth.ts (additionalFields). */
 export interface AuthUserDoc {
@@ -95,9 +96,8 @@ export interface Database {
 }
 
 async function connect(): Promise<Database> {
-  const uri = process.env.MONGODB_URI;
-  if (!uri) throw new Error("Falta la variable de entorno MONGODB_URI.");
-  const client = new MongoClient(uri, {
+  const env = serverEnv();
+  const client = new MongoClient(env.MONGODB_URI, {
     appName: "sinophile",
     serverSelectionTimeoutMS: 10_000,
     maxPoolSize: 10,
@@ -106,7 +106,7 @@ async function connect(): Promise<Database> {
   // On Vercel, keeps the function alive just long enough to close idle connections (no-op elsewhere).
   attachDatabasePool(client);
   await client.connect();
-  const db = client.db(process.env.MONGODB_DB || "sinophile");
+  const db = client.db(env.MONGODB_DB);
   const hello = await db.admin().command({ hello: 1 });
   const database: Database = {
     client,

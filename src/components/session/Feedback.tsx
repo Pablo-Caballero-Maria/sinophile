@@ -1,8 +1,11 @@
 "use client";
 /** Bottom sheet shown after each answer (green/red), Duolingo-style. */
 import { Check, X } from "lucide-react";
+import { useIsPresent } from "motion/react";
+import * as m from "motion/react-m";
 import { useEffect, useState } from "react";
 import type { AnswerResult } from "@/lib/exercises/types";
+import { pop, sheet } from "@/lib/motion";
 import { hasHan, pick } from "@/lib/text";
 import { Hanzi } from "../Hanzi";
 import { Button, cn } from "../UI";
@@ -27,7 +30,10 @@ export function FeedbackBar({
   onContinue: () => void;
 }) {
   const [praise] = useState(() => pick(PRAISE));
+  // False while the sheet slides away (the next exercise is already showing): it no longer reacts.
+  const present = useIsPresent();
   useEffect(() => {
+    if (!present) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Enter" && !e.isComposing) {
         e.preventDefault();
@@ -40,27 +46,31 @@ export function FeedbackBar({
       clearTimeout(timer);
       window.removeEventListener("keydown", onKey);
     };
-  }, [onContinue]);
+  }, [onContinue, present]);
 
   const ok = result.correct;
   return (
-    <div
+    <m.div
+      {...sheet}
       className={cn(
-        "pb-safe fixed inset-x-0 bottom-0 z-40 animate-slide-up border-t-2",
+        "pb-safe fixed inset-x-0 bottom-0 z-40 border-t-2",
+        !present && "pointer-events-none",
         ok ? "border-ok/30 bg-ok-soft" : "border-bad/30 bg-bad-soft",
       )}
       role="status"
+      aria-hidden={present ? undefined : true}
     >
       <div className="mx-auto flex max-w-2xl flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-center">
         <div className="flex min-w-0 flex-1 gap-3">
-          <span
+          <m.span
+            {...pop}
             className={cn(
               "grid h-12 w-12 shrink-0 place-items-center rounded-full text-white",
               ok ? "bg-ok" : "bg-bad",
             )}
           >
             {ok ? <Check size={28} strokeWidth={3} /> : <X size={28} strokeWidth={3} />}
-          </span>
+          </m.span>
           <div className={cn("min-w-0", ok ? "text-ok" : "text-bad")}>
             <p className="text-xl font-black">
               {ok ? praise : result.solution ? "Respuesta correcta:" : "¡Casi!"}
@@ -83,6 +93,6 @@ export function FeedbackBar({
           Continuar
         </Button>
       </div>
-    </div>
+    </m.div>
   );
 }

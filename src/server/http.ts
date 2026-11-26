@@ -2,6 +2,7 @@
  * Small helpers shared by the API route handlers (server only).
  */
 import { NextResponse, type NextRequest } from "next/server";
+import type { z } from "../lib/zod.ts";
 
 /** An error whose message can be shown to the user (in Spanish). */
 export class HttpError extends Error {
@@ -40,6 +41,13 @@ export async function readJson(request: NextRequest, maxBytes = 100_000): Promis
   if (typeof body !== "object" || body === null || Array.isArray(body))
     throw new HttpError(400, "Se esperaba un objeto JSON.");
   return body as Record<string, unknown>;
+}
+
+/** Reads a JSON body and checks it with a zod schema; the first problem is the 400's message. */
+export async function readBody<T>(request: NextRequest, schema: z.ZodType<T>, maxBytes?: number): Promise<T> {
+  const result = schema.safeParse(await readJson(request, maxBytes));
+  if (!result.success) throw new HttpError(400, result.error.issues[0]?.message ?? "Datos no válidos.");
+  return result.data;
 }
 
 /** Wraps a route handler: HttpErrors become `{ error }` responses, anything else a generic 500. */

@@ -163,7 +163,7 @@ export default function HomePage() {
   const ready = useReady();
   const account = useAccount();
   const progress = useProgress();
-  const { silentMode } = useSettings();
+  const silentMode = useSettings((s) => s.silentMode);
 
   if (LESSONS.length === 0) {
     return (

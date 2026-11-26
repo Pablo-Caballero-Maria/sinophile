@@ -4,24 +4,32 @@
  * Google's public translate endpoint (primary) with MyMemory as fallback.
  * Results are sanity-checked (Chinese output must contain hanzi, Spanish must not).
  */
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { hasHan } from "./text";
+import { TRANSLATION_HOSTS } from "./translation-hosts";
+import { z } from "./zod";
 
 export type Lang = "es" | "zh";
 
 const CODES: Record<Lang, string> = { es: "es", zh: "zh-CN" };
 
+/** Google's answer: [[[translated piece, original piece, …], …], …]. Only the pieces are read. */
+const googleSchema = z.tuple([z.array(z.tuple([z.string()]).rest(z.unknown()))]).rest(z.unknown());
+
+const myMemorySchema = z.object({
+  responseStatus: z.union([z.number(), z.string()]),
+  responseData: z.object({ translatedText: z.string().optional() }).optional(),
+});
+
 async function google(text: string, from: Lang, to: Lang): Promise<string> {
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&sl=${CODES[from]}&tl=${CODES[to]}&q=${encodeURIComponent(text)}`;
-  const data = (await (await fetch(url)).json()) as [[string, string][]];
-  return data[0].map((part) => part[0]).join("");
+  const url = `${TRANSLATION_HOSTS[0]}/translate_a/single?client=gtx&dt=t&sl=${CODES[from]}&tl=${CODES[to]}&q=${encodeURIComponent(text)}`;
+  const [pieces] = googleSchema.parse(await (await fetch(url)).json());
+  return pieces.map((piece) => piece[0]).join("");
 }
 
 async function myMemory(text: string, from: Lang, to: Lang): Promise<string> {
-  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${CODES[from]}|${CODES[to]}`;
-  const data = (await (await fetch(url)).json()) as {
-    responseStatus: number | string;
-    responseData?: { translatedText?: string };
-  };
+  const url = `${TRANSLATION_HOSTS[1]}/get?q=${encodeURIComponent(text)}&langpair=${CODES[from]}|${CODES[to]}`;
+  const data = myMemorySchema.parse(await (await fetch(url)).json());
   const out = data.responseData?.translatedText;
   if (Number(data.responseStatus) !== 200 || !out || /MYMEMORY WARNING|QUERY LENGTH LIMIT/i.test(out))
     throw new Error("mymemory");
@@ -44,3 +52,23 @@ export async function translate(text: string, from: Lang, to: Lang): Promise<str
   }
   throw new Error("No se pudo traducir (¿sin conexión?). Inténtalo más tarde.");
 }
+
+/** The translation of a fixed text (a word's page): asked once, then kept for the visit. */
+export const translationQuery = (text: string, from: Lang, to: Lang) =>
+  queryOptions({
+    queryKey: ["translation", from, to, text.trim()],
+    queryFn: () => translate(text, from, to),
+    retry: false,
+  });
+
+export interface TranslationRequest {
+  text: string;
+  from: Lang;
+  to: Lang;
+}
+
+/** Translating what the learner typed (the dictionary's translator). */
+export const translateMutation = mutationOptions({
+  mutationKey: ["translate"],
+  mutationFn: ({ text, from, to }: TranslationRequest) => translate(text, from, to),
+});

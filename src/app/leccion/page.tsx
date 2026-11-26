@@ -47,7 +47,7 @@ function LessonView() {
   const lesson = LESSON_BY_ID.get(id);
   const ready = useReady();
   const progress = useProgress();
-  const { silentMode } = useSettings();
+  const silentMode = useSettings((s) => s.silentMode);
 
   if (!lesson)
     return (

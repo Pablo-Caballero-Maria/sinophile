@@ -1,7 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DEFAULT_SETTINGS, sanitizeSettings } from "../settings/model";
 import { Saver, type SaveStatus } from "./saver";
-import { credentialsError, normalizeUsername } from "./types";
+import {
+  credentialsError,
+  normalizeUsername,
+  signInFormSchema,
+  signUpFormSchema,
+  usernameError,
+} from "./types";
 
 describe("credentials", () => {
   it("normalises usernames and explains invalid ones in Spanish", () => {
@@ -119,5 +125,40 @@ describe("Saver (background uploads)", () => {
     await vi.advanceTimersByTimeAsync(5000);
     expect(send).not.toHaveBeenCalled();
     expect(saver.status).toBe("idle");
+  });
+});
+
+describe("account forms (zod)", () => {
+  it("signing in only needs both fields, and normalises the username", () => {
+    expect(signInFormSchema.parse({ username: " Pablo ", password: "x", repeat: "" })).toEqual({
+      username: "pablo",
+      password: "x",
+    });
+    const empty = signInFormSchema.safeParse({ username: "  ", password: "", repeat: "" });
+    expect(empty.error!.issues.map((issue) => [issue.path[0], issue.message])).toEqual([
+      ["username", "Escribe tu nombre de usuario."],
+      ["password", "Escribe tu contraseña."],
+    ]);
+  });
+
+  it("creating an account checks the rules and the repeated password", () => {
+    expect(signUpFormSchema.parse({ username: "Pablo", password: "12345678", repeat: "12345678" })).toEqual({
+      username: "pablo",
+      password: "12345678",
+    });
+    const issues = (form: object) =>
+      signUpFormSchema.safeParse(form).error!.issues.map((issue) => [issue.path[0], issue.message]);
+    expect(issues({ username: "pa", password: "12345678", repeat: "12345678" })).toEqual([
+      ["username", "El nombre de usuario debe tener entre 3 y 30 caracteres."],
+    ]);
+    expect(issues({ username: "pablo", password: "12345678", repeat: "87654321" })).toEqual([
+      ["repeat", "Las contraseñas no coinciden."],
+    ]);
+  });
+
+  it("usernameError gives the first problem, or null", () => {
+    expect(usernameError("Pablo_C")).toBeNull();
+    expect(usernameError("")).toMatch(/entre 3 y 30/);
+    expect(usernameError("pablo!")).toMatch(/solo puede tener/);
   });
 });

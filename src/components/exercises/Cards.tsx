@@ -13,7 +13,7 @@ type Intro = Extract<Exercise, { type: "intro" }>;
 type Flashcard = Extract<Exercise, { type: "flashcard" }>;
 
 export function IntroCard({ exercise: ex, onSkip }: ExerciseProps<Intro>) {
-  const { autoplayAudio } = useSettings();
+  const autoplayAudio = useSettings((s) => s.autoplayAudio);
   const { word } = ex;
   return (
     <>

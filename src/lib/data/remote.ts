@@ -2,27 +2,15 @@
 /**
  * Runtime-loaded static data (copied to /public/data by scripts/prepare-data.ts):
  * exercises.json (the exercises.json of every lesson, keyed by lesson folder; it
- * grows every week). It is fetched at most once per page load; `useRemote`
- * exposes loading state so pages can render skeletons.
+ * grows every week). TanStack Query downloads it once per page load and keeps it;
+ * `useExercises` exposes the loading state so pages can render skeletons.
  */
-import { useEffect, useState } from "react";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import type { ExercisesFile } from "../types";
+import { z } from "../zod";
+import { fetchJson } from "./fetch-json";
 import { sanitizeAllExercises, type Issue } from "./validate";
 import { LESSONS } from "./vocab";
-
-const cache = new Map<string, Promise<unknown>>();
-
-function fetchJson(path: string): Promise<unknown> {
-  if (!cache.has(path)) {
-    const promise = fetch(path).then((r) => {
-      if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
-      return r.json();
-    });
-    promise.catch(() => cache.delete(path)); // allow retry after a failure
-    cache.set(path, promise);
-  }
-  return cache.get(path)!;
-}
 
 export interface ExercisesData {
   file: ExercisesFile;
@@ -31,18 +19,22 @@ export interface ExercisesData {
   missing: string[];
 }
 
-let exercisesPromise: Promise<ExercisesData> | null = null;
-export function loadExercises(): Promise<ExercisesData> {
-  exercisesPromise ??= (fetchJson("/data/exercises.json") as Promise<Record<string, unknown>>)
-    .then((raw) => sanitizeAllExercises(raw, LESSONS))
-    .catch((error) => {
-      exercisesPromise = null;
-      console.warn("[sinophile] exercises.json no disponible:", error);
-      const issues: Issue[] = [{ level: "error", message: `No se pudieron cargar los ejercicios: ${String(error)}` }];
-      return { file: { version: 1, words: {} }, issues, missing: [] };
-    });
-  return exercisesPromise;
-}
+/** exercises.json: one entry per lesson folder, each checked in detail by validate.ts. */
+const exercisesByFolder = z.record(z.string(), z.unknown());
+
+/** exercises.json, checked against the lessons (validate.ts keeps every valid exercise). */
+export const exercisesQuery = queryOptions({
+  queryKey: ["exercises"],
+  queryFn: async (): Promise<ExercisesData> =>
+    sanitizeAllExercises(exercisesByFolder.parse(await fetchJson("/data/exercises.json")), LESSONS),
+});
+
+/** What the app works with when exercises.json can't be loaded: no exercises, and why. */
+export const exercisesUnavailable = (error: unknown): ExercisesData => ({
+  file: { version: 1, words: {} },
+  issues: [{ level: "error", message: `No se pudieron cargar los ejercicios: ${String(error)}` }],
+  missing: [],
+});
 
 export interface RemoteState<T> {
   data: T | null;
@@ -50,20 +42,12 @@ export interface RemoteState<T> {
   loading: boolean;
 }
 
-/** Generic hook: runs `loader` once on mount. */
-export function useRemote<T>(loader: () => Promise<T>): RemoteState<T> {
-  const [state, setState] = useState<RemoteState<T>>({ data: null, error: null, loading: true });
-  useEffect(() => {
-    let alive = true;
-    loader().then(
-      (data) => alive && setState({ data, error: null, loading: false }),
-      (error: Error) => alive && setState({ data: null, error, loading: false }),
-    );
-    return () => {
-      alive = false;
-    };
-  }, [loader]);
-  return state;
+/** The exercises; if they can't be loaded, none (with the reason among the issues). */
+export function useExercises(): RemoteState<ExercisesData> {
+  const query = useQuery(exercisesQuery);
+  return {
+    data: query.data ?? (query.error ? exercisesUnavailable(query.error) : null),
+    error: query.error,
+    loading: query.isPending,
+  };
 }
-
-export const useExercises = () => useRemote(loadExercises);

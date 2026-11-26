@@ -1,5 +1,6 @@
 "use client";
 /** Components for showing Chinese: tone-coloured hanzi & pinyin, audio, stroke order, sentences. */
+import { useQuery } from "@tanstack/react-query";
 import { Turtle, Volume2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -7,7 +8,13 @@ import { vocabByHanzi } from "@/lib/data/vocab";
 import { charTones, segmentPinyin, type Tone } from "@/lib/pinyin";
 import { useSettings } from "@/lib/settings/store";
 import { speak } from "@/lib/speech";
-import { hanziWriterLoader, loadStrokes, STROKE_TRANSFORM, type StrokeData } from "@/lib/strokes";
+import {
+  hanziWriterLoader,
+  loadStrokes,
+  STROKE_TRANSFORM,
+  strokesQuery,
+  type StrokeData,
+} from "@/lib/strokes";
 import { hasHan, isPunctuation } from "@/lib/text";
 import type { Sentence } from "@/lib/types";
 import { cn, Skeleton } from "./UI";
@@ -85,7 +92,7 @@ export function SpeakButton({
   autoPlay?: boolean;
   className?: string;
 }) {
-  const { silentMode } = useSettings();
+  const silentMode = useSettings((s) => s.silentMode);
   const [playing, setPlaying] = useState(false);
   const play = (isSlow = false) => {
     setPlaying(true);
@@ -170,23 +177,10 @@ export function CharacterSvg({
   );
 }
 
+/** A character's stroke data (TanStack Query: one download per character for the whole app). */
 export function useStrokeData(char: string) {
-  const [state, setState] = useState<{ char: string; data: StrokeData | null; error: boolean }>({
-    char,
-    data: null,
-    error: false,
-  });
-  useEffect(() => {
-    let alive = true;
-    loadStrokes(char).then(
-      (data) => alive && setState({ char, data, error: false }),
-      () => alive && setState({ char, data: null, error: true }),
-    );
-    return () => {
-      alive = false;
-    };
-  }, [char]);
-  return state.char === char ? state : { char, data: null, error: false };
+  const query = useQuery(strokesQuery(char));
+  return { char, data: query.data ?? null, error: query.isError };
 }
 
 /** Theme colours resolved for libraries that need concrete values (Hanzi Writer). */

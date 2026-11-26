@@ -1,5 +1,6 @@
 "use client";
 /** /palabra?id=<vocab id>  or  /palabra?h=<hanzi>  — word details, strokes, examples, progress. */
+import { useQuery } from "@tanstack/react-query";
 import { Copy, Languages, Mic, PenLine } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -36,7 +37,7 @@ import { useSettings } from "@/lib/settings/store";
 import { useReady } from "@/lib/account/client";
 import { MAX_BOX } from "@/lib/srs";
 import { formatDay, hanChars } from "@/lib/text";
-import { translate } from "@/lib/translate";
+import { translationQuery } from "@/lib/translate";
 import { SKILLS, type Sentence } from "@/lib/types";
 import { useCedict } from "@/lib/use-cedict";
 
@@ -70,7 +71,7 @@ function CharacterCard({ char, definition }: { char: string; definition?: string
 }
 
 function WordView() {
-  const { silentMode } = useSettings();
+  const silentMode = useSettings((s) => s.silentMode);
   const sp = useSearchParams();
   const ready = useReady();
   const progress = useProgress();
@@ -79,7 +80,13 @@ function WordView() {
   const word = id ? VOCAB_BY_ID.get(id) : vocabByHanzi(sp.get("h") ?? "")[0];
   const hanzi = word?.hanzi ?? sp.get("h") ?? "";
   const cedict = useCedict(!!hanzi);
-  const [spanish, setSpanish] = useState<string | null>(null);
+  // The Spanish translation of a word that isn't in the course, asked for with a button.
+  const [askedFor, setAskedFor] = useState<string | null>(null);
+  const translation = useQuery({
+    ...translationQuery(hanzi, "zh", "es"),
+    enabled: askedFor === hanzi && !!hanzi,
+  });
+  const spanish = askedFor === hanzi ? (translation.data ?? translation.error?.message ?? null) : null;
   const [copied, setCopied] = useState(false);
 
   const definitions = cedict.items ? lookup(cedict.items, hanzi) : [];
@@ -128,14 +135,15 @@ function WordView() {
         {!word && (
           <div className="flex flex-col items-center gap-2">
             {spanish ? (
-              <p className="text-xl font-bold">{spanish}</p>
+              <p className={cn("text-xl font-bold", translation.isError && "text-base text-bad")}>
+                {spanish}
+              </p>
             ) : (
               <Button
                 size="sm"
                 variant="secondary"
-                onClick={() =>
-                  void translate(hanzi, "zh", "es").then(setSpanish, (e: Error) => setSpanish(e.message))
-                }
+                onClick={() => setAskedFor(hanzi)}
+                disabled={askedFor === hanzi && translation.isFetching}
               >
                 <Languages size={16} /> Traducir al español
               </Button>
@@ -168,7 +176,7 @@ function WordView() {
             full
             className="mt-4"
             onClick={() => {
-              const line = vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: spanish ?? "" });
+              const line = vocabLine({ id: suggestId(pinyin), hanzi, pinyin, es: translation.data ?? "" });
               void navigator.clipboard.writeText(line + ",");
               setCopied(true);
             }}

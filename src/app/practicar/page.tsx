@@ -99,7 +99,7 @@ function ModeCard({ mode, href, badge }: { mode: Mode; href: string; badge?: str
 export default function PracticePage() {
   const ready = useReady();
   const progress = useProgress();
-  const { silentMode } = useSettings();
+  const silentMode = useSettings((s) => s.silentMode);
   const [scope, setScope] = useState<string[]>([]);
   const [writingStyle, setWritingStyle] = useState<"guiado" | "libre" | "mixto">("mixto");
   const [examSize, setExamSize] = useState(20);

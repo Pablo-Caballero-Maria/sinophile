@@ -3,6 +3,7 @@
  * Runs a practice session: builds the exercise queue, renders the current
  * exercise, records every answer (SRS + XP), shows feedback and the summary.
  */
+import { AnimatePresence } from "motion/react";
 import { Flame, Heart, VolumeX, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useReducer, useState } from "react";
@@ -222,9 +223,12 @@ export function SessionRunner({
         )}
       </main>
 
-      {state.phase === "feedback" && state.last && (
-        <FeedbackBar result={state.last} xp={state.lastXp} onContinue={onContinue} />
-      )}
+      {/* The feedback sheet slides back down when the next exercise comes. */}
+      <AnimatePresence>
+        {state.phase === "feedback" && state.last && (
+          <FeedbackBar key={state.index} result={state.last} xp={state.lastXp} onContinue={onContinue} />
+        )}
+      </AnimatePresence>
 
       {confirmExit && (
         <div

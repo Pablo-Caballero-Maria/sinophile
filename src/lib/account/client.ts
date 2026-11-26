@@ -10,7 +10,7 @@
  * - Guest: everything stays in memory and is lost when the page is closed.
  *   When a guest signs in or signs up, what they practised can be added to the
  *   account.
- * Nothing is written to browser storage.
+ * Nothing is written to browser storage. The stores are zustand stores (lib/store.ts).
  */
 import {
   diffProgress,
@@ -49,7 +49,7 @@ export const accountStore = createStore<AccountState>({
 });
 export const useAccount = () => useStore(accountStore);
 /** False during prerender and until the account (or guest mode) is loaded: pages show skeletons meanwhile. */
-export const useReady = () => useAccount().status !== "loading";
+export const useReady = () => useStore(accountStore, (account) => account.status !== "loading");
 
 const update = (patch: Partial<AccountState>) => accountStore.set((s) => ({ ...s, ...patch }));
 const signedIn = () => accountStore.get().status === "user";

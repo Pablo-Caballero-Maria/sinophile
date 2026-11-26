@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { ServiceWorker } from "@/components/ServiceWorker";
+import { Providers } from "@/components/Providers";
 import { AppShell } from "@/components/Shell";
 import { VercelTelemetry } from "@/components/VercelTelemetry";
 import { THEME_COLORS } from "@/lib/settings/theme";
@@ -26,9 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" data-theme="light" suppressHydrationWarning>
       <body className="min-h-dvh">
-        <ServiceWorker>
+        <Providers>
           <AppShell>{children}</AppShell>
-        </ServiceWorker>
+        </Providers>
         <VercelTelemetry />
       </body>
     </html>

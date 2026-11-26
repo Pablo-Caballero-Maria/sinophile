@@ -8,6 +8,16 @@ const eslintConfig = defineConfig([
   ...nextTs,
   // El formato lo decide Prettier: fuera las reglas de ESLint que chocarían con él.
   prettier,
+  {
+    // zod comes from src/lib/zod.ts, which keeps it from probing eval (the CSP forbids it).
+    ignores: ["src/lib/zod.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        { paths: [{ name: "zod", message: 'Import z from "@/lib/zod" (zod without eval, for the CSP).' }] },
+      ],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

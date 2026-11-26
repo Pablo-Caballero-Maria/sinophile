@@ -5,7 +5,7 @@ import { otherTheme } from "@/lib/settings/theme";
 import { updateSettings, useSettings } from "@/lib/settings/store";
 
 export function ThemeToggle() {
-  const { theme } = useSettings();
+  const theme = useSettings((s) => s.theme);
   const next = otherTheme(theme);
   const label = next === "dark" ? "Cambiar al tema oscuro" : "Cambiar al tema claro";
   return (

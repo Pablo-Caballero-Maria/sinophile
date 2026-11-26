@@ -3,9 +3,12 @@
  * English glosses). Queries can be hanzi, pinyin (with or without tones/numbers)
  * or Spanish/English words.
  */
+import { queryOptions } from "@tanstack/react-query";
+import { fetchJson } from "./data/fetch-json";
 import { canonicalPinyin, stripTones } from "./pinyin";
 import { hasHan, normalizeLatin } from "./text";
 import type { DictEntry, VocabEntry } from "./types";
+import { z } from "./zod";
 
 interface Indexed {
   entry: DictEntry;
@@ -32,23 +35,17 @@ export const indexVocab = (vocab: VocabEntry[]): Indexed[] =>
 
 export type DictIndex = Indexed[];
 
-let cedict: Promise<DictIndex> | null = null;
-/** Downloads and indexes CC-CEDICT once (~3 MB gzip). */
-export function loadCedict(): Promise<DictIndex> {
-  cedict ??= fetch("/data/cedict.json")
-    .then((r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.json() as Promise<{ entries: [string, string, string][] }>;
-    })
-    .then((file) =>
-      file.entries.map(([hanzi, pinyin, meaning]) => index({ hanzi, pinyin, meaning, source: "cedict" })),
-    )
-    .catch((error) => {
-      cedict = null;
-      throw error;
-    });
-  return cedict;
-}
+/** public/data/cedict.json: [hanzi, pinyin, English glosses] per entry (scripts/prepare-data.ts). */
+export const cedictFileSchema = z.object({ entries: z.array(z.tuple([z.string(), z.string(), z.string()])) });
+
+/** CC-CEDICT (~3 MB gzip), downloaded, checked and indexed once, when first needed. */
+export const cedictQuery = queryOptions({
+  queryKey: ["cedict"],
+  queryFn: async (): Promise<DictIndex> =>
+    cedictFileSchema
+      .parse(await fetchJson("/data/cedict.json"))
+      .entries.map(([hanzi, pinyin, meaning]) => index({ hanzi, pinyin, meaning, source: "cedict" })),
+});
 
 /** Relevance score of an entry for a query (0 = no match). */
 function score(

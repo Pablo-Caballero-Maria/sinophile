@@ -37,7 +37,7 @@ export function DrawingCanvas({
   const canvas = useRef<HTMLCanvasElement>(null);
   const strokes = useRef<Point[][]>([]);
   const active = useRef<number | null>(null);
-  const { penOnly } = useSettings();
+  const penOnly = useSettings((s) => s.penOnly);
 
   const redraw = () => {
     const el = canvas.current;

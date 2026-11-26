@@ -4,7 +4,7 @@ import { updateSettings, useSettings } from "@/lib/settings/store";
 import { Checkbox } from "./UI";
 
 export function SilentModeCheckbox({ className }: { className?: string }) {
-  const { silentMode } = useSettings();
+  const silentMode = useSettings((s) => s.silentMode);
   return (
     <Checkbox
       className={className}

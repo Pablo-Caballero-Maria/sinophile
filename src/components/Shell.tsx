@@ -101,7 +101,7 @@ function AccountButton() {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { theme } = useSettings();
+  const theme = useSettings((s) => s.theme);
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);

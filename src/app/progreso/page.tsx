@@ -38,7 +38,7 @@ function StatTile({ icon, label, value }: { icon: React.ReactNode; label: string
 
 /** Column chart of the last 7 days' XP with the daily-goal reference line. */
 function WeekChart({ progress }: { progress: Progress }) {
-  const { dailyGoal } = useSettings();
+  const dailyGoal = useSettings((s) => s.dailyGoal);
   const today = dayKey();
   const days = Array.from({ length: 7 }, (_, i) => addDays(today, i - 6));
   const values = days.map((d) => progress.days[d]?.xp ?? 0);

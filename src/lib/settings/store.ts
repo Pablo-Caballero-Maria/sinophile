@@ -11,7 +11,12 @@ export type { Settings } from "./model";
 
 export const settingsStore = createStore<Settings>(DEFAULT_SETTINGS);
 
-export const useSettings = () => useStore(settingsStore);
+/** The settings in a component; with a selector, only that part (e.g. `(s) => s.theme`). */
+export function useSettings(): Settings;
+export function useSettings<S>(select: (settings: Settings) => S): S;
+export function useSettings<S>(select?: (settings: Settings) => S): Settings | S {
+  return useStore<Settings, Settings | S>(settingsStore, select ?? ((settings) => settings));
+}
 
 export const updateSettings = (patch: Partial<Settings>) => settingsStore.set((s) => ({ ...s, ...patch }));
 

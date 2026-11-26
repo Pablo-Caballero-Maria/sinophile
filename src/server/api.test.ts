@@ -181,6 +181,19 @@ describe("accounts (Better Auth) and the account's data", () => {
     ).toBe(415);
   });
 
+  it("checks the body's shape (zod) and says what is missing", async () => {
+    expect(
+      await call(progress.POST, "POST", { cookie: session, body: { patch: "everything" } }),
+    ).toMatchObject({
+      status: 400,
+      body: { error: "Falta el progreso que guardar." },
+    });
+    expect(await call(settings.PUT, "PUT", { cookie: session, body: {} })).toMatchObject({
+      status: 400,
+      body: { error: "Faltan los ajustes que guardar." },
+    });
+  });
+
   it("saves settings (light theme unless dark is chosen)", async () => {
     const res = await call(settings.PUT, "PUT", {
       cookie: session,
