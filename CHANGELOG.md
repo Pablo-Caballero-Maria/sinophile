@@ -7,6 +7,41 @@ repositorio.
 
 ## [Sin publicar]
 
+## [1.3.0] - 2026-11-26
+
+### Añadido
+
+- **Lección 7**: 23 palabras nuevas de la clase (谁, 你呢, 英语, 很, 百, 千, 电脑, 原子笔, 铅笔, 橡皮擦,
+  办公室, 门, 窗户, 铅笔盒, 抽屉, 柜子, 衣柜, 灯, 背包, 钱包, 包裹, 美国 y 口), con notas, frases de
+  ejemplo y ejercicios. 几 ya estaba en la lección 4. La nota de 书包 menciona 背包.
+- **Tarjetas que empiezan por la cara que elijas** (en Practicar): español (detrás, el hanzi, el pinyin y la
+  pronunciación), hanzi, pinyin o sonido (detrás, el resto), o una mezcla. La de sonido entrena la
+  escucha y no se ofrece en modo silencioso.
+- **Cabeceras de seguridad** en todas las respuestas: Content Security Policy (solo la propia web y los
+  servicios que usa), HSTS, `nosniff`, sin incrustar, `Referrer-Policy`, `Cross-Origin-Opener-Policy` y
+  `Permissions-Policy` (el micrófono, solo para la propia web). Los tests de extremo a extremo fallan ante
+  cualquier violación del CSP.
+- **Firewall de Vercel**: una regla que registra las sondas de escáneres (WordPress, `.env`, `.git`…) y
+  _Bot Protection_ y _AI Bots_ en modo registro.
+- `favicon.ico`.
+
+### Cambiado
+
+- **La lista del inicio es la del HSK 2 del HSK 3.0**: las 500 palabras del temario de 2025 (300 del nivel 1
+  y 200 del nivel 2, de [ofou/hsk](https://github.com/ofou/hsk)) en lugar de las 150 del HSK 1 de HSK 2.0;
+  se muestran por nivel, y las que se escriben igual (点, 花, 过) con su categoría gramatical.
+- **Zod** valida los formularios, el cuerpo de las peticiones a la API, las variables de entorno del
+  servidor y todo lo descargado (ejercicios, CC-CEDICT, trazos y las respuestas de los traductores); los
+  ajustes se sanean con un esquema. Va sin `eval`, como exige el CSP.
+- **Zustand** es el motor de los stores (ajustes, progreso y cuenta), con selectores para que cada
+  componente solo se actualice con lo que lee.
+- **TanStack Query** carga los ejercicios, CC-CEDICT, los trazos y las traducciones (una descarga por
+  recurso, compartida por toda la app) y lleva las acciones de la cuenta.
+- **React Hook Form** en los formularios de la cuenta y en el traductor del diccionario.
+- **Motion** anima la hoja de corrección tras cada respuesta (entra y sale; mientras sale ya no responde)
+  y los errores de los formularios; nada si el sistema pide reducir el movimiento.
+- El portfolio está ahora en pablo-caballero.vercel.app.
+
 ## [1.2.0] - 2026-11-22
 
 ### Añadido
@@ -148,7 +183,8 @@ repositorio.
   (`progress.json`).
 - Node.js 24.x fijado para los builds de Vercel.
 
-[Sin publicar]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.2.0...HEAD
+[Sin publicar]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Pablo-Caballero-Maria/sinophile/compare/v0.6.0...v1.0.0

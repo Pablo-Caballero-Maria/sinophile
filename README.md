@@ -20,16 +20,21 @@ y Trainchinese.
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-desplegada-000000?logo=vercel)
-![Vitest](https://img.shields.io/badge/Vitest-132_tests-6E9F18?logo=vitest&logoColor=white)
-![Playwright](https://img.shields.io/badge/Playwright-16_tests_e2e-2EAD33?logo=playwright&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-166_tests-6E9F18?logo=vitest&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-23_tests_e2e-2EAD33?logo=playwright&logoColor=white)
 ![Better Auth](https://img.shields.io/badge/Better_Auth-cuentas-000000)
 ![PWA](https://img.shields.io/badge/PWA-funciona_sin_conexi%C3%B3n-5A0FC8?logo=pwa&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-4-3E67B1?logo=zod&logoColor=white)
+![TanStack Query](https://img.shields.io/badge/TanStack_Query-5-FF4154?logo=reactquery&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-5-443E38)
+![React Hook Form](https://img.shields.io/badge/React_Hook_Form-7-EC5990?logo=reacthookform&logoColor=white)
+![Motion](https://img.shields.io/badge/Motion-14-FFF312?logo=framer&logoColor=black)
 ![Vercel Analytics](https://img.shields.io/badge/Vercel-Analytics_·_Speed_Insights-000000?logo=vercel)
 
 [**Abrir la app**](https://sinophile.vercel.app) ·
 [Wiki](https://github.com/Pablo-Caballero-Maria/sinophile/wiki) ·
 [Registro de cambios](CHANGELOG.md) ·
-[Resumen en mi portfolio](https://pablo-portfolio-woad.vercel.app/projects/sinophile)
+[Resumen en mi portfolio](https://pablo-caballero.vercel.app/projects/sinophile)
 
 <img src="docs/img/inicio.webp" alt="Inicio de sinophile: meta diaria, racha, modos de práctica y el resumen de vocabulario" width="820">
 
@@ -37,7 +42,8 @@ y Trainchinese.
 
 Next.js desplegada en Vercel en cada _push_ a `main`: las páginas son estáticas, funcionan sin conexión
 (_service worker_) y una pequeña API con [Better Auth](https://www.better-auth.com) guarda las cuentas y
-el progreso en MongoDB Atlas.
+el progreso en MongoDB Atlas. Cada respuesta lleva una política de seguridad de contenidos (CSP) y las
+demás cabeceras de seguridad, y el Firewall de Vercel vigila el tráfico.
 
 > [!TIP]
 > No hace falta cuenta para probarla: el **modo invitado** permite usarlo todo, aunque al cerrar la app
@@ -45,7 +51,7 @@ el progreso en MongoDB Atlas.
 
 | 📚 Lecciones | 🈶 Palabras | ✍️ Tipos de ejercicio |        📖 Diccionario        | ⏱️ De la clase a la web |
 | :----------: | :---------: | :-------------------: | :--------------------------: | :---------------------: |
-|      6       |     182     |       más de 12       | CC-CEDICT (108 563 entradas) |         1-2 min         |
+|      7       |     205     |       más de 12       | CC-CEDICT (108 563 entradas) |         1-2 min         |
 
 ## Índice
 
@@ -98,6 +104,9 @@ flowchart LR
 - **Lecciones** con introducción de palabras nuevas, **repetición espaciada** (cajas de Leitner por
   palabra × destreza), repaso inteligente, modo infinito (3 vidas), exámenes con nota de 0 a 10 y
   tarjetas.
+- **Tarjetas** (_flashcards_) que empiezan por la cara que elijas: la palabra en español (detrás, el
+  hanzi, el pinyin y el botón de pronunciación), el hanzi, el pinyin o su sonido (detrás, el resto), o
+  una mezcla. La de sonido no se ofrece en modo silencioso.
 - **Ejercicios**: significado, español→chino, escucha, dictado de frases, pinyin y tonos (elegir y
   escribir), emparejar, rellenar huecos, traducir con fichas en ambas direcciones, diálogos, preguntas,
   pronunciación (reconocimiento de voz o grabación + comparación) y escritura de hanzi:
@@ -110,10 +119,11 @@ flowchart LR
   (también en Ajustes → Audio y voz) que quita los ejercicios de escucha y de pronunciación y apaga todos
   los sonidos. Los modos Escucha y Pronunciación desaparecen mientras está marcada, y se guarda con los
   ajustes de la cuenta.
-- **Tu vocabulario** (en Inicio): cuántas palabras conoces, cuántas de ellas son del HSK 1 y qué parte
-  del HSK 1 conoces ya, con la lista de sus 150 palabras (todas, conocidas o por aprender). Una palabra
-  del HSK 1 cuenta como conocida si está en tus lecciones o dentro de otra que conoces (书 en 本书, 月 en
-  一月; 杯 cuenta por 杯子).
+- **Tu vocabulario** (en Inicio): cuántas palabras conoces, cuántas de ellas son del **HSK 2 del HSK
+  3.0** y qué parte conoces ya, con la lista de sus 500 palabras (las 300 del nivel 1 y las 200 del nivel
+  2 del temario de 2025), por nivel y filtrada (todas, conocidas o por aprender). Una palabra cuenta como
+  conocida si está en tus lecciones o dentro de otra que conoces (书 en 本书, 月 en 一月; 杯 cuenta por
+  杯子); las que se escriben igual (点, 花, 过) muestran su categoría gramatical.
 - **Gamificación**: XP, niveles, racha diaria, meta diaria, combos, logros, estrellas por lección y
   récords.
 - **Diccionario** (tu vocabulario + CC-CEDICT) con búsqueda por hanzi, pinyin con o sin tonos, español o
@@ -156,11 +166,36 @@ flowchart LR
 ```
 
 La lógica vive en módulos de TypeScript sin React (repetición espaciada, pinyin con _erhua_, corrección
-tolerante, puntuación de la escritura, voz, búsqueda en el diccionario, comparación con el HSK 1) y los
+tolerante, puntuación de la escritura, voz, búsqueda en el diccionario, comparación con el HSK 2) y los
 componentes solo la presentan. En producción, **Vercel Web Analytics** (visitas, sin cookies) y **Speed
 Insights** (Core Web Vitals de visitas reales) miden el uso y el rendimiento; solo se incluyen en el build que
 hace Vercel. Más detalle en la wiki:
 [Arquitectura](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Arquitectura).
+
+| Pieza                                                                   | Para qué                                                                                                                                                  |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Zustand](https://zustand.docs.pmnd.rs)                                 | los ajustes, el progreso y el estado de la cuenta; los cambios del alumno se suben solos a su cuenta                                                      |
+| [TanStack Query](https://tanstack.com/query)                            | lo que se descarga (ejercicios, CC-CEDICT, trazos, traducciones) y las acciones de la cuenta                                                              |
+| [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) | los formularios (entrar, crear o borrar la cuenta, el traductor), validados con los mismos esquemas que usa el servidor                                   |
+| Zod                                                                     | también la API (cuerpos de las peticiones), las variables de entorno del servidor y todo lo descargado de fuera                                           |
+| [Motion](https://motion.dev)                                            | pocas animaciones y suaves: la hoja de corrección tras cada respuesta y los errores de los formularios (ninguna si el sistema pide reducir el movimiento) |
+
+### Seguridad
+
+- **Cabeceras** en todas las respuestas (`src/lib/security-headers.ts`): una **Content Security Policy**
+  que solo deja cargar código, estilos y fuentes de la propia web y conectarse con ella y con los tres
+  servicios que usa (el traductor de Google, MyMemory y jsDelivr para los trazos que no están en
+  `public/strokes/`), **HSTS**, `nosniff`, sin incrustar en otras webs (`frame-ancestors 'none'`,
+  `X-Frame-Options`), `Referrer-Policy` estricta, `Cross-Origin-Opener-Policy` y una
+  `Permissions-Policy` que solo concede el micrófono, y solo a la propia web. Los scripts admiten
+  `'unsafe-inline'` porque las páginas son estáticas: los datos que Next.js mete en `<script>` en línea
+  solo se podrían autorizar con un _nonce_ por petición, lo que obligaría a renderizar cada visita.
+- **Zod sin eval**: zod 4 prueba si puede compilar sus validadores con `new Function`; aquí no lo
+  intenta (`src/lib/zod.ts`, impuesto por ESLint), porque el CSP lo prohíbe.
+- **Firewall de Vercel**: protección DDoS de la plataforma, una regla que registra a los escáneres que
+  buscan WordPress, `.env`, `.git` y similares, y _Bot Protection_ y _AI Bots_, de momento en modo
+  registro. El límite de peticiones por IP lo pone Better Auth (más el bloqueo de la cuenta tras 10
+  intentos): el del Firewall no está en el plan Hobby.
 
 ## Datos (`data/`)
 
@@ -169,7 +204,7 @@ hace Vercel. Más detalle en la wiki:
 | `lección N/vocab.json`     | yo, a mano                      | palabras de esa clase                                                            |
 | `lección N/exercises.json` | Claude (ver `instructions.txt`) | notas, frases de ejemplo, huecos, traducciones, diálogos y preguntas por palabra |
 | `cedict.json`              | `npm run dictionary`            | diccionario CC-CEDICT compacto (CC BY-SA 4.0)                                    |
-| `hsk1.json`                | `npm run hsk`                   | las 150 palabras del HSK 1 (HSK 2.0), para el resumen de vocabulario del inicio  |
+| `hsk2.json`                | `npm run hsk`                   | las 500 palabras del HSK 2 del HSK 3.0 (temario de 2025), para el inicio         |
 | `instructions.txt`         | —                               | instrucciones para que Claude escriba el `exercises.json` de una clase           |
 
 El formato completo de cada fichero está en la wiki: [Datos y lecciones](https://github.com/Pablo-Caballero-Maria/sinophile/wiki/Datos-y-lecciones).
@@ -269,16 +304,16 @@ flowchart LR
     Q & T & B --> I["Insignia de cobertura<br/>(solo en main)"]
 ```
 
-| Comprobación                                                                                | Herramienta                                         | Dónde                                      |
-| ------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------ |
-| Datos de las lecciones                                                                      | `scripts/prepare-data.ts --check`                   | [ci.yml](.github/workflows/ci.yml)         |
-| Lint, formato y tipos                                                                       | ESLint (Next.js), Prettier y TypeScript estricto    | [ci.yml](.github/workflows/ci.yml)         |
-| Tests unitarios, de integración (API + MongoDB en memoria) y de componentes                 | Vitest, Testing Library, cobertura v8               | [ci.yml](.github/workflows/ci.yml)         |
-| Build de producción                                                                         | Next.js                                             | [ci.yml](.github/workflows/ci.yml)         |
-| Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas y ajustes) | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml)         |
-| Análisis de seguridad                                                                       | CodeQL                                              | [codeql.yml](.github/workflows/codeql.yml) |
-| Dependencias                                                                                | Dependabot (npm y Actions)                          | [dependabot.yml](.github/dependabot.yml)   |
-| Secretos                                                                                    | escaneo de secretos con protección al hacer _push_  | ajustes del repositorio                    |
+| Comprobación                                                                                                                                                           | Herramienta                                         | Dónde                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------ |
+| Datos de las lecciones                                                                                                                                                 | `scripts/prepare-data.ts --check`                   | [ci.yml](.github/workflows/ci.yml)         |
+| Lint, formato y tipos                                                                                                                                                  | ESLint (Next.js), Prettier y TypeScript estricto    | [ci.yml](.github/workflows/ci.yml)         |
+| Tests unitarios, de integración (API + MongoDB en memoria) y de componentes                                                                                            | Vitest, Testing Library, cobertura v8               | [ci.yml](.github/workflows/ci.yml)         |
+| Build de producción                                                                                                                                                    | Next.js                                             | [ci.yml](.github/workflows/ci.yml)         |
+| Tests de extremo a extremo (invitado, lecciones de `data/`, diccionario, cuentas, ajustes, tarjetas y cabeceras de seguridad); fallan ante cualquier violación del CSP | Playwright en Chromium, con la API real y MongoDB 8 | [ci.yml](.github/workflows/ci.yml)         |
+| Análisis de seguridad                                                                                                                                                  | CodeQL                                              | [codeql.yml](.github/workflows/codeql.yml) |
+| Dependencias                                                                                                                                                           | Dependabot (npm y Actions)                          | [dependabot.yml](.github/dependabot.yml)   |
+| Secretos                                                                                                                                                               | escaneo de secretos con protección al hacer _push_  | ajustes del repositorio                    |
 
 ## Estructura
 
@@ -304,7 +339,11 @@ src/
     drawing.ts    dibujo a mano: corrección (exámenes) y conversión de trazos a SVG
     speech.ts     voz (TTS) y reconocimiento
     dictionary.ts búsqueda
-    hsk.ts        comparación del vocabulario con la lista del HSK 1
+    hsk.ts        comparación del vocabulario con la lista del HSK 2 (HSK 3.0)
+    zod.ts        zod sin eval (por el CSP): de aquí lo importa todo el código
+    query.ts      el cliente de TanStack Query
+    store.ts      los stores (zustand) de ajustes, progreso y cuenta
+    security-headers.ts  las cabeceras de seguridad y el CSP de next.config.ts
 docs/img/         capturas del README
 ```
 
@@ -357,4 +396,5 @@ _Cite this repository_ en la barra lateral).
 
 El código está bajo la [licencia MIT](LICENSE). Los datos de terceros conservan sus licencias:
 CC-CEDICT (CC BY-SA 4.0), Make Me a Hanzi / hanzi-writer-data (Arphic Public License), Hanzi Writer
-(MIT), pinyin-pro (MIT) y la lista del HSK 1 de complete-hsk-vocabulary (MIT).
+(MIT), pinyin-pro (MIT) y la lista del HSK 3.0 de [ofou/hsk](https://github.com/ofou/hsk) (MIT), copia
+del sistema oficial de consulta del《HSK 考试大纲》de 2025.
